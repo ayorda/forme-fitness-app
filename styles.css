@@ -125,3 +125,6 @@
  .split-head h3{margin-bottom:8px}
  .split-head .tag{font-size:10px;line-height:1.5}
 }
+
+/* Original food artwork: responsive, readable on iPhone and offline. */
+.food-visual{overflow:hidden;position:relative}.food-visual svg{display:block;width:100%;height:100%;object-fit:cover}.food-card .food-visual svg{min-height:100%}

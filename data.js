@@ -18,7 +18,7 @@ E('Dancers_Stretch','Седящо усукване','yoga','beginner','mat','Л�
 E('Seated_Floor_Hamstring_Stretch','Наклон напред в седеж','yoga','beginner','mat','Разтягане на задната част на бедрата.','Седни с единия крак изпънат. Наклони се от таза към изпънатия крак, без да дърпаш рязко. Смени страната.','Свий леко коляното.'),
 E('Groin_and_Back_Stretch','Пеперуда в седеж','yoga','intermediate','mat','Отпускане на вътрешните бедра.','Седни и събери ходилата. Отпусни коленете настрани. Наклони се леко напред, без натиск.','Постави опора под коленете.'),
 E('Spinal_Stretch','Разтягане на гръбнака в седеж','yoga','beginner','chair','Нежна практика за гръб и рамене.','Седни стабилно на стол. Постави длани зад главата. Наведи леко брадичката и отпусни гърба без болка.','По-малка амплитуда.'),
-E('Seated_Overhead_Stretch','Разтягане с ръце нагоре','yoga','beginner','mat','Освобождаване на напрежение в раменете.','Седни удобно. Издължи гръбнака и протегни ръцете нагоре. Дишай спокойно и не повдигай раменете към ушите.','Изпълни с една ръка.'),
+E('Seated_Overhead_Stretch','Странично разтягане в седеж','yoga','beginner','mat','Плавно странично разтягане за торс и рамене.','Седни със събрани ходила. Подпри едната длан отстрани, постави другата ръка над главата и наклони торса плавно настрани. Смени страната.','Намали страничния наклон.'),
 E('Standing_Hip_Circles','Кръгове с тазобедрена става','mobility','beginner','none','Активна мобилност на таза.','Застани на един крак с опора при нужда. Повдигни коляно и очертай бавен кръг. Смени посоката и крака.','По-малки кръгове.'),
 E('Hip_Circles_prone','Кръгове с коляно от четири опори','mobility','beginner','mat','Контролирано движение на тазобедрената става.','Застани на четири опори. Повдигни едно свито коляно. Направи плавен кръг, без да извиваш кръста.','Намали радиуса на кръга.'),
 E('Arm_Circles','Кръгове с ръце','mobility','beginner','none','Загряване на раменния пояс.','Изпъни ръце встрани. Прави малки кръгове напред и назад. Увеличавай размера постепенно.','Започни с много малки кръгове.'),
@@ -39,20 +39,21 @@ const workouts=[
 // food: id, Bulgarian name, category, state, kcal, protein, carbs, fat, fiber, emoji, info, USDA FDC id if checked
 // Search terms in English so each non-ID link resolves to the intended USDA record type.
 const usdaTerms={chicken:'chicken breast skinless boneless raw',turkey:'turkey breast meat only raw',egg:'egg whole raw fresh',tuna:'tuna light canned water drained',salmon:'salmon Atlantic farmed raw',greek:'yogurt Greek plain lowfat',cottage:'cottage cheese lowfat 2%',oats:'cereals oats regular quick dry',rice:'rice white long grain enriched cooked',brownrice:'rice brown long grain cooked',quinoa:'quinoa cooked',bread:'bread whole wheat commercially prepared',potato:'potatoes flesh and skin raw',lentils:'lentils mature seeds cooked boiled',avocado:'avocados raw California',almonds:'nuts almonds raw',walnuts:'nuts walnuts english',oliveoil:'oil olive salad or cooking',peanutbutter:'peanut butter smooth without salt',chocolate:'chocolate dark 70-85 cacao',banana:'bananas raw',apple:'apples raw golden delicious with skin',orange:'oranges raw navels',blueberry:'blueberries raw',strawberry:'strawberries raw',broccoli:'broccoli raw',spinach:'spinach raw',carrot:'carrots raw',tomato:'tomatoes red ripe raw',cucumber:'cucumber with peel raw'};
-const F=(id,name,cat,state,kcal,protein,carbs,fat,fiber,emoji,info,fdcId)=>({id,name,cat,state,kcal,protein,carbs,fat,fiber,emoji,info,fdcId:fdcId||null,source:fdcId?`https://fdc.nal.usda.gov/food-details/${fdcId}/nutrients`:`https://fdc.nal.usda.gov/food-search?query=${encodeURIComponent(usdaTerms[id]||name)}`});
+const verifiedFdcIds={"chicken": 171077, "turkey": 171098, "egg": 171287, "tuna": 171986, "salmon": 175167, "greek": 170903, "cottage": 172182, "oats": 173904, "rice": 168878, "brownrice": 169704, "quinoa": 168917, "bread": 172688, "potato": 170026, "lentils": 172421, "avocado": 171705, "almonds": 170567, "walnuts": 170187, "oliveoil": 171413, "peanutbutter": 172470, "chocolate": 170273, "banana": 173944, "apple": 168202, "orange": 169097, "blueberry": 171711, "strawberry": 167762, "broccoli": 170379, "spinach": 168462, "carrot": 170393, "tomato": 170457, "cucumber": 168409};
+const F=(id,name,cat,state,kcal,protein,carbs,fat,fiber,emoji,info,fdcId)=>{const sourceId=fdcId||verifiedFdcIds[id];return {id,name,cat,state,kcal,protein,carbs,fat,fiber,emoji,info,fdcId:sourceId,source:`https://fdc.nal.usda.gov/food-search/?query=${sourceId}`,sourceDetails:`https://nutri-db.com/en/foods/${sourceId}`};};
 const foods=[
 F('chicken','Пилешки гърди','protein','сурови, без кожа',120,22.5,0,2.62,0,'🍗','Богат източник на протеин.',171077),
-F('turkey','Пуешки гърди','protein','сурови',114,23.7,0,1.5,0,'🍖','Постен протеин за разнообразно меню.'),
+F('turkey','Пуешки гърди','protein','сурови, чисто месо',114,23.7,0.14,1.48,0,'🍖','Постен протеин за разнообразно меню.'),
 F('egg','Яйце','protein','цяло, сурово',143,12.56,0.72,9.51,0,'🥚','Съдържа протеин и мазнини.',171287),
-F('tuna','Риба тон','protein','консерва във вода, отцедена',116,25.5,0,0.8,0,'🐟','Удобен протеинов продукт.'),
+F('tuna','Риба тон','protein','консерва във вода, без сол, отцедена',116,25.5,0,0.8,0,'🐟','Удобен протеинов продукт.'),
 F('salmon','Сьомга','protein','сурова, атлантическа',208,20.4,0,13.4,0,'🐟','Осигурява протеин и мазнини.'),
-F('greek','Гръцко кисело мляко','protein','нискомаслено, натурално',73,10,3.9,1.9,0,'🥛','Подходящо за бърза закуска.'),
-F('cottage','Извара','protein','нискомаслена, около 2%',82,11.1,3.4,2.3,0,'🧀','Протеин с различни приложения.'),
-F('oats','Овесени ядки','carbs','сухи',379,13.15,67.7,6.52,10.1,'🌾','Богати на въглехидрати и фибри.',173904),
-F('rice','Бял ориз','carbs','сварен',130,2.69,28.17,0.28,0.4,'🍚','Лесен за комбиниране източник на въглехидрати.',168878),
+F('greek','Гръцко кисело мляко','protein','нискомаслено, натурално',73,9.95,3.94,1.92,0,'🥛','Подходящо за бърза закуска.'),
+F('cottage','Извара','protein','нискомаслена, около 2%',81,10.45,4.76,2.27,0,'🧀','Протеин с различни приложения.'),
+F('oats','Овесени ядки','carbs','сухи, без обогатяване',379,13.15,67.7,6.52,10.1,'🌾','Богати на въглехидрати и фибри.',173904),
+F('rice','Бял ориз','carbs','сварен, обогатен',130,2.69,28.17,0.28,0.4,'🍚','Лесен за комбиниране източник на въглехидрати.',168878),
 F('brownrice','Кафяв ориз','carbs','сварен',123,2.74,25.58,0.97,1.6,'🍚','Пълнозърнеста алтернатива.'),
 F('quinoa','Киноа','carbs','сварена',120,4.4,21.3,1.92,2.8,'🥣','Съдържа въглехидрати, протеин и фибри.'),
-F('bread','Пълнозърнест хляб','carbs','готов продукт',247,13,41,4.2,7,'🍞','Практичен източник на енергия.'),
+F('bread','Пълнозърнест хляб','carbs','готов, търговски приготвен',252,12.45,42.71,3.5,6,'🍞','Практичен източник на енергия.'),
 F('potato','Картофи','carbs','сурови, с кора',77,2.05,17.5,0.09,2.1,'🥔','Източник на нишесте и калий.'),
 F('lentils','Леща','carbs','сварена, без сол',116,9.02,20.13,0.38,7.9,'🫘','Фибри и растителен протеин.'),
 F('avocado','Авокадо','fats','сурово',160,2,8.53,14.66,6.7,'🥑','Източник на ненаситени мазнини.'),
@@ -72,5 +73,7 @@ F('carrot','Морков','veg','суров',41,0.93,9.58,0.24,2.8,'🥕','Съ�
 F('tomato','Домат','veg','суров',18,0.88,3.89,0.2,1.2,'🍅','Подходящ за свежи салати.'),
 F('cucumber','Краставица','veg','сурова, с кора',15,0.65,3.63,0.11,0.5,'🥒','Високо водно съдържание.'),
 ];
+const staticPlank=exercises.find(e=>e.id==='Plank');
+if(staticPlank){staticPlank.photo='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/1.jpg';staticPlank.photo2=staticPlank.photo;}
 window.FORME_DATA={exercises,workouts,foods};
 })();
