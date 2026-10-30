@@ -1,0 +1,46 @@
+name: FORME final verification
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  app-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Automated app and PWA tests
+        run: node --test test.js pwa.test.js
+      - name: Parse all JavaScript files
+        run: |
+          node --check data.js
+          node --check app.js
+          node --check core.js
+          node --check exercise-art.js
+          node --check food-art.js
+          node --check service-worker.js
+
+  official-usda-audit:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Independent USDA 2018 SR Legacy audit of 30 records × 5 nutrients
+        run: python3 audit-usda.py --report USDA-OFFICIAL-AUDIT.md
+      - name: Upload detailed USDA comparison (when produced)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: official-usda-comparison
+          path: USDA-OFFICIAL-AUDIT.md
+          if-no-files-found: warn

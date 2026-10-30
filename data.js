@@ -1,7 +1,34 @@
-/* FORME: curated Bulgarian content. Exercise photos: yuhonas/free-exercise-db (Unlicense).
-   Food values: indicative USDA FoodData Central reference figures per 100g; see README for audit status. */
+/* FORME: curated Bulgarian exercise descriptions.
+   Illustrations: RepDB free-tier with required attribution, plus original FORME SVGs.
+   Food reference values: USDA SR Legacy figures per 100g; see CONTENT-AUDIT.md. */
 (function(){
-const E=(id,name,cat,level,equip,description,steps,easier)=>({id,name,cat,level,equip,description,steps,easier,photo:`https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${id}/0.jpg`,photo2:`https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${id}/1.jpg`,source:`https://github.com/yuhonas/free-exercise-db/blob/main/exercises/${id}.json`});
+const repdb={
+Pushups:['push-up','peak','start'],
+Bodyweight_Squat:['bodyweight-squat','start','peak'],
+Plank:['plank','main'],
+Pullups:['pull-up','start','peak'],
+Bench_Dips:['bench-dips','start','peak'],
+Side_Bridge:['side-plank','main'],
+Childs_Pose:['childs-pose','main'],
+Cat_Stretch:['cat-stretch','main'],
+Butt_Lift_Bridge:['glute-bridge','start','peak'],
+Dancers_Stretch:['seated-spinal-twist','main'],
+Seated_Floor_Hamstring_Stretch:['head-to-knee-pose','main'],
+Groin_and_Back_Stretch:['butterfly-stretch','main'],
+Kneeling_Hip_Flexor:['kneeling-hip-flexor-stretch','main'],
+Shoulder_Stretch:['cross-body-shoulder-stretch','main']
+};
+const repdbImg=(slug,pose)=>`https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/${slug}-${pose}.webp`;
+const E=(id,name,cat,level,equip,description,steps,easier)=>{
+  const rep=repdb[id];
+  const custom=window.FORME_EXERCISE_ART&&window.FORME_EXERCISE_ART.url(id);
+  if(!rep&&!custom)throw Error('Липсва проверена демонстрация за: '+id);
+  return {id,name,cat,level,equip,description,steps,easier,
+    photo:rep?repdbImg(rep[0],rep[1]):custom,
+    photo2:rep?repdbImg(rep[0],rep[2]||rep[1]):custom,
+    source:rep?`https://exercise-dataset.com/exercise/${rep[0]}/`:'https://github.com/ayorda/forme-fitness-app/blob/main/exercise-art.js',
+    artSource:rep?'RepDB (илюстрации, с посочен автор)':'Оригинална FORME SVG илюстрация'};
+};
 const exercises=[
 E('Pushups','Лицеви опори','cal','beginner','none','Сила за гърди, рамене и трицепс.','Постави длани малко по-широко от раменете. Дръж тялото стегнато. Спусни гърдите контролирано и избутай нагоре.','Лицеви опори с колене на земята.'),
 E('Bodyweight_Squat','Клек със собствено тегло','cal','beginner','none','Основно движение за крака и седалище.','Стъпи на ширината на раменете. Изнеси таза назад и сгъни коленете. Изправи се, като натискаш пода с цялото стъпало.','Клек до стол.'),
@@ -46,20 +73,20 @@ F('chicken','Пилешки гърди','protein','сурови, без кожа
 F('turkey','Пуешки гърди','protein','сурови, чисто месо',114,23.7,0.14,1.48,0,'🍖','Постен протеин за разнообразно меню.'),
 F('egg','Яйце','protein','цяло, сурово',143,12.56,0.72,9.51,0,'🥚','Съдържа протеин и мазнини.',171287),
 F('tuna','Риба тон','protein','консерва във вода, без сол, отцедена',116,25.5,0,0.8,0,'🐟','Удобен протеинов продукт.'),
-F('salmon','Сьомга','protein','сурова, атлантическа',208,20.4,0,13.4,0,'🐟','Осигурява протеин и мазнини.'),
+F('salmon','Сьомга','protein','сурова, атлантическа, отглеждана',208,20.4,0,13.4,0,'🐟','Осигурява протеин и мазнини.'),
 F('greek','Гръцко кисело мляко','protein','нискомаслено, натурално',73,9.95,3.94,1.92,0,'🥛','Подходящо за бърза закуска.'),
 F('cottage','Извара','protein','нискомаслена, около 2%',81,10.45,4.76,2.27,0,'🧀','Протеин с различни приложения.'),
 F('oats','Овесени ядки','carbs','сухи, без обогатяване',379,13.15,67.7,6.52,10.1,'🌾','Богати на въглехидрати и фибри.',173904),
-F('rice','Бял ориз','carbs','сварен, обогатен',130,2.69,28.17,0.28,0.4,'🍚','Лесен за комбиниране източник на въглехидрати.',168878),
-F('brownrice','Кафяв ориз','carbs','сварен',123,2.74,25.58,0.97,1.6,'🍚','Пълнозърнеста алтернатива.'),
+F('rice','Бял ориз','carbs','сварен, дългозърнест, обогатен',130,2.69,28.17,0.28,0.4,'🍚','Лесен за комбиниране източник на въглехидрати.',168878),
+F('brownrice','Кафяв ориз','carbs','сварен, дългозърнест',123,2.74,25.58,0.97,1.6,'🍚','Пълнозърнеста алтернатива.'),
 F('quinoa','Киноа','carbs','сварена',120,4.4,21.3,1.92,2.8,'🥣','Съдържа въглехидрати, протеин и фибри.'),
 F('bread','Пълнозърнест хляб','carbs','готов, търговски приготвен',252,12.45,42.71,3.5,6,'🍞','Практичен източник на енергия.'),
 F('potato','Картофи','carbs','сурови, с кора',77,2.05,17.5,0.09,2.1,'🥔','Източник на нишесте и калий.'),
 F('lentils','Леща','carbs','сварена, без сол',116,9.02,20.13,0.38,7.9,'🫘','Фибри и растителен протеин.'),
 F('avocado','Авокадо','fats','сурово',160,2,8.53,14.66,6.7,'🥑','Източник на ненаситени мазнини.'),
-F('almonds','Бадеми','fats','сурови',579,21.15,21.55,49.93,12.5,'🥜','Мазнини, протеин и фибри.'),
-F('walnuts','Орехи','fats','сурови',654,15.23,13.71,65.21,6.7,'🌰','Енергийно плътна ядка.'),
-F('oliveoil','Зехтин','fats','чист, без добавки',884,0,0,100,0,'🫒','Мазнина за готвене и салати.'),
+F('almonds','Бадеми','fats','без уточнена термична обработка',579,21.15,21.55,49.93,12.5,'🥜','Мазнини, протеин и фибри.'),
+F('walnuts','Орехи','fats','английски орехи; без уточнена обработка',654,15.23,13.71,65.21,6.7,'🌰','Енергийно плътна ядка.'),
+F('oliveoil','Зехтин','fats','за салата или готвене',884,0,0,100,0,'🫒','Мазнина за готвене и салати.'),
 F('peanutbutter','Фъстъчено масло','fats','гладко, без сол',598,22.2,22.3,51.4,5,'🥜','Калорично плътен продукт; следи порцията.'),
 F('chocolate','Черен шоколад','fats','70–85% какао',598,7.79,45.9,42.6,10.9,'🍫','Съдържа мазнини и въглехидрати.'),
 F('banana','Банан','fruit','суров',89,1.09,22.84,0.33,2.6,'🍌','Удобен плод преди или след активност.',173944),
@@ -70,10 +97,8 @@ F('strawberry','Ягоди','fruit','сурови',32,0.67,7.68,0.3,2,'🍓','П
 F('broccoli','Броколи','veg','сурови',34,2.82,6.64,0.37,2.6,'🥦','Зеленчук с фибри и микронутриенти.'),
 F('spinach','Спанак','veg','суров',23,2.86,3.63,0.39,2.2,'🥬','Листен зеленчук с минерали.'),
 F('carrot','Морков','veg','суров',41,0.93,9.58,0.24,2.8,'🥕','Съдържа бета-каротин.'),
-F('tomato','Домат','veg','суров',18,0.88,3.89,0.2,1.2,'🍅','Подходящ за свежи салати.'),
+F('tomato','Домат','veg','червен, зрял, суров',18,0.88,3.89,0.2,1.2,'🍅','Подходящ за свежи салати.'),
 F('cucumber','Краставица','veg','сурова, с кора',15,0.65,3.63,0.11,0.5,'🥒','Високо водно съдържание.'),
 ];
-const staticPlank=exercises.find(e=>e.id==='Plank');
-if(staticPlank){staticPlank.photo='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/1.jpg';staticPlank.photo2=staticPlank.photo;}
 window.FORME_DATA={exercises,workouts,foods};
 })();

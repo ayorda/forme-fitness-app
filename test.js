@@ -12,9 +12,26 @@ test('filters change workout suggestions',()=>{const ws=[{cat:'cal',level:'begin
 test('exercise search works',()=>{const es=[{name:'Планк',description:'Торс',steps:'',cat:'cal',level:'beginner',equip:'none'},{name:'Клек',description:'Крака',steps:'',cat:'cal',level:'beginner',equip:'none'}];assert.equal(C.filterExercises(es,{q:'планк'}).length,1);assert.equal(C.filterExercises(es,{q:'йога'}).length,0)});
 test('timer display rounding',()=>{assert.equal(C.formatClock(60100),'01:01');assert.equal(C.formatClock(0),'00:00')});
 const vm=require('node:vm'),fs=require('node:fs');
-const context={window:{}};vm.runInNewContext(fs.readFileSync(__dirname+'/data.js','utf8'),context);
+const context={window:{}};vm.runInNewContext(fs.readFileSync(__dirname+'/exercise-art.js','utf8'),context);vm.runInNewContext(fs.readFileSync(__dirname+'/data.js','utf8'),context);
 const D=context.window.FORME_DATA;
 test('required dataset sizes and categories',()=>{assert.ok(D.exercises.length>=24);assert.ok(D.workouts.length>=6);assert.ok(D.foods.length>=30);for(const cat of ['cal','yoga','mobility'])assert.ok(D.workouts.some(w=>w.cat===cat))});
-test('exercise records have two matching demonstration frames, source and easier version',()=>{for(const e of D.exercises){assert.ok(e.name&&e.steps&&e.easier&&e.source&&e.photo&&e.photo2,e.id);assert.ok(e.photo.includes(e.id),e.id);assert.ok(e.photo2.includes(e.id),e.id)}});
+test('exercise illustrations have consistent licensed or original sources',()=>{
+ const ids=new Set(D.exercises.map(e=>e.id));
+ assert.equal(ids.size,24);
+ for(const e of D.exercises){
+  assert.ok(e.name&&e.steps&&e.easier&&e.source&&e.photo&&e.photo2&&e.artSource,e.id);
+  if(e.artSource.startsWith('RepDB')){
+   assert.match(e.photo,/^https:\/\/raw\.githubusercontent\.com\/RepDB\/exercise-dataset\/main\/images\/flat\//);
+   assert.match(e.photo2,/^https:\/\/raw\.githubusercontent\.com\/RepDB\/exercise-dataset\/main\/images\/flat\//);
+   assert.match(e.source,/^https:\/\/exercise-dataset\.com\/exercise\//);
+  }else{
+   assert.ok(e.photo.startsWith('data:image/svg+xml;charset=UTF-8,'),e.id);
+   assert.equal(e.photo2,e.photo,e.id);
+  }
+ }
+ assert.equal(D.exercises.filter(e=>e.artSource.startsWith('RepDB')).length,14);
+ assert.equal(D.exercises.filter(e=>e.photo.startsWith('data:image/svg+xml')).length,10);
+ assert.ok(!D.exercises.some(e=>/yuhonas\/free-exercise-db/.test(e.photo)));
+});
 test('workout references and approximate durations are consistent',()=>{for(const w of D.workouts){for(const id of w.ids)assert.ok(D.exercises.some(e=>e.id===id),id);const count=w.ids.length*w.rounds;const seconds=count*w.workSec+(count-1)*w.restSec;assert.ok(Math.abs(seconds/60-w.duration)<.6,`${w.id}: ${seconds/60} vs ${w.duration}`)}});
 test('foods include states, macro data and source links',()=>{for(const f of D.foods){assert.ok(f.name&&f.state&&f.info&&f.source&&f.emoji,f.id);for(const k of ['kcal','protein','carbs','fat','fiber'])assert.ok(Number.isFinite(f[k])&&f[k]>=0,`${f.id}:${k}`)}});
