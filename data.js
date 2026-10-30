@@ -29,7 +29,7 @@ E('Calf_Stretch_Hands_Against_Wall','Разтягане на прасец до �
 E('Kneeling_Forearm_Stretch','Разтягане на китки','mobility','beginner','mat','Подготовка на китките за опори и стойки.','Застани на колене и постави длани на пода с пръсти към коленете. Премести тежестта леко назад. Не допускай болка.','Изпълни с по-малко натоварване.'),
 ];
 const workouts=[
-{id:'cal-start',name:'Силна основа — ТЕСТ',cat:'cal',level:'beginner',duration:12,rounds:3,workSec:40,restSec:20,equip:'none',ids:['Bodyweight_Squat','Pushups','Plank','Mountain_Climbers'],tag:'НАЧАЛО',desc:'Четири основни движения за цялото тяло.'},
+{id:'cal-start',name:'Силна основа',cat:'cal',level:'beginner',duration:12,rounds:3,workSec:40,restSec:20,equip:'none',ids:['Bodyweight_Squat','Pushups','Plank','Mountain_Climbers'],tag:'НАЧАЛО',desc:'Четири основни движения за цялото тяло.'},
 {id:'cal-control',name:'Контрол и сила',cat:'cal',level:'intermediate',duration:18,rounds:4,workSec:50,restSec:20,equip:'bar',ids:['Pullups','Hanging_Leg_Raise','Pushups','Side_Bridge'],tag:'СЛЕДВАЩО НИВО',desc:'Лост, стабилност и контрол на торса.'},
 {id:'yoga-reset',name:'Спокойно възстановяване',cat:'yoga',level:'beginner',duration:12,rounds:3,workSec:40,restSec:20,equip:'mat',ids:['Childs_Pose','Cat_Stretch','Butt_Lift_Bridge','Seated_Overhead_Stretch'],tag:'ВЪЗСТАНОВЯВАНЕ',desc:'Плавна практика за отпускане и дишане.'},
 {id:'yoga-flow',name:'Дълбоко разтягане',cat:'yoga',level:'intermediate',duration:20,rounds:4,workSec:55,restSec:20,equip:'mat',ids:['Dancers_Stretch','Groin_and_Back_Stretch','Seated_Floor_Hamstring_Stretch','Childs_Pose'],tag:'ПЛАВНО ДВИЖЕНИЕ',desc:'По-дълга практика за гъвкавост.'},
