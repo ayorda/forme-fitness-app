@@ -90,6 +90,11 @@ def audit(archive, report_path):
     rows.extend(["", f"**Checks:** 150; within tolerance: {matches}; review: {mismatches}; missing: {missing}.",
                  "", "**Important:** A numerical match alone does not establish the correct raw/cooked state. Check descriptions in the report against FORME. Do not mark the audit complete if any discrepancies or mismatched descriptions remain."])
     report_path.write_text("\n".join(rows) + "\n", encoding="utf-8")
+    print("USDA description cross-check (FORME state -> official description):")
+    for record in records:
+        id_ = str(record["fdcId"])
+        desc = descriptions.get(id_, {}).get("description", "MISSING FOOD ID")
+        print(f"  {record['name']} | {record['state']} | FDC {id_} | {desc}")
     print(f"USDA audit: matches={matches}, review={mismatches}, missing={missing}; report={report_path}")
     return 0 if mismatches == 0 and missing == 0 else 2
 
