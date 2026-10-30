@@ -1,4 +1,4 @@
-const CACHE = 'forme-mobile-v023';
+const CACHE = 'forme-mobile-v024';
 const ASSETS = ['./', './index.html', './styles.css', './app.js', './data.js', './core.js', './food-art.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
