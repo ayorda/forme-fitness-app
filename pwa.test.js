@@ -23,3 +23,12 @@ test('Mobile navigation is above the main content in document order', () => {
   assert.ok(html.indexOf('id="mobile-nav"') < html.indexOf('id="app"'));
   assert.equal((html.match(/id="mobile-nav"/g) || []).length, 1);
 });
+
+test('v0.2.5 loads original art before dataset and caches it',()=>{
+ const artPos=html.indexOf('<script src="exercise-art.js"></script>');
+ const dataPos=html.indexOf('<script src="data.js"></script>');
+ assert.ok(artPos>=0&&artPos<dataPos);
+ assert.ok(sw.includes('forme-mobile-v025'));
+ assert.ok(sw.includes('exercise-art.js'));
+ assert.ok(fs.existsSync('exercise-art.js'));
+});
