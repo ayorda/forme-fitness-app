@@ -1,7 +1,34 @@
-/* FORME: curated Bulgarian content. Exercise photos: yuhonas/free-exercise-db (Unlicense).
-   Food values: indicative USDA FoodData Central reference figures per 100g; see README for audit status. */
+/* FORME: curated Bulgarian exercise descriptions.
+   Illustrations: RepDB free-tier with required attribution, plus original FORME SVGs.
+   Food reference values: USDA SR Legacy figures per 100g; see CONTENT-AUDIT.md. */
 (function(){
-const E=(id,name,cat,level,equip,description,steps,easier)=>({id,name,cat,level,equip,description,steps,easier,photo:`https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${id}/0.jpg`,photo2:`https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${id}/1.jpg`,source:`https://github.com/yuhonas/free-exercise-db/blob/main/exercises/${id}.json`});
+const repdb={
+Pushups:['push-up','peak','start'],
+Bodyweight_Squat:['bodyweight-squat','start','peak'],
+Plank:['plank','main'],
+Pullups:['pull-up','start','peak'],
+Bench_Dips:['bench-dips','start','peak'],
+Side_Bridge:['side-plank','main'],
+Childs_Pose:['childs-pose','main'],
+Cat_Stretch:['cat-stretch','main'],
+Butt_Lift_Bridge:['glute-bridge','start','peak'],
+Dancers_Stretch:['seated-spinal-twist','main'],
+Seated_Floor_Hamstring_Stretch:['head-to-knee-pose','main'],
+Groin_and_Back_Stretch:['butterfly-stretch','main'],
+Kneeling_Hip_Flexor:['kneeling-hip-flexor-stretch','main'],
+Shoulder_Stretch:['cross-body-shoulder-stretch','main']
+};
+const repdbImg=(slug,pose)=>`https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/${slug}-${pose}.webp`;
+const E=(id,name,cat,level,equip,description,steps,easier)=>{
+  const rep=repdb[id];
+  const custom=window.FORME_EXERCISE_ART&&window.FORME_EXERCISE_ART.url(id);
+  if(!rep&&!custom)throw Error('Липсва проверена демонстрация за: '+id);
+  return {id,name,cat,level,equip,description,steps,easier,
+    photo:rep?repdbImg(rep[0],rep[1]):custom,
+    photo2:rep?repdbImg(rep[0],rep[2]||rep[1]):custom,
+    source:rep?`https://exercise-dataset.com/exercise/${rep[0]}/`:'https://github.com/ayorda/forme-fitness-app/blob/main/exercise-art.js',
+    artSource:rep?'RepDB (илюстрации, с посочен автор)':'Оригинална FORME SVG илюстрация'};
+};
 const exercises=[
 E('Pushups','Лицеви опори','cal','beginner','none','Сила за гърди, рамене и трицепс.','Постави длани малко по-широко от раменете. Дръж тялото стегнато. Спусни гърдите контролирано и избутай нагоре.','Лицеви опори с колене на земята.'),
 E('Bodyweight_Squat','Клек със собствено тегло','cal','beginner','none','Основно движение за крака и седалище.','Стъпи на ширината на раменете. Изнеси таза назад и сгъни коленете. Изправи се, като натискаш пода с цялото стъпало.','Клек до стол.'),
@@ -73,7 +100,5 @@ F('carrot','Морков','veg','суров',41,0.93,9.58,0.24,2.8,'🥕','Съ�
 F('tomato','Домат','veg','суров',18,0.88,3.89,0.2,1.2,'🍅','Подходящ за свежи салати.'),
 F('cucumber','Краставица','veg','сурова, с кора',15,0.65,3.63,0.11,0.5,'🥒','Високо водно съдържание.'),
 ];
-const staticPlank=exercises.find(e=>e.id==='Plank');
-if(staticPlank){staticPlank.photo='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/1.jpg';staticPlank.photo2=staticPlank.photo;}
 window.FORME_DATA={exercises,workouts,foods};
 })();
