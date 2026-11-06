@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: "22"
       - name: Automated app and PWA tests
-        run: node --test test.js pwa.test.js food-art.test.js plan.test.js catalog.test.js home.test.js integration.test.js media.test.js offline.test.js timer.test.js i18n.test.js
+        run: node --test test.js pwa.test.js food-art.test.js plan.test.js catalog.test.js home.test.js integration.test.js media.test.js offline.test.js timer.test.js i18n.test.js storage.test.js
       - name: Parse all JavaScript files
         run: |
           node --check data.js
