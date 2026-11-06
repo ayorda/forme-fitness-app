@@ -7,10 +7,10 @@ function boot(saved={},blocked=false){
  const element=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(){return element();}});
  const document={body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
  class Clock extends Date{constructor(...args){super(...(args.length?args:[2024,1,15,12]));}}
- const context={window:{addEventListener(){},scrollTo(){}},document,localStorage:{getItem:k=>storage[k]??null,setItem:(k,v)=>{if(blocked)throw Error('blocked');storage[k]=v;}},location:{hash:'#plan'},Date:Clock,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
+ const context={window:{addEventListener(type,fn){handlers['window:'+type]=fn;},scrollTo(){}},document,localStorage:{getItem:k=>storage[k]??null,setItem:(k,v)=>{if(blocked)throw Error('blocked');storage[k]=v;}},location:{hash:'#plan'},Date:Clock,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(context);for(const f of ['exercise-art.js','data.js','core.js','food-art.js','app.js'])vm.runInContext(fs.readFileSync(f,'utf8'),context,{filename:f});
  const click=dataset=>handlers.click({target:{closest:()=>({dataset})}});
- return {nodes,storage,click};
+ return {nodes,storage,click,handlers};
 }
 test('monthly view maps saved weekly workouts onto a leap-year month',()=>{
  const a=boot();a.click({action:'plan-view',view:'month'});
@@ -59,4 +59,29 @@ test('failed storage keeps the warning and does not claim completion',()=>{
  const a=boot({},true);a.click({action:'plan-view',view:'month'});a.click({action:'plan-date',date:'5'});a.click({action:'completion-add'});
  assert.match(a.nodes.toast.textContent,/Неуспешно локално запазване/);
  assert.doesNotMatch(a.nodes.app.innerHTML,/Отбелязана като изпълнена:/);
+});
+test('a date-specific rest day persists without altering other Mondays or the weekly plan',()=>{
+ const a=boot();a.click({action:'plan-view',view:'month'});a.click({action:'plan-date',date:'5'});
+ a.nodes['date-plan-select']={value:'rest'};a.click({action:'save-date-plan'});
+ assert.equal(JSON.parse(a.storage['forme-date-plans'])['2024-02-05'],'');
+ assert.equal(JSON.parse(a.storage['forme-plan']).mon,'cal-start');
+ assert.match(a.nodes.app.innerHTML,/Няма планирана тренировка/);
+ a.click({action:'plan-date',date:'12'});assert.match(a.nodes.app.innerHTML,/data-action="start-workout" data-id="cal-start"/);
+ const b=boot(a.storage);b.click({action:'plan-view',view:'month'});b.click({action:'plan-date',date:'5'});
+ assert.match(b.nodes.app.innerHTML,/Избор само за тази дата/);assert.doesNotMatch(b.nodes.app.innerHTML,/data-action="start-workout"/);
+ b.nodes['date-plan-select']={value:'weekly'};b.click({action:'save-date-plan'});
+ assert.deepEqual(JSON.parse(b.storage['forme-date-plans']),{});assert.match(b.nodes.app.innerHTML,/data-action="start-workout" data-id="cal-start"/);
+});
+test('today on the home screen respects a date-specific rest day',()=>{
+ const a=boot({'forme-plan':JSON.stringify({thu:'cal-start'}),'forme-date-plans':JSON.stringify({'2024-02-15':''})});
+ a.click({action:'nav',page:'home'});a.handlers['window:hashchange']();
+ assert.match(a.nodes.app.innerHTML,/Няма планирана тренировка/);
+ const today=a.nodes.app.innerHTML.split('<section class="home-steps"')[0];assert.doesNotMatch(today,/data-action="start-workout"/);
+});
+test('date-specific workouts can be completed and a failed save leaves the old plan unchanged',()=>{
+ const a=boot();a.click({action:'plan-view',view:'month'});a.click({action:'plan-date',date:'5'});
+ a.nodes['date-plan-select']={value:'workout:yoga-reset'};a.click({action:'save-date-plan'});a.click({action:'completion-add'});
+ assert.equal(JSON.parse(a.storage['forme-completed-workouts'])['2024-02-05'].id,'yoga-reset');
+ const b=boot({},true);b.click({action:'plan-view',view:'month'});b.click({action:'plan-date',date:'5'});b.nodes['date-plan-select']={value:'rest'};b.click({action:'save-date-plan'});
+ assert.match(b.nodes.toast.textContent,/Неуспешно локално запазване/);assert.match(b.nodes.app.innerHTML,/data-action="start-workout" data-id="cal-start"/);
 });
