@@ -31,6 +31,7 @@ test('new exercise details show requirements and can be saved as favorite',()=>{
  const a=createApp();
  a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Iron_Cross'}})}});
  assert.match(a.nodes['modal-root'].innerHTML,/Преди да започнеш/);assert.match(a.nodes['modal-root'].innerHTML,/квалифициран треньор/);
+ assert.match(a.nodes['modal-root'].innerHTML,/Видео демонстрацията предстои/);
  a.handlers.click({target:{closest:()=>({dataset:{action:'favorite',kind:'exercises',id:'Iron_Cross'}})}});
  assert.ok(JSON.parse(a.storage['forme-favorites']).exercises.includes('Iron_Cross'));
  const b=createApp(a.storage);assert.match(b.nodes['exercise-results'].innerHTML,/Премахни от любими/);
