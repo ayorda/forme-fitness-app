@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: "22"
       - name: Automated app and PWA tests
-        run: node --test test.js pwa.test.js
+        run: node --test test.js pwa.test.js catalog.test.js
       - name: Parse all JavaScript files
         run: |
           node --check data.js
