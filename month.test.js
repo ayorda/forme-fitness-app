@@ -6,11 +6,11 @@ function boot(saved={},blocked=false){
  const handlers={},nodes={},storage={'forme-plan':JSON.stringify({mon:'cal-start'}),...saved};
  const element=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(){return element();}});
  const document={body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
- class Clock extends Date{constructor(...args){super(...(args.length?args:[2024,1,15,12]));}}
+ let now=new Date(2024,1,15,12);class Clock extends Date{constructor(...args){super(...(args.length?args:[now]));}}
  const context={window:{addEventListener(type,fn){handlers['window:'+type]=fn;},scrollTo(){}},document,localStorage:{getItem:k=>storage[k]??null,setItem:(k,v)=>{if(blocked)throw Error('blocked');storage[k]=v;}},location:{hash:'#plan'},Date:Clock,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(context);for(const f of ['exercise-art.js','data.js','core.js','food-art.js','app.js'])vm.runInContext(fs.readFileSync(f,'utf8'),context,{filename:f});
  const click=dataset=>handlers.click({target:{closest:()=>({dataset})}});
- return {nodes,storage,click,handlers};
+ return {nodes,storage,click,handlers,advanceDay(){now=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,12);}};
 }
 test('monthly view maps saved weekly workouts onto a leap-year month',()=>{
  const a=boot();a.click({action:'plan-view',view:'month'});
@@ -84,4 +84,20 @@ test('date-specific workouts can be completed and a failed save leaves the old p
  assert.equal(JSON.parse(a.storage['forme-completed-workouts'])['2024-02-05'].id,'yoga-reset');
  const b=boot({},true);b.click({action:'plan-view',view:'month'});b.click({action:'plan-date',date:'5'});b.nodes['date-plan-select']={value:'rest'};b.click({action:'save-date-plan'});
  assert.match(b.nodes.toast.textContent,/Неуспешно локално запазване/);assert.match(b.nodes.app.innerHTML,/data-action="start-workout" data-id="cal-start"/);
+});
+test('today highlighting updates when the app becomes visible after midnight',()=>{
+ const a=boot();a.click({action:'plan-view',view:'month'});
+ assert.match(a.nodes.app.innerHTML,/id="month-date-15" class="month-day month-day-today/);
+ a.advanceDay();a.handlers.visibilitychange();
+ assert.match(a.nodes.app.innerHTML,/id="month-date-16" class="month-day month-day-today/);
+ assert.doesNotMatch(a.nodes.app.innerHTML,/id="month-date-15" class="month-day month-day-today/);
+});
+test('clearing the weekly plan leaves individual dates and completion records intact',()=>{
+ const a=boot({'forme-date-plans':JSON.stringify({'2024-02-05':'yoga-reset'}),'forme-completed-workouts':JSON.stringify({'2024-02-05':{id:'yoga-reset',name:'Спокойно възстановяване'}})});
+ a.click({action:'clear-plan'});
+ assert.deepEqual(JSON.parse(a.storage['forme-plan']),{});
+ assert.equal(JSON.parse(a.storage['forme-date-plans'])['2024-02-05'],'yoga-reset');
+ assert.equal(JSON.parse(a.storage['forme-completed-workouts'])['2024-02-05'].id,'yoga-reset');
+ a.click({action:'plan-view',view:'month'});a.click({action:'plan-date',date:'5'});
+ assert.match(a.nodes.app.innerHTML,/Отбелязана като изпълнена: Спокойно възстановяване/);
 });
