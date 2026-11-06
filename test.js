@@ -17,8 +17,9 @@ const D=context.window.FORME_DATA;
 test('required dataset sizes and categories',()=>{assert.ok(D.exercises.length>=24);assert.ok(D.workouts.length>=6);assert.ok(D.foods.length>=30);for(const cat of ['cal','yoga','mobility'])assert.ok(D.workouts.some(w=>w.cat===cat))});
 test('exercise illustrations have consistent licensed or original sources',()=>{
  const ids=new Set(D.exercises.map(e=>e.id));
- assert.equal(ids.size,24);
+ assert.equal(ids.size,D.exercises.length);
  for(const e of D.exercises){
+  if(e.demoPending){assert.ok(e.name&&e.steps&&e.easier,e.id);assert.equal(e.photo,'');assert.equal(e.photo2,'');assert.equal(e.source,'');continue;}
   assert.ok(e.name&&e.steps&&e.easier&&e.source&&e.photo&&e.photo2&&e.artSource,e.id);
   if(e.artSource.startsWith('RepDB')){
    assert.match(e.photo,/^https:\/\/raw\.githubusercontent\.com\/RepDB\/exercise-dataset\/main\/images\/flat\//);
@@ -32,6 +33,13 @@ test('exercise illustrations have consistent licensed or original sources',()=>{
  assert.equal(D.exercises.filter(e=>e.artSource.startsWith('RepDB')).length,14);
  assert.equal(D.exercises.filter(e=>e.photo.startsWith('data:image/svg+xml')).length,10);
  assert.ok(!D.exercises.some(e=>/yuhonas\/free-exercise-db/.test(e.photo)));
+});
+test('new calisthenics movements are distinct and clearly await verified media',()=>{
+ for(const id of ['Chinups','Australian_Rows','Parallel_Bar_Dips','Bar_Muscle_Up']){
+  const e=D.exercises.find(x=>x.id===id);assert.ok(e,id);assert.equal(e.demoPending,true);assert.equal(e.cat,'cal');
+ }
+ assert.equal(D.exercises.find(x=>x.id==='Parallel_Bar_Dips').equip,'parallel');
+ assert.equal(D.exercises.find(x=>x.id==='Bar_Muscle_Up').level,'advanced');
 });
 test('workout references and approximate durations are consistent',()=>{for(const w of D.workouts){for(const id of w.ids)assert.ok(D.exercises.some(e=>e.id===id),id);const count=w.ids.length*w.rounds;const seconds=count*w.workSec+(count-1)*w.restSec;assert.ok(Math.abs(seconds/60-w.duration)<.6,`${w.id}: ${seconds/60} vs ${w.duration}`)}});
 test('foods include states, macro data and source links',()=>{for(const f of D.foods){assert.ok(f.name&&f.state&&f.info&&f.source&&f.emoji,f.id);for(const k of ['kcal','protein','carbs','fat','fiber'])assert.ok(Number.isFinite(f[k])&&f[k]>=0,`${f.id}:${k}`)}});
