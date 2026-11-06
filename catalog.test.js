@@ -20,6 +20,13 @@ test('catalog searches by English name and shows honest missing-media placeholde
  const html=a.nodes['exercise-results'].innerHTML;
  assert.match(html,/Железен кръст/);assert.match(html,/ДЕМОНСТРАЦИЯТА ПРЕДСТОИ/);assert.doesNotMatch(html,/<img[^>]+src=""/);
 });
+test('existing drawn exercise media is described as illustration rather than photography',()=>{
+ const a=createApp();
+ a.handlers.input({target:{dataset:{filter:'exercises',key:'q'},value:'Планк'}});
+ const html=a.nodes['exercise-results'].innerHTML;
+ assert.match(html,/Илюстрации и инструкции/);
+ assert.doesNotMatch(html,/Снимки и инструкции/);
+});
 test('new exercise details show requirements and can be saved as favorite',()=>{
  const a=createApp();
  a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Iron_Cross'}})}});
