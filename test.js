@@ -34,12 +34,19 @@ test('exercise illustrations have consistent licensed or original sources',()=>{
  assert.equal(D.exercises.filter(e=>e.photo.startsWith('data:image/svg+xml')).length,10);
  assert.ok(!D.exercises.some(e=>/yuhonas\/free-exercise-db/.test(e.photo)));
 });
-test('new calisthenics movements are distinct and clearly await verified media',()=>{
- for(const id of ['Chinups','Australian_Rows','Parallel_Bar_Dips','Bar_Muscle_Up']){
-  const e=D.exercises.find(x=>x.id===id);assert.ok(e,id);assert.equal(e.demoPending,true);assert.equal(e.cat,'cal');
+test('all 30 requested movements have distinct entries and complete training context',()=>{
+ const ids=['Pushups','Pullups','Chinups','Bodyweight_Squat','Parallel_Bar_Dips','Australian_Rows','Hollow_Body_Hold','Plank','Hanging_Leg_Raise','Frog_Stand','Pike_Pushups','Skin_the_Cat','Toes_to_Bar','Archer_Pushups','Pistol_Squat','L_Sit','Dragon_Flag','Handstand','Tuck_Planche','Tuck_Front_Lever','Bar_Muscle_Up','Ring_Muscle_Up','Back_Lever','Human_Flag','Handstand_Pushups','Front_Lever','Straddle_Planche','Full_Planche','One_Arm_Pull_Up','Iron_Cross'];
+ assert.equal(ids.length,30);assert.equal(new Set(ids).size,30);
+ for(const id of ids){
+  const matches=D.exercises.filter(x=>x.id===id);assert.equal(matches.length,1,id);const e=matches[0];assert.equal(e.cat,'cal');
+  for(const field of ['name','nameEn','nameDe','level','equip','muscles','prerequisites','steps','commonMistakes','easier','harder','progression','measure'])assert.ok(e[field],`${id}: ${field}`);
+  if(e.level==='advanced'||e.level==='elite')assert.ok(e.caution,id);
  }
  assert.equal(D.exercises.find(x=>x.id==='Parallel_Bar_Dips').equip,'parallel');
- assert.equal(D.exercises.find(x=>x.id==='Bar_Muscle_Up').level,'advanced');
+ for(const id of ['Full_Planche','One_Arm_Pull_Up','Iron_Cross'])assert.equal(D.exercises.find(x=>x.id===id).level,'elite');
+ assert.ok(C.filterExercises(D.exercises,{q:'iron cross'}).some(e=>e.id==='Iron_Cross'));
+ assert.ok(C.filterExercises(D.exercises,{q:'liegestütze'}).some(e=>e.id==='Pushups'));
+ assert.ok(C.filterExercises(D.exercises,{level:'elite'}).some(e=>e.id==='Iron_Cross'));
 });
 test('workout references and approximate durations are consistent',()=>{for(const w of D.workouts){for(const id of w.ids)assert.ok(D.exercises.some(e=>e.id===id),id);const count=w.ids.length*w.rounds;const seconds=count*w.workSec+(count-1)*w.restSec;assert.ok(Math.abs(seconds/60-w.duration)<.6,`${w.id}: ${seconds/60} vs ${w.duration}`)}});
 test('foods include states, macro data and source links',()=>{for(const f of D.foods){assert.ok(f.name&&f.state&&f.info&&f.source&&f.emoji,f.id);for(const k of ['kcal','protein','carbs','fat','fiber'])assert.ok(Number.isFinite(f[k])&&f[k]>=0,`${f.id}:${k}`)}});
