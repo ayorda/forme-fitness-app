@@ -49,3 +49,10 @@ test('pause after the full workout has elapsed leaves the workout completed',()=
  a.advance(length*work+(length-1)*rest+1000);a.run("playerControl('player-pause')");
  assert.equal(a.run('state.player.phase'),'done');assert.equal(a.run('state.player.running'),false);
 });
+test('next catches up first and skips the currently elapsed rest period',()=>{
+ const a=boot();a.run("startWorkout('cal-start'); playerControl('player-start')");
+ const work=a.run('state.player.workMs');a.advance(work+2000);
+ a.run("playerControl('player-next')");
+ assert.equal(a.run('state.player.phase'),'work');assert.equal(a.run('state.player.index'),1);
+ assert.equal(a.run('state.player.remainingMs'),work);
+});
