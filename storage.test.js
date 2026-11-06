@@ -21,3 +21,10 @@ test('successful plan writes still show confirmation',()=>{
  const a=boot(false);a.handlers.change({target:{dataset:{action:'plan-day',day:'mon'},value:'cal-start'}});
  assert.equal(a.nodes.toast.textContent,'Седмичният план е запазен.');
 });
+test('failed meal save does not claim the meal was saved',()=>{
+ const a=boot(true);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'add-food',id:'rice'}})}});
+ a.nodes['meal-name']={value:'Обяд',focus(){}};
+ a.handlers.click({target:{closest:()=>({dataset:{action:'save-meal'}})}});
+ assert.match(a.nodes.toast.textContent,/Неуспешно локално запазване/);
+});
