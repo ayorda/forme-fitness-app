@@ -34,3 +34,18 @@ test('pausing freezes remaining time and resuming continues from it',()=>{
  a.run("playerControl('player-resume')");a.advance(1000);a.handlers.visibilitychange();
  assert.equal(a.run('state.player.remainingMs'),remaining-1000);
 });
+
+test('pause first catches up when work has already ended between timer ticks',()=>{
+ const a=boot();a.run("startWorkout('cal-start'); playerControl('player-start')");
+ const work=a.run('state.player.workMs'),rest=a.run('state.player.restMs');
+ a.advance(work+2000);a.run("playerControl('player-pause')");
+ assert.equal(a.run('state.player.phase'),'rest');
+ assert.equal(a.run('state.player.remainingMs'),rest-2000);
+ assert.equal(a.run('state.player.running'),false);
+});
+test('pause after the full workout has elapsed leaves the workout completed',()=>{
+ const a=boot();a.run("startWorkout('cal-start'); playerControl('player-start')");
+ const length=a.run('state.player.steps.length'),work=a.run('state.player.workMs'),rest=a.run('state.player.restMs');
+ a.advance(length*work+(length-1)*rest+1000);a.run("playerControl('player-pause')");
+ assert.equal(a.run('state.player.phase'),'done');assert.equal(a.run('state.player.running'),false);
+});
