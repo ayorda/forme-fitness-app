@@ -55,6 +55,14 @@ E('Shoulder_Stretch','Разтягане на рамо','mobility','beginner','n
 E('Calf_Stretch_Hands_Against_Wall','Разтягане на прасец до стена','mobility','beginner','wall','Подвижност на глезена и прасеца.','Постави длани на стена. Изнеси единия крак назад с пета на земята. Наклони се напред и смени крака.','Приближи задния крак.'),
 E('Kneeling_Forearm_Stretch','Разтягане на китки','mobility','beginner','mat','Подготовка на китките за опори и стойки.','Застани на колене и постави длани на пода с пръсти към коленете. Премести тежестта леко назад. Не допускай болка.','Изпълни с по-малко натоварване.'),
 ];
+// Exercises awaiting a verified demonstration are intentionally text-only.
+const pendingExercise=(id,name,level,equip,description,steps,easier)=>({id,name,cat:'cal',level,equip,description,steps,easier,photo:'',photo2:'',source:'',artSource:'',demoPending:true});
+exercises.push(
+pendingExercise('Chinups','Набирания с подхват','intermediate','bar','Дърпащо движение за гръб и ръце.','Хвани стабилен лост с длани към себе си. Без люлеене издърпай тялото нагоре и се спусни контролирано.','Набирания с помощ или австралийски набирания.'),
+pendingExercise('Australian_Rows','Австралийски набирания','beginner','bar','Хоризонтално дърпане за гръб и ръце.','Хвани стабилен нисък лост, дръж тялото стегнато и придърпай гърдите към лоста. Спусни се контролирано.','Използвай по-висок лост и по-изправена позиция.'),
+pendingExercise('Parallel_Bar_Dips','Кофички на успоредка','intermediate','parallel','Бутащо движение за гърди, рамене и трицепс.','Подпри се на стабилна успоредка. Спусни се бавно в комфортен обхват и се избутай до стабилна опора.','Опора на успоредка или вариант с подходяща помощ.'),
+pendingExercise('Bar_Muscle_Up','Силово възлизане на лост','advanced','bar','Напреднало движение с издърпване и преминаване над лоста. Изисква стабилни набирания и кофички.','Изпълнявай само с добра предварителна подготовка и подходяща височина. Издърпай се контролирано, премини над лоста и се избутай в опора.','Продължи да развиваш силни набирания и кофички с квалифицирано наблюдение.')
+);
 const workouts=[
 {id:'cal-start',name:'Силна основа',cat:'cal',level:'beginner',duration:12,rounds:3,workSec:40,restSec:20,equip:'none',ids:['Bodyweight_Squat','Pushups','Plank','Mountain_Climbers'],tag:'НАЧАЛО',desc:'Четири основни движения за цялото тяло.'},
 {id:'cal-control',name:'Контрол и сила',cat:'cal',level:'intermediate',duration:18,rounds:4,workSec:50,restSec:20,equip:'bar',ids:['Pullups','Hanging_Leg_Raise','Pushups','Side_Bridge'],tag:'СЛЕДВАЩО НИВО',desc:'Лост, стабилност и контрол на торса.'},
