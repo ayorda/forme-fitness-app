@@ -23,7 +23,7 @@ const save=(key,value)=>{try{localStorage.setItem('forme-'+key,JSON.stringify(va
 const state={page:(location.hash||'#home').replace('#',''),foodTab:'library',favorites:load('favorites',{exercises:[],workouts:[]}),meal:load('current-meal',[]),savedMeals:load('saved-meals',[]),plan:load('plan',{}),datePlans:load('date-plans',{}),completed:load('completed-workouts',{}),planView:'week',planMonthOffset:0,planSelected:null,sound:load('sound',true),workoutFilters:{cat:'',level:'',maxTime:'',equip:''},exerciseFilters:{q:'',cat:'',level:'',equip:''},foodFilters:{q:'',cat:''},player:null};
 if(!state.completed||typeof state.completed!=='object'||Array.isArray(state.completed))state.completed={};
 if(!state.datePlans||typeof state.datePlans!=='object'||Array.isArray(state.datePlans))state.datePlans={};
-let toastTimeout=null,playerInterval=null,audioCtx=null;
+let toastTimeout=null,playerInterval=null,audioCtx=null,lastVisibleDate=localDateKey(new Date());
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=n=>Number(n).toLocaleString('bg-BG',{maximumFractionDigits:1});
 const byId=(arr,id)=>arr.find(x=>x.id===id);
@@ -154,7 +154,7 @@ function handleChange(event){const t=event.target;if(t.dataset.action==='plan-da
 document.addEventListener('click',handleClick);document.addEventListener('input',handleInput);document.addEventListener('change',handleChange);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modalRoot.innerHTML)closeModal();});
 window.addEventListener('hashchange',()=>{state.page=(location.hash||'#home').slice(1);renderPage();});
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)tickPlayer();});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){tickPlayer();const current=localDateKey(new Date());if(current!==lastVisibleDate){lastVisibleDate=current;if(state.page==='home'||state.page==='plan')renderPage();}}});
 document.getElementById('top-favorites').addEventListener('click',()=>navigate('favorites'));
 if(!nav.some(x=>x[0]===state.page))state.page='home';renderPage();
 })();
