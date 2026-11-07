@@ -57,3 +57,30 @@ test('successful meal save and deletion update both the list and stored data',()
  assert.doesNotMatch(a.nodes.app.innerHTML,/<h4>Обяд<\/h4>/);
  assert.equal(JSON.parse(initial['forme-saved-meals']).length,0);
 });
+
+test('failed weekly plan edits and clearing keep the previously saved plan visible',()=>{
+ const initial={'forme-plan':JSON.stringify({mon:'cal-start'})};const a=boot(true,initial);
+ assert.match(a.nodes.app.innerHTML,/1 от 7 дни/);
+ a.handlers.change({target:{dataset:{action:'plan-day',day:'mon'},value:''}});
+ assert.match(a.nodes.toast.textContent,/Неуспешно локално запазване/);
+ assert.match(a.nodes.app.innerHTML,/1 от 7 дни/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'clear-plan'}})}});
+ assert.match(a.nodes.app.innerHTML,/1 от 7 дни/);
+ assert.equal(JSON.parse(initial['forme-plan']).mon,'cal-start');
+});
+test('successful weekly plan clearing removes the saved plan',()=>{
+ const initial={'forme-plan':JSON.stringify({mon:'cal-start'})};const a=boot(false,initial);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'clear-plan'}})}});
+ assert.match(a.nodes.app.innerHTML,/0 от 7 дни/);
+ assert.deepEqual(JSON.parse(initial['forme-plan']),{});
+ assert.equal(a.nodes.toast.textContent,'Планът е изчистен.');
+});
+
+test('failed favorite changes keep the previously saved favorite state',()=>{
+ const initial={'forme-favorites':JSON.stringify({exercises:['Plank'],workouts:[]})};const a=boot(true,initial,'#favorites');
+ assert.match(a.nodes.app.innerHTML,/Планк/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'favorite',kind:'exercises',id:'Plank'}})}});
+ assert.match(a.nodes.toast.textContent,/Неуспешно локално запазване/);
+ assert.match(a.nodes.app.innerHTML,/Планк/);
+ assert.deepEqual(JSON.parse(initial['forme-favorites']).exercises,['Plank']);
+});
