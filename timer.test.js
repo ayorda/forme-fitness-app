@@ -3,21 +3,30 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 
-function boot(){
+function boot(language='bg'){
  let now=100000;const handlers={},nodes={};
  const element=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(){return element();}});
  const document={body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
  class Clock extends Date{static now(){return now;}}
  const window={addEventListener(){},scrollTo(){}};
- const context={window,document,localStorage:{getItem(){return null;},setItem(){}},location:{hash:'#home'},Date:Clock,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
+ const context={window,document,localStorage:{getItem(key){return key==='forme-language'?language:null;},setItem(){}},location:{hash:'#home'},Date:Clock,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(context);
- for(const file of ['exercise-art.js','data.js','core.js','food-art.js','app.js']){
+ const files=['exercise-art.js','data.js','core.js','food-art.js'];if(language!=='bg')files.push('i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');files.push('app.js');
+ for(const file of files){
   let source=fs.readFileSync(file,'utf8');
   if(file==='app.js')source=source.replace(/\}\)\(\);\s*$/, 'window.__timerTest={state,startWorkout,playerControl};})();');
   vm.runInContext(source,context,{filename:file});
  }
- return {run:code=>vm.runInContext('with(window.__timerTest){'+code+'}',context),advance:ms=>{now+=ms;},handlers};
+ return {run:code=>vm.runInContext('with(window.__timerTest){'+code+'}',context),advance:ms=>{now+=ms;},handlers,nodes};
 }
+test('timer translates controls while preserving workout steps and time',()=>{
+ for(const [language,workout,ready,pause] of [['en','Strong Foundation','READY?','Pause'],['de','Starke Grundlage','BEREIT?','Pause']]){
+  const a=boot(language);a.run("startWorkout('cal-start')");
+  assert.ok(a.nodes['player-layout'].innerHTML.includes(workout));assert.ok(a.nodes['player-layout'].innerHTML.includes(ready));
+  const steps=a.run('state.player.steps.length');a.run("playerControl('player-start')");
+  assert.ok(a.nodes['player-layout'].innerHTML.includes(pause));assert.equal(a.run('state.player.steps.length'),steps);
+ }
+});
 
 test('timer catches up through work and rest after the screen becomes visible',()=>{
  const a=boot();a.run("startWorkout('cal-start'); playerControl('player-start')");
