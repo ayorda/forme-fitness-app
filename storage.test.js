@@ -22,20 +22,51 @@ test('successful plan writes still show confirmation',()=>{
  assert.equal(a.nodes.toast.textContent,'Седмичният план е запазен.');
 });
 test('failed meal save does not claim the meal was saved',()=>{
- const a=boot(true);
- a.handlers.click({target:{closest:()=>({dataset:{action:'add-food',id:'rice'}})}});
+ const a=boot(true,{'forme-current-meal':JSON.stringify([{id:'rice',grams:'100'}])});
  a.nodes['meal-name']={value:'Обяд',focus(){}};
  a.handlers.click({target:{closest:()=>({dataset:{action:'save-meal'}})}});
  assert.match(a.nodes.toast.textContent,/Неуспешно локално запазване/);
 });
 
 test('failed meal save does not add an unsaved meal to the saved list',()=>{
- const a=boot(true,{},'#nutrition');
- a.handlers.click({target:{closest:()=>({dataset:{action:'add-food',id:'rice'}})}});
+ const a=boot(true,{'forme-current-meal':JSON.stringify([{id:'rice',grams:'100'}])},'#nutrition');
  a.nodes['meal-name']={value:'Обяд',focus(){}};
  a.handlers.click({target:{closest:()=>({dataset:{action:'save-meal'}})}});
  a.handlers.click({target:{closest:()=>({dataset:{action:'food-tab',tab:'saved'}})}});
  assert.doesNotMatch(a.nodes.app.innerHTML,/<h4>Обяд<\/h4>/);
+});
+test('failed meal add, remove and amount edits keep the visible and stored meal intact',()=>{
+ const initial={'forme-current-meal':JSON.stringify([{id:'rice',grams:'150'}])};const a=boot(true,initial,'#nutrition');
+ a.handlers.click({target:{closest:()=>({dataset:{action:'food-tab',tab:'meal'}})}});
+ a.handlers.click({target:{closest:()=>({dataset:{action:'add-food',id:'egg'}})}});
+ assert.match(a.nodes.toast.textContent,/Неуспешно локално запазване/);assert.doesNotMatch(a.nodes.app.innerHTML,/Премахни Яйце/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'remove-meal',index:'0'}})}});
+ assert.match(a.nodes.app.innerHTML,/Премахни Бял ориз/);
+ const field={dataset:{action:'meal-grams',index:'0'},value:'250',classList:{toggle(){}}};a.handlers.input({target:field});
+ assert.equal(field.value,'150');assert.equal(JSON.parse(initial['forme-current-meal'])[0].grams,'150');
+ assert.match(a.nodes['meal-totals'].innerHTML,/195/);
+});
+test('failed add from food details keeps the details open for retry',()=>{
+ const a=boot(true,{},'#nutrition');
+ a.handlers.click({target:{closest:()=>({dataset:{action:'food-detail',id:'rice'}})}});
+ a.nodes['detail-grams']={value:'100'};
+ a.handlers.click({target:{closest:()=>({dataset:{action:'detail-add-food',id:'rice'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/Бял ориз/);
+ assert.match(a.nodes.toast.textContent,/Неуспешно локално запазване/);
+ assert.doesNotMatch(a.nodes.app.innerHTML,/Твоите продукти/);
+});
+test('successful meal add, amount edit and remove persist in the same order',()=>{
+ const initial={};const a=boot(false,initial,'#nutrition');
+ a.handlers.click({target:{closest:()=>({dataset:{action:'add-food',id:'rice'}})}});
+ const field={dataset:{action:'meal-grams',index:'0'},value:'150',classList:{toggle(){}}};a.handlers.input({target:field});
+ assert.equal(JSON.parse(initial['forme-current-meal'])[0].grams,'150');
+ a.handlers.click({target:{closest:()=>({dataset:{action:'remove-meal',index:'0'}})}});
+ assert.deepEqual(JSON.parse(initial['forme-current-meal']),[]);
+});
+test('sound switch reverts when its setting cannot be saved',()=>{
+ const a=boot(true);const toggle={dataset:{action:'sound-toggle'},checked:false};
+ a.handlers.change({target:toggle});assert.equal(toggle.checked,true);
+ assert.match(a.nodes.toast.textContent,/Неуспешно локално запазване/);
 });
 test('failed deletion keeps the saved meal visible',()=>{
  const initial={'forme-saved-meals':JSON.stringify([{name:'Обяд',items:[{id:'rice',grams:100}]}])};
