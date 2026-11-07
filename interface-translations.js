@@ -104,7 +104,7 @@ const rows={
  'exercises.photoCredit':['Илюстративна снимка:','Illustrative photo:','Beispielbild:'],
  'exercises.photoCaveat':['Снимката показва един момент от движението, а не цялата техника.','The still photo shows one moment, not the full technique.','Das Standbild zeigt einen Moment, nicht die gesamte Technik.'],
  'exercises.weightedBench':['На снимката е показан вариант с допълнителна тежест.','The photo shows a variation with added weight.','Das Foto zeigt eine Variante mit Zusatzgewicht.'],
- 'exercises.photoResized':['Преоразмерена версия на оригинала.','Resized from the original.','Verkleinerte Version des Originals.'],
+ 'exercises.photoResized':['Преоразмерена и частично изрязана при показване.','Resized and partly cropped for display.','Für die Anzeige verkleinert und teilweise zugeschnitten.'],
  'exercises.demoSource':['Източник на демонстрацията','Demonstration source','Quelle der Demonstration'],
  'exercises.sourceOpen':['Отвори източника','Open source','Quelle öffnen'],
  'exercises.videoLabel':['Видео демонстрация: {exercise}','Video demonstration: {exercise}','Videodemonstration: {exercise}'],
