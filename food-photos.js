@@ -21,7 +21,8 @@ const photos=Object.freeze({
  salmon:Object.freeze({src:'https://images.pexels.com/photos/3296279/pexels-photo-3296279.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/photo-of-sliced-salmon-3296279/',credit:'cottonbro studio / Pexels'}),
  potato:Object.freeze({src:'https://images.pexels.com/photos/4110456/pexels-photo-4110456.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/top-photo-of-potatoes-4110456/',credit:'Polina Tankilevitch / Pexels'}),
  walnuts:Object.freeze({src:'https://images.pexels.com/photos/34415723/pexels-photo-34415723/free-photo-of-top-view-of-walnuts-in-a-white-bowl.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/top-view-of-walnuts-in-a-white-bowl-34415723/',credit:'Zulfugar Karimov / Pexels'}),
- oliveoil:Object.freeze({src:'https://images.pexels.com/photos/3737651/pexels-photo-3737651.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/clear-glass-bottle-with-liquid-3737651/',credit:'cottonbro studio / Pexels'})
+ oliveoil:Object.freeze({src:'https://images.pexels.com/photos/3737651/pexels-photo-3737651.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/clear-glass-bottle-with-liquid-3737651/',credit:'cottonbro studio / Pexels'}),
+ chocolate:Object.freeze({src:'https://images.pexels.com/photos/4113300/pexels-photo-4113300.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/close-up-shot-of-dark-chocolate-bars-4113300/',credit:'alleksana / Pexels'})
 });
 function get(id){return Object.prototype.hasOwnProperty.call(photos,id)?photos[id]:null;}
 root.FORME_FOOD_PHOTOS=Object.freeze({get});
