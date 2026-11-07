@@ -84,3 +84,21 @@ test('failed favorite changes keep the previously saved favorite state',()=>{
  assert.match(a.nodes.app.innerHTML,/Планк/);
  assert.deepEqual(JSON.parse(initial['forme-favorites']).exercises,['Plank']);
 });
+
+test('failed load keeps the current meal intact and leaves the saved list open',()=>{
+ const initial={'forme-current-meal':JSON.stringify([{id:'rice',grams:'150'}]),'forme-saved-meals':JSON.stringify([{name:'Яйца',items:[{id:'egg',grams:'100'}]}])};
+ const a=boot(true,initial,'#nutrition');
+ a.handlers.click({target:{closest:()=>({dataset:{action:'food-tab',tab:'saved'}})}});
+ a.handlers.click({target:{closest:()=>({dataset:{action:'load-meal',index:'0'}})}});
+ assert.match(a.nodes.toast.textContent,/Неуспешно локално запазване/);assert.match(a.nodes.app.innerHTML,/<h4>Яйца<\/h4>/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'food-tab',tab:'meal'}})}});
+ assert.match(a.nodes.app.innerHTML,/Премахни Бял ориз/);assert.doesNotMatch(a.nodes.app.innerHTML,/Премахни Яйце/);
+ assert.equal(JSON.parse(initial['forme-current-meal'])[0].id,'rice');
+});
+test('successful load replaces and persists the current meal',()=>{
+ const initial={'forme-current-meal':JSON.stringify([{id:'rice',grams:'150'}]),'forme-saved-meals':JSON.stringify([{name:'Яйца',items:[{id:'egg',grams:'100'}]}])};
+ const a=boot(false,initial,'#nutrition');
+ a.handlers.click({target:{closest:()=>({dataset:{action:'food-tab',tab:'saved'}})}});
+ a.handlers.click({target:{closest:()=>({dataset:{action:'load-meal',index:'0'}})}});
+ assert.match(a.nodes.app.innerHTML,/Премахни Яйце/);assert.equal(JSON.parse(initial['forme-current-meal'])[0].id,'egg');
+});
