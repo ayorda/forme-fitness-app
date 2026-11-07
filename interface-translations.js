@@ -2,6 +2,10 @@
 (function(root){
 'use strict';
 const rows={
+ 'media.aiVisual':['AI визуализация','AI visualisation','KI-Visualisierung'],
+ 'media.aiNotice':['AI генерирано изображение · проверена визуализация, не фотография','AI-generated image · reviewed visualisation, not a photograph','KI-generiertes Bild · geprüfte Visualisierung, kein Foto'],
+ 'media.awaitingImage':['Изображението предстои','Image coming soon','Bild folgt'],
+ 'media.visualAndInstructions':['Визуализация и инструкции','Visualisation and instructions','Visualisierung und Anleitung'],
  'overview.eyebrow':['ДНЕШНИЯТ ТИ НАПРЕДЪК','YOUR PROGRESS TODAY','DEIN FORTSCHRITT HEUTE'],
  'overview.title':['Общ преглед','Overview','Überblick'],
  'overview.workouts':['Тренировки тази седмица','Workouts this week','Trainings diese Woche'],
