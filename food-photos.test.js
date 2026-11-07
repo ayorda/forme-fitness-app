@@ -20,3 +20,8 @@ test('failed photo hides the image and label while leaving the original illustra
  assert.equal(photo.hidden,true);assert.equal(photo.nextElementSibling.hidden,true);assert.match(html,/<svg/);
  assert.equal(a.window.FORME_FOOD_PHOTOS.get('unknown'),null);assert.equal(a.window.FORME_FOOD_PHOTOS.get('constructor'),null);
 });
+test('the photo label appears only after the image loads',()=>{
+ const a=boot(),html=a.nodes['food-results'].innerHTML,tag=html.match(/<img class="food-photo"[^>]+>/)[0],handler=tag.match(/onload="([^"]+)"/)[1];
+ assert.match(html,/<span class="food-photo-tag" hidden>СНИМКА<\/span>/);
+ const photo={nextElementSibling:{hidden:true}};Function(handler).call(photo);assert.equal(photo.nextElementSibling.hidden,false);
+});
