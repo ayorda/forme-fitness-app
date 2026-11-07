@@ -64,7 +64,10 @@ test('translated food search keeps the USDA nutrient values and stable food IDs'
   const html=a.nodes['food-results'].innerHTML;
   assert.ok(html.includes(name));assert.match(html,/data-id="turkey"/);assert.match(html,/<strong>114<\/strong> kcal/);
   a.handlers.click({target:{closest:()=>({dataset:{action:'food-detail',id:'turkey'}})}});
-  assert.ok(a.nodes['modal-root'].innerHTML.includes(name));assert.match(a.nodes['modal-root'].innerHTML,/114 kcal/);
+  const detail=a.nodes['modal-root'].innerHTML;
+  assert.ok(detail.includes(name));assert.match(detail,/114 kcal/);
+  assert.match(detail,language==='en'?/<th>Nutrient<\/th>/:/<th>Nährwert<\/th>/);
+  assert.match(detail,language==='en'?/23.7 g/:/23,7 g/);
  }
 });
 test('meal calculator uses translated food state while keeping the same total',()=>{
