@@ -54,6 +54,9 @@ test('translated exercise search keeps stable IDs and preserves Bulgarian defaul
   assert.match(html,/data-id="Pullups"/);assert.ok(html.includes(name));assert.match(a.nodes.app.innerHTML,language==='en'?/Search exercises/:/Übung suchen/);
   a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Pullups'}})}});
   assert.ok(a.nodes['modal-root'].innerHTML.includes(name));
+  a.handlers.click({target:{closest:()=>({dataset:{action:'favorite',kind:'exercises',id:'Pullups'}})}});
+  assert.match(a.nodes.toast.textContent,language==='en'?/Added to favorites/:/Zu Favoriten hinzugefügt/);
+  assert.ok(JSON.parse(a.storage['forme-favorites']).exercises.includes('Pullups'));
  }
  const bg=createApp();assert.match(bg.nodes.app.innerHTML,/Търси упражнение/);
 });
