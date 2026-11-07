@@ -67,3 +67,12 @@ test('translated food search keeps the USDA nutrient values and stable food IDs'
   assert.ok(a.nodes['modal-root'].innerHTML.includes(name));assert.match(a.nodes['modal-root'].innerHTML,/114 kcal/);
  }
 });
+test('meal calculator uses translated food state while keeping the same total',()=>{
+ for(const [language,name,state] of [['en','Turkey breast','raw, meat only'],['de','Putenbrust','roh, nur Fleisch']]){
+  const a=createApp({'forme-language':language,'forme-current-meal':JSON.stringify([{id:'turkey',grams:'100'}])},true,'#nutrition');
+  a.handlers.click({target:{closest:()=>({dataset:{action:'food-tab',tab:'meal'}})}});
+  assert.ok(a.nodes.app.innerHTML.includes(name+' · '+state));
+  assert.match(a.nodes.app.innerHTML,/114 <span>kcal<\/span>/);
+  assert.match(a.nodes.app.innerHTML,/data-index="0"/);
+ }
+});
