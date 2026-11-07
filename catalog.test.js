@@ -64,6 +64,7 @@ test('translated exercise search keeps stable IDs and preserves Bulgarian defaul
 test('translated food search keeps the USDA nutrient values and stable food IDs',()=>{
  for(const [language,name] of [['en','Turkey breast'],['de','Putenbrust']]){
   const a=createApp({'forme-language':language},true,'#nutrition');
+  assert.match(a.nodes.app.innerHTML,language==='en'?/Raw and cooked weights are not interchangeable/:/Rohes und gegartes Gewicht sind nicht austauschbar/);
   a.handlers.input({target:{dataset:{filter:'foods',key:'q'},value:name}});
   const html=a.nodes['food-results'].innerHTML;
   assert.ok(html.includes(name));assert.match(html,/data-id="turkey"/);assert.match(html,/<strong>114<\/strong> kcal/);
