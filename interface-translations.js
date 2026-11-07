@@ -151,6 +151,9 @@ const rows={
  'nutrition.enterName':['Въведи име на храненето.','Enter a name for the meal.','Gib einen Namen für die Mahlzeit ein.'],
  'nutrition.addFirst':['Добави поне един продукт.','Add at least one food.','Füge mindestens ein Lebensmittel hinzu.'],
  'nutrition.savedMessage':['Храненето е запазено.','Meal saved.','Mahlzeit gespeichert.'],
+ 'nutrition.addedMessage':['Продуктът е добавен към храненето.','Food added to your meal.','Lebensmittel zur Mahlzeit hinzugefügt.'],
+ 'nutrition.loadedMessage':['Храненето е заредено.','Meal loaded.','Mahlzeit geladen.'],
+ 'nutrition.deletedMessage':['Запазеното хранене е изтрито.','Saved meal deleted.','Gespeicherte Mahlzeit gelöscht.'],
  'plan.heading':['Моят седмичен план','My weekly plan','Mein Wochenplan'],
  'plan.eyebrow':['ПЛАНИРАЙ СЕДМИЦАТА','PLAN YOUR WEEK','PLANE DEINE WOCHE'],
  'plan.subtitle':['Избери тренировка за всеки ден. Планът се повтаря всяка седмица.','Choose a workout for each day. The plan repeats every week.','Wähle für jeden Tag ein Training. Der Plan wiederholt sich jede Woche.'],
@@ -182,6 +185,11 @@ const rows={
  'plan.removeMark':['Премахни отметката','Remove completion mark','Abschlussmarkierung entfernen'],
  'plan.recorded':['Отбелязана като изпълнена: {workout}','Marked as completed: {workout}','Als abgeschlossen markiert: {workout}'],
  'plan.clearWeek':['Изчисти седмичния план','Clear weekly plan','Wochenplan löschen'],
+ 'plan.weekSavedMessage':['Седмичният план е запазен.','Weekly plan saved.','Wochenplan gespeichert.'],
+ 'plan.dateSavedMessage':['Планът за тази дата е запазен.','Plan for this date saved.','Plan für dieses Datum gespeichert.'],
+ 'plan.clearedMessage':['Планът е изчистен.','Plan cleared.','Plan gelöscht.'],
+ 'plan.doneMessage':['Тренировката е отбелязана като изпълнена.','Workout marked completed.','Training als abgeschlossen markiert.'],
+ 'plan.undoneMessage':['Отметката е премахната.','Completion mark removed.','Abschlussmarkierung entfernt.'],
  'plan.repeatInfo':['Седмичният план се повтаря, освен когато си избрал друго за конкретна дата. Само тренировките, които сам отбележиш, се записват като изпълнени на това устройство.','The weekly plan repeats unless you choose otherwise for a specific date. Only workouts you mark yourself are recorded as completed on this device.','Der Wochenplan wiederholt sich, sofern du für ein Datum nichts anderes wählst. Nur selbst markierte Trainings werden auf diesem Gerät als abgeschlossen gespeichert.'],
  'weekday.mon':['ПОН','MON','MO'],
  'weekday.tue':['ВТО','TUE','DI'],
@@ -224,6 +232,8 @@ const rows={
  'favorites.emptyExercises':['Няма любими упражнения','No favorite exercises','Keine Lieblingsübungen'],
  'favorites.add':['Добави в любими','Add to favorites','Zu Favoriten hinzufügen'],
  'favorites.remove':['Премахни от любими','Remove from favorites','Aus Favoriten entfernen'],
+ 'favorites.addedMessage':['Добавено в любими.','Added to favorites.','Zu Favoriten hinzugefügt.'],
+ 'favorites.removedMessage':['Премахнато от любими.','Removed from favorites.','Aus Favoriten entfernt.'],
  'storage.failed':['Неуспешно локално запазване. Промените може да се загубят при затваряне.','Could not save on this device. Changes may be lost when you close the app.','Speichern auf diesem Gerät fehlgeschlagen. Änderungen können beim Schließen verloren gehen.']
 };
 const index={bg:0,en:1,de:2};
