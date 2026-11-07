@@ -16,7 +16,7 @@ function boot(){
 
 test('verified stills include credits while the pending motion demonstration stays pending',()=>{
  const {window,nodes,handlers}=boot();
- for(const [id,credit] of [['Pushups','Nenad Stojković'],['Bodyweight_Squat','Peterlocicero'],['Chinups','Deziree Keay'],['Pullups','Abooyeah'],['Parallel_Bar_Dips','Jahlena Riveraroyer'],['Bench_Dips','Kenneth Abbate'],['Bar_Muscle_Up','Maksim Sokolov']]){
+ for(const [id,credit] of [['Pushups','Nenad Stojković'],['Bodyweight_Squat','Peterlocicero'],['Chinups','Deziree Keay'],['Pullups','Abooyeah'],['Parallel_Bar_Dips','Jahlena Riveraroyer'],['Bench_Dips','Kenneth Abbate'],['Bar_Muscle_Up','Maksim Sokolov'],['Human_Flag','Daniel Kaiser']]){
   const photo=window.FORME_EXERCISE_PHOTOS.get(id);assert.ok(photo.src.startsWith('https://'));assert.ok(photo.page.startsWith('https://commons.wikimedia.org/'));assert.ok(photo.licenseUrl.startsWith('https://'));
   handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id}})}});
   const html=nodes['modal-root'].innerHTML;
