@@ -4,12 +4,14 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 function boot(hash,storage){
  const handlers={},nodes={};
- const element=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(){return element();}});
- const document={body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
+ let focused='';
+ const closeButton={focus(){focused='close';}};
+ const element=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(selector){return selector==='.modal-close'?closeButton:element();}});
+ const document={activeElement:{isConnected:true,focus(){focused='trigger';}},body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
  const window={addEventListener(){},scrollTo(){}};
  const localStorage={getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;}};
  const c={window,document,localStorage,location:{hash},Date:class extends Date{getDay(){return 1;}},setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
- vm.createContext(c);for(const f of ['exercise-art.js','data.js','core.js','food-art.js','app.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});return {handlers,nodes};
+ vm.createContext(c);for(const f of ['exercise-art.js','data.js','core.js','food-art.js','app.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});return {handlers,nodes,focused:()=>focused,document};
 }
 test('a workout saved in the weekly plan appears on home after reopening',()=>{
  const storage={};const a=boot('#plan',storage);
@@ -24,4 +26,12 @@ test('existing favorites and saved meals remain readable when the new catalog lo
  const storage={'forme-favorites':JSON.stringify({workouts:['cal-start'],exercises:['Plank']}),'forme-saved-meals':JSON.stringify([{name:'Тест',items:[{id:'rice',grams:150}]}])};
  const a=boot('#favorites',storage);assert.match(a.nodes.app.innerHTML,/Силна основа/);assert.match(a.nodes.app.innerHTML,/Планк/);
  assert.equal(JSON.parse(storage['forme-saved-meals'])[0].name,'Тест');
+});
+
+test('opening and closing details moves keyboard focus and restores it',()=>{
+ const a=boot('#exercises',{});
+ a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Plank'}})}});
+ assert.equal(a.focused(),'close');assert.equal(a.document.body.style.overflow,'hidden');
+ a.handlers.keydown({key:'Escape'});
+ assert.equal(a.focused(),'trigger');assert.equal(a.nodes['modal-root'].innerHTML,'');assert.equal(a.document.body.style.overflow,'');
 });
