@@ -36,3 +36,12 @@ test('new exercise details show requirements and can be saved as favorite',()=>{
  assert.ok(JSON.parse(a.storage['forme-favorites']).exercises.includes('Iron_Cross'));
  const b=createApp(a.storage);assert.match(b.nodes['exercise-results'].innerHTML,/Премахни от любими/);
 });
+
+test('squat withholds its inaccurate illustration until a verified demonstration is available',()=>{
+ const a=createApp();
+ a.handlers.input({target:{dataset:{filter:'exercises',key:'q'},value:'Клек със собствено тегло'}});
+ const html=a.nodes['exercise-results'].innerHTML;
+ assert.match(html,/Клек със собствено тегло/);assert.match(html,/ДЕМОНСТРАЦИЯТА ПРЕДСТОИ/);assert.doesNotMatch(html,/bodyweight-squat/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Bodyweight_Squat'}})}});
+ const detail=a.nodes['modal-root'].innerHTML;assert.match(detail,/Как се изпълнява/);assert.match(detail,/ДЕМОНСТРАЦИЯТА ПРЕДСТОИ/);assert.doesNotMatch(detail,/<img/);
+});
