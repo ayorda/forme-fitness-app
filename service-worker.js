@@ -1,5 +1,5 @@
-const CACHE = 'forme-mobile-v027-progress';
-const ASSETS = ['./', './index.html', './styles.css', './app.js', './data.js', './exercise-art.js', './exercise-photos.js', './core.js', './food-art.js', './food-photos.js', './i18n.js', './interface-translations.js', './exercise-translations.js', './food-translations.js', './workout-translations.js', './locale-content.js', './progress.js', './programs.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+const CACHE = 'forme-mobile-v028-nutrition';
+const ASSETS = ['./', './index.html', './styles.css', './app.js', './data.js', './exercise-art.js', './exercise-photos.js', './core.js', './food-art.js', './food-photos.js', './i18n.js', './interface-translations.js', './exercise-translations.js', './food-translations.js', './workout-translations.js', './locale-content.js', './storage-schema.js', './progress.js', './programs.js', './nutrition-journal.js', './backup.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
 });

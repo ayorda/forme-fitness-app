@@ -24,13 +24,16 @@ test('Mobile navigation is above the main content in document order', () => {
   assert.equal((html.match(/id="mobile-nav"/g) || []).length, 1);
 });
 
-test('v0.2.7 loads original art and progress modules into the offline cache',()=>{
+test('v0.2.8 loads activity and nutrition modules into the offline cache',()=>{
  const artPos=html.indexOf('<script src="exercise-art.js"></script>');
  const dataPos=html.indexOf('<script src="data.js"></script>');
  assert.ok(artPos>=0&&artPos<dataPos);
- assert.ok(sw.includes('forme-mobile-v027-progress'));
+ assert.ok(sw.includes('forme-mobile-v028-nutrition'));
  assert.ok(sw.includes('exercise-art.js'));
  assert.ok(sw.includes('progress.js'));
  assert.ok(sw.includes('programs.js'));
+ assert.ok(sw.includes('storage-schema.js'));
+ assert.ok(sw.includes('nutrition-journal.js'));
+ assert.ok(sw.includes('backup.js'));
  assert.ok(fs.existsSync('exercise-art.js'));
 });

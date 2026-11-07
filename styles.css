@@ -204,3 +204,14 @@
 .progress-entry small{color:var(--muted);margin-top:5px}
 @media(max-width:780px){.progress-stats{gap:7px}.progress-stats .panel{padding:12px 9px}.progress-stats strong{font-size:20px}.mobile-nav{grid-template-columns:repeat(6,minmax(0,1fr))}.mobile-nav .nav-name{white-space:nowrap;font-size:8px}}
 @media(max-width:400px){.progress-stats{grid-template-columns:repeat(2,1fr)}.progress-stats .panel:last-child{grid-column:span 2}.mobile-nav .nav-item{padding-left:0;padding-right:0}}
+/* Daily nutrition journal and local backup controls. */
+.home-progress{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:20px 0}
+.home-progress p{margin:5px 0}.home-progress strong{color:var(--text)}.home-progress-actions{display:flex;gap:9px;flex-wrap:wrap}
+.journal-panel{margin-bottom:16px}.journal-panel h3{margin-bottom:10px}.journal-panel input{background:#1b2821;border:1px solid #425a45;border-radius:9px;color:var(--text);min-height:41px;padding:8px 10px;max-width:100%}
+.journal-total{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;margin:16px 0}.journal-total strong{font:700 30px var(--display)}.journal-total span{color:var(--muted);font-size:13px}
+.journal-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}.journal-week>div{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0;font-size:10px}.journal-week .progress-bar{height:72px}.journal-week small{color:var(--muted)}
+.journal-goal-fields{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}.journal-goal-fields label{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:12px}
+.journal-entry{display:flex;justify-content:space-between;gap:15px;padding:15px 0;border-bottom:1px solid var(--line)}.journal-entry:last-child{border:0}.journal-entry small,.journal-entry span{display:block;color:var(--muted);margin-top:5px}.journal-entry>div:last-child{display:flex;align-items:center;gap:6px}
+.backup-panel{margin-top:25px}.backup-import{display:inline-flex;align-items:center;position:relative;overflow:hidden;margin-left:8px}.backup-import input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+@media(max-width:780px){.home-progress{align-items:flex-start;flex-direction:column}.journal-entry{flex-direction:column}.journal-week{gap:3px}.journal-week small{font-size:9px}.backup-import{margin-top:8px}}
+@media(max-width:780px){.tabs .tab:last-child{grid-column:auto}}
