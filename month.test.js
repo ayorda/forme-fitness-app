@@ -2,13 +2,14 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
-function boot(saved={},blocked=false){
+function boot(saved={},blocked=false,translated=false){
  const handlers={},nodes={},storage={'forme-plan':JSON.stringify({mon:'cal-start'}),...saved};
  const element=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(){return element();}});
  const document={body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
  let now=new Date(2024,1,15,12);class Clock extends Date{constructor(...args){super(...(args.length?args:[now]));}}
  const context={window:{addEventListener(type,fn){handlers['window:'+type]=fn;},scrollTo(){}},document,localStorage:{getItem:k=>storage[k]??null,setItem:(k,v)=>{if(blocked)throw Error('blocked');storage[k]=v;}},location:{hash:'#plan'},Date:Clock,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
- vm.createContext(context);for(const f of ['exercise-art.js','data.js','core.js','food-art.js','app.js'])vm.runInContext(fs.readFileSync(f,'utf8'),context,{filename:f});
+ const files=['exercise-art.js','data.js','core.js','food-art.js'];if(translated)files.push('i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');files.push('app.js');
+ vm.createContext(context);for(const f of files)vm.runInContext(fs.readFileSync(f,'utf8'),context,{filename:f});
  const click=dataset=>handlers.click({target:{closest:()=>({dataset})}});
  return {nodes,storage,click,handlers,advanceDay(){now=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,12);}};
 }
@@ -19,6 +20,16 @@ test('monthly view maps saved weekly workouts onto a leap-year month',()=>{
  assert.match(a.nodes.app.innerHTML,/data-date="5"[^>]*aria-label="5 февруари 2024 г\.: Силна основа/);
  assert.match(a.nodes.app.innerHTML,/Само тренировките, които сам отбележиш/);
  assert.equal(JSON.parse(a.storage['forme-plan']).mon,'cal-start');
+});
+test('monthly calendar translates saved workout IDs and completion names',()=>{
+ for(const [language,month,workout] of [['en','February 2024','Strong Foundation'],['de','Februar 2024','Starke Grundlage']]){
+  const a=boot({'forme-language':language,'forme-completed-workouts':JSON.stringify({'2024-02-05':{id:'cal-start',name:'Силна основа'}})},false,true);
+  a.click({action:'plan-view',view:'month'});
+  assert.ok(a.nodes.app.innerHTML.includes(month));assert.match(a.nodes.app.innerHTML,new RegExp('data-date="5"[^>]*'+workout));
+  a.click({action:'plan-date',date:'5'});
+  assert.ok(a.nodes.app.innerHTML.includes(workout));assert.doesNotMatch(a.nodes.app.innerHTML,/Отбелязана като изпълнена: Силна основа/);
+  assert.equal(JSON.parse(a.storage['forme-completed-workouts'])['2024-02-05'].id,'cal-start');
+ }
 });
 test('selecting a day offers the scheduled workout and month navigation clears selection',()=>{
  const a=boot();a.click({action:'plan-view',view:'month'});a.click({action:'plan-date',date:'5'});
