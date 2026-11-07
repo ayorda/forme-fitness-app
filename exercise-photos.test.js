@@ -20,7 +20,7 @@ test('verified stills include credits while the pending motion demonstration sta
   const photo=window.FORME_EXERCISE_PHOTOS.get(id);assert.ok(photo.src.startsWith('https://'));assert.ok(photo.page.startsWith('https://commons.wikimedia.org/'));assert.ok(photo.licenseUrl.startsWith('https://'));
   handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id}})}});
   const html=nodes['modal-root'].innerHTML;
-  assert.match(html,new RegExp(credit));assert.match(html,/Снимката показва един момент от движението/);assert.match(html,/Видео демонстрацията предстои/);assert.match(html,/Преоразмерена версия/);
+  assert.match(html,new RegExp(credit));assert.match(html,/Снимката показва един момент от движението/);assert.match(html,/Видео демонстрацията предстои/);assert.match(html,/Преоразмерена и частично изрязана/);
  }
  handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Bodyweight_Squat'}})}});
  assert.match(nodes['modal-root'].innerHTML,/ДЕМОНСТРАЦИЯТА ПРЕДСТОИ/);
