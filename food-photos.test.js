@@ -1,0 +1,22 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+function boot(){
+ const handlers={},nodes={};const element=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(){return element();}});
+ const document={body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
+ const window={addEventListener(){},scrollTo(){}};const c={window,document,localStorage:{getItem(){return null;},setItem(){}},location:{hash:'#nutrition'},setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
+ vm.createContext(c);for(const f of ['exercise-art.js','data.js','core.js','food-art.js','food-photos.js','app.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});return {handlers,nodes,window};
+}
+test('selected food photos supplement the offline illustration and show source credit',()=>{
+ const a=boot(),html=a.nodes['food-results'].innerHTML;
+ assert.match(html,/pexels-photo-17563535/);assert.match(html,/pexels-photo-6107734/);assert.match(html,/<svg/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'food-detail',id:'rice'}})}});
+ const modal=a.nodes['modal-root'].innerHTML;assert.match(modal,/Илюстративна снимка/);assert.match(modal,/Jubair Bin Iqbal \/ Pexels/);assert.match(modal,/сварен/);
+});
+test('failed photo hides the image and label while leaving the original illustration',()=>{
+ const a=boot(),html=a.nodes['food-results'].innerHTML,tag=html.match(/<img class="food-photo"[^>]+>/)[0],handler=tag.match(/onerror="([^"]+)"/)[1];
+ const photo={hidden:false,nextElementSibling:{hidden:false}};Function(handler).call(photo);
+ assert.equal(photo.hidden,true);assert.equal(photo.nextElementSibling.hidden,true);assert.match(html,/<svg/);
+ assert.equal(a.window.FORME_FOOD_PHOTOS.get('unknown'),null);assert.equal(a.window.FORME_FOOD_PHOTOS.get('constructor'),null);
+});
