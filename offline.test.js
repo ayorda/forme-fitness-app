@@ -25,7 +25,7 @@ test('installation caches the app and activation removes only old FORME caches',
   assert.equal(a.skipped,true);assert.equal(a.claimed,true);
   assert.equal(a.stored.has('forme-old'),false);assert.equal(a.stored.has('unrelated-app'),true);
   const cache=[...a.stored.entries()].find(([name])=>name.startsWith('forme-mobile-'))[1];
-  for(const asset of ['./index.html','./app.js','./data.js','./styles.css','./i18n.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);
+  for(const asset of ['./index.html','./app.js','./data.js','./styles.css','./i18n.js','./exercise-translations.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);
 });
 
 test('offline navigation opens the saved app and external requests are left alone',async()=>{
