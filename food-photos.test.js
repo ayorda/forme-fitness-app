@@ -36,3 +36,15 @@ test('Wikimedia photos show author, license and display modifications',()=>{
  assert.match(a.nodes['food-results'].innerHTML,/CC BY-SA 3.0/);
  const cottage=a.window.FORME_FOOD_PHOTOS.get('cottage');assert.match(cottage.credit,/USDA/);
 });
+
+test('lentil image identifies the onion as separate from nutrition values',()=>{
+ const a=boot();a.handlers.click({target:{closest:()=>({dataset:{action:'food-detail',id:'lentils'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/На снимката има лук; стойностите са само за сварена леща без сол/);
+ assert.match(a.nodes['food-results'].innerHTML,/На снимката има лук/);
+});
+
+test('yogurt image discloses garnish and unconfirmed variety',()=>{
+ const a=boot();a.handlers.click({target:{closest:()=>({dataset:{action:'food-detail',id:'greek'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/Снимката показва кисело мляко с мента/);
+ assert.match(a.nodes['food-results'].innerHTML,/видът и маслеността не са потвърдени/);
+});
