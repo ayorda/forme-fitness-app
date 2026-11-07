@@ -112,7 +112,7 @@ function handleClick(event){const target=event.target.closest('[data-action]');i
  if(action==='nav'){navigate(target.dataset.page);return;}
  if(action==='go-meal'){state.foodTab='meal';navigate('nutrition');return;}
  if(action==='category'){state.workoutFilters.cat=target.dataset.cat;navigate('sessions');return;}
- if(action==='favorite'){const kind=target.dataset.kind;const arr=state.favorites[kind];const idx=arr.indexOf(id);if(idx>=0)arr.splice(idx,1);else arr.push(id);const saved=save('favorites',state.favorites);renderPage();if(saved)toast(idx>=0?'Премахнато от любими.':'Добавено в любими.');return;}
+ if(action==='favorite'){const kind=target.dataset.kind;if(!['exercises','workouts'].includes(kind))return;const arr=state.favorites[kind],idx=arr.indexOf(id),updated={...state.favorites,[kind]:idx>=0?arr.filter(x=>x!==id):[...arr,id]};if(save('favorites',updated)){state.favorites=updated;toast(idx>=0?'Премахнато от любими.':'Добавено в любими.');}renderPage();return;}
  if(action==='start-workout'){startWorkout(id);return;}
  if(action==='exercise-detail'){exerciseDetail(id);return;}
  if(action==='food-detail'){foodDetail(id);return;}
@@ -143,14 +143,14 @@ function handleClick(event){const target=event.target.closest('[data-action]');i
   if(value==='weekly')delete updated[key];else if(value==='rest')updated[key]='';else if(typeof value==='string'&&value.startsWith('workout:')&&byId(workouts,value.slice(8)))updated[key]=value.slice(8);else return;
   if(save('date-plans',updated)){state.datePlans=updated;toast('Планът за тази дата е запазен.');}renderPage();document.getElementById('month-date-'+state.planSelected)?.focus?.();return;
  }
- if(action==='clear-plan'){state.plan={};const saved=save('plan',state.plan);renderPage();if(saved)toast('Планът е изчистен.');return;}
+ if(action==='clear-plan'){const updated={};if(!save('plan',updated))return;state.plan=updated;renderPage();toast('Планът е изчистен.');return;}
  if(action.startsWith('player-')&&action!=='player-setting'){playerControl(action);return;}
 }
 function handleInput(event){const t=event.target;if(t.dataset.filter){const group=t.dataset.filter,key=t.dataset.key;const dest=group==='workouts'?state.workoutFilters:group==='exercises'?state.exerciseFilters:state.foodFilters;dest[key]=t.value;if(group==='workouts')renderWorkoutResults();if(group==='exercises')renderExerciseResults();if(group==='foods')renderFoodResults();return;}
  if(t.dataset.action==='meal-grams'){const i=Number(t.dataset.index);state.meal[i].grams=t.value;save('current-meal',state.meal);const v=C.validateGrams(t.value);t.classList.toggle('invalid',!v.ok);const error=document.getElementById('meal-error-'+i);if(error)error.textContent=v.ok?'':v.message;const totals=document.getElementById('meal-totals');if(totals)totals.innerHTML=mealTotals();return;}
  if(t.dataset.action==='detail-grams'){const f=byId(foods,t.dataset.id),v=C.validateGrams(t.value);document.getElementById('detail-error').textContent=v.ok?'':v.message;document.getElementById('detail-table').innerHTML=v.ok?nutritionTable(f,v.grams):'';return;}
 }
-function handleChange(event){const t=event.target;if(t.dataset.action==='plan-day'){state.plan[t.dataset.day]=t.value;const saved=save('plan',state.plan);renderPage();if(saved)toast('Седмичният план е запазен.');return;}
+function handleChange(event){const t=event.target;if(t.dataset.action==='plan-day'){const updated={...state.plan,[t.dataset.day]:t.value};if(save('plan',updated)){state.plan=updated;toast('Седмичният план е запазен.');}renderPage();return;}
  if(t.dataset.action==='sound-toggle'){state.sound=t.checked;save('sound',state.sound);return;}
  if(t.dataset.action==='player-setting'){const p=state.player;if(!p||p.started)return;const v=Number(t.value);if(!Number.isFinite(v)||v<5||v>600){toast('Избери между 5 и 600 секунди.');t.value=p[t.dataset.key]/1000;return;}p[t.dataset.key]=v*1000;if(t.dataset.key==='workMs')p.remainingMs=p.workMs;renderPlayer();return;}
 }
