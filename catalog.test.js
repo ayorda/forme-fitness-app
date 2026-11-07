@@ -11,7 +11,7 @@ function createApp(saved={},translated=false,page='#exercises'){
  const localStorage={getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;}};
  const c={window,document,localStorage,location:{hash:page},setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(c);
- const files=['exercise-art.js','data.js','core.js','food-art.js'];if(translated)files.push('i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');files.push('app.js');
+ const files=['exercise-art.js','data.js','core.js','food-art.js'];if(translated)files.push('food-photos.js','i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');files.push('app.js');
  for(const f of files)vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
  return {handlers,nodes,storage};
 }
@@ -87,5 +87,14 @@ test('weekly plan shows localized workout names without changing saved IDs',()=>
   const saved=JSON.stringify({mon:'cal-start'}),a=createApp({'forme-language':language,'forme-plan':saved},true,'#plan');
   assert.ok(a.nodes.app.innerHTML.includes(heading));assert.ok(a.nodes.app.innerHTML.includes(workout));
   assert.match(a.nodes.app.innerHTML,/value="cal-start" selected/);assert.equal(a.storage['forme-plan'],saved);
+ }
+});
+test('photo notes preserve ingredient and nutrient caveats in each language',()=>{
+ for(const [language,onion,mint] of [['en','photo includes onions','yogurt with mint'],['de','Foto enthält Zwiebeln','Joghurt mit Minze']]){
+  const a=createApp({'forme-language':language},true,'#nutrition');
+  a.handlers.input({target:{dataset:{filter:'foods',key:'q'},value:language==='en'?'Lentils':'Linsen'}});
+  assert.ok(a.nodes['food-results'].innerHTML.includes(onion));
+  a.handlers.input({target:{dataset:{filter:'foods',key:'q'},value:language==='en'?'Greek yogurt':'Griechischer Joghurt'}});
+  assert.ok(a.nodes['food-results'].innerHTML.includes(mint));
  }
 });
