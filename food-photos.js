@@ -13,7 +13,9 @@ const photos=Object.freeze({
  tomato:Object.freeze({src:'https://images.pexels.com/photos/38444066/pexels-photo-38444066/free-photo-of-fresh-red-tomatoes-on-white-background.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/fresh-red-tomatoes-on-white-background-38444066/',credit:'mackling / Pexels'}),
  cucumber:Object.freeze({src:'https://images.pexels.com/photos/8755152/pexels-photo-8755152.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/sliced-cucumber-on-white-table-8755152/',credit:'Tamanna Rumee / Pexels'}),
  apple:Object.freeze({src:'https://images.pexels.com/photos/16719840/pexels-photo-16719840/free-photo-of-close-up-of-yellow-apples.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/close-up-of-yellow-apples-16719840/',credit:'Ulrick Trappschuh / Pexels'}),
- orange:Object.freeze({src:'https://images.pexels.com/photos/54369/pexels-photo-54369.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/orange-fruit-54369/',credit:'Maria Victoria Portelles / Pexels'})
+ orange:Object.freeze({src:'https://images.pexels.com/photos/54369/pexels-photo-54369.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/orange-fruit-54369/',credit:'Maria Victoria Portelles / Pexels'}),
+ carrot:Object.freeze({src:'https://images.pexels.com/photos/6740693/pexels-photo-6740693.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/bunch-of-carrots-on-white-table-6740693/',credit:'Dziana Hasanbekava / Pexels'}),
+ spinach:Object.freeze({src:'https://images.pexels.com/photos/6824475/pexels-photo-6824475.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/green-leaves-with-water-droplets-in-the-strainer-6824475/',credit:'Eva Bronzini / Pexels'})
 });
 function get(id){return Object.prototype.hasOwnProperty.call(photos,id)?photos[id]:null;}
 root.FORME_FOOD_PHOTOS=Object.freeze({get});
