@@ -1,5 +1,5 @@
-const CACHE = 'forme-mobile-v025-combined14';
-const ASSETS = ['./', './index.html', './styles.css', './app.js', './data.js', './exercise-art.js', './core.js', './food-art.js', './i18n.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+const CACHE = 'forme-mobile-v025-combined15';
+const ASSETS = ['./', './index.html', './styles.css', './app.js', './data.js', './exercise-art.js', './core.js', './food-art.js', './i18n.js', './exercise-translations.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
 });
