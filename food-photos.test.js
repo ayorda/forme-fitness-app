@@ -25,3 +25,14 @@ test('the photo label appears only after the image loads',()=>{
  assert.match(html,/<span class="food-photo-tag" hidden>СНИМКА<\/span>/);
  const photo={nextElementSibling:{hidden:true}};Function(handler).call(photo);assert.equal(photo.nextElementSibling.hidden,false);
 });
+
+test('Wikimedia photos show author, license and display modifications',()=>{
+ const a=boot();
+ for(const [id,author,license] of [['quinoa','ProjectManhattan','CC BY-SA 3.0'],['brownrice','Estwordenn','CC BY-SA 4.0'],['peanutbutter','PiccoloNamek','CC BY-SA 3.0']]){
+  const photo=a.window.FORME_FOOD_PHOTOS.get(id);assert.ok(photo.src.startsWith('https://thumb.wikimedia.org/'));
+  a.handlers.click({target:{closest:()=>({dataset:{action:'food-detail',id}})}});
+  const html=a.nodes['modal-root'].innerHTML;assert.match(html,new RegExp(author));assert.match(html,new RegExp(license.replaceAll('.','\\.')));assert.match(html,/Преоразмерена и частично изрязана/);assert.ok(html.includes(photo.licenseUrl));
+ }
+ assert.match(a.nodes['food-results'].innerHTML,/CC BY-SA 3.0/);
+ const cottage=a.window.FORME_FOOD_PHOTOS.get('cottage');assert.match(cottage.credit,/USDA/);
+});
