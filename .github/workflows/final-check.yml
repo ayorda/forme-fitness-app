@@ -17,14 +17,22 @@ jobs:
         with:
           node-version: "22"
       - name: Automated app and PWA tests
-        run: node --test test.js pwa.test.js
+        run: node --test test.js pwa.test.js food-art.test.js plan.test.js catalog.test.js home.test.js integration.test.js media.test.js offline.test.js timer.test.js i18n.test.js storage.test.js month.test.js hero.test.js exercise-translations.test.js food-translations.test.js workout-translations.test.js interface-translations.test.js locale-content.test.js food-photos.test.js exercise-photos.test.js
       - name: Parse all JavaScript files
         run: |
           node --check data.js
           node --check app.js
           node --check core.js
           node --check exercise-art.js
+          node --check exercise-photos.js
           node --check food-art.js
+          node --check i18n.js
+          node --check exercise-translations.js
+          node --check food-translations.js
+          node --check workout-translations.js
+          node --check interface-translations.js
+          node --check locale-content.js
+          node --check food-photos.js
           node --check service-worker.js
 
   official-usda-audit:
