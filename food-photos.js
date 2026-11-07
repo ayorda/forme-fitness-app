@@ -11,7 +11,9 @@ const photos=Object.freeze({
  avocado:Object.freeze({src:'https://images.pexels.com/photos/1759055/pexels-photo-1759055.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/selective-focus-photography-of-sliced-avocado-1759055/',credit:'Lisa Fotios / Pexels'}),
  oats:Object.freeze({src:'https://images.pexels.com/photos/7655896/pexels-photo-7655896.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/oat-flakes-on-a-wooden-spoon-7655896/',credit:'Cup of Couple / Pexels'}),
  tomato:Object.freeze({src:'https://images.pexels.com/photos/38444066/pexels-photo-38444066/free-photo-of-fresh-red-tomatoes-on-white-background.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/fresh-red-tomatoes-on-white-background-38444066/',credit:'mackling / Pexels'}),
- cucumber:Object.freeze({src:'https://images.pexels.com/photos/8755152/pexels-photo-8755152.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/sliced-cucumber-on-white-table-8755152/',credit:'Tamanna Rumee / Pexels'})
+ cucumber:Object.freeze({src:'https://images.pexels.com/photos/8755152/pexels-photo-8755152.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/sliced-cucumber-on-white-table-8755152/',credit:'Tamanna Rumee / Pexels'}),
+ apple:Object.freeze({src:'https://images.pexels.com/photos/16719840/pexels-photo-16719840/free-photo-of-close-up-of-yellow-apples.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/close-up-of-yellow-apples-16719840/',credit:'Ulrick Trappschuh / Pexels'}),
+ orange:Object.freeze({src:'https://images.pexels.com/photos/54369/pexels-photo-54369.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/orange-fruit-54369/',credit:'Maria Victoria Portelles / Pexels'})
 });
 function get(id){return Object.prototype.hasOwnProperty.call(photos,id)?photos[id]:null;}
 root.FORME_FOOD_PHOTOS=Object.freeze({get});
