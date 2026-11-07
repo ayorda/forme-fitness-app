@@ -8,7 +8,7 @@ const art=fs.readFileSync('exercise-art.js','utf8');
 const planFunction=app.slice(app.indexOf('function planPage()'),app.indexOf('function favoritesPage()'));
 
 function render(plan, weekday){
-  const context={window:{},state:{plan},pageHeading:()=>'',days:[['mon','ПОН'],['tue','ВТО'],['wed','СРЯ'],['thu','ЧЕТ'],['fri','ПЕТ'],['sat','СЪБ'],['sun','НЕД']],cats:{cal:'Калистеника',yoga:'Йога',mobility:'Мобилност'},Date:class extends Date {getDay(){return weekday;}}};
+  const context={window:{},state:{plan},pageHeading:()=>'',textFor:(_key,fallback)=>fallback,contentFor:(_kind,item)=>item,esc:s=>String(s),days:[['mon','ПОН'],['tue','ВТО'],['wed','СРЯ'],['thu','ЧЕТ'],['fri','ПЕТ'],['sat','СЪБ'],['sun','НЕД']],cats:{cal:'Калистеника',yoga:'Йога',mobility:'Мобилност'},Date:class extends Date {getDay(){return weekday;}}};
   vm.createContext(context);
   vm.runInContext(art,context);vm.runInContext(data,context);
   context.workouts=context.window.FORME_DATA.workouts;
