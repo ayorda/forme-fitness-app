@@ -19,7 +19,9 @@ const photos=Object.freeze({
  strawberry:Object.freeze({src:'https://images.pexels.com/photos/7937387/pexels-photo-7937387.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/fresh-strawberries-in-bowl-7937387/',credit:'Nicola Barts / Pexels'}),
  blueberry:Object.freeze({src:'https://images.pexels.com/photos/10856281/pexels-photo-10856281.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/blueberries-in-a-bowl-10856281/',credit:'Patricio Nahuelhual / Pexels'}),
  salmon:Object.freeze({src:'https://images.pexels.com/photos/3296279/pexels-photo-3296279.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/photo-of-sliced-salmon-3296279/',credit:'cottonbro studio / Pexels'}),
- potato:Object.freeze({src:'https://images.pexels.com/photos/4110456/pexels-photo-4110456.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/top-photo-of-potatoes-4110456/',credit:'Polina Tankilevitch / Pexels'})
+ potato:Object.freeze({src:'https://images.pexels.com/photos/4110456/pexels-photo-4110456.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/top-photo-of-potatoes-4110456/',credit:'Polina Tankilevitch / Pexels'}),
+ walnuts:Object.freeze({src:'https://images.pexels.com/photos/34415723/pexels-photo-34415723/free-photo-of-top-view-of-walnuts-in-a-white-bowl.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/top-view-of-walnuts-in-a-white-bowl-34415723/',credit:'Zulfugar Karimov / Pexels'}),
+ oliveoil:Object.freeze({src:'https://images.pexels.com/photos/3737651/pexels-photo-3737651.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/clear-glass-bottle-with-liquid-3737651/',credit:'cottonbro studio / Pexels'})
 });
 function get(id){return Object.prototype.hasOwnProperty.call(photos,id)?photos[id]:null;}
 root.FORME_FOOD_PHOTOS=Object.freeze({get});
