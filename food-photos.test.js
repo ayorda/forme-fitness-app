@@ -10,7 +10,7 @@ function boot(){
 }
 test('selected food photos supplement the offline illustration and show source credit',()=>{
  const a=boot(),html=a.nodes['food-results'].innerHTML;
- assert.match(html,/pexels-photo-17563535/);assert.match(html,/pexels-photo-6107734/);assert.match(html,/<svg/);
+ for(const id of ['17563535','6107734','4451847','7890027','6294255','4753649','1759055','7655896'])assert.match(html,new RegExp('pexels-photo-'+id));assert.match(html,/<svg/);
  a.handlers.click({target:{closest:()=>({dataset:{action:'food-detail',id:'rice'}})}});
  const modal=a.nodes['modal-root'].innerHTML;assert.match(modal,/Илюстративна снимка/);assert.match(modal,/Jubair Bin Iqbal \/ Pexels/);assert.match(modal,/сварен/);
 });
