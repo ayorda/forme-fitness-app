@@ -4,7 +4,6 @@
 (function(){
 const repdb={
 Pushups:['push-up','peak','start'],
-Bodyweight_Squat:['bodyweight-squat','start','peak'],
 Plank:['plank','main'],
 Pullups:['pull-up','start','peak'],
 Bench_Dips:['bench-dips','start','peak'],
@@ -20,6 +19,8 @@ Shoulder_Stretch:['cross-body-shoulder-stretch','main']
 };
 const repdbImg=(slug,pose)=>`https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/${slug}-${pose}.webp`;
 const E=(id,name,cat,level,equip,description,steps,easier)=>{
+  // The previous squat illustration was found inaccurate and is withheld pending review.
+  if(id==='Bodyweight_Squat')return {id,name,cat,level,equip,description,steps,easier,photo:'',photo2:'',source:'',artSource:'',demoPending:true};
   const rep=repdb[id];
   const custom=window.FORME_EXERCISE_ART&&window.FORME_EXERCISE_ART.url(id);
   if(!rep&&!custom)throw Error('Липсва проверена демонстрация за: '+id);
