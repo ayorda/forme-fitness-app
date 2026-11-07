@@ -17,10 +17,13 @@ test('rest days and missing workout IDs show an honest empty state',()=>{
 test('prepared English and German home content renders without changing workout IDs',()=>{
  for(const [language,heading,workout] of [['en','Where would you like to start?','Strong Foundation'],['de','Womit möchtest du beginnen?','Starke Grundlage']]){
   const nodes={},element=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(){return element();}});
-  const document={body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(){}};
+  const shellNode={dataset:{i18n:'shell.tagline'},textContent:'ТРЕНИРАЙ · ХРАНИ СЕ · РАСТИ'};
+  const document={body:{style:{}},hidden:false,documentElement:{setAttribute(key,value){nodes[key]=value;}},title:'FORME — Тренировки и хранене',querySelectorAll(){return [shellNode];},getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(){}};
   const c={window:{addEventListener(){},scrollTo(){}},document,localStorage:{getItem(key){return key==='forme-language'?language:null;},setItem(){}},location:{hash:'#home'},setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
   vm.createContext(c);for(const f of ['exercise-art.js','data.js','core.js','food-art.js','i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js','app.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
   assert.ok(nodes.app.innerHTML.includes(heading));assert.ok(nodes.app.innerHTML.includes(workout));assert.match(nodes.app.innerHTML,/data-id="cal-start"/);
   assert.match(nodes['desktop-nav'].innerHTML,language==='en'?/My plan/:/Mein Plan/);
+  assert.equal(nodes.lang,language);assert.match(shellNode.textContent,language==='en'?/TRAIN · EAT · GROW/:/TRAINIERE · ISS · WACHSE/);
  }
+ assert.match(fs.readFileSync('index.html','utf8'),/data-i18n="shell.footer"/);
 });
