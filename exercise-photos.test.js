@@ -16,12 +16,13 @@ function boot(){
 
 test('verified stills include credits while the pending motion demonstration stays pending',()=>{
  const {window,nodes,handlers}=boot();
- for(const [id,credit] of [['Pullups','Abooyeah'],['Parallel_Bar_Dips','Jahlena Riveraroyer'],['Bench_Dips','Kenneth Abbate'],['Bar_Muscle_Up','Maksim Sokolov']]){
+ for(const [id,credit] of [['Pushups','Nenad Stojković'],['Bodyweight_Squat','Peterlocicero'],['Pullups','Abooyeah'],['Parallel_Bar_Dips','Jahlena Riveraroyer'],['Bench_Dips','Kenneth Abbate'],['Bar_Muscle_Up','Maksim Sokolov']]){
   const photo=window.FORME_EXERCISE_PHOTOS.get(id);assert.ok(photo.src.startsWith('https://'));assert.ok(photo.page.startsWith('https://commons.wikimedia.org/'));assert.ok(photo.licenseUrl.startsWith('https://'));
   handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id}})}});
   const html=nodes['modal-root'].innerHTML;
   assert.match(html,new RegExp(credit));assert.match(html,/Снимката показва един момент от движението/);assert.match(html,/Видео демонстрацията предстои/);assert.match(html,/Преоразмерена версия/);
  }
+ handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Bodyweight_Squat'}})}});
  assert.match(nodes['modal-root'].innerHTML,/ДЕМОНСТРАЦИЯТА ПРЕДСТОИ/);
  assert.match(nodes['exercise-results'].innerHTML,/CC BY-SA 4.0/);
  assert.match(nodes['exercise-results'].innerHTML,/вариант с допълнителна тежест/);
