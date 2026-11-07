@@ -1,4 +1,4 @@
-/* Selected Pexels photos; labels describe reference foods, not a weighed serving. */
+/* Illustrative photos; labels describe reference foods, not a weighed serving. */
 (function(root){
 'use strict';
 const photos=Object.freeze({
@@ -23,7 +23,11 @@ const photos=Object.freeze({
  walnuts:Object.freeze({src:'https://images.pexels.com/photos/34415723/pexels-photo-34415723/free-photo-of-top-view-of-walnuts-in-a-white-bowl.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/top-view-of-walnuts-in-a-white-bowl-34415723/',credit:'Zulfugar Karimov / Pexels'}),
  oliveoil:Object.freeze({src:'https://images.pexels.com/photos/3737651/pexels-photo-3737651.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/clear-glass-bottle-with-liquid-3737651/',credit:'cottonbro studio / Pexels'}),
  chocolate:Object.freeze({src:'https://images.pexels.com/photos/4113300/pexels-photo-4113300.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/close-up-shot-of-dark-chocolate-bars-4113300/',credit:'alleksana / Pexels'}),
- bread:Object.freeze({src:'https://images.pexels.com/photos/7656595/pexels-photo-7656595.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/bread-slices-on-a-chopping-board-7656595/',credit:'Cup of Couple / Pexels'})
+ bread:Object.freeze({src:'https://images.pexels.com/photos/7656595/pexels-photo-7656595.jpeg?auto=compress&w=1260&h=750&dpr=1',page:'https://www.pexels.com/photo/bread-slices-on-a-chopping-board-7656595/',credit:'Cup of Couple / Pexels'}),
+ quinoa:Object.freeze({src:'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e0/Quinoa_2.jpg/960px-Quinoa_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail&_=20140119173906',page:'https://commons.wikimedia.org/wiki/File:Quinoa_2.jpg',credit:'ProjectManhattan — Quinoa 2',license:'CC BY-SA 3.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/3.0/',changes:'Преоразмерена и частично изрязана за показване.'}),
+ brownrice:Object.freeze({src:'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Brown_rice_cooked.JPG/960px-Brown_rice_cooked.JPG?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail&_=20210820172256',page:'https://commons.wikimedia.org/wiki/File:Brown_rice_cooked.JPG',credit:'Estwordenn — Brown rice cooked; изрязване и яркост: 0m9Ep',license:'CC BY-SA 4.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/',changes:'Преоразмерена и частично изрязана за показване.'}),
+ cottage:Object.freeze({src:'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Food_Portions_%28Team_Nutrition%29_%2820210902-FNS-UNC-0015%29.jpg/960px-Food_Portions_%28Team_Nutrition%29_%2820210902-FNS-UNC-0015%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail&_=20260224082546',page:'https://commons.wikimedia.org/wiki/File:Food_Portions_(Team_Nutrition)_(20210902-FNS-UNC-0015).jpg',credit:'USDA — Food Portions (Team Nutrition)'}),
+ peanutbutter:Object.freeze({src:'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/PeanutButter.jpg/960px-PeanutButter.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail&_=20060115194135',page:'https://commons.wikimedia.org/wiki/File:PeanutButter.jpg',credit:'PiccoloNamek — PeanutButter',license:'CC BY-SA 3.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/3.0/',changes:'Преоразмерена и частично изрязана за показване.'})
 });
 function get(id){return Object.prototype.hasOwnProperty.call(photos,id)?photos[id]:null;}
 root.FORME_FOOD_PHOTOS=Object.freeze({get});
