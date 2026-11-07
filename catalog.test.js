@@ -79,3 +79,10 @@ test('meal calculator uses translated food state while keeping the same total',(
   assert.match(a.nodes.app.innerHTML,/data-index="0"/);
  }
 });
+test('weekly plan shows localized workout names without changing saved IDs',()=>{
+ for(const [language,heading,workout] of [['en','My weekly plan','Strong Foundation'],['de','Mein Wochenplan','Starke Grundlage']]){
+  const saved=JSON.stringify({mon:'cal-start'}),a=createApp({'forme-language':language,'forme-plan':saved},true,'#plan');
+  assert.ok(a.nodes.app.innerHTML.includes(heading));assert.ok(a.nodes.app.innerHTML.includes(workout));
+  assert.match(a.nodes.app.innerHTML,/value="cal-start" selected/);assert.equal(a.storage['forme-plan'],saved);
+ }
+});
