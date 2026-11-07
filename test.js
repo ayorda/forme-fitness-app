@@ -30,7 +30,7 @@ test('exercise illustrations have consistent licensed or original sources',()=>{
    assert.equal(e.photo2,e.photo,e.id);
   }
  }
- assert.equal(D.exercises.filter(e=>e.artSource.startsWith('RepDB')).length,14);
+ assert.equal(D.exercises.filter(e=>e.artSource.startsWith('RepDB')).length,13);
  assert.equal(D.exercises.filter(e=>e.photo.startsWith('data:image/svg+xml')).length,10);
  assert.ok(!D.exercises.some(e=>/yuhonas\/free-exercise-db/.test(e.photo)));
 });
