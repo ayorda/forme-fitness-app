@@ -18,15 +18,15 @@
           "path": "media/exercises/Pushups-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 13690,
-          "sha256": "9523bab470317ba9333722ea09097a36a9291c96a5ad510aa7643600540414a4"
+          "bytes": 12614,
+          "sha256": "a027b1396e6dfa464305bd1cefe8f26c67b42ec323903fd3270a0cdca73a8c3b"
         },
         "desktop": {
           "path": "media/exercises/Pushups-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 49314,
-          "sha256": "159ed0f98bd0c7045c5bf0012ec2a16eb05ae2af19e9be6f44da07b0ddf2590f"
+          "bytes": 42194,
+          "sha256": "df7f81c48997e40693d3c7496afec98398977c5a748149116e322ea0cd2d39d3"
         }
       }
     },
@@ -47,15 +47,15 @@
           "path": "media/exercises/Bodyweight_Squat-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 11930,
-          "sha256": "67df976e2fa53d93bd9cc3088dce83dedd8a28a3ed8c7e37660ddb4eca84e2a9"
+          "bytes": 10620,
+          "sha256": "fe6d29c1c49dd0ed989db2bb9785bbf37858891be3e30d6f840def5c94e43bbf"
         },
         "desktop": {
           "path": "media/exercises/Bodyweight_Squat-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 44900,
-          "sha256": "1c0870f698f683cb9b5ecead92f631ac98ac3f5d925c14c6a49b5bd3a437c388"
+          "bytes": 35818,
+          "sha256": "c1c8dc84f4d015d9f4a89a1b6e0a9fde2e868a10b3b43499afcb1ea7640cdbe5"
         }
       }
     },
@@ -76,15 +76,15 @@
           "path": "media/exercises/Plank-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 13510,
-          "sha256": "726c86411a36e05800d0969e25f84f82d690fa83dd1ebb04abece0f1250f79f7"
+          "bytes": 12736,
+          "sha256": "a10077b15054aba98fd12a3c71338304a2cd93b58aae696cc20cd5b183246d9f"
         },
         "desktop": {
           "path": "media/exercises/Plank-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 38672,
-          "sha256": "de95f08d2527369372bd9fca8af5c3ec4343936f56ac51dfc743cae202c0ddfa"
+          "bytes": 32076,
+          "sha256": "d52d58e4500d13b472dd9aa158f5db230e762284152f1e6e8ae217c0b9b90818"
         }
       }
     },
@@ -105,15 +105,15 @@
           "path": "media/exercises/Pullups-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 15182,
-          "sha256": "5c6e78ebb911167730a3e41e1ac00cf34e1d5beade4aa2e74b5dc87fc07caa0b"
+          "bytes": 14332,
+          "sha256": "8ec0afc766a8aa2507b777101995a0c088e625e276c37e81b48680d1acf5b42e"
         },
         "desktop": {
           "path": "media/exercises/Pullups-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 43400,
-          "sha256": "d67b19943cc45c75ecefd1636f49ffce219a74399ad619250f48d689de043bef"
+          "bytes": 37058,
+          "sha256": "9e419f0ede7bf8c92a18261d29e46dc83ddca3e308ae1d891bd68a019a820113"
         }
       }
     },
@@ -134,15 +134,15 @@
           "path": "media/exercises/Mountain_Climbers-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 19346,
-          "sha256": "4275dd4ab690c46cac3d73ca35a424c79fb7041bc06ef4bec039e9bb61e708fc"
+          "bytes": 18272,
+          "sha256": "02eddca85956b281a58a1b4fe0b1676d426cda62e722b16bbceccbee96a7499e"
         },
         "desktop": {
           "path": "media/exercises/Mountain_Climbers-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 59898,
-          "sha256": "e323c7852a56dddd14bd416ae33d6bff69c44e2af343c70ad493a479195b9b42"
+          "bytes": 52756,
+          "sha256": "1853398cdd959da239f34a7d7dfe7865305fbc982fdf97db2113a1f55d098f08"
         }
       }
     },
@@ -163,15 +163,15 @@
           "path": "media/exercises/Bench_Dips-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17866,
-          "sha256": "0d1d28b75ec96921ebf4d7a1ae1a105c9aa841dd0508400422e92c98573e62d1"
+          "bytes": 16798,
+          "sha256": "ab94bb7f463891c5fe0393fafd9b7020800071643d835c982c8d74ba96a5794f"
         },
         "desktop": {
           "path": "media/exercises/Bench_Dips-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 55890,
-          "sha256": "30ca9a4d12332456384267b49502535d05ee9708d074b66dcc58069074738930"
+          "bytes": 48272,
+          "sha256": "d0675fc42c7e4b0548149ed8b5a630b7c33801e1b8be81f79596a26e8b02b1e0"
         }
       }
     },
@@ -192,15 +192,15 @@
           "path": "media/exercises/Hanging_Leg_Raise-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 15164,
-          "sha256": "2ee6c09da7d34e575e000670f9dc0279ac32575c258f337373774b78c8b25b2f"
+          "bytes": 14396,
+          "sha256": "c48aaa88cfa35cd091ce4eeb766f369dc0c12635e995a8a82f4ba48194fa8df3"
         },
         "desktop": {
           "path": "media/exercises/Hanging_Leg_Raise-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 39022,
-          "sha256": "04271fde501cecd1cfdc9316064a1e6cdebdbe9bb5a965fd16fa409ddee0af0e"
+          "bytes": 33676,
+          "sha256": "0f5008ac3ffc81c89c23bb47b694ec143c20ad7e7fa90e0264b209feaba36af9"
         }
       }
     },
@@ -221,15 +221,15 @@
           "path": "media/exercises/Side_Bridge-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 16292,
-          "sha256": "f3fdb2417a6d717a704609712ddad175c16a73ff42eddb1c879d1f1ce4510bf5"
+          "bytes": 15258,
+          "sha256": "52e45e66ef152d1c2903c1820b0c5623588607e74c6f00ea812118c22644d836"
         },
         "desktop": {
           "path": "media/exercises/Side_Bridge-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 51674,
-          "sha256": "5e52125117e4f7f6ab1376642c725e9687d7597d2b97f5ac9756cfab7c761910"
+          "bytes": 44654,
+          "sha256": "c3be47a159ff580aa60ebea67dfd3813173d442e8852382946b6f950bdea2ce4"
         }
       }
     },
@@ -257,8 +257,8 @@
           "path": "media/exercises/Childs_Pose-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 48512,
-          "sha256": "aed0f0ee6b00c74b97b60f8b4d2ecabd5fca8fcddf5ecbf14cb95a6afc2ae029"
+          "bytes": 41632,
+          "sha256": "5ed8daabf8aa67e2ae1dbbef213f6f62a5cfcdf9cc494f0fc0a3e72f0ef3b936"
         }
       }
     },
@@ -279,15 +279,15 @@
           "path": "media/exercises/Cat_Stretch-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 14220,
-          "sha256": "0ed7fb89d59dfb1ec1f5f453cec867591b37a913ca137e81b78fefff05537615"
+          "bytes": 13424,
+          "sha256": "3e5a13501806ea5663566d3b6532fbe573222cf136aa38f59a7b4b9ec11ad35a"
         },
         "desktop": {
           "path": "media/exercises/Cat_Stretch-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 43472,
-          "sha256": "24f601ec2687a6f2e78175002cede72cfac87cb8d3106350a826e2d3d5128f8b"
+          "bytes": 37266,
+          "sha256": "a8431de7249ec1b23bd7320f84e36030432b6ffbcbdec6317582579bf702f555"
         }
       }
     },
@@ -308,15 +308,15 @@
           "path": "media/exercises/Butt_Lift_Bridge-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 16320,
-          "sha256": "af011af11cb6b12996c37c89c0c9a9c4566abcc2636cc3d87fb78d01ac4c4ca1"
+          "bytes": 15260,
+          "sha256": "d034b285340e18bf03faa44e7ab3349b32e1edf43eafcfd03f2504e1e739129e"
         },
         "desktop": {
           "path": "media/exercises/Butt_Lift_Bridge-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 47498,
-          "sha256": "cfe699dfbed2f1c28d5568cc11e638a4881205ed97c269ded5224f1f132075ab"
+          "bytes": 40190,
+          "sha256": "193c9f757cf2d91923557c16de8d029f72e720a1d6921748c045f04ce4300016"
         }
       }
     },
@@ -337,15 +337,15 @@
           "path": "media/exercises/Dancers_Stretch-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 16586,
-          "sha256": "b93bdc29715475f037dac760922e539e1b5b1d6753ff481da6d603dae1500382"
+          "bytes": 15648,
+          "sha256": "b64579358623a8f210b5e38edbd53d2931ef9bf180fda9c032a38e8497e615f8"
         },
         "desktop": {
           "path": "media/exercises/Dancers_Stretch-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 48430,
-          "sha256": "63d68437bd81fb381341cb29d359153ed9f8c6676e33224a2e197184cb854256"
+          "bytes": 40282,
+          "sha256": "3f01d5e699a69fa9b64d41c5e8f8fe0dac897a684763ffe055cd4bfb29d2d98c"
         }
       }
     },
@@ -366,15 +366,15 @@
           "path": "media/exercises/Seated_Floor_Hamstring_Stretch-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17674,
-          "sha256": "bbf8a0e32b5fc7b06d893218b0e8e16a50e9292d1ad9c3c5e5ba647b85c1ad55"
+          "bytes": 16786,
+          "sha256": "18f7e40aa18d503cd05f2f92c32b5542082b18c6824c517dc00e0a986b45b43f"
         },
         "desktop": {
           "path": "media/exercises/Seated_Floor_Hamstring_Stretch-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 50652,
-          "sha256": "7d156a687bb5ad684ea9ef7e98d551314598ad3fef2d8fe17120053ddfb86202"
+          "bytes": 41714,
+          "sha256": "2d353021774c09cf811b4d9d86b3daab851548e537fa46349d3bd9e47dbfe43c"
         }
       }
     },
@@ -395,15 +395,15 @@
           "path": "media/exercises/Groin_and_Back_Stretch-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18766,
-          "sha256": "f94b72941fe633222f4ec97d6a2a4dce5acff7c876121b301ddd0716f8fba8bf"
+          "bytes": 17746,
+          "sha256": "cdb6c43280ccf1a522678508df809b84d13021df57888b8a40418f6ce91da16e"
         },
         "desktop": {
           "path": "media/exercises/Groin_and_Back_Stretch-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 63896,
-          "sha256": "845cab262920cea1853ab3fcea8ae2ca01a61b50402588377ebfbfbc8b75f48c"
+          "bytes": 56856,
+          "sha256": "869bf40c2ec0c4ceeb07b4bc5bd823ff7d97b1edc1f934fbb764662afdbe9d89"
         }
       }
     },
@@ -424,15 +424,15 @@
           "path": "media/exercises/Spinal_Stretch-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17032,
-          "sha256": "2f2220e6318a5cabd12e96726f081d6f722bb96b63b8bf5dd48919ee3f32322e"
+          "bytes": 16002,
+          "sha256": "39a1333a60f21d4266c113ee89fdb648dbcd50ba922e6742e112af937ef2ba79"
         },
         "desktop": {
           "path": "media/exercises/Spinal_Stretch-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 50398,
-          "sha256": "51e0a03f3db537b9e71d7921ef84b732dd1f8e8c3210e07e4efed226e21a5e2b"
+          "bytes": 42174,
+          "sha256": "3a48db62df11b0c210de5cc775d74bfe2f5537bd10ddf1905ec2cf94c2b274ce"
         }
       }
     },
@@ -460,8 +460,8 @@
           "path": "media/exercises/Seated_Overhead_Stretch-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 48848,
-          "sha256": "f95bada809327c351d0260eff11157a411b5cba9ebe34eeae4072ecea06c8421"
+          "bytes": 41820,
+          "sha256": "b65b7b7b3b2b3cabb1debacc944f20554dad46a5dcd9afcc5fa5d01516a7237d"
         }
       }
     },
@@ -482,15 +482,15 @@
           "path": "media/exercises/Standing_Hip_Circles-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 14796,
-          "sha256": "459364a025742f00bad1f9732971698aa9ab6337c89bbf9a438f1b8f66c3dd3f"
+          "bytes": 13942,
+          "sha256": "676faaa72ea260080cdfe74ec75c55dafa7aeaf54ed41332284aede4cb9d2baa"
         },
         "desktop": {
           "path": "media/exercises/Standing_Hip_Circles-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 44692,
-          "sha256": "f73f95add9a21d8963139ef5c7ab4fb9212271ecc0b6759127a42d7ed8c3fa71"
+          "bytes": 37176,
+          "sha256": "be14cb81ad56d0cd00a0491ed128f581886df8f17ae0e88de984d1fe25bb34a9"
         }
       }
     },
@@ -518,8 +518,8 @@
           "path": "media/exercises/Hip_Circles_prone-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 44296,
-          "sha256": "9e90f9cb271958be7e9c67e51482c5fd77d506401ae057f9c4beaf7ab3ecc468"
+          "bytes": 36414,
+          "sha256": "bae0983b32dc7e51f8dfcf66ad992440508f27081432bc89e720a79ede44e931"
         }
       }
     },
@@ -540,15 +540,15 @@
           "path": "media/exercises/Arm_Circles-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17114,
-          "sha256": "c7387f33d972b109e7d95d14e7a752652c2e28edbdba2f534a45e7c6d8dfb006"
+          "bytes": 15992,
+          "sha256": "b885d201e09449be9ede1aee12eb45d7ea2e6328eed9278a6100347d6b75d0cc"
         },
         "desktop": {
           "path": "media/exercises/Arm_Circles-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 53462,
-          "sha256": "5f1b90ff858e7fc18ed055ad948e6b22a1e399be77be6733782b6ed49fc94158"
+          "bytes": 44972,
+          "sha256": "c6df3dbdf9af89fd4cf59055f2148b4c3d7f97c4400440e074d212ef92b378ba"
         }
       }
     },
@@ -569,15 +569,15 @@
           "path": "media/exercises/Kneeling_Hip_Flexor-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18618,
-          "sha256": "e1e4ca2f8e413fe0ec12f444f5ca5ea8d095a0f53564954246a6169558d5d12f"
+          "bytes": 17474,
+          "sha256": "b575f34a90b5310b791a950db5d9ae82ed33ac4153dec073574b1615274381bf"
         },
         "desktop": {
           "path": "media/exercises/Kneeling_Hip_Flexor-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 51878,
-          "sha256": "13d5018b6b461c983266ba372d58039d68df1c646761071d094339ee5916bf1d"
+          "bytes": 44288,
+          "sha256": "a09bc35d82c5fa0c6a477fbc77df519569a53a01f0b3ebdcbdbacef24b919519"
         }
       }
     },
@@ -598,15 +598,15 @@
           "path": "media/exercises/Dynamic_Chest_Stretch-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18926,
-          "sha256": "5158190bbddc19d50e56c15e23c62b141ab7e61fb31840252efa5cf32464da22"
+          "bytes": 17756,
+          "sha256": "6d21ea2e615b49e61b282e4dedca95fd351e33cac89b83c11b884a2aef99c0c1"
         },
         "desktop": {
           "path": "media/exercises/Dynamic_Chest_Stretch-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 58152,
-          "sha256": "629ce56f90763d1dbff2f1b45e30fb308eea9067700e7ae234ecfb8b82ad1efb"
+          "bytes": 48152,
+          "sha256": "d2fa99e585b3d73de42d2790e39f968bb5f4b8b89b2e8c23a1ae39091fe004ef"
         }
       }
     },
@@ -627,15 +627,15 @@
           "path": "media/exercises/Shoulder_Stretch-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17864,
-          "sha256": "88bcdd62fb563d628213338d9c51bfc1ba81ecadb8ab5ea7690e87dd0d405acd"
+          "bytes": 16750,
+          "sha256": "944630ec2c9ae829bbd5d698bd6224cad8cfc1fe5aea02b03eb169424d1f5b1c"
         },
         "desktop": {
           "path": "media/exercises/Shoulder_Stretch-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 51120,
-          "sha256": "dc492c33a97b2237314fce3a31cfc1e8a69b64affc383b6cc82f7475af714885"
+          "bytes": 42366,
+          "sha256": "446e5496f8c03baffa1dd9b103cbb8c6494d113ac1668f2cf35acb15b89ba51c"
         }
       }
     },
@@ -656,15 +656,15 @@
           "path": "media/exercises/Calf_Stretch_Hands_Against_Wall-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 16314,
-          "sha256": "76471924711c5756bfa08b43e62feebc12c9a5d8c5b97c2878cb2d6aee52b5fc"
+          "bytes": 15016,
+          "sha256": "f4c9b8e5c76fb87fc0619276f6b9d30f6cc06208926c6f21aa2003d466d5f4bd"
         },
         "desktop": {
           "path": "media/exercises/Calf_Stretch_Hands_Against_Wall-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 47922,
-          "sha256": "96b7d7c5e49dd14d000380c564f674576d883010ac58981bc877a92978e84c4f"
+          "bytes": 38938,
+          "sha256": "09b60cbb8dcf4304790c93efc9c100014115f0ba4af47921fec89a97c73129a4"
         }
       }
     },
@@ -692,8 +692,8 @@
           "path": "media/exercises/Kneeling_Forearm_Stretch-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 52608,
-          "sha256": "27a0fd9d0caddfec7365c3a8864571e9448eeca985c1ba4b2ac931c771dc75ff"
+          "bytes": 45716,
+          "sha256": "82b8f79d459d0dec2718bf381bc9c82de83e2043885324497b2aa77169c6d6cd"
         }
       }
     },
@@ -721,8 +721,8 @@
           "path": "media/exercises/Chinups-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 52386,
-          "sha256": "a1f5559c3a38f133ac6b7452e73c16baff9b5c363a50a9de869f19f743456746"
+          "bytes": 46412,
+          "sha256": "582a9674bbfcd19fd2cdcbf80ea31b54dc0e92ff6355270f399338b4bcabfdfe"
         }
       }
     },
@@ -743,15 +743,15 @@
           "path": "media/exercises/Australian_Rows-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18592,
-          "sha256": "75a926d047e338c5639173837c888d5e397785110c90019a36beae819d6e22c8"
+          "bytes": 17300,
+          "sha256": "133585767f0e232e5eb0dc1cad07e2abeef2325bf933668b4bf86cd32c2616c9"
         },
         "desktop": {
           "path": "media/exercises/Australian_Rows-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 63060,
-          "sha256": "66245777dc03c630d847b287831849f55b591e554e374badbb6803b798cb79e5"
+          "bytes": 53510,
+          "sha256": "e7335a7aaf209428832bc5208528969e1487e0a203da2262e5e9f0474fd097c9"
         }
       }
     },
@@ -779,8 +779,8 @@
           "path": "media/exercises/Parallel_Bar_Dips-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 51162,
-          "sha256": "5f7fe37a895bfd5801a5238925110b62527d689c2467110949d2e9f0c9f6bd77"
+          "bytes": 42516,
+          "sha256": "cf4e32b81cf013b7d213f4c8415b7ce07e237f3da56c0788e2e7d36137eb326b"
         }
       }
     },
@@ -808,8 +808,8 @@
           "path": "media/exercises/Bar_Muscle_Up-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 47328,
-          "sha256": "4188f4b8b5f5b435fa773762902c87cc457b8bcd0b12ce7132b1cbfc64d37814"
+          "bytes": 41976,
+          "sha256": "863e0753ad7ef5bb6d4be5766701bf72fd955f673fca0f04b55ec2cca22f1fa7"
         }
       }
     },
@@ -830,15 +830,15 @@
           "path": "media/exercises/Hollow_Body_Hold-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 14876,
-          "sha256": "757b01bcc64101fb7dcc31d5e799fbea9985f396d7bbe83f574ac949c0e20715"
+          "bytes": 13936,
+          "sha256": "41915d48b9d5e98dc7a31be54fb6ed26cbe87155d6a92d0b86567470658b8036"
         },
         "desktop": {
           "path": "media/exercises/Hollow_Body_Hold-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 42334,
-          "sha256": "7e4dd9c37d339269a0ef686c6e628abedb56e802e86ea42de235df2da2be9ca7"
+          "bytes": 35098,
+          "sha256": "53ea05cf5959c717044832754f1ec25d4fb1de58773fa65b78b83ef71b1b0e68"
         }
       }
     },
@@ -866,8 +866,8 @@
           "path": "media/exercises/Frog_Stand-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 50262,
-          "sha256": "c210c7ddabc4662b218891cebb8bcca28f36a8914bb1dfed0caa697fbe72f163"
+          "bytes": 43518,
+          "sha256": "40cead02021a48914a8709007755de7d4c454e4540bedbf92d89b0df74103831"
         }
       }
     },
@@ -895,8 +895,8 @@
           "path": "media/exercises/Pike_Pushups-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 62516,
-          "sha256": "c9461b15f1c6e8ead5640fb191207de16e09d3e1efb521afa25ee437462ab7b9"
+          "bytes": 52682,
+          "sha256": "3b6af1f19463e61c556397a4dde0f20a4946795a0f58f85c1b8865594ee2e7df"
         }
       }
     },
@@ -917,15 +917,15 @@
           "path": "media/exercises/Skin_the_Cat-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18338,
-          "sha256": "51f808d1e53dc77d59a91bdc222ecb8905f595ee9f5c61bdcce7afce21df7d05"
+          "bytes": 17224,
+          "sha256": "cc9e9bd65e5ed5e561909fdb73a46016ad8eb02f2c1c78382df948eb5ea288a9"
         },
         "desktop": {
           "path": "media/exercises/Skin_the_Cat-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 53080,
-          "sha256": "969e182ed2a658d2380b96421722f3a4991be29958de2e51785006bda6225ebd"
+          "bytes": 45092,
+          "sha256": "8f157b769fe06a984e3fdee807d3256d97d8548fe4cb85240535d0a62183e1f7"
         }
       }
     },
@@ -946,15 +946,15 @@
           "path": "media/exercises/Toes_to_Bar-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18624,
-          "sha256": "7a2c0eb38a1d8c9b5c4fc4de615e2576efe5e7888abded512132715e19ad5526"
+          "bytes": 17626,
+          "sha256": "12dfe9bf1c75d291e69ac3783a26fc39bfa29c073fc73166e56c53af9820cc5a"
         },
         "desktop": {
           "path": "media/exercises/Toes_to_Bar-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 47810,
-          "sha256": "d1f16fc27f05ebb0dfb5c1f30cc9752e034212a5881a3fd04237e7c6250be530"
+          "bytes": 43060,
+          "sha256": "21652495826ca91e7d1389313ff3237fb21171bf0ab4848aee78bb7f418e9ce6"
         }
       }
     },
@@ -975,15 +975,15 @@
           "path": "media/exercises/Archer_Pushups-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 20516,
-          "sha256": "0b6e9e38a00e131e004d28d0a477728e1861ff686fad935a6134bb762fe22c6f"
+          "bytes": 19348,
+          "sha256": "bf935635be4e52fecb06c417d10f1339cb0fbec70591cabf0a9193ba5267c1d6"
         },
         "desktop": {
           "path": "media/exercises/Archer_Pushups-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 56030,
-          "sha256": "123584c8d94b8f992963012f363d92d81819bf038285ca104e0e675ef699a8e2"
+          "bytes": 48990,
+          "sha256": "ff46a524af6aa7b3a61be716871d0e4249adad96df85d728e6e85a7468f31a2b"
         }
       }
     },
@@ -1004,15 +1004,15 @@
           "path": "media/exercises/Pistol_Squat-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18110,
-          "sha256": "2a9fff4ec166573dc26dff47e6dda85be99485013485f1e420ede82571eeeca5"
+          "bytes": 16920,
+          "sha256": "ace8c60dc8d177223c9b5fdd8930e61f60507b1bdf1c5f86ae0c6f45a08fec86"
         },
         "desktop": {
           "path": "media/exercises/Pistol_Squat-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 59476,
-          "sha256": "1e5027b6ae8c60bb23da555426ffb5a160b68daded3053e1164e907af4f3ff3f"
+          "bytes": 50476,
+          "sha256": "72220ca0c5e2ecfa655b62493ec80d4e104f36e7b6832f05834df43f58f92ac4"
         }
       }
     },
@@ -1033,15 +1033,15 @@
           "path": "media/exercises/L_Sit-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18790,
-          "sha256": "6a82802bb311dfd11e64773c3dd9d28cc2035555a5385b6577a3de96515abc74"
+          "bytes": 17702,
+          "sha256": "816737a0805de265d3f462e7495b68edf67d3bc6e9f750b4444c92d71fe5a5af"
         },
         "desktop": {
           "path": "media/exercises/L_Sit-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 55534,
-          "sha256": "091f360c09240f2d4d3d0626fbf1c549d49b3e551e40e97f4546a40cd0f8c60d"
+          "bytes": 49726,
+          "sha256": "cb45f02ea22fcd77804e19cccd2b0352dc1367b7f227b940117dfffbb73d9f56"
         }
       }
     },
@@ -1062,15 +1062,15 @@
           "path": "media/exercises/Dragon_Flag-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17784,
-          "sha256": "26c85131a939f91dc71bafd28eb65172b3ff76eb6e814a61a73f3c7064178b39"
+          "bytes": 16824,
+          "sha256": "ecb558f39145f9f87325bb327db7ba4f5e019a1eb0ae2dee85b430ae5eb948de"
         },
         "desktop": {
           "path": "media/exercises/Dragon_Flag-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 52014,
-          "sha256": "ee3d20bc82ca00dc8266e2be171ccaa880634084e5e665ccdcd9e90756600deb"
+          "bytes": 41888,
+          "sha256": "fe81e2b8624b5464dd2d1acce5b987debf38fc16b1f998d46ae45dd51d86489f"
         }
       }
     },
@@ -1091,15 +1091,15 @@
           "path": "media/exercises/Handstand-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 20826,
-          "sha256": "fb7104631552327eae748badd51d9615ff779a4ab16385647e517a26e271c821"
+          "bytes": 19542,
+          "sha256": "23d11637723993cfd5f74d187576c12b9ddfd468053a69f2989d3de7113ad101"
         },
         "desktop": {
           "path": "media/exercises/Handstand-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 65450,
-          "sha256": "f7f92d01e88028d25fc7ec06292c658932be7b22b86926ddc1b959d6ab3f5358"
+          "bytes": 54460,
+          "sha256": "0f6f43cbc16ed9671c3740f2dcf10fe4c01e36a89bf5f8bd0dc2accedb2f3f64"
         }
       }
     },
@@ -1120,15 +1120,15 @@
           "path": "media/exercises/Tuck_Planche-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18956,
-          "sha256": "a022925d910ca87cbfe7fbeeb0f6d9ff0f1aa2ba9405c2433ac7067431f124e0"
+          "bytes": 17816,
+          "sha256": "994f4993633fa3b56b5bb282e1abbe18b90c72b14062a768e6445c1051413fd6"
         },
         "desktop": {
           "path": "media/exercises/Tuck_Planche-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 54720,
-          "sha256": "2ddfa44e6ded0e90eacf9ac141e7b09929c860514a59039bffb69566a7456872"
+          "bytes": 46562,
+          "sha256": "3dc776d336819faf370f26a02c2a160fdda990b3368deef6fd6905cd76b3f408"
         }
       }
     },
@@ -1156,8 +1156,8 @@
           "path": "media/exercises/Tuck_Front_Lever-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 49634,
-          "sha256": "972f235aece69a48966d58a670b64c0055d8e16f201bb61b2ca8e62c473d4f1e"
+          "bytes": 43342,
+          "sha256": "b203ccbed7cd11f94d0124593496a866dcd0db145462c8062f4683e557ff8b38"
         }
       }
     },
@@ -1185,8 +1185,8 @@
           "path": "media/exercises/Ring_Muscle_Up-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 52196,
-          "sha256": "c6de539de51392af935a5089a57ddbcc47527d1c86c1d09dee9c59293583a312"
+          "bytes": 46238,
+          "sha256": "fdc5b5365567e8ffaa0992fb66eff70b1beaf953a75213d2be99320b4f7167e4"
         }
       }
     },
@@ -1214,8 +1214,8 @@
           "path": "media/exercises/Back_Lever-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 49170,
-          "sha256": "d764bfa34368c79cb9ccdaf660aa0fbfcfe9d63577e6e1e0b6c1ad2e36dec58e"
+          "bytes": 43646,
+          "sha256": "9bbdd926a3b22ae2623b53cdfe2b7e34c7968c3800e45bf8b1294482725594c7"
         }
       }
     },
@@ -1236,15 +1236,15 @@
           "path": "media/exercises/Human_Flag-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17780,
-          "sha256": "c9e7769c34cb00fd48db0f5a8fa35a9faf1474a6c0e27838d32468be857b72d0"
+          "bytes": 16800,
+          "sha256": "020227621dfb39454b3257e401e58fa6c8d68766332097440479c85f1d75b358"
         },
         "desktop": {
           "path": "media/exercises/Human_Flag-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 56002,
-          "sha256": "b04d6a8893f7c21032586f33327d2836b0c012adc557c3a4f64f010df66a661d"
+          "bytes": 45608,
+          "sha256": "31b7f4decc317c7207bbedf30d3c6800c9b9696c658148d91eb1a9bf990292a3"
         }
       }
     },
@@ -1265,15 +1265,15 @@
           "path": "media/exercises/Handstand_Pushups-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 16824,
-          "sha256": "949fc2dd97906c016ae363a17c9b7a076fa81353d36e0cf54efe400614719c71"
+          "bytes": 15354,
+          "sha256": "38215b9a015df5235c4fb7d59e3798b75b49bee2d2a3871c8a7bba05fa67f162"
         },
         "desktop": {
           "path": "media/exercises/Handstand_Pushups-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 58792,
-          "sha256": "f0ff9f6896f1904cdfed7fc4a8e6a0459fcdaba791130776f4aabad806ae0615"
+          "bytes": 48898,
+          "sha256": "cfd60bb50f1f4f16da67fc41935068771122b0a4a2e0dd2806018c145c75f50b"
         }
       }
     },
@@ -1294,15 +1294,15 @@
           "path": "media/exercises/Front_Lever-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17978,
-          "sha256": "50b4306cd318ca52da1d755301a679a1af8707ae6f192361b200738da9ef57b8"
+          "bytes": 16948,
+          "sha256": "48dacf3afdb86b5f2317e9b712423e7f3b39525ce011f04dd8e0fd9a1842a74c"
         },
         "desktop": {
           "path": "media/exercises/Front_Lever-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 49072,
-          "sha256": "c58fcce8cb8385092a89c94689cad1c6c6f01865d39fd5bd162fef00e441242d"
+          "bytes": 42576,
+          "sha256": "02f5758b0831f6b59dbde51538cc1bee0ca406757537a1d50901f40176527405"
         }
       }
     },
@@ -1323,15 +1323,15 @@
           "path": "media/exercises/Straddle_Planche-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 15940,
-          "sha256": "01317f6048dec9e8509da516d62ad5410fab66a43f69b842f2b67a3ad8e1891c"
+          "bytes": 14934,
+          "sha256": "6a34227020cdd71ba2c7029586f859a00ce0c8c5f207e0e7161995ecc0bd25ec"
         },
         "desktop": {
           "path": "media/exercises/Straddle_Planche-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 46452,
-          "sha256": "765c84a1652097ac68eea38fe96a567914116f17075771bfd39338f50f72a0ef"
+          "bytes": 39926,
+          "sha256": "676ccbca3a2e6bf0c035fb71e41f6c8b330669b5cb2f64c5db6f9485931640a0"
         }
       }
     },
@@ -1352,15 +1352,15 @@
           "path": "media/exercises/Full_Planche-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18402,
-          "sha256": "4e81c2ae38c18a17fc7b92957f9000a57536d58bf0d73ebaf7683bba371879b6"
+          "bytes": 17298,
+          "sha256": "c76de6c82a2e06536b475acebe3b4729791d9124d0e6a52722957c5f5568138d"
         },
         "desktop": {
           "path": "media/exercises/Full_Planche-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 53514,
-          "sha256": "125444fcbcdb4434d4bc083c1229c4c92e67c7dbe9527676bac0830f4e7c475e"
+          "bytes": 46576,
+          "sha256": "6dade0efeb85cbe235c1244334a1927daa3a6f480982f89b5c37291c89d4e2e1"
         }
       }
     },
@@ -1381,15 +1381,15 @@
           "path": "media/exercises/One_Arm_Pull_Up-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18632,
-          "sha256": "a2021b5c14a21e8a0b1af6c2187ed69b751de15ea6086ef663dafe9667cf28f5"
+          "bytes": 17660,
+          "sha256": "3334050a5169bb61c9d70f78fc2adf0965822e0cb86741fe0aaba5dd9e18d78e"
         },
         "desktop": {
           "path": "media/exercises/One_Arm_Pull_Up-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 51898,
-          "sha256": "72904a659235632f2a5205613b24285bf6fdf6fb2a949692444ca9fe844537b0"
+          "bytes": 45708,
+          "sha256": "1cd0cf6bd248ce5d20135185247e3f5ee9995de57724f0d6663113e46578c439"
         }
       }
     },
@@ -1410,15 +1410,15 @@
           "path": "media/exercises/Iron_Cross-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17726,
-          "sha256": "2620af04b06ab9dafe94b5ee97bf23d0946dcd96e8274d876911e1f33f974ef6"
+          "bytes": 16580,
+          "sha256": "a97e33c5d5f359069781fcdc7fd7537c847ca3068e20992749150dfab812cd7a"
         },
         "desktop": {
           "path": "media/exercises/Iron_Cross-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 50248,
-          "sha256": "fa35a7f16bb94d372cdc8b964f56995f057cd3af3ed00a128999c1e82eab9f28"
+          "bytes": 44122,
+          "sha256": "c0c03d84b4aa7755f2510aa42111934273ea6023ab89dd5ab8297f9465bfc8ec"
         }
       }
     },
@@ -1440,15 +1440,15 @@
           "path": "media/foods/chicken-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 14752,
-          "sha256": "f7bf59c54dcd07ad060dd36d1badb36682466d00c1726da19f7573124d82a83a"
+          "bytes": 13140,
+          "sha256": "2c23665e4b449765eace91d3c77e7f2ef3fef07a5b02b582a773b7477c469611"
         },
         "desktop": {
           "path": "media/foods/chicken-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 67998,
-          "sha256": "58d63be39178cb183f39ac716cac89cf9cd3e2ea081beaa4f485658b552bfb01"
+          "bytes": 54216,
+          "sha256": "760850ecd650c942bd336e2a0d64a146607945712ebce2fd9c8fd14799c89daf"
         }
       }
     },
@@ -1470,15 +1470,15 @@
           "path": "media/foods/turkey-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 14940,
-          "sha256": "27e8540a804ebae6673829ecf9cb0e5a8f8c45bdad7ff4c1b14aa6c2cee875c7"
+          "bytes": 14150,
+          "sha256": "f66dfd46bc06feccaf648732625016081bda1c68f8a6757689258867667dc501"
         },
         "desktop": {
           "path": "media/foods/turkey-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 67054,
-          "sha256": "d98929e30c9ba637babb44c9c222000814dde932a53de10c48adfc03c70bacd0"
+          "bytes": 57882,
+          "sha256": "cf0691b07cb2b8dee6eaa890a223675c718fc347c902d6370a807974c8852796"
         }
       }
     },
@@ -1500,15 +1500,15 @@
           "path": "media/foods/egg-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17014,
-          "sha256": "7052669d809b38a38150ee5e51ceb8e5f89980c6cb9513186e795624198e0ffc"
+          "bytes": 15766,
+          "sha256": "e7d12f4e814acd550c3ac666d0f7c56441d28c310e24c9a868851a8f933302c0"
         },
         "desktop": {
           "path": "media/foods/egg-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 71998,
-          "sha256": "dc5e35de6614fe03c08ef0550d12d5fc27d1369723110c0a9a314bbc910470f0"
+          "bytes": 59924,
+          "sha256": "13bedcf8cf09ef10d0fcbe729d5a06ce46fe248fcc57bc46f13e382a2a86561a"
         }
       }
     },
@@ -1537,8 +1537,8 @@
           "path": "media/foods/tuna-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 96922,
-          "sha256": "675e3a20e88d48f15e951537d8764b82771e576374b2b2c2ac452e61ab301195"
+          "bytes": 82096,
+          "sha256": "b5f1c52e3b8bab7bb53eff38465bd88a200599d7938464436e5305325ba87e4f"
         }
       }
     },
@@ -1560,15 +1560,15 @@
           "path": "media/foods/salmon-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18496,
-          "sha256": "dff62d6fa39e028fea1438a4c23236e72da300110d2c5aec0b9612ea35a9c44f"
+          "bytes": 17530,
+          "sha256": "22efdb03c65f7702043f9e92dc3f173a9c271554491b319c5c0907c105ce5915"
         },
         "desktop": {
           "path": "media/foods/salmon-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 79098,
-          "sha256": "b70435764c5e44ea2ef05ba6d8ed8d260ee0325d9c543170e289006147d4bfef"
+          "bytes": 65420,
+          "sha256": "1dbc02f3bdd9026465655f180479dcf1bfb960cb70f7046bdd2f80425fd5f201"
         }
       }
     },
@@ -1590,15 +1590,15 @@
           "path": "media/foods/greek-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 13236,
-          "sha256": "301d65333c460fc40faf99e09e8cb5e51494e5e28b9be34ec76af6bb8a98c38d"
+          "bytes": 11516,
+          "sha256": "9c9d958f759ebccf73573c559fc0d7a25b7d37f6d6cee46be3e7b7bcaae7eb6a"
         },
         "desktop": {
           "path": "media/foods/greek-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 53302,
-          "sha256": "c2530b83555470f8bcf036ef8b9e450d97a3736b5350f8786464e0c2598cae9b"
+          "bytes": 40240,
+          "sha256": "7d3e874cbd7fde72614a4e4437f3c8e5fca7958bf6a40a1882db015ec8a6a278"
         }
       }
     },
@@ -1620,15 +1620,15 @@
           "path": "media/foods/cottage-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 16090,
-          "sha256": "ae8597a4b4b8c34f9e3ff890c94ac4c1a12a735381fb07c396dbc0c469e32ca6"
+          "bytes": 14840,
+          "sha256": "86a12b2c93534c9b6a1ecd5611e07822436dbb9d35d2c486121bc2c3482ef802"
         },
         "desktop": {
           "path": "media/foods/cottage-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 61736,
-          "sha256": "8acfc8c11d13095197ce041cab5d8c4692d787a413664ed4964690a0eaae18a8"
+          "bytes": 50570,
+          "sha256": "d4d49321350386d0081905bebcc95466799f112e70127037f9f2037d79678b0f"
         }
       }
     },
@@ -1650,15 +1650,15 @@
           "path": "media/foods/oats-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 20964,
-          "sha256": "d6e2e5d9619699f5dc7b08f75bcc7479bd6c1e0c1d870402d150047f0316bf8c"
+          "bytes": 19556,
+          "sha256": "be7a405806aa25ad653f09d4fa01cc3439b4a149c461057459c114a9b8d1672b"
         },
         "desktop": {
           "path": "media/foods/oats-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 84092,
-          "sha256": "f41f068c42ffa9537c0c9c1a9ba97bf1a9f3f58fa95bfaef7560ba74b94df8d0"
+          "bytes": 65978,
+          "sha256": "6bc45e4e6a3be77fe4c95a8c5a404c4ef5b13748f0737ded8960df3a767f2475"
         }
       }
     },
@@ -1680,15 +1680,15 @@
           "path": "media/foods/rice-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 16626,
-          "sha256": "ced2be5d8802cc92f165348d57d90e5ea492c825fc0909c05614ef17a67f8e23"
+          "bytes": 15522,
+          "sha256": "c4bb87e509ad0ed64cb890a996b14a6bb540575171b44da83dd06cd86b78c53e"
         },
         "desktop": {
           "path": "media/foods/rice-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 62134,
-          "sha256": "b0cd9418d6dff0e0c6caaa244c3586bdbfac2fe0f3231bb48223d38b45010049"
+          "bytes": 52098,
+          "sha256": "f16bc7dda16cf13d0271531e12f12c9d7e237e0a826edae005e43a1f76db5e4a"
         }
       }
     },
@@ -1710,15 +1710,15 @@
           "path": "media/foods/brownrice-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18896,
-          "sha256": "b42dedcf6da8feda260841159cf8cdd8b3646783fd6c72f6f213db04054d2450"
+          "bytes": 17838,
+          "sha256": "a7a40cbeb0766a0d1cbbde5aaaf2620165a5ce4705f49d0365e24b1ab9550a25"
         },
         "desktop": {
           "path": "media/foods/brownrice-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 71446,
-          "sha256": "a514a6a57b6b6bf15824f04ff0d806bead6b4595ec3c9ced9ee455d308dfd577"
+          "bytes": 56462,
+          "sha256": "6674a0f9b642d7ed6fa50d64fe6d3ae7214d1600d3830e97e99c588af8d46da7"
         }
       }
     },
@@ -1740,15 +1740,15 @@
           "path": "media/foods/quinoa-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 19318,
-          "sha256": "eb9e6cdf622fbc148fdfdaeb48ac3404ac9c89d4acf4c16fbbcf53ed812253d3"
+          "bytes": 18276,
+          "sha256": "9de6acaf3a776c9e9b125b3c48b4b89cf8a7cd02bc89a624ae3d87dca819eac7"
         },
         "desktop": {
           "path": "media/foods/quinoa-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 74982,
-          "sha256": "dccfc2f1adbfc4d447bd74bc41e3a2a91eddf478688e275320f47024b9f9ba68"
+          "bytes": 60264,
+          "sha256": "e79d71d748ef245b3d6c0bd6fb5ec9e8dc690b42929974516f60fd9ca3e121bd"
         }
       }
     },
@@ -1770,15 +1770,15 @@
           "path": "media/foods/bread-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 28280,
-          "sha256": "c80ab4422c5b2cf70b9f04312a44215dd20f10785dae70ec0d841755af3465f3"
+          "bytes": 26122,
+          "sha256": "078ea7c7d6abf5d71871d8a6910331581faa8665b217b441037b23ac126aa97c"
         },
         "desktop": {
           "path": "media/foods/bread-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 114076,
-          "sha256": "c5ef6f79bf6e17bc93bbddb3dd69d2e617d976ff362a97e35c9140c6cf94c730"
+          "bytes": 97946,
+          "sha256": "69f61c40164c4a0b3cfc9915aa192f8faadd9623aa685123e6af496cbe4207b9"
         }
       }
     },
@@ -1800,15 +1800,15 @@
           "path": "media/foods/potato-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 15414,
-          "sha256": "cee918abc16ce1d4402d40ef609aa7125d5dfbcaa05b874ed1fe37121b39d840"
+          "bytes": 14138,
+          "sha256": "317f312861a3b704044a23fd0411fbea8fcefb878ebce9811a29c5878d02365a"
         },
         "desktop": {
           "path": "media/foods/potato-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 61562,
-          "sha256": "90e58fc79bbe060822b4fe47da71320a5290b8cd67f14098d18bbcdd610241f1"
+          "bytes": 50958,
+          "sha256": "b2802e10ccd3c5b7434c1aa9244960dac2a1cd5c1a553fed12b5e2b2c8c3c301"
         }
       }
     },
@@ -1830,15 +1830,15 @@
           "path": "media/foods/lentils-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18774,
-          "sha256": "2e5d3936ec192a2baf3fb008408e836cdb72ceefa485cdcb31bad8eb4bace6b9"
+          "bytes": 17826,
+          "sha256": "be006fbf9d8a4354262105e17fdc5cf2d5dcb4d63d96bd38a65629ea32890dfb"
         },
         "desktop": {
           "path": "media/foods/lentils-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 69872,
-          "sha256": "a2b8cba1b34b70c79274ede7625d133669d56075326ac17cd521de969d52f2b0"
+          "bytes": 58386,
+          "sha256": "a5a352c0cce7f8abe5f6ae653d985eb636276858547d526297e7f769e730301b"
         }
       }
     },
@@ -1860,15 +1860,15 @@
           "path": "media/foods/avocado-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 16414,
-          "sha256": "08c14e3eaf4b1887881e7e4261e2132895eaadfc52e032ae7ffcb9beaa4e3f6e"
+          "bytes": 15562,
+          "sha256": "a67823a957df852b17ed49368c5d20ee80c7c21931ba1acb9b342547c21a4bf5"
         },
         "desktop": {
           "path": "media/foods/avocado-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 70760,
-          "sha256": "baee59485d66a071873c6b8aa8fbada912c5cfd46e273eb6327da21256d13e94"
+          "bytes": 58422,
+          "sha256": "e98a5e4d28a71d7f09637616f0f3cdb06f08312611be3dfaea7618c3b88f9ac5"
         }
       }
     },
@@ -1890,15 +1890,15 @@
           "path": "media/foods/almonds-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 19616,
-          "sha256": "8259e1ce93c589af38fa6dbe9a2d7f6e3ebc472ece88d73a3e39b7e3b772d62d"
+          "bytes": 17768,
+          "sha256": "896f8db60e4116618cfb8fb0e5be22f8b3eb5ab050f1c07abb17ad283b53b9ed"
         },
         "desktop": {
           "path": "media/foods/almonds-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 78834,
-          "sha256": "616933f9e6451dc9ab517c3f23a78fc315f7e3637e9668b710c8897586e0bf6e"
+          "bytes": 63396,
+          "sha256": "b28025560f3b3bb94a50087e66013255a66cc3b7a364653c4597cef037801eab"
         }
       }
     },
@@ -1927,8 +1927,8 @@
           "path": "media/foods/walnuts-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 83522,
-          "sha256": "43a5c7fa98834f307b61ea185f9d1ec06ba0d2ae41e949d6794f47d7f79ed381"
+          "bytes": 69166,
+          "sha256": "77aa0a530565b7fc87c7b63e4a78f5435844e0cc870d67d9e8b4c11109145217"
         }
       }
     },
@@ -1957,8 +1957,8 @@
           "path": "media/foods/oliveoil-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 68296,
-          "sha256": "884fc54345c6324d398af922abb9cd09617efe279605ce6a9161e9a0225436c3"
+          "bytes": 51846,
+          "sha256": "22e63cd857d5fd25b4efc646d21d8de4999de0c29023833a75c4a25a049c3513"
         }
       }
     },
@@ -1980,15 +1980,15 @@
           "path": "media/foods/peanutbutter-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 15466,
-          "sha256": "aa5a5589d819a9ee05cb48e852e6eab3ab96bcdd4656f114afa20af17102181e"
+          "bytes": 13988,
+          "sha256": "1cc1dfaf8eb58a31760d00f07bc65763fd852197c30f660195a21b155404c0cc"
         },
         "desktop": {
           "path": "media/foods/peanutbutter-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 61486,
-          "sha256": "06909c29c16196d2b223ff7c1ee076d9c8178f8e8bcd6ae089bb5e009bfdd464"
+          "bytes": 47140,
+          "sha256": "b37148329165f5d2dd4023f57850a1fc9008f86cccfbc7c59bfa7c401e0bdc3a"
         }
       }
     },
@@ -2010,15 +2010,15 @@
           "path": "media/foods/chocolate-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18250,
-          "sha256": "51b3c9873e95ae23fed63ba7089e2b74db02ad2b2ed4f297083fb09acb9649c5"
+          "bytes": 17194,
+          "sha256": "528b8aed41ea706074122ab9fe3ea8980a3baedc115a6d2b86379eb6caf4fa9f"
         },
         "desktop": {
           "path": "media/foods/chocolate-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 78288,
-          "sha256": "eda659626eac3347d3dc57fc9b031cfb783c62691c448818309fa180d4334be6"
+          "bytes": 64968,
+          "sha256": "421fbb3087a3096118f047533398b844c8176f66980386b526d8517f9b9eaae9"
         }
       }
     },
@@ -2040,15 +2040,15 @@
           "path": "media/foods/banana-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17430,
-          "sha256": "c1b885fa80e58303ca66dc115a438c1008bf41e3e90bc12cc7056fa82ac63d71"
+          "bytes": 16390,
+          "sha256": "f0e97c401ef9314c97c7dc0c52e04e19a09bd135983708b4a9fa3659cda488dc"
         },
         "desktop": {
           "path": "media/foods/banana-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 74224,
-          "sha256": "33c423cba7022bee954a7785184b29ec437b8b280ff8cb2720643ce6847d1b41"
+          "bytes": 61254,
+          "sha256": "5fd17d73179b18f6a9d7a5af02f22135d6bb7c22e69bd02a215057de480007e6"
         }
       }
     },
@@ -2070,15 +2070,15 @@
           "path": "media/foods/apple-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 15332,
-          "sha256": "f4ebb7b66153e5ea02765c3aff5fc0c9078a84578aff573455d2fc694c1b33aa"
+          "bytes": 14032,
+          "sha256": "279b74626b30aae2a515792dc98af8ec684316a5c36d86f8cc243298db23c8e9"
         },
         "desktop": {
           "path": "media/foods/apple-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 60512,
-          "sha256": "26c2413bf330b6c9e3d558cffe411aa53b6096a6118023b50c15d71047d7cb3f"
+          "bytes": 46746,
+          "sha256": "9dea30dffdbce163ac9d7f2ce02e64a705f053add3cce41e17bb2a176c5bd51d"
         }
       }
     },
@@ -2100,8 +2100,8 @@
           "path": "media/foods/orange-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 20264,
-          "sha256": "977767010f14b207aee04a5db3706202b7d62c4f0993fb56c7004bed27901f21"
+          "bytes": 19018,
+          "sha256": "fad67429240fb7ad5b16dbf83d53c2b87e51442fa11ca35f0bf7faf9ce438904"
         },
         "desktop": {
           "path": "media/foods/orange-960.webp",
@@ -2130,15 +2130,15 @@
           "path": "media/foods/blueberry-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18242,
-          "sha256": "3fa8af907a8eb656cff4160ffc82d9fa1dd253b5b510fa8a25494cf873524591"
+          "bytes": 17254,
+          "sha256": "0782617b20a31ec0b449fdf17b317d0c5a153115af2534b1b13b1eb4ab0138e3"
         },
         "desktop": {
           "path": "media/foods/blueberry-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 71132,
-          "sha256": "9e6e74498ec9326e1506f9b649ce0be50800214b18e9e4ca2396c403533935c3"
+          "bytes": 58472,
+          "sha256": "521d02c63f0f99be8249fe87d61dfbe2c65efa85664c5d554310f90aa9feb63b"
         }
       }
     },
@@ -2160,15 +2160,15 @@
           "path": "media/foods/strawberry-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 20530,
-          "sha256": "ab5ea81c5b3c9b5d6e82cfb2c040db8cca1d1337632d8eddcdf2581d3b78be80"
+          "bytes": 18700,
+          "sha256": "d13951b556082c0c6d76f139b5bf5f6a538d281dd4188750612994b908f802ff"
         },
         "desktop": {
           "path": "media/foods/strawberry-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 79888,
-          "sha256": "e0dd9d85cb9f6aef9a1355370e02686914cc329fe2c63a1362aaf4b5b2911656"
+          "bytes": 65786,
+          "sha256": "465b2da8421749d4401051dc8bfc89d264da3d2074e2b36c7f6d18caac7ba58e"
         }
       }
     },
@@ -2197,8 +2197,8 @@
           "path": "media/foods/broccoli-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 104368,
-          "sha256": "a832b7550d695748e4a6281773cad68cac4f65fd9bb30a0f5be332c027bb482a"
+          "bytes": 86800,
+          "sha256": "bff2d67bd1e16b452abac8112385c0f607ffb5757db21c4578d32e21e90b8927"
         }
       }
     },
@@ -2220,15 +2220,15 @@
           "path": "media/foods/spinach-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17922,
-          "sha256": "1c13811ea0540788ade70a4c6560ac502a00ec5a1352133fa9adfc24147acf16"
+          "bytes": 17004,
+          "sha256": "e1f28bce1cf4735fe4f4990d2bcb86bc9fc4eea55fb9a5723c4c0e1963b7b48b"
         },
         "desktop": {
           "path": "media/foods/spinach-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 67534,
-          "sha256": "eedf71b2e652b4b0338fbf0d55aadac5793baffa0810469574bb3ca72c2433aa"
+          "bytes": 52972,
+          "sha256": "2b07cc0c1b6955953b4858415afc09917142e756c54f73a17e8164b1106b0b9d"
         }
       }
     },
@@ -2250,15 +2250,15 @@
           "path": "media/foods/carrot-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18026,
-          "sha256": "d837df991c45626f5b6a28557a34787b67a49e93bbf47e33b931bfe14f87f178"
+          "bytes": 17124,
+          "sha256": "b5d25efc1c3807d7e1150b90dc1cb6b72f54fef1edea2bbd383499acd1472d20"
         },
         "desktop": {
           "path": "media/foods/carrot-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 74878,
-          "sha256": "41719a769c8fd9de8a18b68334c60c29a48f8ae5549c0f3a4bb579941f377f01"
+          "bytes": 60672,
+          "sha256": "9feeabbb399829c379b27e79674db98dd91525d87b034995005aa0a0f666687a"
         }
       }
     },
@@ -2280,15 +2280,15 @@
           "path": "media/foods/tomato-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 19184,
-          "sha256": "97d5b2ca156581a00f4498308d7aa221b7bcb381a39cb3dabdc8f9fb086d207b"
+          "bytes": 17630,
+          "sha256": "37ad997cd621d6e395103ac74b94bfca0b1403463fce0b175f4062765dac02a7"
         },
         "desktop": {
           "path": "media/foods/tomato-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 82420,
-          "sha256": "5382ff3308cc9fec5e913ef7e95630404a95275d4ac75951e2b248976f31209c"
+          "bytes": 65824,
+          "sha256": "994afda735947c9ce4bb3cca189b0150aa52191c07ca70a09b9981b5bac120ee"
         }
       }
     },
@@ -2310,15 +2310,15 @@
           "path": "media/foods/cucumber-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18708,
-          "sha256": "7e1292fef71e142969936282a4daf1d846d0071dff667337592825d6067ce329"
+          "bytes": 17584,
+          "sha256": "e8bba975e7b80fd32eef8733219f6c9737aa83bc0c3481764a3abd939d0ad67a"
         },
         "desktop": {
           "path": "media/foods/cucumber-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 73460,
-          "sha256": "d4569f08dc717c96bb5624d4a2a0e38ec3f66e8181eedd6d2321cad5e68fed81"
+          "bytes": 60264,
+          "sha256": "8e1158499457da762bd530b881629c36d335dbc88b285d1391cd13deee1d7593"
         }
       }
     }

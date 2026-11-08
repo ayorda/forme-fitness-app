@@ -4,7 +4,7 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 
 function setup({online=true}={}) {
-  const handlers={},stored=new Map([['forme-old',new Map()],['unrelated-app',new Map()]]);
+  const handlers={},stored=new Map([['forme-old',new Map()],['forme-media-v029',new Map()],['unrelated-app',new Map()]]);
   let claimed=false,skipped=false;
   const caches={
     async open(name){if(!stored.has(name))stored.set(name,new Map());return {async addAll(paths){for(const path of paths)stored.get(name).set(path,`cached:${path}`);}};},
@@ -24,6 +24,7 @@ test('installation caches the app and activation removes only old FORME caches',
   const a=setup();await lifecycle(a.handlers.install);await lifecycle(a.handlers.activate);
   assert.equal(a.skipped,true);assert.equal(a.claimed,true);
   assert.equal(a.stored.has('forme-old'),false);assert.equal(a.stored.has('unrelated-app'),true);
+  assert.equal(a.stored.has('forme-media-v029'),false);
   const cache=[...a.stored.entries()].find(([name])=>name.startsWith('forme-mobile-'))[1];
   for(const asset of ['./index.html','./app.js','./data.js','./styles.css','./food-photos.js','./i18n.js','./interface-translations.js','./exercise-translations.js','./food-translations.js','./workout-translations.js','./locale-content.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);
 });
