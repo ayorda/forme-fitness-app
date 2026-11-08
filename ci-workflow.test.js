@@ -3,20 +3,37 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const {execFileSync}=require('node:child_process');
 
-test('every test file is registered in the CI workflow and still exists',()=>{
+const isTestFile=name=>name.endsWith('.test.js')||name==='test.js';
+
+function workflowLists(){
  const workflow=fs.readFileSync('.github/workflows/final-check.yml','utf8');
- const files=fs.readdirSync('.').filter(name=>name.endsWith('.test.js')).sort();
+ const run=workflow.match(/node --test ([^\n]+)/);
+ assert.ok(run,'workflow runs node --test with an explicit file list');
+ const tests=run[1].trim().split(/\s+/);
+ const checked=[...workflow.matchAll(/node --check (\S+)/g)].map(m=>m[1]);
+ return {tests,checked};
+}
+
+test('every test file is registered in the CI workflow and still exists',()=>{
+ const {tests}=workflowLists();
+ const files=fs.readdirSync('.').filter(isTestFile).sort();
  assert.ok(files.length>=15,'sanity: the repository keeps a healthy test suite');
- for(const file of files)
-  assert.ok(workflow.includes(file),`${file} is not listed in .github/workflows/final-check.yml`);
- const listed=[...workflow.matchAll(/\b([a-z0-9-]+\.test\.js)\b/g)].map(m=>m[1]);
- for(const file of listed)
-  assert.ok(files.includes(file),`final-check.yml lists a test file that no longer exists: ${file}`);
+ assert.deepEqual([...tests].sort(),files,
+  'the node --test list in final-check.yml must exactly match the test files on disk');
+});
+
+test('the CI workflow parses every production JavaScript file',()=>{
+ const {checked}=workflowLists();
+ const files=fs.readdirSync('.')
+  .filter(name=>name.endsWith('.js')&&!isTestFile(name)).sort();
+ assert.ok(files.length>=15,'sanity: the repository keeps a production script set');
+ assert.deepEqual([...checked].sort(),files,
+  'the node --check list in final-check.yml must exactly match the production .js files on disk');
 });
 
 test('README states the exact number of automated tests',()=>{
  if(process.env.FORME_COUNT_RUN)return; // the nested counting run must not recurse
- const files=fs.readdirSync('.').filter(name=>name.endsWith('.test.js')).sort();
+ const files=fs.readdirSync('.').filter(isTestFile).sort();
  const env={...process.env,FORME_COUNT_RUN:'1'};
  delete env.NODE_TEST_CONTEXT; // the outer runner's context must not reach the child
  let output;
