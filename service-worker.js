@@ -1,5 +1,5 @@
-const CACHE = 'forme-mobile-v029-i18n2';
-const MEDIA_CACHE = 'forme-media-v029';
+const CACHE = 'forme-mobile-v029-media3';
+const MEDIA_CACHE = 'forme-media-v029-optimized';
 const ASSETS = ['./', './index.html', './styles.css', './app.js', './data.js', './exercise-art.js', './exercise-photos.js', './core.js', './food-art.js', './food-photos.js', './i18n.js', './interface-translations.js', './exercise-translations.js', './food-translations.js', './workout-translations.js', './locale-content.js', './storage-schema.js', './progress.js', './programs.js', './nutrition-journal.js', './backup.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
@@ -18,7 +18,7 @@ self.addEventListener('fetch', event => {
     event.respondWith(caches.open(MEDIA_CACHE).then(async cache => {
       const cached = await cache.match(event.request);
       if (cached) return cached;
-      const response = await fetch(event.request);
+      const response = await fetch(event.request, {cache: 'reload'});
       if (response.ok) cache.put(event.request, response.clone());
       return response;
     }));

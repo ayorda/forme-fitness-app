@@ -28,14 +28,14 @@ test('v0.2.9 keeps app modules offline and caches media as it is viewed',()=>{
  const artPos=html.indexOf('<script src="exercise-art.js"></script>');
  const dataPos=html.indexOf('<script src="data.js"></script>');
  assert.ok(artPos>=0&&artPos<dataPos);
- assert.ok(sw.includes('forme-mobile-v029-i18n2'));
+ assert.ok(sw.includes('forme-mobile-v029-media3'));
  assert.ok(sw.includes('exercise-art.js'));
  assert.ok(sw.includes('progress.js'));
  assert.ok(sw.includes('programs.js'));
  assert.ok(sw.includes('storage-schema.js'));
  assert.ok(sw.includes('nutrition-journal.js'));
  assert.ok(sw.includes('backup.js'));
- assert.ok(sw.includes('forme-media-v029'));
+ assert.ok(sw.includes('forme-media-v029-optimized'));
  assert.ok(sw.includes('cache.put(event.request, response.clone())'));
  assert.ok(fs.existsSync('exercise-art.js'));
 });
