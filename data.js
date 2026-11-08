@@ -118,7 +118,12 @@ const skillDetails={
  One_Arm_Pull_Up:['One Arm Pull-Up / Chin-Up','Einarmiger Klimmzug','Гръб, бицепс, захват','Дългосрочна подготовка и силни асистирани едностранни набирания','Рязко натоварване на лакътя','По-малко помощ само при готовност','Контролирани повторения на страна'],
  Iron_Cross:['Iron Cross','Kreuzhang','Рамене, гърди, ръце','Години подготовка на халки и пряк надзор от квалифициран треньор','Опит без специфична подготовка','По-дълго задържане само с треньор','Секунди с контрол']
 };
-for(const exercise of exercises){const d=skillDetails[exercise.id];if(!d)continue;[exercise.nameEn,exercise.nameDe,exercise.muscles,exercise.prerequisites,exercise.commonMistakes,exercise.harder,exercise.measure]=d;exercise.progression=`${exercise.easier} → ${exercise.name} → ${exercise.harder}`;if(exercise.level==='advanced'||exercise.level==='elite')exercise.caution='Високо натоварване: подготвяй движението постепенно и работи с квалифициран треньор. Спри при болка.';}
+const timedExercises=new Set([
+ 'Plank','Side_Bridge','Hollow_Body_Hold','Frog_Stand','L_Sit','Handstand','Tuck_Planche','Tuck_Front_Lever','Back_Lever','Human_Flag','Front_Lever','Straddle_Planche','Full_Planche','Iron_Cross',
+ 'Childs_Pose','Dancers_Stretch','Seated_Floor_Hamstring_Stretch','Groin_and_Back_Stretch','Spinal_Stretch','Seated_Overhead_Stretch',
+ 'Kneeling_Hip_Flexor','Shoulder_Stretch','Calf_Stretch_Hands_Against_Wall','Kneeling_Forearm_Stretch'
+]);
+for(const exercise of exercises){exercise.defaultMetric=timedExercises.has(exercise.id)?'seconds':'reps';const d=skillDetails[exercise.id];if(!d)continue;[exercise.nameEn,exercise.nameDe,exercise.muscles,exercise.prerequisites,exercise.commonMistakes,exercise.harder,exercise.measure]=d;exercise.progression=`${exercise.easier} → ${exercise.name} → ${exercise.harder}`;if(exercise.level==='advanced'||exercise.level==='elite')exercise.caution='Високо натоварване: подготвяй движението постепенно и работи с квалифициран треньор. Спри при болка.';}
 const workouts=[
 {id:'cal-start',name:'Силна основа',cat:'cal',level:'beginner',duration:12,rounds:3,workSec:40,restSec:20,equip:'none',ids:['Bodyweight_Squat','Pushups','Plank','Mountain_Climbers'],tag:'НАЧАЛО',desc:'Четири основни движения за цялото тяло.',emoji:'🤸‍♂️'},
 {id:'cal-control',name:'Контрол и сила',cat:'cal',level:'intermediate',duration:18,rounds:4,workSec:50,restSec:20,equip:'bar',ids:['Pullups','Hanging_Leg_Raise','Pushups','Side_Bridge'],tag:'СЛЕДВАЩО НИВО',desc:'Лост, стабилност и контрол на торса.',emoji:'💪'},
