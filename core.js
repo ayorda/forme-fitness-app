@@ -1,6 +1,5 @@
 /* Pure functions are usable in the browser and by Node's built-in test runner. */
 (function(root){
-const levelRank={beginner:1,intermediate:2,advanced:3,elite:4};
 function validateGrams(raw){
  const value=String(raw??'').trim().replace(',','.');
  if(!/^(?:\d+)(?:\.\d+)?$/.test(value)) return {ok:false,reason:'format',message:'Въведи положително число за грамажа.'};
@@ -13,7 +12,7 @@ function sumMeal(items,foods){const total={kcal:0,protein:0,carbs:0,fat:0,fiber:
 function filterWorkouts(workouts,filters){return workouts.filter(w=>(!filters.cat||w.cat===filters.cat)&&(!filters.level||w.level===filters.level)&&(!filters.maxTime||w.duration<=Number(filters.maxTime))&&(!filters.equip||w.equip===filters.equip));}
 function filterExercises(exercises,filters){const q=(filters.q||'').toLocaleLowerCase('bg').trim();return exercises.filter(e=>(!q||[e.name,e.nameEn,e.nameDe,e.description,e.steps].join(' ').toLocaleLowerCase('bg').includes(q))&&(!filters.cat||e.cat===filters.cat)&&(!filters.level||e.level===filters.level)&&(!filters.equip||e.equip===filters.equip));}
 function formatClock(ms){const seconds=Math.max(0,Math.ceil(ms/1000));return `${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;}
-const core={validateGrams,calculateForGrams,sumMeal,filterWorkouts,filterExercises,formatClock,levelRank};
+const core={validateGrams,calculateForGrams,sumMeal,filterWorkouts,filterExercises,formatClock};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);
