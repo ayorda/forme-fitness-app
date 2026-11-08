@@ -9,10 +9,11 @@ function homeHtml(){
  const c={window,document,localStorage:{getItem(){return null;},setItem(){}},location:{hash:'#home'},setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(c);for(const f of ['exercise-art.js','data.js','core.js','food-art.js','app.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});return nodes.app.innerHTML;
 }
-test('home remains usable if the private portrait cannot be loaded',()=>{
- const html=homeHtml(),tag=html.match(/<img src="\.\/private-media\/model-front\.png"[^>]+>/)?.[0];assert.ok(tag);
- const handler=tag.match(/onerror="([^"]+)"/)[1],image={parentElement:{hidden:false}};
- Function(handler).call(image);assert.equal(image.parentElement.hidden,true);
+test('home uses its local visual background without requesting a missing private portrait',()=>{
+ const html=homeHtml();
+ assert.match(html,/class="hero home-hero"/);
+ assert.match(html,/class="hero-orb"/);
+ assert.doesNotMatch(html,/private-media\/model-front\.png/);
  assert.match(html,/data-action="nav" data-page="sessions"/);
 });
 test('private model file stays out of the public app cache and exercise data',()=>{
