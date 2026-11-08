@@ -54,3 +54,15 @@ test('Tab and Shift+Tab stay inside an open detail dialog',()=>{
  a.handlers.keydown({key:'Tab',shiftKey:false,preventDefault(){prevented=true;}});
  assert.equal(a.document.activeElement,buttons[0]);assert.equal(prevented,true);
 });
+
+test('favorite keeps keyboard focus after the card is redrawn',()=>{
+ const a=boot('#sessions',{});
+ let focused=false;
+ const selected={dataset:{action:'favorite',kind:'workouts',id:'cal-start'}};
+ const replacement={dataset:{...selected.dataset},disabled:false,focus(){focused=true;}};
+ a.document.activeElement=selected;
+ a.nodes.app.contains=element=>element===selected;
+ a.nodes.app.querySelectorAll=()=>[replacement];
+ a.handlers.click({target:{closest:()=>selected}});
+ assert.equal(focused,true);
+});
