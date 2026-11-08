@@ -15,10 +15,10 @@ test('all 30 foods have separate compact WebP images and documented preparation 
  }
  assert.equal(photos.get('constructor'),null);
 });
-test('the revised banana uses fresh versioned URLs without changing other foods',()=>{
+test('the single whole banana uses fresh versioned URLs without changing other foods',()=>{
  const photos=context.window.FORME_FOOD_PHOTOS;
- assert.equal(photos.get('banana').small,'media/foods/banana-v2-480.webp');
- assert.equal(photos.get('banana').large,'media/foods/banana-v2-960.webp');
+ assert.equal(photos.get('banana').small,'media/foods/banana-v3-480.webp');
+ assert.equal(photos.get('banana').large,'media/foods/banana-v3-960.webp');
  assert.equal(photos.get('banana').created,'2026-11-08');
  assert.equal(photos.get('apple').small,'media/foods/apple-480.webp');
 });

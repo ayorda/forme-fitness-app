@@ -1,6 +1,6 @@
-const CACHE = 'forme-mobile-v029-banana2';
+const CACHE = 'forme-mobile-v029-banana3';
 const MEDIA_CACHE = 'forme-media-v029-optimized';
-const REFRESHED_MEDIA = ['./media/foods/banana-480.webp', './media/foods/banana-960.webp'];
+const REFRESHED_MEDIA = ['./media/foods/banana-480.webp', './media/foods/banana-960.webp', './media/foods/banana-v2-480.webp', './media/foods/banana-v2-960.webp'];
 const ASSETS = ['./', './index.html', './styles.css', './app.js', './data.js', './exercise-art.js', './exercise-photos.js', './core.js', './food-art.js', './food-photos.js', './i18n.js', './interface-translations.js', './exercise-translations.js', './food-translations.js', './workout-translations.js', './locale-content.js', './storage-schema.js', './progress.js', './programs.js', './nutrition-journal.js', './backup.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS.map(path => new Request(path, {cache:'reload'})))).then(() => self.skipWaiting()));

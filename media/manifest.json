@@ -2033,22 +2033,22 @@
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
         "visual": "individually reviewed at both sizes",
-        "scope": "three whole, unpeeled raw bananas; consistent plate, light and composition; no collage or anatomy artifact"
+        "scope": "exactly one whole, unpeeled, unsliced raw banana; consistent plate, light and composition; no collage or anatomy artifact"
       },
       "variants": {
         "mobile": {
-          "path": "media/foods/banana-v2-480.webp",
+          "path": "media/foods/banana-v3-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 13844,
-          "sha256": "e368575894b30d27555aafc5a2b6c15750512ae0007aea9de8e961414571c3c8"
+          "bytes": 13614,
+          "sha256": "6c8a4b002103633834f9021f5f0bbd5e91dfec0f4c20b3257ff14e59a1b2ade1"
         },
         "desktop": {
-          "path": "media/foods/banana-v2-960.webp",
+          "path": "media/foods/banana-v3-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 46526,
-          "sha256": "1a1eb5fa3e2f6236decc1025f402dfbc02c0ef3bdec98847b5629154f98a4a49"
+          "bytes": 50212,
+          "sha256": "9f6218bcf5985117c44d9911e91b05c84c25118e5a5e487a5893a553b786933b"
         }
       }
     },
