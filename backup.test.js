@@ -19,3 +19,32 @@ test('invalid archive and failed writes preserve previous data',()=>{
  assert.equal(backup.importData(target,backup.exportData(source)),false);
  assert.deepEqual(target.data,original);
 });
+
+test('restore rejects invalid journal values and nested legacy records without changing data',()=>{
+ const original={'forme-plan':'{"mon":"cal-start"}'},date='2026-11-08';
+ const invalid=[
+  {'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[{id:'x',workoutId:'cal-start',date,minutes:-50}],sets:[]})},
+  {'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:9,minutesPerWeek:90},sessions:[],sets:[]})},
+  {'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:-1,protein:100},entries:[]})},
+  {'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[{id:'x',date,name:'Meal',items:[{id:'rice',grams:'0'}]}]})},
+  {'forme-user-v1':JSON.stringify({version:1,records:{'current-meal':'[{"id":"rice","grams":"-50"}]'}})}
+ ];
+ for(const data of invalid){const target=storage(original);const text=JSON.stringify({app:'FORME',version:1,data});assert.equal(backup.importData(target,text),false,Object.keys(data)[0]);assert.deepEqual(target.data,original);}
+});
+
+test('restore accepts valid versioned records from a current backup',()=>{
+ const data={'forme-user-v1':JSON.stringify({version:1,records:{favorites:'{"exercises":["Pushups"],"workouts":[]}',sound:'true'}})};
+ const target=storage();assert.equal(backup.importData(target,JSON.stringify({app:'FORME',version:1,data})),true);
+ assert.equal(target.data['forme-user-v1'],data['forme-user-v1']);
+});
+
+test('backup round trip accepts comma decimal grams used by the meal builder',()=>{
+ const source=storage({
+  'forme-current-meal':'[{"id":"rice","grams":"125,5"}]',
+  'forme-saved-meals':'[{"name":"Lunch","items":[{"id":"rice","grams":"125,5"}]}]',
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[{id:'meal-1',date:'2026-11-08',name:'Lunch',items:[{id:'rice',grams:'125,5'}]}]})
+ });
+ const target=storage();assert.equal(backup.importData(target,backup.exportData(source)),true);
+ assert.equal(target.data['forme-current-meal'],source.data['forme-current-meal']);
+ assert.equal(target.data['forme-nutrition-v1'],source.data['forme-nutrition-v1']);
+});
