@@ -26,3 +26,19 @@ test('journal rejects unknown foods, invalid dates and amounts without changing 
  assert.equal(app.journal.add('2026-11-07',[{id:'rice',grams:'0'}]),false);
  assert.equal(app.journal.setGoal(-1,100),false);assert.equal(app.journal.entries().length,0);
 });
+
+test('a cleared date never sums the whole history and the week view follows the chosen date',()=>{
+ const app=setup(),first='2026-11-01',second='2026-11-02';
+ assert.equal(app.journal.add(first,[{id:'rice',grams:'100'}]),true);
+ assert.equal(app.journal.add(second,[{id:'rice',grams:'200'}]),true);
+ const oneDay=app.journal.day(first).kcal;
+ assert.equal(app.journal.day(second).kcal,oneDay*2);
+ assert.equal(app.journal.day('').count,0);assert.equal(app.journal.day('').kcal,0);
+ assert.equal(app.journal.day('').validDate,false);assert.equal(app.journal.day('2026-02-30').count,0);
+ assert.equal(app.journal.entries().length,2);
+ assert.equal(app.journal.day(first).validDate,true);
+ const week=app.journal.week(second);
+ assert.equal(week.length,7);assert.equal(week[6].date,second);
+ assert.equal(week[5].date,first);assert.equal(week[5].kcal,oneDay);assert.equal(week[6].kcal,oneDay*2);
+ assert.equal(app.journal.week('bad date').length,7);
+});

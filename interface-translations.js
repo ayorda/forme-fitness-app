@@ -102,7 +102,7 @@ const rows={
  'shell.space':['ТВОЕТО ПРОСТРАНСТВО','YOUR SPACE','DEIN BEREICH'],
  'shell.progress':['СЪЗДАДЕНО ЗА ПРОГРЕС','BUILT FOR PROGRESS','FÜR FORTSCHRITT GEMACHT'],
  'shell.nextStep':['Няма перфектен момент. Има следваща стъпка.','There is no perfect moment. Take the next step.','Es gibt keinen perfekten Moment. Geh den nächsten Schritt.'],
- 'shell.version':['v0.2.9 · Български · 0 €','v0.2.9 · English · €0','v0.2.9 · Deutsch · 0 €'],
+ 'shell.version':['v0.3.0 · Български · 0 €','v0.3.0 · English · €0','v0.3.0 · Deutsch · 0 €'],
  'shell.everyDay':['РАСТИ ВСЕКИ ДЕН','GROW EVERY DAY','WACHSE JEDEN TAG'],
  'shell.footer':['Създадено за движение и осъзнат избор · Данните са ориентировъчни, не медицински съвет.','Made for movement and mindful choices · Data is approximate, not medical advice.','Für Bewegung und bewusste Entscheidungen · Angaben sind Richtwerte, keine medizinische Beratung.'],
  'home.eyebrow':['ТВОЕТО МЯСТО ЗА ДВИЖЕНИЕ','YOUR SPACE TO MOVE','DEIN ORT FÜR BEWEGUNG'],
@@ -366,7 +366,17 @@ const rows={
  'favorites.remove':['Премахни от любими','Remove from favorites','Aus Favoriten entfernen'],
  'favorites.addedMessage':['Добавено в любими.','Added to favorites.','Zu Favoriten hinzugefügt.'],
  'favorites.removedMessage':['Премахнато от любими.','Removed from favorites.','Aus Favoriten entfernt.'],
- 'storage.failed':['Неуспешно локално запазване. Промените може да се загубят при затваряне.','Could not save on this device. Changes may be lost when you close the app.','Speichern auf diesem Gerät fehlgeschlagen. Änderungen können beim Schließen verloren gehen.']
+ 'storage.failed':['Неуспешно локално запазване. Промените може да се загубят при затваряне.','Could not save on this device. Changes may be lost when you close the app.','Speichern auf diesem Gerät fehlgeschlagen. Änderungen können beim Schließen verloren gehen.'],
+ 'journal.dateRequired':['Избери валидна дата, за да видиш записа за деня.','Choose a valid date to see that day’s journal.','Wähle ein gültiges Datum, um das Tagebuch dieses Tages zu sehen.'],
+ 'nutrition.editSaved':['Редактирай','Edit','Bearbeiten'],
+ 'nutrition.editSavedTitle':['Редактираш запазено хранене','Editing a saved meal','Gespeicherte Mahlzeit bearbeiten'],
+ 'nutrition.updateMeal':['Обнови запазеното хранене','Update the saved meal','Gespeicherte Mahlzeit aktualisieren'],
+ 'nutrition.updatedMessage':['Запазеното хранене е обновено.','Saved meal updated.','Gespeicherte Mahlzeit aktualisiert.'],
+ 'nutrition.editingSaved':['Редактираш запазено хранене. Запази го отново.','You are editing a saved meal. Save it again.','Du bearbeitest eine gespeicherte Mahlzeit. Speichere sie erneut.'],
+ 'nutrition.editCancelled':['Редакцията е отменена.','Editing cancelled.','Bearbeitung abgebrochen.'],
+ 'common.cancel':['Отказ','Cancel','Abbrechen'],
+ 'food.fallbackTitle':['Снимката не е изтеглена','Photo not downloaded yet','Foto noch nicht geladen'],
+ 'food.fallbackHelp':['Стойностите идват от USDA. Включи връзка, за да видиш изображението.','Values come from USDA. Connect to the internet to see the picture.','Die Werte stammen von USDA. Stelle eine Verbindung her, um das Bild zu sehen.']
 };
 const index={bg:0,en:1,de:2};
 function get(key,language,values={}){
