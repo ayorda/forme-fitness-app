@@ -35,3 +35,22 @@ test('opening and closing details moves keyboard focus and restores it',()=>{
  a.handlers.keydown({key:'Escape'});
  assert.equal(a.focused(),'trigger');assert.equal(a.nodes['modal-root'].innerHTML,'');assert.equal(a.document.body.style.overflow,'');
 });
+
+test('Tab and Shift+Tab stay inside an open detail dialog',()=>{
+ const a=boot('#exercises',{});
+ const trigger=a.document.activeElement;
+ const buttons=['first','last'].map(name=>({getClientRects:()=>[{}],closest:()=>null,focus(){a.document.activeElement=this;}}));
+ const dialog={querySelectorAll:()=>buttons,contains:element=>buttons.includes(element)};
+ a.nodes['modal-root'].querySelector=selector=>selector==='.modal-close'?buttons[0]:dialog;
+ a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Plank'}})}});
+ assert.equal(a.document.activeElement,buttons[0]);
+ let prevented=false;
+ a.handlers.keydown({key:'Tab',shiftKey:true,preventDefault(){prevented=true;}});
+ assert.equal(a.document.activeElement,buttons[1]);assert.equal(prevented,true);
+ prevented=false;
+ a.handlers.keydown({key:'Tab',shiftKey:false,preventDefault(){prevented=true;}});
+ assert.equal(a.document.activeElement,buttons[0]);assert.equal(prevented,true);
+ a.document.activeElement=trigger;prevented=false;
+ a.handlers.keydown({key:'Tab',shiftKey:false,preventDefault(){prevented=true;}});
+ assert.equal(a.document.activeElement,buttons[0]);assert.equal(prevented,true);
+});
