@@ -2029,26 +2029,26 @@
       "state": "суров",
       "origin": "AI generated",
       "tool": "OpenAI image generation tool",
-      "date": "2026-11-07",
+      "date": "2026-11-08",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "contact-sheet reviewed",
-        "scope": "food identity and preparation state"
+        "visual": "individually reviewed at both sizes",
+        "scope": "three whole, unpeeled raw bananas; consistent plate, light and composition; no collage or anatomy artifact"
       },
       "variants": {
         "mobile": {
-          "path": "media/foods/banana-480.webp",
+          "path": "media/foods/banana-v2-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 16390,
-          "sha256": "f0e97c401ef9314c97c7dc0c52e04e19a09bd135983708b4a9fa3659cda488dc"
+          "bytes": 13844,
+          "sha256": "e368575894b30d27555aafc5a2b6c15750512ae0007aea9de8e961414571c3c8"
         },
         "desktop": {
-          "path": "media/foods/banana-960.webp",
+          "path": "media/foods/banana-v2-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 61254,
-          "sha256": "5fd17d73179b18f6a9d7a5af02f22135d6bb7c22e69bd02a215057de480007e6"
+          "bytes": 46526,
+          "sha256": "1a1eb5fa3e2f6236decc1025f402dfbc02c0ef3bdec98847b5629154f98a4a49"
         }
       }
     },
