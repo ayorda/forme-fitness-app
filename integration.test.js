@@ -78,3 +78,25 @@ test('set entry suggests seconds for holds and reps for dynamic movements',()=>{
  a.handlers.change({target:{id:'set-kind',value:'seconds',dataset:{}}});
  assert.equal(a.nodes['set-value'].value,'30');
 });
+
+test('changing journal date restores focus to the new date field',()=>{
+ const a=boot('#home',{});
+ let focused=false;
+ const selected={id:'journal-date',dataset:{}};
+ const replacement={focus(){focused=true;}};
+ a.document.activeElement=selected;
+ a.nodes.app.contains=element=>element===selected||element===replacement;
+ a.nodes['journal-date']=replacement;
+ a.handlers.change({target:{id:'journal-date',value:'2026-11-07',dataset:{}}});
+ assert.equal(focused,true);
+});
+
+test('saving a meal focuses its destination tab',()=>{
+ const a=boot('#home',{'forme-current-meal':'[{"id":"rice","grams":"100"}]'});
+ let focused=false;
+ a.document.getElementById('meal-name').value='Lunch';
+ a.nodes.app.querySelector=selector=>selector.includes('data-tab="saved"')?{focus(){focused=true;}}:null;
+ a.handlers.click({target:{closest:()=>({dataset:{action:'save-meal'}})}});
+ assert.equal(focused,true);
+ assert.equal(a.nodes.toast.textContent,'Храненето е запазено.');
+});
