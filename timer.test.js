@@ -28,6 +28,20 @@ test('timer translates controls while preserving workout steps and time',()=>{
  }
 });
 
+test('player keeps focus on the replacement control after starting',()=>{
+ const a=boot();a.run("startWorkout('cal-start')");
+ a.run("document.activeElement={dataset:{action:'player-start'}};document.getElementById('player-layout').contains=()=>true;document.getElementById('player-layout').querySelector=selector=>({focus(){window.__focusedSelector=selector}});playerControl('player-start')");
+ assert.equal(a.run('window.__focusedSelector'),'[data-action="player-pause"]:not([disabled])');
+});
+
+test('changing timer settings keeps the controls mounted',()=>{
+ const a=boot();a.run("startWorkout('cal-start')");
+ const before=a.nodes['player-layout'].innerHTML;
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'restMs'},value:'45'}});
+ assert.equal(a.run('state.player.restMs'),45000);
+ assert.equal(a.nodes['player-layout'].innerHTML,before);
+});
+
 test('timer catches up through work and rest after the screen becomes visible',()=>{
  const a=boot();a.run("startWorkout('cal-start'); playerControl('player-start')");
  const work=a.run('state.player.workMs'),rest=a.run('state.player.restMs');
