@@ -4,7 +4,7 @@
 const key='forme-progress-v1';
 const empty=()=>({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[]});
 const dateKey=date=>`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
-const validDate=value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)&&!Number.isNaN(new Date(value+'T12:00:00').getTime());
+const validDate=value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)&&dateKey(new Date(value+'T12:00:00'))===value;
 const validId=value=>typeof value==='string'&&/^[A-Za-z0-9_-]+$/.test(value);
 function read(storage){try{const parsed=JSON.parse(storage.getItem(key));if(parsed?.version===1&&Array.isArray(parsed.sessions)&&Array.isArray(parsed.sets)&&parsed.goal)return parsed;}catch{}return empty();}
 function create(storage){

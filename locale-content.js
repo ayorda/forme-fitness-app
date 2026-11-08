@@ -1,4 +1,4 @@
-/* Data adapter for a future complete UI translation; never mutates the original dataset. */
+/* Localized content adapter; never mutates the original dataset. */
 (function(root){
 'use strict';
 const supported=['bg','en','de'];

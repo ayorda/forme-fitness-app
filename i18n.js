@@ -1,4 +1,4 @@
-/* Translation foundation. The language selector stays hidden until content is translated. */
+/* Persist the selected interface language on this device. */
 (function(root){
 'use strict';
 const storageKey='forme-language';
