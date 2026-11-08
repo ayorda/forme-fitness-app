@@ -28,3 +28,21 @@ test('unsupported language cannot replace a saved choice',()=>{
  app.handlers.change({target:{id:'language-select',value:'fr',dataset:{}}});
  assert.equal(app.storage['forme-language'],'de');assert.equal(app.reloads(),0);
 });
+
+test('meal and food detail validation errors follow the selected language',()=>{
+ for(const [language,range,format,noResults] of [
+  ['en','The amount must be greater than 0 and at most 10,000 g.','Enter a positive amount in grams.','No matches'],
+  ['de','Die Menge muss größer als 0 und höchstens 10.000 g sein.','Gib eine positive Menge in Gramm ein.','Keine Treffer']
+ ]){
+  const app=boot({'forme-language':language,'forme-current-meal':JSON.stringify([{id:'rice',grams:'0'}])});
+  app.handlers.click({target:{closest:()=>({dataset:{action:'food-tab',tab:'meal'}})}});
+  assert.ok(app.nodes.app.innerHTML.includes(range),language+' stored meal');
+  assert.ok(app.nodes.app.innerHTML.includes('class="grams-unit" aria-hidden="true">g</span>'),language+' unit');
+  app.handlers.input({target:{dataset:{action:'meal-grams',index:'0'},value:'abc',classList:{toggle(){}}}});
+  assert.equal(app.nodes['meal-error-0'].textContent,format,language+' meal edit');
+  app.handlers.input({target:{dataset:{action:'detail-grams',id:'rice'},value:'0'}});
+  assert.equal(app.nodes['detail-error'].textContent,range,language+' food detail');
+  app.handlers.input({target:{dataset:{filter:'foods',key:'q'},value:'zzzz-no-food'}});
+  assert.ok(app.nodes['food-results'].innerHTML.includes(noResults),language+' empty search');
+ }
+});

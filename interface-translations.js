@@ -1,4 +1,4 @@
-/* Prepared interface strings. No language selector is exposed until all screens are wired and checked. */
+/* Interface strings for the Bulgarian, English and German app. */
 (function(root){
 'use strict';
 const rows={

@@ -3,9 +3,9 @@
 const levelRank={beginner:1,intermediate:2,advanced:3,elite:4};
 function validateGrams(raw){
  const value=String(raw??'').trim().replace(',','.');
- if(!/^(?:\d+)(?:\.\d+)?$/.test(value)) return {ok:false,message:'Въведи положително число за грамажа.'};
+ if(!/^(?:\d+)(?:\.\d+)?$/.test(value)) return {ok:false,reason:'format',message:'Въведи положително число за грамажа.'};
  const grams=Number(value);
- if(!Number.isFinite(grams)||grams<=0||grams>10000) return {ok:false,message:'Грамажът трябва да е между 0 и 10 000 г.'};
+ if(!Number.isFinite(grams)||grams<=0||grams>10000) return {ok:false,reason:'range',message:'Грамажът трябва да е между 0 и 10 000 г.'};
  return {ok:true,grams};
 }
 function calculateForGrams(food,grams){const m=grams/100;return {kcal:food.kcal*m,protein:food.protein*m,carbs:food.carbs*m,fat:food.fat*m,fiber:food.fiber*m};}

@@ -33,6 +33,8 @@ test('legacy calendar completions remain visible without duplicating logged sess
 
 test('invalid and failed writes do not change journal state',()=>{
  const app=apis();assert.equal(app.journal.recordSet('Pushups','reps',0),false);
+ assert.equal(app.journal.recordWorkout('cal-start','2026-02-30',12),false);
+ assert.equal(app.journal.recordSet('Pushups','reps',10,'2026-02-30'),false);
  assert.equal(app.journal.setGoal(8,90),false);assert.equal(app.journal.get().sets.length,0);
  app.failWrites(true);assert.equal(app.journal.recordWorkout('cal-start','2026-11-07',12),false);
  assert.equal(app.journal.get().sessions.length,0);
