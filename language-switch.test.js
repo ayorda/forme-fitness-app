@@ -59,3 +59,16 @@ test('meal totals and saved meal counts use the selected language',()=>{
   assert.ok(app.nodes.app.innerHTML.includes(many),language+' plural count');
  }
 });
+
+test('save errors and favorite feedback use the selected language',()=>{
+ for(const [language,addFirst,added] of [
+  ['en','Add at least one food.','Added to favorites.'],
+  ['de','Füge mindestens ein Lebensmittel hinzu.','Zu Favoriten hinzugefügt.']
+ ]){
+  const app=boot({'forme-language':language});
+  app.handlers.click({target:{closest:()=>({dataset:{action:'save-meal'}})}});
+  assert.equal(app.nodes.toast.textContent,addFirst,language+' empty meal');
+  app.handlers.click({target:{closest:()=>({dataset:{action:'favorite',kind:'exercises',id:'Plank'}})}});
+  assert.equal(app.nodes.toast.textContent,added,language+' favorite');
+ }
+});
