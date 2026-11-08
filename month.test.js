@@ -17,7 +17,7 @@ test('monthly view maps saved weekly workouts onto a leap-year month',()=>{
  const a=boot();a.click({action:'plan-view',view:'month'});
  assert.match(a.nodes.app.innerHTML,/февруари 2024/);
  assert.equal((a.nodes.app.innerHTML.match(/data-action="plan-date"/g)||[]).length,29);
- assert.match(a.nodes.app.innerHTML,/data-date="5"[^>]*aria-label="5 февруари 2024 г\.: Силна основа/);
+ assert.match(a.nodes.app.innerHTML,/data-date="5"[^>]*aria-label="5 Калистеника · февруари 2024 г\.: Силна основа/);
  assert.match(a.nodes.app.innerHTML,/Само тренировките, които сам отбележиш/);
  assert.equal(JSON.parse(a.storage['forme-plan']).mon,'cal-start');
 });
