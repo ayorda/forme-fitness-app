@@ -51,7 +51,7 @@ CI (`.github/workflows/final-check.yml`) изброява тестовите ф�
 2. Новите тестове са в `.github/workflows/final-check.yml`.
 3. Броят тестове в README е актуален (иначе `ci-workflow.test.js` пада).
 4. Променяне на файл от `ASSETS` (напр. `app.js`, `core.js`, `interface-translations.js`)? → **ново име на кеша** в `service-worker.js` + съответната проверка в `pwa.test.js`, за да получат инсталираните PWA файловете.
-5. Смяна на версията? → `index.html` (`shell.version`) и `interface-translations.js` (`shell.version`).
+5. Смяна на версията? → `index.html` (`shell.version`) и `interface-translations.js` (`shell.version`), плюс „Публична версия“ в README и „Версия“ в DEMO.md; сегментът на версията се появява и в името на кеша. `version-consistency.test.js` държи всичко това в синхрон.
 6. Документацията (README/QA/DEMO) отразява промяната; после PR → CI зелено → сливане в `main`; GitHub Pages публикува автоматично.
 
 ## Бележки за защитата

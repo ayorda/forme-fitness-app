@@ -43,3 +43,14 @@ test('every app module stays cached offline and viewed media is saved for reuse'
  assert.ok(sw.includes('cache.put(event.request, response.clone())'));
  assert.ok(fs.existsSync('exercise-art.js'));
 });
+
+test('every local resource referenced by index.html or the manifest is precached', () => {
+  const refs = [...html.matchAll(/<(?:script src|link rel="stylesheet" href|link rel="manifest" href|link rel="icon" href|link rel="apple-touch-icon" href)="([^"]+)"/g)].map(m => m[1]);
+  for (const icon of manifest.icons) refs.push(icon.src);
+  assert.ok(refs.length >= 23, `found ${refs.length} shell references`);
+  for (const raw of refs) {
+    const ref = raw.replace(/^\.\//, '');
+    assert.ok(!ref.startsWith('http'), `local resource expected: ${ref}`);
+    assert.ok(sw.includes(`'./${ref}'`), `${ref} referenced by the shell but missing from service worker ASSETS`);
+  }
+});
