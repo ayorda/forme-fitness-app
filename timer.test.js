@@ -4,20 +4,20 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 
 function boot(language='bg'){
- let now=100000;const handlers={},nodes={};
+ let now=100000;const handlers={},nodes={},storage={};
  const element=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(){return element();}});
  const document={body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
  class Clock extends Date{static now(){return now;}}
  const window={addEventListener(){},scrollTo(){}};
- const context={window,document,localStorage:{getItem(key){return key==='forme-language'?language:null;},setItem(){}},location:{hash:'#home'},Date:Clock,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
+ const context={window,document,localStorage:{getItem(key){return key==='forme-language'?language:storage[key]??null;},setItem(key,value){storage[key]=value;}},location:{hash:'#home'},Date:Clock,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(context);
- const files=['exercise-art.js','data.js','core.js','food-art.js'];if(language!=='bg')files.push('i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');files.push('app.js');
+ const files=['exercise-art.js','data.js','core.js','food-art.js','progress.js'];if(language!=='bg')files.push('i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');files.push('app.js');
  for(const file of files){
   let source=fs.readFileSync(file,'utf8');
   if(file==='app.js')source=source.replace(/\}\)\(\);\s*$/, 'window.__timerTest={state,startWorkout,playerControl};})();');
   vm.runInContext(source,context,{filename:file});
  }
- return {run:code=>vm.runInContext('with(window.__timerTest){'+code+'}',context),advance:ms=>{now+=ms;},handlers,nodes};
+ return {run:code=>vm.runInContext('with(window.__timerTest){'+code+'}',context),advance:ms=>{now+=ms;},handlers,nodes,storage};
 }
 test('timer translates controls while preserving workout steps and time',()=>{
  for(const [language,workout,ready,pause] of [['en','Strong Foundation','READY?','Pause'],['de','Starke Grundlage','BEREIT?','Pause']]){
@@ -78,4 +78,42 @@ test('next catches up first and skips the currently elapsed rest period',()=>{
  a.run("playerControl('player-next')");
  assert.equal(a.run('state.player.phase'),'work');assert.equal(a.run('state.player.index'),1);
  assert.equal(a.run('state.player.remainingMs'),work);
+});
+
+test('completed workout records configured active duration after background catch-up',()=>{
+ const a=boot();a.run("startWorkout('cal-start')");
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'workMs'},value:'5'}});
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'restMs'},value:'5'}});
+ a.run("playerControl('player-start')");
+ a.advance(600000);a.handlers.visibilitychange();
+ const result=JSON.parse(a.storage['forme-progress-v1']).sessions[0];
+ assert.equal(a.run('state.player.phase'),'done');
+ assert.equal(a.run('state.player.finishedAt-state.player.startedAt'),115000);
+ assert.equal(result.minutes,2);
+});
+
+test('paused time and skipped steps do not inflate recorded minutes',()=>{
+ const a=boot();a.run("startWorkout('cal-start')");
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'workMs'},value:'600'}});
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'restMs'},value:'600'}});
+ a.run("playerControl('player-start')");
+ a.advance(120000);a.run("playerControl('player-pause')");
+ a.advance(120000);a.run("playerControl('player-resume')");
+ a.advance(60000);a.run("for(let i=0;i<23;i++)playerControl('player-next')");
+ const result=JSON.parse(a.storage['forme-progress-v1']).sessions[0];
+ assert.equal(a.run('state.player.phase'),'done');
+ assert.equal(a.run('state.player.pausedMs'),120000);
+ assert.equal(result.minutes,3);
+});
+
+test('finishing while paused records only time before the pause',()=>{
+ const a=boot();a.run("startWorkout('cal-start')");
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'workMs'},value:'600'}});
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'restMs'},value:'600'}});
+ a.run("playerControl('player-start')");
+ a.advance(60000);a.run("playerControl('player-pause')");
+ a.advance(180000);a.run("for(let i=0;i<23;i++)playerControl('player-next')");
+ const result=JSON.parse(a.storage['forme-progress-v1']).sessions[0];
+ assert.equal(a.run('state.player.phase'),'done');
+ assert.equal(result.minutes,1);
 });

@@ -28,7 +28,7 @@ test('v0.2.9 keeps app modules offline and caches media as it is viewed',()=>{
  const artPos=html.indexOf('<script src="exercise-art.js"></script>');
  const dataPos=html.indexOf('<script src="data.js"></script>');
  assert.ok(artPos>=0&&artPos<dataPos);
- assert.ok(sw.includes('forme-mobile-v029-metric1'));
+ assert.ok(sw.includes('forme-mobile-v029-duration1'));
  assert.ok(sw.includes('exercise-art.js'));
  assert.ok(sw.includes('progress.js'));
  assert.ok(sw.includes('programs.js'));
