@@ -376,7 +376,10 @@ const rows={
  'nutrition.editCancelled':['Редакцията е отменена.','Editing cancelled.','Bearbeitung abgebrochen.'],
  'common.cancel':['Отказ','Cancel','Abbrechen'],
  'food.fallbackTitle':['Снимката не е изтеглена','Photo not downloaded yet','Foto noch nicht geladen'],
- 'food.fallbackHelp':['Стойностите идват от USDA. Включи връзка, за да видиш изображението.','Values come from USDA. Connect to the internet to see the picture.','Die Werte stammen von USDA. Stelle eine Verbindung her, um das Bild zu sehen.']
+ 'food.fallbackHelp':['Стойностите идват от USDA. Включи връзка, за да видиш изображението.','Values come from USDA. Connect to the internet to see the picture.','Die Werte stammen von USDA. Stelle eine Verbindung her, um das Bild zu sehen.'],
+ 'timer.justFinished':['Изпълни: {exercise}','Completed: {exercise}','Abgeschlossen: {exercise}'],
+ 'timer.announceWork':['Работа: {exercise}','Work: {exercise}','Arbeit: {exercise}'],
+ 'timer.announceRest':['Почивка. Следва: {exercise}','Rest. Next: {exercise}','Pause. Als Nächstes: {exercise}']
 };
 const index={bg:0,en:1,de:2};
 function get(key,language,values={}){
