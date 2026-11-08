@@ -48,9 +48,9 @@ function art(id){
  }
 }
 const palettes={protein:['#21362d','#29392f'],carbs:['#28322b','#3b4130'],fats:['#30342a','#2b3a2c'],fruit:['#2b362a','#39412a'],veg:['#1d382e','#31452f']};
-function render(food){
+function render(food,label){
  const pal=palettes[food.cat]||palettes.veg;
- return `<svg viewBox="0 0 420 270" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" role="img" aria-label="Илюстрация на ${String(food.name).replace(/[<>\"]/g,'')}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="food-bg-${food.id}" x1="0" x2="1" y1="0" y2="1"><stop stop-color="${pal[0]}"/><stop offset="1" stop-color="${pal[1]}"/></linearGradient></defs><rect width="420" height="270" fill="url(#food-bg-${food.id})"/><circle cx="352" cy="40" r="110" fill="#c3ff5c" opacity=".05"/><circle cx="51" cy="242" r="90" fill="#fff" opacity=".035"/>${art(food.id)}</svg>`;
+ return `<svg viewBox="0 0 420 270" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" role="img" aria-label="${String(label||'Илюстрация на '+food.name).replace(/[<>\"]/g,'')}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="food-bg-${food.id}" x1="0" x2="1" y1="0" y2="1"><stop stop-color="${pal[0]}"/><stop offset="1" stop-color="${pal[1]}"/></linearGradient></defs><rect width="420" height="270" fill="url(#food-bg-${food.id})"/><circle cx="352" cy="40" r="110" fill="#c3ff5c" opacity=".05"/><circle cx="51" cy="242" r="90" fill="#fff" opacity=".035"/>${art(food.id)}</svg>`;
 }
 root.FORME_FOOD_ART={render,ids:['chicken','turkey','egg','tuna','salmon','greek','cottage','oats','rice','brownrice','quinoa','bread','potato','lentils','avocado','almonds','walnuts','oliveoil','peanutbutter','chocolate','banana','apple','orange','blueberry','strawberry','broccoli','spinach','carrot','tomato','cucumber']};
 })(typeof window!=='undefined'?window:globalThis);

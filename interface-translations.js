@@ -2,6 +2,16 @@
 (function(root){
 'use strict';
 const rows={
+ 'nav.mainLabel':['Основна навигация','Main navigation','Hauptnavigation'],
+ 'nav.mobileLabel':['Навигация за телефон','Mobile navigation','Mobile Navigation'],
+ 'shell.artAttribution':['Оригинални FORME SVG илюстрации','Original FORME SVG illustrations','Originale FORME-SVG-Illustrationen'],
+ 'nutrition.deleteMeal':['Изтрий хранене','Delete meal','Mahlzeit löschen'],
+ 'common.language':['Език','Language','Sprache'],
+ 'nutrition.artLabel':['Илюстрация на {food}','Illustration of {food}','Illustration von {food}'],
+ 'nutrition.addHundred':['Добави 100 г към хранене','Add 100 g to meal','100 g zur Mahlzeit hinzufügen'],
+ 'plan.viewLabel':['Изглед на плана','Plan view','Planansicht'],
+ 'plan.workoutFor':['Тренировка за {day}','Workout for {day}','Training für {day}'],
+ 'plan.noteTitle':['ТВОЯТ ПЛАН','YOUR PLAN','DEIN PLAN'],
  'nav.home':['Начало','Home','Start'],
  'nav.workouts':['Тренировки','Workouts','Trainings'],
  'nav.exercises':['Упражнения','Exercises','Übungen'],
@@ -13,7 +23,7 @@ const rows={
  'shell.space':['ТВОЕТО ПРОСТРАНСТВО','YOUR SPACE','DEIN BEREICH'],
  'shell.progress':['СЪЗДАДЕНО ЗА ПРОГРЕС','BUILT FOR PROGRESS','FÜR FORTSCHRITT GEMACHT'],
  'shell.nextStep':['Няма перфектен момент. Има следваща стъпка.','There is no perfect moment. Take the next step.','Es gibt keinen perfekten Moment. Geh den nächsten Schritt.'],
- 'shell.version':['v0.2.5 · Български · 0 €','v0.2.5 · English · €0','v0.2.5 · Deutsch · 0 €'],
+ 'shell.version':['v0.2.6 · Български · 0 €','v0.2.6 · English · €0','v0.2.6 · Deutsch · 0 €'],
  'shell.everyDay':['РАСТИ ВСЕКИ ДЕН','GROW EVERY DAY','WACHSE JEDEN TAG'],
  'shell.footer':['Създадено за движение и осъзнат избор · Данните са ориентировъчни, не медицински съвет.','Made for movement and mindful choices · Data is approximate, not medical advice.','Für Bewegung und bewusste Entscheidungen · Angaben sind Richtwerte, keine medizinische Beratung.'],
  'home.eyebrow':['ТВОЕТО МЯСТО ЗА ДВИЖЕНИЕ','YOUR SPACE TO MOVE','DEIN ORT FÜR BEWEGUNG'],
