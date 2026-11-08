@@ -21,6 +21,15 @@ test('catalog searches by English name and shows honest missing-media placeholde
  const html=a.nodes['exercise-results'].innerHTML;
  assert.match(html,/Железен кръст/);assert.match(html,/media\/exercises\/Iron_Cross-480.webp/);assert.match(html,/AI визуализация/);
 });
+test('each workout card has a distinct emoji, with the requested calisthenics symbols',()=>{
+ const app=createApp({},false,'#sessions');
+ const glyphs=[...app.nodes['workout-results'].innerHTML.matchAll(/<div class="glyph" aria-hidden="true">([^<]+)<\/div>/g)].map(match=>match[1]);
+ assert.equal(glyphs.length,6);
+ assert.equal(new Set(glyphs).size,6);
+ app.handlers.input({target:{dataset:{filter:'workouts',key:'cat'},value:'cal'}});
+ const calisthenics=[...app.nodes['workout-results'].innerHTML.matchAll(/<div class="glyph" aria-hidden="true">([^<]+)<\/div>/g)].map(match=>match[1]);
+ assert.deepEqual(calisthenics,['🤸‍♂️','💪']);
+});
 test('exercise media is described as an AI visualisation',()=>{
  const a=createApp();
  a.handlers.input({target:{dataset:{filter:'exercises',key:'q'},value:'Планк'}});
