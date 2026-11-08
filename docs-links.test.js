@@ -2,7 +2,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 
-const docs=['README.md','DEMO.md','QA-MOBILE.md','QA-ACCESSIBILITY.md','QA-PWA-UPDATE.md','QA-RESILIENCE.md','MEDIA-DELIVERY-CHECKLIST.md','CONTENT-AUDIT.md'];
+const docs=['README.md','DEV.md','DEMO.md','QA-MOBILE.md','QA-ACCESSIBILITY.md','QA-PWA-UPDATE.md','QA-RESILIENCE.md','MEDIA-DELIVERY-CHECKLIST.md','CONTENT-AUDIT.md'];
 
 function localRefs(html){
  return [...html.matchAll(/(?:src|href)="([^"]+)"/g)]
