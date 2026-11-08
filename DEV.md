@@ -22,10 +22,10 @@
 ## Тестове
 
 ```bash
-node --test *.test.js
+node --test test.js *.test.js
 ```
 
-CI (`.github/workflows/final-check.yml`) изброява тестовите файлове **явно** — нов тест се добавя там, иначе няма да се изпълнява в GitHub. Два стража пазят това: `ci-workflow.test.js` проверява, че списъкът в CI е пълен и актуален, и че броят тестове в README съвпада с реалния.
+CI (`.github/workflows/final-check.yml`) изброява тестовите файлове **явно** — нов тест се добавя там, иначе няма да се изпълнява в GitHub. `ci-workflow.test.js` пази и трите списъка — тестовете в `node --test`, производствените файлове в `node --check` и броят тестове в README; `code-hygiene.test.js` — че в продуктовия код няма `console.log`/`debugger` и блокиращи `alert`/`confirm`/`prompt`.
 
 ## Как се добавя упражнение
 
@@ -47,7 +47,7 @@ CI (`.github/workflows/final-check.yml`) изброява тестовите ф�
 
 ## Как се пуска промяна (release checklist)
 
-1. `node --test *.test.js` минава.
+1. `node --test test.js *.test.js` минава.
 2. Новите тестове са в `.github/workflows/final-check.yml`.
 3. Броят тестове в README е актуален (иначе `ci-workflow.test.js` пада).
 4. Променяне на файл от `ASSETS` (напр. `app.js`, `core.js`, `interface-translations.js`)? → **ново име на кеша** в `service-worker.js` + съответната проверка в `pwa.test.js`, за да получат инсталираните PWA файловете.
