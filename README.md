@@ -128,6 +128,10 @@ node --test *.test.js
 - [Pull Request #2 — Промяната е прегледана и слята](https://github.com/ayorda/forme-fitness-app/pull/2).
 - Доказателство: добавен е `QA-MOBILE.md` с потвърдени резултати и неприключили проверки. PR променя само документацията, не логиката на приложението.
 
+Последвани са още два цикъла с код:
+
+- [Issue #37 — Корекции след прегледа: устойчивост на запазените данни, правила за датата в дневника и офлайн изглед на храните](https://github.com/ayorda/forme-fitness-app/issues/37) → [Pull Request #38 — устойчивост на локалните данни](https://github.com/ayorda/forme-fitness-app/pull/38) и [Pull Request #39 — съобщения на екранния четец в плеъра](https://github.com/ayorda/forme-fitness-app/pull/39), и самостоятелният [Pull Request #40 — филтри без мъртви опции и 14 нови теста](https://github.com/ayorda/forme-fitness-app/pull/40) със [зелено CI 150/150](https://github.com/ayorda/forme-fitness-app/actions/runs/42523815623).
+
 **Важно:** кратката защита и промяната на живо се извършват самостоятелно, без AI. Трябва да можете да покажете `core.js` (хранителни изчисления), `app.js` (таймер, localStorage и UI) и `data.js` (каталози).
 
 ## Какво се предава
