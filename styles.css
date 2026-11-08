@@ -215,6 +215,7 @@
 .backup-panel{margin-top:25px}.backup-import{display:inline-flex;align-items:center;position:relative;overflow:hidden;margin-left:8px}.backup-import input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
 @media(max-width:780px){.home-progress{align-items:flex-start;flex-direction:column}.journal-entry{flex-direction:column}.journal-week{gap:3px}.journal-week small{font-size:9px}.backup-import{margin-top:8px}}
 @media(max-width:780px){.tabs .tab:last-child{grid-column:auto}}
+@media(max-width:780px){.progress-forms{grid-template-columns:minmax(0,1fr)}.progress-forms .panel{min-width:0}.progress-forms select{width:100%;max-width:100%}}
 
 /* One verified generated image per card, with an honest local fallback. */
 .photo-visual,.food-visual{background:linear-gradient(135deg,#1d2823,#111916 60%,#33402d)}
