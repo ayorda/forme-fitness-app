@@ -8,6 +8,8 @@ function setup({online=true}={}) {
   const media=new Map([
     [new URL('./media/foods/banana-480.webp',scope).href,'old banana'],
     [new URL('./media/foods/banana-960.webp',scope).href,'old banana large'],
+    [new URL('./media/foods/banana-v2-480.webp',scope).href,'three bananas'],
+    [new URL('./media/foods/banana-v2-960.webp',scope).href,'three bananas large'],
     [new URL('./media/foods/apple-480.webp',scope).href,'apple']
   ]);
   const handlers={},stored=new Map([['forme-old',new Map()],['forme-media-v029',new Map()],['forme-media-v029-optimized',media],['unrelated-app',new Map()]]);
@@ -38,6 +40,8 @@ test('installation caches the app and activation removes only old FORME caches',
   const media=a.stored.get('forme-media-v029-optimized');
   assert.equal(media.has('https://example.test/media/foods/banana-480.webp'),false);
   assert.equal(media.has('https://example.test/media/foods/banana-960.webp'),false);
+  assert.equal(media.has('https://example.test/media/foods/banana-v2-480.webp'),false);
+  assert.equal(media.has('https://example.test/media/foods/banana-v2-960.webp'),false);
   assert.equal(media.has('https://example.test/media/foods/apple-480.webp'),true);
   const cache=[...a.stored.entries()].find(([name])=>name.startsWith('forme-mobile-'))[1];
   for(const asset of ['./index.html','./app.js','./data.js','./styles.css','./food-photos.js','./i18n.js','./interface-translations.js','./exercise-translations.js','./food-translations.js','./workout-translations.js','./locale-content.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);

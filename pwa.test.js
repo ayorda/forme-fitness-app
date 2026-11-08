@@ -29,7 +29,7 @@ test('v0.2.9 keeps app modules offline and caches media as it is viewed',()=>{
  const artPos=html.indexOf('<script src="exercise-art.js"></script>');
  const dataPos=html.indexOf('<script src="data.js"></script>');
  assert.ok(artPos>=0&&artPos<dataPos);
- assert.ok(sw.includes('forme-mobile-v029-banana2'));
+ assert.ok(sw.includes('forme-mobile-v029-banana3'));
  assert.ok(sw.includes('exercise-art.js'));
  assert.ok(sw.includes('progress.js'));
  assert.ok(sw.includes('programs.js'));
@@ -37,7 +37,7 @@ test('v0.2.9 keeps app modules offline and caches media as it is viewed',()=>{
  assert.ok(sw.includes('nutrition-journal.js'));
  assert.ok(sw.includes('backup.js'));
  assert.ok(sw.includes('forme-media-v029-optimized'));
- assert.ok(sw.includes('banana-480.webp')&&sw.includes('banana-960.webp'));
+ assert.ok(sw.includes('banana-v2-480.webp')&&sw.includes('banana-v2-960.webp'));
  assert.ok(sw.includes('cache.put(event.request, response.clone())'));
  assert.ok(fs.existsSync('exercise-art.js'));
 });
