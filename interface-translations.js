@@ -247,6 +247,8 @@ const rows={
  'nutrition.savedIntro':['Запази любимите си комбинации и ги използвай отново по всяко време.','Save your favourite combinations and use them again at any time.','Speichere deine Lieblingskombinationen und verwende sie jederzeit erneut.'],
  'nutrition.noSavedHelp':['Отвори „Сглоби хранене“, добави продукти и запази.','Open Build a meal, add foods and save it.','Öffne Mahlzeit zusammenstellen, füge Lebensmittel hinzu und speichere sie.'],
  'nutrition.savedTitle':['Твоите запазени хранения','Your saved meals','Deine gespeicherten Mahlzeiten'],
+ 'nutrition.oneProduct':['1 продукт','1 food','1 Lebensmittel'],
+ 'nutrition.productsCount':['{count} продукта','{count} foods','{count} Lebensmittel'],
  'nutrition.invalidCount':['{count} невалиден грамаж. Този продукт не е включен в общата стойност.','{count} invalid amount. This food is excluded from the total.','{count} ungültige Menge. Dieses Lebensmittel ist nicht in der Summe enthalten.'],
  'nutrition.calculation':['Изчисление: стойност за 100 г × въведения грамаж ÷ 100.','Calculation: value per 100 g × amount entered ÷ 100.','Berechnung: Wert pro 100 g × eingegebene Menge ÷ 100.'],
  'nutrition.chooseFood':['Избери храна','Choose a food','Lebensmittel auswählen'],
