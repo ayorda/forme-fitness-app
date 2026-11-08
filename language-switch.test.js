@@ -46,3 +46,16 @@ test('meal and food detail validation errors follow the selected language',()=>{
   assert.ok(app.nodes['food-results'].innerHTML.includes(noResults),language+' empty search');
  }
 });
+
+test('meal totals and saved meal counts use the selected language',()=>{
+ const saved=[{name:'One',items:[{id:'rice',grams:'100'}]},{name:'Two',items:[{id:'rice',grams:'100'},{id:'chicken',grams:'100'}]}];
+ for(const [language,one,many] of [['en','1 food','2 foods'],['de','1 Lebensmittel','2 Lebensmittel']]){
+  const app=boot({'forme-language':language,'forme-current-meal':JSON.stringify(saved[0].items),'forme-saved-meals':JSON.stringify(saved)});
+  app.handlers.click({target:{closest:()=>({dataset:{action:'food-tab',tab:'meal'}})}});
+  assert.ok(app.nodes.app.innerHTML.includes(' g</b>'),language+' macro units');
+  assert.ok(!app.nodes.app.innerHTML.includes(' г</b>'),language+' no Cyrillic macro units');
+  app.handlers.click({target:{closest:()=>({dataset:{action:'food-tab',tab:'saved'}})}});
+  assert.ok(app.nodes.app.innerHTML.includes(one),language+' singular count');
+  assert.ok(app.nodes.app.innerHTML.includes(many),language+' plural count');
+ }
+});
