@@ -153,3 +153,17 @@ test('removing a meal row keeps focus on the next amount field',()=>{
  assert.equal(focused,true);
  assert.equal(JSON.parse(app.storage['forme-current-meal']).length,1);
 });
+
+test('the player names the exercise that just finished and announces phase changes',()=>{
+ const app=boot('#sessions',{});
+ app.click({dataset:{action:'start-workout',id:'cal-start'}});
+ const announcer=app.node('player-announcer');
+ assert.match(announcer.textContent,/ГОТОВ ЛИ СИ\?/);
+ app.click({dataset:{action:'player-start'}});
+ assert.match(announcer.textContent,/^Работа: /);
+ app.click({dataset:{action:'player-next'}});
+ assert.match(announcer.textContent,/^Почивка\. Следва: /);
+ assert.match(app.node('player-layout').innerHTML,/player-rest-name/);
+ assert.match(app.node('player-layout').innerHTML,/Изпълни: /);
+ assert.doesNotMatch(app.node('player-layout').innerHTML,/undefined/);
+});
