@@ -11,7 +11,7 @@ function createApp(saved={},translated=false,page='#exercises'){
  const localStorage={getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;}};
  const c={window,document,localStorage,location:{hash:page},setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(c);
- const files=['exercise-art.js','data.js','core.js','food-art.js'];if(translated)files.push('food-photos.js','i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');files.push('app.js');
+ const files=['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js'];if(translated)files.push('i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');files.push('app.js');
  for(const f of files)vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
  return {handlers,nodes,storage};
 }
@@ -19,14 +19,14 @@ test('catalog searches by English name and shows honest missing-media placeholde
  const a=createApp();
  a.handlers.input({target:{dataset:{filter:'exercises',key:'q'},value:'Iron Cross'}});
  const html=a.nodes['exercise-results'].innerHTML;
- assert.match(html,/Железен кръст/);assert.match(html,/ДЕМОНСТРАЦИЯТА ПРЕДСТОИ/);assert.doesNotMatch(html,/<img[^>]+src=""/);
+ assert.match(html,/Железен кръст/);assert.match(html,/media\/exercises\/Iron_Cross-480.webp/);assert.match(html,/AI визуализация/);
 });
-test('existing drawn exercise media is described as illustration rather than photography',()=>{
+test('exercise media is described as an AI visualisation',()=>{
  const a=createApp();
  a.handlers.input({target:{dataset:{filter:'exercises',key:'q'},value:'Планк'}});
  const html=a.nodes['exercise-results'].innerHTML;
- assert.match(html,/Илюстрации и инструкции/);
- assert.doesNotMatch(html,/Снимки и инструкции/);
+ assert.match(html,/Визуализация и инструкции/);
+ assert.match(html,/AI визуализация/);
 });
 test('new exercise details show requirements and can be saved as favorite',()=>{
  const a=createApp();
@@ -38,13 +38,14 @@ test('new exercise details show requirements and can be saved as favorite',()=>{
  const b=createApp(a.storage);assert.match(b.nodes['exercise-results'].innerHTML,/Премахни от любими/);
 });
 
-test('squat withholds its inaccurate illustration until a verified demonstration is available',()=>{
+test('squat uses its reviewed local AI image, not the inaccurate old drawing',()=>{
  const a=createApp();
  a.handlers.input({target:{dataset:{filter:'exercises',key:'q'},value:'Клек със собствено тегло'}});
  const html=a.nodes['exercise-results'].innerHTML;
- assert.match(html,/Клек със собствено тегло/);assert.match(html,/ДЕМОНСТРАЦИЯТА ПРЕДСТОИ/);assert.doesNotMatch(html,/bodyweight-squat/);
+ assert.match(html,/Bodyweight_Squat-480.webp/);assert.match(html,/AI визуализация/);
  a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Bodyweight_Squat'}})}});
- const detail=a.nodes['modal-root'].innerHTML;assert.match(detail,/Как се изпълнява/);assert.match(detail,/ДЕМОНСТРАЦИЯТА ПРЕДСТОИ/);assert.doesNotMatch(detail,/<img/);
+ assert.match(a.nodes['modal-root'].innerHTML,/Как се изпълнява/);
+ assert.match(a.nodes['modal-root'].innerHTML,/Bodyweight_Squat-960.webp/);
 });
 test('translated exercise search keeps stable IDs and preserves Bulgarian default',()=>{
  for(const [language,name] of [['en','Pull-Ups'],['de','Klimmzüge im Obergriff']]){
@@ -91,12 +92,13 @@ test('weekly plan shows localized workout names without changing saved IDs',()=>
   assert.match(a.nodes.app.innerHTML,/value="cal-start" selected/);assert.equal(a.storage['forme-plan'],saved);
  }
 });
-test('photo notes preserve ingredient and nutrient caveats in each language',()=>{
- for(const [language,onion,mint] of [['en','photo includes onions','yogurt with mint'],['de','Foto enthält Zwiebeln','Joghurt mit Minze']]){
+test('food imagery is labeled as AI while nutrient state remains visible in each language',()=>{
+ for(const [language,notice,state] of [['en','AI-generated visualisation','cooked, without salt'],['de','KI-generierte Visualisierung','gekocht, ohne Salz']]){
   const a=createApp({'forme-language':language},true,'#nutrition');
   a.handlers.input({target:{dataset:{filter:'foods',key:'q'},value:language==='en'?'Lentils':'Linsen'}});
-  assert.ok(a.nodes['food-results'].innerHTML.includes(onion));
-  a.handlers.input({target:{dataset:{filter:'foods',key:'q'},value:language==='en'?'Greek yogurt':'Griechischer Joghurt'}});
-  assert.ok(a.nodes['food-results'].innerHTML.includes(mint));
+  assert.ok(a.nodes['food-results'].innerHTML.includes(language==='en'?'AI visualisation':'KI-Visualisierung'));
+  a.handlers.click({target:{closest:()=>({dataset:{action:'food-detail',id:'lentils'}})}});
+  assert.ok(a.nodes['modal-root'].innerHTML.includes(notice));
+  assert.ok(a.nodes['modal-root'].innerHTML.includes(state));
  }
 });

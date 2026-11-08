@@ -2,39 +2,17 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
+const crypto=require('node:crypto');
+const manifest=JSON.parse(fs.readFileSync('media/manifest.json','utf8'));
+const context={window:{FORME_EXERCISE_ART:{url:()=> 'placeholder'}}};vm.createContext(context);
+for(const file of ['data.js','exercise-photos.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
 
-function boot(){
- const handlers={},nodes={};
- const element=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(){return element();}});
- const document={body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
- const window={addEventListener(){},scrollTo(){}};
- const context={window,document,localStorage:{getItem(){return null;},setItem(){}},location:{hash:'#exercises'},setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
- vm.createContext(context);
- for(const file of ['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js','app.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
- return {window,nodes,handlers};
-}
-
-test('verified stills include credits while the pending motion demonstration stays pending',()=>{
- const {window,nodes,handlers}=boot();
- for(const [id,credit] of [['Pushups','Nenad Stojković'],['Bodyweight_Squat','Peterlocicero'],['Chinups','Deziree Keay'],['Pullups','Abooyeah'],['Parallel_Bar_Dips','Jahlena Riveraroyer'],['Bench_Dips','Kenneth Abbate'],['Bar_Muscle_Up','Maksim Sokolov'],['Human_Flag','Daniel Kaiser'],['Back_Lever','Ondra7575'],['Ring_Muscle_Up','Jennifer B. Poole'],['Handstand_Pushups','Stephanie Rubi']]){
-  const photo=window.FORME_EXERCISE_PHOTOS.get(id);assert.ok(photo.src.startsWith('https://'));assert.ok(photo.page.startsWith('https://commons.wikimedia.org/'));assert.ok(photo.licenseUrl.startsWith('https://'));
-  handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id}})}});
-  const html=nodes['modal-root'].innerHTML;
-  assert.match(html,new RegExp(credit));assert.match(html,/Снимката показва един момент от движението/);assert.match(html,/Видео демонстрацията предстои/);assert.match(html,/Преоразмерена и частично изрязана/);
+test('all 49 exercises have distinct compressed local WebP variants with provenance',()=>{
+ const exercises=context.window.FORME_DATA.exercises,photos=context.window.FORME_EXERCISE_PHOTOS;
+ assert.equal(exercises.length,49);assert.equal(photos.ids.length,49);
+ for(const item of exercises){const photo=photos.get(item.id),record=manifest.entries.find(x=>x.kind==='exercise'&&x.id===item.id);
+  assert.equal(photo.origin,'ai');assert.ok(record);assert.equal(record.tool,'OpenAI image generation tool');assert.match(record.usage,/OpenAI Terms/);
+  for(const [size,path] of [['mobile',photo.small],['desktop',photo.large]]){const bytes=fs.readFileSync(path);assert.match(path,/\.webp$/);assert.ok(bytes.length<150_000,`${item.id} ${size} exceeds budget`);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),record.variants[size].sha256);assert.equal(bytes.toString('ascii',8,12),'WEBP');assert.equal(bytes.readUInt16LE(26)&0x3fff,size==='mobile'?480:960);assert.equal(bytes.readUInt16LE(28)&0x3fff,size==='mobile'?320:640);}
  }
- handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Bodyweight_Squat'}})}});
- assert.match(nodes['modal-root'].innerHTML,/ДЕМОНСТРАЦИЯТА ПРЕДСТОИ/);
- assert.match(nodes['exercise-results'].innerHTML,/CC BY-SA 4.0/);
- assert.match(nodes['exercise-results'].innerHTML,/вариант с допълнителна тежест/);
- assert.equal(window.FORME_EXERCISE_PHOTOS.get('constructor'),null);
-});
-
-test('a failed still hides itself and leaves the original illustration or honest pending state',()=>{
- const {nodes}=boot(),html=nodes['exercise-results'].innerHTML;
- const img=html.match(/<img class="exercise-still"[^>]+>/)[0];
- assert.match(html,/<span class="exercise-still-tag" hidden>СНИМКА<\/span>/);
- const handler=img.match(/onerror="([^"]+)"/)[1];
- const still={hidden:false,nextElementSibling:{hidden:false}};Function(handler).call(still);
- assert.equal(still.hidden,true);assert.equal(still.nextElementSibling.hidden,true);
- assert.match(html,/ФАЗА 01/);
+ assert.equal(photos.get('constructor'),null);
 });

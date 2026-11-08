@@ -6,21 +6,20 @@ const vm=require('node:vm');
 const source=fs.readFileSync('app.js','utf8');
 const definition=source.split('\n').find(line=>line.startsWith('const image='));
 const videoDefinition=source.split('\n').find(line=>line.startsWith('function exerciseVideo('));
-const context=vm.createContext({esc:s=>String(s).replaceAll('&','&amp;').replaceAll('"','&quot;'),textFor:(_key,fallback)=>fallback});
+const context=vm.createContext({window:{FORME_EXERCISE_PHOTOS:{get:id=>id==='Test'?{origin:'ai',small:'media/exercises/Test-480.webp',large:'media/exercises/Test-960.webp'}:null}},esc:s=>String(s).replaceAll('&','&amp;').replaceAll('"','&quot;'),textFor:(_key,fallback)=>fallback});
 vm.runInContext(definition+'\n'+videoDefinition+'\nthis.renderImage=image;this.renderVideo=exerciseVideo;',context);
 
-test('missing or incomplete media is shown as pending without a broken image',()=>{
-  assert.match(context.renderImage({name:'Test'}),/ДЕМОНСТРАЦИЯТА ПРЕДСТОИ/);
-  assert.doesNotMatch(context.renderImage({name:'Test',photo:'one.jpg'},true),/<img/);
+test('missing media shows a local placeholder without a broken image',()=>{
+  assert.match(context.renderImage({id:'Missing',name:'Missing'}),/Изображението предстои/);
+  assert.doesNotMatch(context.renderImage({id:'Missing',name:'Missing'}),/<img/);
 });
 
-test('an image loading failure replaces the misleading demonstration label',()=>{
-  const html=context.renderImage({name:'Test',photo:'one.jpg',photo2:'one.jpg'});
-  const handler=html.match(/onerror="([^"]+)"/)[1];
-  const image={classList:{add(value){image.hidden=value;}},dataset:{errorLabel:'ИЗОБРАЖЕНИЕТО НЕ Е НАЛИЧНО'},nextElementSibling:{textContent:'ДЕМОНСТРАЦИЯ'}};
-  Function(handler).call(image);
-  assert.equal(image.hidden,'hidden');
-  assert.equal(image.nextElementSibling.textContent,'ИЗОБРАЖЕНИЕТО НЕ Е НАЛИЧНО');
+test('AI image uses responsive WebP and an honest error fallback',()=>{
+  const html=context.renderImage({id:'Test',name:'Test'});
+  assert.match(html,/Test-480.webp 480w, media\/exercises\/Test-960.webp 960w/);
+  assert.match(html,/loading="lazy"/);
+  assert.match(html,/AI визуализация/);
+  assert.match(html,/closest\('picture'\).hidden=true/);
 });
 test('unapproved or unsafe video paths remain clearly pending',()=>{
  for(const video of [undefined,{approved:false,src:'media/exercise-videos/pullup.mp4',credit:'Author',source:'https://example.test'}, {approved:true,src:'https://example.test/video.mp4',credit:'Author',source:'https://example.test'}, {approved:true,src:'media/exercise-videos/../other.mp4',credit:'Author',source:'https://example.test'}, {approved:true,src:'media/exercise-videos/pullup.mp4',credit:'Author',source:'javascript:alert(1)'}]){
