@@ -13,7 +13,7 @@ function createApp(saved={},translated=false,page='#exercises'){
  vm.createContext(c);
  const files=['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js'];if(translated)files.push('i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');files.push('app.js');
  for(const f of files)vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
- return {handlers,nodes,storage};
+ return {handlers,nodes,storage,data:window.FORME_DATA};
 }
 test('catalog searches by English name and shows honest missing-media placeholder',()=>{
  const a=createApp();
@@ -29,6 +29,15 @@ test('each workout card has a distinct emoji, with the requested calisthenics sy
  app.handlers.input({target:{dataset:{filter:'workouts',key:'cat'},value:'cal'}});
  const calisthenics=[...app.nodes['workout-results'].innerHTML.matchAll(/<div class="glyph" aria-hidden="true">([^<]+)<\/div>/g)].map(match=>match[1]);
  assert.deepEqual(calisthenics,['🤸‍♂️','💪']);
+});
+test('all exercises have a movement-appropriate default set metric',()=>{
+ const exercises=createApp().data.exercises;
+ assert.equal(exercises.length,49);
+ assert.ok(exercises.every(x=>['reps','seconds'].includes(x.defaultMetric)));
+ assert.equal(exercises.filter(x=>x.defaultMetric==='seconds').length,24);
+ for(const exercise of exercises.filter(x=>x.measure))assert.equal(exercise.defaultMetric,exercise.measure.startsWith('Секунди')?'seconds':'reps',exercise.id);
+ for(const id of ['Plank','Side_Bridge','Hollow_Body_Hold','Handstand','Full_Planche','Childs_Pose','Shoulder_Stretch'])assert.equal(exercises.find(x=>x.id===id).defaultMetric,'seconds',id);
+ for(const id of ['Pushups','Pullups','Bodyweight_Squat','Cat_Stretch','Arm_Circles'])assert.equal(exercises.find(x=>x.id===id).defaultMetric,'reps',id);
 });
 test('exercise media is described as an AI visualisation',()=>{
  const a=createApp();

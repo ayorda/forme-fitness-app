@@ -66,3 +66,15 @@ test('favorite keeps keyboard focus after the card is redrawn',()=>{
  a.handlers.click({target:{closest:()=>selected}});
  assert.equal(focused,true);
 });
+
+test('set entry suggests seconds for holds and reps for dynamic movements',()=>{
+ const a=boot('#home',{});
+ a.handlers.change({target:{id:'set-exercise',value:'Plank',dataset:{}}});
+ assert.equal(a.nodes['set-kind'].value,'seconds');
+ assert.equal(a.nodes['set-value'].value,'30');
+ a.handlers.change({target:{id:'set-exercise',value:'Pushups',dataset:{}}});
+ assert.equal(a.nodes['set-kind'].value,'reps');
+ assert.equal(a.nodes['set-value'].value,'10');
+ a.handlers.change({target:{id:'set-kind',value:'seconds',dataset:{}}});
+ assert.equal(a.nodes['set-value'].value,'30');
+});
