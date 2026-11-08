@@ -2,6 +2,10 @@
 (function(root){
 'use strict';
 const rows={
+ 'media.aiVisual':['AI визуализация','AI visualisation','KI-Visualisierung'],
+ 'media.aiNotice':['AI генерирано изображение · визуализация, не реална снимка','AI-generated visualisation, not a real photograph','KI-generierte Visualisierung, kein echtes Foto'],
+ 'media.awaitingImage':['Изображението предстои','Image coming soon','Bild folgt'],
+ 'media.visualAndInstructions':['Визуализация и инструкции','Visualisation and instructions','Visualisierung und Anleitung'],
  'overview.eyebrow':['ДНЕШНИЯТ ТИ НАПРЕДЪК','YOUR PROGRESS TODAY','DEIN FORTSCHRITT HEUTE'],
  'overview.title':['Общ преглед','Overview','Überblick'],
  'overview.workouts':['Тренировки тази седмица','Workouts this week','Trainings diese Woche'],
@@ -79,7 +83,7 @@ const rows={
  'progress.retrySave':['Запази тренировката','Save workout','Training speichern'],
  'nav.mainLabel':['Основна навигация','Main navigation','Hauptnavigation'],
  'nav.mobileLabel':['Навигация за телефон','Mobile navigation','Mobile Navigation'],
- 'shell.artAttribution':['Оригинални FORME SVG илюстрации','Original FORME SVG illustrations','Originale FORME-SVG-Illustrationen'],
+ 'shell.artAttribution':['AI генерирани визуализации','AI-generated visualisations','KI-generierte Visualisierungen'],
  'nutrition.deleteMeal':['Изтрий хранене','Delete meal','Mahlzeit löschen'],
  'common.language':['Език','Language','Sprache'],
  'nutrition.artLabel':['Илюстрация на {food}','Illustration of {food}','Illustration von {food}'],
@@ -98,7 +102,7 @@ const rows={
  'shell.space':['ТВОЕТО ПРОСТРАНСТВО','YOUR SPACE','DEIN BEREICH'],
  'shell.progress':['СЪЗДАДЕНО ЗА ПРОГРЕС','BUILT FOR PROGRESS','FÜR FORTSCHRITT GEMACHT'],
  'shell.nextStep':['Няма перфектен момент. Има следваща стъпка.','There is no perfect moment. Take the next step.','Es gibt keinen perfekten Moment. Geh den nächsten Schritt.'],
- 'shell.version':['v0.2.8 · Български · 0 €','v0.2.8 · English · €0','v0.2.8 · Deutsch · 0 €'],
+ 'shell.version':['v0.2.9 · Български · 0 €','v0.2.9 · English · €0','v0.2.9 · Deutsch · 0 €'],
  'shell.everyDay':['РАСТИ ВСЕКИ ДЕН','GROW EVERY DAY','WACHSE JEDEN TAG'],
  'shell.footer':['Създадено за движение и осъзнат избор · Данните са ориентировъчни, не медицински съвет.','Made for movement and mindful choices · Data is approximate, not medical advice.','Für Bewegung und bewusste Entscheidungen · Angaben sind Richtwerte, keine medizinische Beratung.'],
  'home.eyebrow':['ТВОЕТО МЯСТО ЗА ДВИЖЕНИЕ','YOUR SPACE TO MOVE','DEIN ORT FÜR BEWEGUNG'],
@@ -174,7 +178,7 @@ const rows={
  'exercises.placeholder':['Напр. планк, рамо, гръб...','E.g. plank, shoulder, back...','Z. B. Plank, Schulter, Rücken ...'],
  'exercises.pendingShort':['Инструкции · видео предстои','Instructions · video pending','Anleitung · Video folgt'],
  'exercises.illustrated':['Илюстрации и инструкции','Illustrations and instructions','Illustrationen und Anleitung'],
- 'exercises.subtitle':['Търси движение и виж инструкции, илюстрации и по-лесен вариант.','Search for a movement and see instructions, illustrations and an easier variation.','Suche eine Bewegung und sieh dir Anleitung, Illustrationen und eine leichtere Variante an.'],
+ 'exercises.subtitle':['Търси движение и виж инструкции, AI визуализация и по-лесен вариант.','Search for a movement and see instructions, an AI visualisation and an easier variation.','Suche eine Bewegung und sieh dir Anleitung, KI-Visualisierung und eine leichtere Variante an.'],
  'exercises.search':['Търси упражнение','Search exercises','Übung suchen'],
  'exercises.videoPending':['Видео демонстрацията предстои.','Video demonstration coming soon.','Videodemonstration folgt.'],
  'exercises.imageMissing':['Изображението не е налично','Image unavailable','Bild nicht verfügbar'],

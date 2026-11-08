@@ -1,0 +1,2326 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "kind": "exercise",
+      "id": "Pushups",
+      "name": "Лицеви опори",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Pushups-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 13690,
+          "sha256": "9523bab470317ba9333722ea09097a36a9291c96a5ad510aa7643600540414a4"
+        },
+        "desktop": {
+          "path": "media/exercises/Pushups-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 49314,
+          "sha256": "159ed0f98bd0c7045c5bf0012ec2a16eb05ae2af19e9be6f44da07b0ddf2590f"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Bodyweight_Squat",
+      "name": "Клек със собствено тегло",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Bodyweight_Squat-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 11930,
+          "sha256": "67df976e2fa53d93bd9cc3088dce83dedd8a28a3ed8c7e37660ddb4eca84e2a9"
+        },
+        "desktop": {
+          "path": "media/exercises/Bodyweight_Squat-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 44900,
+          "sha256": "1c0870f698f683cb9b5ecead92f631ac98ac3f5d925c14c6a49b5bd3a437c388"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Plank",
+      "name": "Планк",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Plank-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 13510,
+          "sha256": "726c86411a36e05800d0969e25f84f82d690fa83dd1ebb04abece0f1250f79f7"
+        },
+        "desktop": {
+          "path": "media/exercises/Plank-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 38672,
+          "sha256": "de95f08d2527369372bd9fca8af5c3ec4343936f56ac51dfc743cae202c0ddfa"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Pullups",
+      "name": "Набирания с надхват",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Pullups-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 15182,
+          "sha256": "5c6e78ebb911167730a3e41e1ac00cf34e1d5beade4aa2e74b5dc87fc07caa0b"
+        },
+        "desktop": {
+          "path": "media/exercises/Pullups-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 43400,
+          "sha256": "d67b19943cc45c75ecefd1636f49ffce219a74399ad619250f48d689de043bef"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Mountain_Climbers",
+      "name": "Планински катерач",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Mountain_Climbers-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 19346,
+          "sha256": "4275dd4ab690c46cac3d73ca35a424c79fb7041bc06ef4bec039e9bb61e708fc"
+        },
+        "desktop": {
+          "path": "media/exercises/Mountain_Climbers-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 59898,
+          "sha256": "e323c7852a56dddd14bd416ae33d6bff69c44e2af343c70ad493a479195b9b42"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Bench_Dips",
+      "name": "Кофички на пейка",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Bench_Dips-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17866,
+          "sha256": "0d1d28b75ec96921ebf4d7a1ae1a105c9aa841dd0508400422e92c98573e62d1"
+        },
+        "desktop": {
+          "path": "media/exercises/Bench_Dips-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 55890,
+          "sha256": "30ca9a4d12332456384267b49502535d05ee9708d074b66dcc58069074738930"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Hanging_Leg_Raise",
+      "name": "Повдигане на крака от вис",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Hanging_Leg_Raise-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 15164,
+          "sha256": "2ee6c09da7d34e575e000670f9dc0279ac32575c258f337373774b78c8b25b2f"
+        },
+        "desktop": {
+          "path": "media/exercises/Hanging_Leg_Raise-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 39022,
+          "sha256": "04271fde501cecd1cfdc9316064a1e6cdebdbe9bb5a965fd16fa409ddee0af0e"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Side_Bridge",
+      "name": "Страничен планк",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Side_Bridge-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 16292,
+          "sha256": "f3fdb2417a6d717a704609712ddad175c16a73ff42eddb1c879d1f1ce4510bf5"
+        },
+        "desktop": {
+          "path": "media/exercises/Side_Bridge-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 51674,
+          "sha256": "5e52125117e4f7f6ab1376642c725e9687d7597d2b97f5ac9756cfab7c761910"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Childs_Pose",
+      "name": "Поза на детето",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Childs_Pose-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 16626,
+          "sha256": "1958d16959655880dd93934d2c2619b3743cbd23f495abaa7a1d1cb77d274dc6"
+        },
+        "desktop": {
+          "path": "media/exercises/Childs_Pose-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 48512,
+          "sha256": "aed0f0ee6b00c74b97b60f8b4d2ecabd5fca8fcddf5ecbf14cb95a6afc2ae029"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Cat_Stretch",
+      "name": "Котешки гръб",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Cat_Stretch-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 14220,
+          "sha256": "0ed7fb89d59dfb1ec1f5f453cec867591b37a913ca137e81b78fefff05537615"
+        },
+        "desktop": {
+          "path": "media/exercises/Cat_Stretch-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 43472,
+          "sha256": "24f601ec2687a6f2e78175002cede72cfac87cb8d3106350a826e2d3d5128f8b"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Butt_Lift_Bridge",
+      "name": "Мост от лег",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Butt_Lift_Bridge-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 16320,
+          "sha256": "af011af11cb6b12996c37c89c0c9a9c4566abcc2636cc3d87fb78d01ac4c4ca1"
+        },
+        "desktop": {
+          "path": "media/exercises/Butt_Lift_Bridge-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 47498,
+          "sha256": "cfe699dfbed2f1c28d5568cc11e638a4881205ed97c269ded5224f1f132075ab"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Dancers_Stretch",
+      "name": "Седящо усукване",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Dancers_Stretch-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 16586,
+          "sha256": "b93bdc29715475f037dac760922e539e1b5b1d6753ff481da6d603dae1500382"
+        },
+        "desktop": {
+          "path": "media/exercises/Dancers_Stretch-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 48430,
+          "sha256": "63d68437bd81fb381341cb29d359153ed9f8c6676e33224a2e197184cb854256"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Seated_Floor_Hamstring_Stretch",
+      "name": "Наклон напред в седеж",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Seated_Floor_Hamstring_Stretch-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17674,
+          "sha256": "bbf8a0e32b5fc7b06d893218b0e8e16a50e9292d1ad9c3c5e5ba647b85c1ad55"
+        },
+        "desktop": {
+          "path": "media/exercises/Seated_Floor_Hamstring_Stretch-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 50652,
+          "sha256": "7d156a687bb5ad684ea9ef7e98d551314598ad3fef2d8fe17120053ddfb86202"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Groin_and_Back_Stretch",
+      "name": "Пеперуда в седеж",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Groin_and_Back_Stretch-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18766,
+          "sha256": "f94b72941fe633222f4ec97d6a2a4dce5acff7c876121b301ddd0716f8fba8bf"
+        },
+        "desktop": {
+          "path": "media/exercises/Groin_and_Back_Stretch-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 63896,
+          "sha256": "845cab262920cea1853ab3fcea8ae2ca01a61b50402588377ebfbfbc8b75f48c"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Spinal_Stretch",
+      "name": "Разтягане на гръбнака в седеж",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Spinal_Stretch-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17032,
+          "sha256": "2f2220e6318a5cabd12e96726f081d6f722bb96b63b8bf5dd48919ee3f32322e"
+        },
+        "desktop": {
+          "path": "media/exercises/Spinal_Stretch-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 50398,
+          "sha256": "51e0a03f3db537b9e71d7921ef84b732dd1f8e8c3210e07e4efed226e21a5e2b"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Seated_Overhead_Stretch",
+      "name": "Странично разтягане в седеж",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Seated_Overhead_Stretch-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 15550,
+          "sha256": "66c4fb62df5fa0b607eae7ffb77d1a8674f552602c37760652de340240351350"
+        },
+        "desktop": {
+          "path": "media/exercises/Seated_Overhead_Stretch-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 48848,
+          "sha256": "f95bada809327c351d0260eff11157a411b5cba9ebe34eeae4072ecea06c8421"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Standing_Hip_Circles",
+      "name": "Кръгове с тазобедрена става",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Standing_Hip_Circles-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 14796,
+          "sha256": "459364a025742f00bad1f9732971698aa9ab6337c89bbf9a438f1b8f66c3dd3f"
+        },
+        "desktop": {
+          "path": "media/exercises/Standing_Hip_Circles-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 44692,
+          "sha256": "f73f95add9a21d8963139ef5c7ab4fb9212271ecc0b6759127a42d7ed8c3fa71"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Hip_Circles_prone",
+      "name": "Кръгове с коляно от четири опори",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Hip_Circles_prone-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 15518,
+          "sha256": "58762e06b4c734089439efc7ffc62d9368e1e4685de525b6afd33b0fa71a3fb7"
+        },
+        "desktop": {
+          "path": "media/exercises/Hip_Circles_prone-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 44296,
+          "sha256": "9e90f9cb271958be7e9c67e51482c5fd77d506401ae057f9c4beaf7ab3ecc468"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Arm_Circles",
+      "name": "Кръгове с ръце",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Arm_Circles-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17114,
+          "sha256": "c7387f33d972b109e7d95d14e7a752652c2e28edbdba2f534a45e7c6d8dfb006"
+        },
+        "desktop": {
+          "path": "media/exercises/Arm_Circles-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 53462,
+          "sha256": "5f1b90ff858e7fc18ed055ad948e6b22a1e399be77be6733782b6ed49fc94158"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Kneeling_Hip_Flexor",
+      "name": "Разтягане на сгъвачите на таза",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Kneeling_Hip_Flexor-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18618,
+          "sha256": "e1e4ca2f8e413fe0ec12f444f5ca5ea8d095a0f53564954246a6169558d5d12f"
+        },
+        "desktop": {
+          "path": "media/exercises/Kneeling_Hip_Flexor-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 51878,
+          "sha256": "13d5018b6b461c983266ba372d58039d68df1c646761071d094339ee5916bf1d"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Dynamic_Chest_Stretch",
+      "name": "Динамично отваряне на гърди",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Dynamic_Chest_Stretch-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18926,
+          "sha256": "5158190bbddc19d50e56c15e23c62b141ab7e61fb31840252efa5cf32464da22"
+        },
+        "desktop": {
+          "path": "media/exercises/Dynamic_Chest_Stretch-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 58152,
+          "sha256": "629ce56f90763d1dbff2f1b45e30fb308eea9067700e7ae234ecfb8b82ad1efb"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Shoulder_Stretch",
+      "name": "Разтягане на рамо",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Shoulder_Stretch-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17864,
+          "sha256": "88bcdd62fb563d628213338d9c51bfc1ba81ecadb8ab5ea7690e87dd0d405acd"
+        },
+        "desktop": {
+          "path": "media/exercises/Shoulder_Stretch-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 51120,
+          "sha256": "dc492c33a97b2237314fce3a31cfc1e8a69b64affc383b6cc82f7475af714885"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Calf_Stretch_Hands_Against_Wall",
+      "name": "Разтягане на прасец до стена",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Calf_Stretch_Hands_Against_Wall-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 16314,
+          "sha256": "76471924711c5756bfa08b43e62feebc12c9a5d8c5b97c2878cb2d6aee52b5fc"
+        },
+        "desktop": {
+          "path": "media/exercises/Calf_Stretch_Hands_Against_Wall-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 47922,
+          "sha256": "96b7d7c5e49dd14d000380c564f674576d883010ac58981bc877a92978e84c4f"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Kneeling_Forearm_Stretch",
+      "name": "Разтягане на китки",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Kneeling_Forearm_Stretch-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17846,
+          "sha256": "401f8c0754d3257a212c040fc9ee0404719c2b526d8afa2e232279d1d55b8d61"
+        },
+        "desktop": {
+          "path": "media/exercises/Kneeling_Forearm_Stretch-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 52608,
+          "sha256": "27a0fd9d0caddfec7365c3a8864571e9448eeca985c1ba4b2ac931c771dc75ff"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Chinups",
+      "name": "Набирания с подхват",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Chinups-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17856,
+          "sha256": "bb9449fe1f59d1fa310ed5aecdddf74d4a9661b0b52495f8df038816c9435866"
+        },
+        "desktop": {
+          "path": "media/exercises/Chinups-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 52386,
+          "sha256": "a1f5559c3a38f133ac6b7452e73c16baff9b5c363a50a9de869f19f743456746"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Australian_Rows",
+      "name": "Австралийски набирания",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Australian_Rows-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18592,
+          "sha256": "75a926d047e338c5639173837c888d5e397785110c90019a36beae819d6e22c8"
+        },
+        "desktop": {
+          "path": "media/exercises/Australian_Rows-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 63060,
+          "sha256": "66245777dc03c630d847b287831849f55b591e554e374badbb6803b798cb79e5"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Parallel_Bar_Dips",
+      "name": "Кофички на успоредка",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Parallel_Bar_Dips-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17434,
+          "sha256": "65b8c4a680a9a5019f568112dda3cca3ee878197c51e89100b44e9aafffbd063"
+        },
+        "desktop": {
+          "path": "media/exercises/Parallel_Bar_Dips-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 51162,
+          "sha256": "5f7fe37a895bfd5801a5238925110b62527d689c2467110949d2e9f0c9f6bd77"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Bar_Muscle_Up",
+      "name": "Силово възлизане на лост",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Bar_Muscle_Up-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18504,
+          "sha256": "b3a3ed45ae496fa0c3cb816d30dc215148a36622d7b71515301683c2a25ffd2f"
+        },
+        "desktop": {
+          "path": "media/exercises/Bar_Muscle_Up-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 47328,
+          "sha256": "4188f4b8b5f5b435fa773762902c87cc457b8bcd0b12ce7132b1cbfc64d37814"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Hollow_Body_Hold",
+      "name": "Лодка (hollow hold)",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Hollow_Body_Hold-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 14876,
+          "sha256": "757b01bcc64101fb7dcc31d5e799fbea9985f396d7bbe83f574ac949c0e20715"
+        },
+        "desktop": {
+          "path": "media/exercises/Hollow_Body_Hold-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 42334,
+          "sha256": "7e4dd9c37d339269a0ef686c6e628abedb56e802e86ea42de235df2da2be9ca7"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Frog_Stand",
+      "name": "Жабешка стойка",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Frog_Stand-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17906,
+          "sha256": "e71686a1a2e5b70d29f1ca67953d1b8287e56ba3911e5d391cbbebc4f816ebd7"
+        },
+        "desktop": {
+          "path": "media/exercises/Frog_Stand-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 50262,
+          "sha256": "c210c7ddabc4662b218891cebb8bcca28f36a8914bb1dfed0caa697fbe72f163"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Pike_Pushups",
+      "name": "Пайк лицеви опори",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Pike_Pushups-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 20864,
+          "sha256": "0ed08f55e55e40375a62b18a622a1152e22959d0602f625d5f576a8112eeb5a5"
+        },
+        "desktop": {
+          "path": "media/exercises/Pike_Pushups-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 62516,
+          "sha256": "c9461b15f1c6e8ead5640fb191207de16e09d3e1efb521afa25ee437462ab7b9"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Skin_the_Cat",
+      "name": "Превъртане във вис (skin the cat)",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Skin_the_Cat-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18338,
+          "sha256": "51f808d1e53dc77d59a91bdc222ecb8905f595ee9f5c61bdcce7afce21df7d05"
+        },
+        "desktop": {
+          "path": "media/exercises/Skin_the_Cat-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 53080,
+          "sha256": "969e182ed2a658d2380b96421722f3a4991be29958de2e51785006bda6225ebd"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Toes_to_Bar",
+      "name": "Пръсти към лоста",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Toes_to_Bar-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18624,
+          "sha256": "7a2c0eb38a1d8c9b5c4fc4de615e2576efe5e7888abded512132715e19ad5526"
+        },
+        "desktop": {
+          "path": "media/exercises/Toes_to_Bar-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 47810,
+          "sha256": "d1f16fc27f05ebb0dfb5c1f30cc9752e034212a5881a3fd04237e7c6250be530"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Archer_Pushups",
+      "name": "Стрелец лицеви опори",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Archer_Pushups-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 20516,
+          "sha256": "0b6e9e38a00e131e004d28d0a477728e1861ff686fad935a6134bb762fe22c6f"
+        },
+        "desktop": {
+          "path": "media/exercises/Archer_Pushups-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 56030,
+          "sha256": "123584c8d94b8f992963012f363d92d81819bf038285ca104e0e675ef699a8e2"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Pistol_Squat",
+      "name": "Клек на един крак",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Pistol_Squat-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18110,
+          "sha256": "2a9fff4ec166573dc26dff47e6dda85be99485013485f1e420ede82571eeeca5"
+        },
+        "desktop": {
+          "path": "media/exercises/Pistol_Squat-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 59476,
+          "sha256": "1e5027b6ae8c60bb23da555426ffb5a160b68daded3053e1164e907af4f3ff3f"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "L_Sit",
+      "name": "L-седеж",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/L_Sit-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18790,
+          "sha256": "6a82802bb311dfd11e64773c3dd9d28cc2035555a5385b6577a3de96515abc74"
+        },
+        "desktop": {
+          "path": "media/exercises/L_Sit-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 55534,
+          "sha256": "091f360c09240f2d4d3d0626fbf1c549d49b3e551e40e97f4546a40cd0f8c60d"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Dragon_Flag",
+      "name": "Драконов флаг",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Dragon_Flag-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17784,
+          "sha256": "26c85131a939f91dc71bafd28eb65172b3ff76eb6e814a61a73f3c7064178b39"
+        },
+        "desktop": {
+          "path": "media/exercises/Dragon_Flag-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 52014,
+          "sha256": "ee3d20bc82ca00dc8266e2be171ccaa880634084e5e665ccdcd9e90756600deb"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Handstand",
+      "name": "Стойка на ръце",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Handstand-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 20826,
+          "sha256": "fb7104631552327eae748badd51d9615ff779a4ab16385647e517a26e271c821"
+        },
+        "desktop": {
+          "path": "media/exercises/Handstand-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 65450,
+          "sha256": "f7f92d01e88028d25fc7ec06292c658932be7b22b86926ddc1b959d6ab3f5358"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Tuck_Planche",
+      "name": "Тък планч",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Tuck_Planche-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18956,
+          "sha256": "a022925d910ca87cbfe7fbeeb0f6d9ff0f1aa2ba9405c2433ac7067431f124e0"
+        },
+        "desktop": {
+          "path": "media/exercises/Tuck_Planche-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 54720,
+          "sha256": "2ddfa44e6ded0e90eacf9ac141e7b09929c860514a59039bffb69566a7456872"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Tuck_Front_Lever",
+      "name": "Тък фронт левър",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Tuck_Front_Lever-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17482,
+          "sha256": "0a5d8725419134423159582fc80f616c59c18cb9c46f68aca45869d23267fbe2"
+        },
+        "desktop": {
+          "path": "media/exercises/Tuck_Front_Lever-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 49634,
+          "sha256": "972f235aece69a48966d58a670b64c0055d8e16f201bb61b2ca8e62c473d4f1e"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Ring_Muscle_Up",
+      "name": "Силово възлизане на халки",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Ring_Muscle_Up-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 19168,
+          "sha256": "b607fad2dca669ff76cd48caaab67d18065b0bc9fd7296e57b858849c87a044a"
+        },
+        "desktop": {
+          "path": "media/exercises/Ring_Muscle_Up-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 52196,
+          "sha256": "c6de539de51392af935a5089a57ddbcc47527d1c86c1d09dee9c59293583a312"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Back_Lever",
+      "name": "Бек левър",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Back_Lever-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18072,
+          "sha256": "be1476bc272c169bf03a4c126ea09c6557db2003a9a79b519df08a8198c38dac"
+        },
+        "desktop": {
+          "path": "media/exercises/Back_Lever-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 49170,
+          "sha256": "d764bfa34368c79cb9ccdaf660aa0fbfcfe9d63577e6e1e0b6c1ad2e36dec58e"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Human_Flag",
+      "name": "Човешко знаме",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Human_Flag-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17780,
+          "sha256": "c9e7769c34cb00fd48db0f5a8fa35a9faf1474a6c0e27838d32468be857b72d0"
+        },
+        "desktop": {
+          "path": "media/exercises/Human_Flag-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 56002,
+          "sha256": "b04d6a8893f7c21032586f33327d2836b0c012adc557c3a4f64f010df66a661d"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Handstand_Pushups",
+      "name": "Лицеви опори от стойка на ръце",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Handstand_Pushups-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 16824,
+          "sha256": "949fc2dd97906c016ae363a17c9b7a076fa81353d36e0cf54efe400614719c71"
+        },
+        "desktop": {
+          "path": "media/exercises/Handstand_Pushups-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 58792,
+          "sha256": "f0ff9f6896f1904cdfed7fc4a8e6a0459fcdaba791130776f4aabad806ae0615"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Front_Lever",
+      "name": "Фронт левър",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Front_Lever-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17978,
+          "sha256": "50b4306cd318ca52da1d755301a679a1af8707ae6f192361b200738da9ef57b8"
+        },
+        "desktop": {
+          "path": "media/exercises/Front_Lever-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 49072,
+          "sha256": "c58fcce8cb8385092a89c94689cad1c6c6f01865d39fd5bd162fef00e441242d"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Straddle_Planche",
+      "name": "Страдъл планч",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Straddle_Planche-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 15940,
+          "sha256": "01317f6048dec9e8509da516d62ad5410fab66a43f69b842f2b67a3ad8e1891c"
+        },
+        "desktop": {
+          "path": "media/exercises/Straddle_Planche-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 46452,
+          "sha256": "765c84a1652097ac68eea38fe96a567914116f17075771bfd39338f50f72a0ef"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Full_Planche",
+      "name": "Пълен планч",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Full_Planche-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18402,
+          "sha256": "4e81c2ae38c18a17fc7b92957f9000a57536d58bf0d73ebaf7683bba371879b6"
+        },
+        "desktop": {
+          "path": "media/exercises/Full_Planche-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 53514,
+          "sha256": "125444fcbcdb4434d4bc083c1229c4c92e67c7dbe9527676bac0830f4e7c475e"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "One_Arm_Pull_Up",
+      "name": "Набиране с една ръка",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/One_Arm_Pull_Up-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18632,
+          "sha256": "a2021b5c14a21e8a0b1af6c2187ed69b751de15ea6086ef663dafe9667cf28f5"
+        },
+        "desktop": {
+          "path": "media/exercises/One_Arm_Pull_Up-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 51898,
+          "sha256": "72904a659235632f2a5205613b24285bf6fdf6fb2a949692444ca9fe844537b0"
+        }
+      }
+    },
+    {
+      "kind": "exercise",
+      "id": "Iron_Cross",
+      "name": "Железен кръст",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "pose, equipment and anatomy; not technique certification"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/exercises/Iron_Cross-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17726,
+          "sha256": "2620af04b06ab9dafe94b5ee97bf23d0946dcd96e8274d876911e1f33f974ef6"
+        },
+        "desktop": {
+          "path": "media/exercises/Iron_Cross-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 50248,
+          "sha256": "fa35a7f16bb94d372cdc8b964f56995f057cd3af3ed00a128999c1e82eab9f28"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "chicken",
+      "name": "Пилешки гърди",
+      "state": "сурови, без кожа",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/chicken-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 14752,
+          "sha256": "f7bf59c54dcd07ad060dd36d1badb36682466d00c1726da19f7573124d82a83a"
+        },
+        "desktop": {
+          "path": "media/foods/chicken-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 67998,
+          "sha256": "58d63be39178cb183f39ac716cac89cf9cd3e2ea081beaa4f485658b552bfb01"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "turkey",
+      "name": "Пуешки гърди",
+      "state": "сурови, чисто месо",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/turkey-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 14940,
+          "sha256": "27e8540a804ebae6673829ecf9cb0e5a8f8c45bdad7ff4c1b14aa6c2cee875c7"
+        },
+        "desktop": {
+          "path": "media/foods/turkey-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 67054,
+          "sha256": "d98929e30c9ba637babb44c9c222000814dde932a53de10c48adfc03c70bacd0"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "egg",
+      "name": "Яйце",
+      "state": "цяло, сурово",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/egg-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17014,
+          "sha256": "7052669d809b38a38150ee5e51ceb8e5f89980c6cb9513186e795624198e0ffc"
+        },
+        "desktop": {
+          "path": "media/foods/egg-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 71998,
+          "sha256": "dc5e35de6614fe03c08ef0550d12d5fc27d1369723110c0a9a314bbc910470f0"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "tuna",
+      "name": "Риба тон",
+      "state": "консерва във вода, без сол, отцедена",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/tuna-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 24366,
+          "sha256": "1b2bbf3168bef68b234613554bf0ff0c2eba1227cc898fd9204502f97b887185"
+        },
+        "desktop": {
+          "path": "media/foods/tuna-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 96922,
+          "sha256": "675e3a20e88d48f15e951537d8764b82771e576374b2b2c2ac452e61ab301195"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "salmon",
+      "name": "Сьомга",
+      "state": "сурова, атлантическа, отглеждана",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/salmon-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18496,
+          "sha256": "dff62d6fa39e028fea1438a4c23236e72da300110d2c5aec0b9612ea35a9c44f"
+        },
+        "desktop": {
+          "path": "media/foods/salmon-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 79098,
+          "sha256": "b70435764c5e44ea2ef05ba6d8ed8d260ee0325d9c543170e289006147d4bfef"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "greek",
+      "name": "Гръцко кисело мляко",
+      "state": "нискомаслено, натурално",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/greek-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 13236,
+          "sha256": "301d65333c460fc40faf99e09e8cb5e51494e5e28b9be34ec76af6bb8a98c38d"
+        },
+        "desktop": {
+          "path": "media/foods/greek-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 53302,
+          "sha256": "c2530b83555470f8bcf036ef8b9e450d97a3736b5350f8786464e0c2598cae9b"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "cottage",
+      "name": "Извара",
+      "state": "нискомаслена, около 2%",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/cottage-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 16090,
+          "sha256": "ae8597a4b4b8c34f9e3ff890c94ac4c1a12a735381fb07c396dbc0c469e32ca6"
+        },
+        "desktop": {
+          "path": "media/foods/cottage-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 61736,
+          "sha256": "8acfc8c11d13095197ce041cab5d8c4692d787a413664ed4964690a0eaae18a8"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "oats",
+      "name": "Овесени ядки",
+      "state": "сухи, без обогатяване",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/oats-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 20964,
+          "sha256": "d6e2e5d9619699f5dc7b08f75bcc7479bd6c1e0c1d870402d150047f0316bf8c"
+        },
+        "desktop": {
+          "path": "media/foods/oats-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 84092,
+          "sha256": "f41f068c42ffa9537c0c9c1a9ba97bf1a9f3f58fa95bfaef7560ba74b94df8d0"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "rice",
+      "name": "Бял ориз",
+      "state": "сварен, дългозърнест, обогатен",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/rice-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 16626,
+          "sha256": "ced2be5d8802cc92f165348d57d90e5ea492c825fc0909c05614ef17a67f8e23"
+        },
+        "desktop": {
+          "path": "media/foods/rice-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 62134,
+          "sha256": "b0cd9418d6dff0e0c6caaa244c3586bdbfac2fe0f3231bb48223d38b45010049"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "brownrice",
+      "name": "Кафяв ориз",
+      "state": "сварен, дългозърнест",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/brownrice-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18896,
+          "sha256": "b42dedcf6da8feda260841159cf8cdd8b3646783fd6c72f6f213db04054d2450"
+        },
+        "desktop": {
+          "path": "media/foods/brownrice-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 71446,
+          "sha256": "a514a6a57b6b6bf15824f04ff0d806bead6b4595ec3c9ced9ee455d308dfd577"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "quinoa",
+      "name": "Киноа",
+      "state": "сварена",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/quinoa-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 19318,
+          "sha256": "eb9e6cdf622fbc148fdfdaeb48ac3404ac9c89d4acf4c16fbbcf53ed812253d3"
+        },
+        "desktop": {
+          "path": "media/foods/quinoa-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 74982,
+          "sha256": "dccfc2f1adbfc4d447bd74bc41e3a2a91eddf478688e275320f47024b9f9ba68"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "bread",
+      "name": "Пълнозърнест хляб",
+      "state": "готов, търговски приготвен",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/bread-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 28280,
+          "sha256": "c80ab4422c5b2cf70b9f04312a44215dd20f10785dae70ec0d841755af3465f3"
+        },
+        "desktop": {
+          "path": "media/foods/bread-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 114076,
+          "sha256": "c5ef6f79bf6e17bc93bbddb3dd69d2e617d976ff362a97e35c9140c6cf94c730"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "potato",
+      "name": "Картофи",
+      "state": "сурови, с кора",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/potato-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 15414,
+          "sha256": "cee918abc16ce1d4402d40ef609aa7125d5dfbcaa05b874ed1fe37121b39d840"
+        },
+        "desktop": {
+          "path": "media/foods/potato-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 61562,
+          "sha256": "90e58fc79bbe060822b4fe47da71320a5290b8cd67f14098d18bbcdd610241f1"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "lentils",
+      "name": "Леща",
+      "state": "сварена, без сол",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/lentils-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18774,
+          "sha256": "2e5d3936ec192a2baf3fb008408e836cdb72ceefa485cdcb31bad8eb4bace6b9"
+        },
+        "desktop": {
+          "path": "media/foods/lentils-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 69872,
+          "sha256": "a2b8cba1b34b70c79274ede7625d133669d56075326ac17cd521de969d52f2b0"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "avocado",
+      "name": "Авокадо",
+      "state": "сурово",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/avocado-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 16414,
+          "sha256": "08c14e3eaf4b1887881e7e4261e2132895eaadfc52e032ae7ffcb9beaa4e3f6e"
+        },
+        "desktop": {
+          "path": "media/foods/avocado-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 70760,
+          "sha256": "baee59485d66a071873c6b8aa8fbada912c5cfd46e273eb6327da21256d13e94"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "almonds",
+      "name": "Бадеми",
+      "state": "без уточнена термична обработка",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/almonds-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 19616,
+          "sha256": "8259e1ce93c589af38fa6dbe9a2d7f6e3ebc472ece88d73a3e39b7e3b772d62d"
+        },
+        "desktop": {
+          "path": "media/foods/almonds-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 78834,
+          "sha256": "616933f9e6451dc9ab517c3f23a78fc315f7e3637e9668b710c8897586e0bf6e"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "walnuts",
+      "name": "Орехи",
+      "state": "английски орехи; без уточнена обработка",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/walnuts-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 22030,
+          "sha256": "7912219ace628b29cd1edca30901f4b715b565e93b830dfe5ea5deab2baf66ab"
+        },
+        "desktop": {
+          "path": "media/foods/walnuts-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 83522,
+          "sha256": "43a5c7fa98834f307b61ea185f9d1ec06ba0d2ae41e949d6794f47d7f79ed381"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "oliveoil",
+      "name": "Зехтин",
+      "state": "за салата или готвене",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/oliveoil-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 14878,
+          "sha256": "c729123cee8061d388b6b53b0b703e7e9667fcca29b72f07d0a783a88672bad8"
+        },
+        "desktop": {
+          "path": "media/foods/oliveoil-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 68296,
+          "sha256": "884fc54345c6324d398af922abb9cd09617efe279605ce6a9161e9a0225436c3"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "peanutbutter",
+      "name": "Фъстъчено масло",
+      "state": "гладко, без сол",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/peanutbutter-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 15466,
+          "sha256": "aa5a5589d819a9ee05cb48e852e6eab3ab96bcdd4656f114afa20af17102181e"
+        },
+        "desktop": {
+          "path": "media/foods/peanutbutter-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 61486,
+          "sha256": "06909c29c16196d2b223ff7c1ee076d9c8178f8e8bcd6ae089bb5e009bfdd464"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "chocolate",
+      "name": "Черен шоколад",
+      "state": "70–85% какао",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/chocolate-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18250,
+          "sha256": "51b3c9873e95ae23fed63ba7089e2b74db02ad2b2ed4f297083fb09acb9649c5"
+        },
+        "desktop": {
+          "path": "media/foods/chocolate-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 78288,
+          "sha256": "eda659626eac3347d3dc57fc9b031cfb783c62691c448818309fa180d4334be6"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "banana",
+      "name": "Банан",
+      "state": "суров",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/banana-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17430,
+          "sha256": "c1b885fa80e58303ca66dc115a438c1008bf41e3e90bc12cc7056fa82ac63d71"
+        },
+        "desktop": {
+          "path": "media/foods/banana-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 74224,
+          "sha256": "33c423cba7022bee954a7785184b29ec437b8b280ff8cb2720643ce6847d1b41"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "apple",
+      "name": "Ябълка",
+      "state": "сурова, с кора, Golden Delicious",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/apple-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 15332,
+          "sha256": "f4ebb7b66153e5ea02765c3aff5fc0c9078a84578aff573455d2fc694c1b33aa"
+        },
+        "desktop": {
+          "path": "media/foods/apple-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 60512,
+          "sha256": "26c2413bf330b6c9e3d558cffe411aa53b6096a6118023b50c15d71047d7cb3f"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "orange",
+      "name": "Портокал",
+      "state": "суров",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/orange-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 20264,
+          "sha256": "977767010f14b207aee04a5db3706202b7d62c4f0993fb56c7004bed27901f21"
+        },
+        "desktop": {
+          "path": "media/foods/orange-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 84798,
+          "sha256": "d3f9daa0a6a0947abb39ad65edbdde83fa0aab74a6f6d7204609b466851503ee"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "blueberry",
+      "name": "Боровинки",
+      "state": "сурови",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/blueberry-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18242,
+          "sha256": "3fa8af907a8eb656cff4160ffc82d9fa1dd253b5b510fa8a25494cf873524591"
+        },
+        "desktop": {
+          "path": "media/foods/blueberry-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 71132,
+          "sha256": "9e6e74498ec9326e1506f9b649ce0be50800214b18e9e4ca2396c403533935c3"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "strawberry",
+      "name": "Ягоди",
+      "state": "сурови",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/strawberry-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 20530,
+          "sha256": "ab5ea81c5b3c9b5d6e82cfb2c040db8cca1d1337632d8eddcdf2581d3b78be80"
+        },
+        "desktop": {
+          "path": "media/foods/strawberry-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 79888,
+          "sha256": "e0dd9d85cb9f6aef9a1355370e02686914cc329fe2c63a1362aaf4b5b2911656"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "broccoli",
+      "name": "Броколи",
+      "state": "сурови",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/broccoli-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 25876,
+          "sha256": "21faf256dc66f217115cfe2e10676010a32401646500df8ad686b0decde026a1"
+        },
+        "desktop": {
+          "path": "media/foods/broccoli-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 104368,
+          "sha256": "a832b7550d695748e4a6281773cad68cac4f65fd9bb30a0f5be332c027bb482a"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "spinach",
+      "name": "Спанак",
+      "state": "суров",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/spinach-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17922,
+          "sha256": "1c13811ea0540788ade70a4c6560ac502a00ec5a1352133fa9adfc24147acf16"
+        },
+        "desktop": {
+          "path": "media/foods/spinach-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 67534,
+          "sha256": "eedf71b2e652b4b0338fbf0d55aadac5793baffa0810469574bb3ca72c2433aa"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "carrot",
+      "name": "Морков",
+      "state": "суров",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/carrot-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18026,
+          "sha256": "d837df991c45626f5b6a28557a34787b67a49e93bbf47e33b931bfe14f87f178"
+        },
+        "desktop": {
+          "path": "media/foods/carrot-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 74878,
+          "sha256": "41719a769c8fd9de8a18b68334c60c29a48f8ae5549c0f3a4bb579941f377f01"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "tomato",
+      "name": "Домат",
+      "state": "червен, зрял, суров",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/tomato-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 19184,
+          "sha256": "97d5b2ca156581a00f4498308d7aa221b7bcb381a39cb3dabdc8f9fb086d207b"
+        },
+        "desktop": {
+          "path": "media/foods/tomato-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 82420,
+          "sha256": "5382ff3308cc9fec5e913ef7e95630404a95275d4ac75951e2b248976f31209c"
+        }
+      }
+    },
+    {
+      "kind": "food",
+      "id": "cucumber",
+      "name": "Краставица",
+      "state": "сурова, с кора",
+      "origin": "AI generated",
+      "tool": "OpenAI image generation tool",
+      "date": "2026-11-07",
+      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "review": {
+        "visual": "contact-sheet reviewed",
+        "scope": "food identity and preparation state"
+      },
+      "variants": {
+        "mobile": {
+          "path": "media/foods/cucumber-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 18708,
+          "sha256": "7e1292fef71e142969936282a4daf1d846d0071dff667337592825d6067ce329"
+        },
+        "desktop": {
+          "path": "media/foods/cucumber-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 73460,
+          "sha256": "d4569f08dc717c96bb5624d4a2a0e38ec3f66e8181eedd6d2321cad5e68fed81"
+        }
+      }
+    }
+  ]
+}
