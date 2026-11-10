@@ -252,3 +252,23 @@ test('reset-filters restores all items when a filter combination yields no match
  fd.handlers.click({target:{closest:()=>({dataset:{action:'reset-filters',group:'foods'}})}});
  assert.equal(foundCount(fd.nodes['food-results'].innerHTML).found,D.foods.length);
 });
+
+test('inline reset-filters button appears whenever filters narrow results and hides once cleared',()=>{
+ const w=createApp('#sessions');
+ assert.doesNotMatch(w.nodes['workout-results'].innerHTML,/data-action="reset-filters"/);
+ type(w,'workouts','cat','cal');
+ assert.ok(foundCount(w.nodes['workout-results'].innerHTML).found>0);
+ assert.match(w.nodes['workout-results'].innerHTML,/results-head[\s\S]*data-action="reset-filters" data-group="workouts"/);
+ w.handlers.click({target:{closest:()=>({dataset:{action:'reset-filters',group:'workouts'}})}});
+ assert.doesNotMatch(w.nodes['workout-results'].innerHTML,/data-action="reset-filters"/);
+
+ const ex=createApp('#exercises');
+ type(ex,'exercises','q','планк');
+ assert.ok(foundCount(ex.nodes['exercise-results'].innerHTML).found>0);
+ assert.match(ex.nodes['exercise-results'].innerHTML,/results-head[\s\S]*data-action="reset-filters" data-group="exercises"/);
+
+ const fd=createApp('#nutrition');
+ type(fd,'foods','cat','protein');
+ assert.ok(foundCount(fd.nodes['food-results'].innerHTML).found>0);
+ assert.match(fd.nodes['food-results'].innerHTML,/results-head[\s\S]*data-action="reset-filters" data-group="foods"/);
+});

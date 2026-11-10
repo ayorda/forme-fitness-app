@@ -422,3 +422,19 @@ test('journal-copy-today duplicates an earlier meal entry directly into today',(
  assert.match(app.page(),/id="journal-date" type="date" value="2026-11-09"/);
  assert.match(app.page(),/Вечеря/);
 });
+
+test('saved meals tab shows count badge and food detail highlights active portion preset',()=>{
+ const app=boot('#nutrition',{
+  'forme-saved-meals':JSON.stringify([
+   {name:'Закуска',items:[{id:'oats',grams:'80'}]},
+   {name:'Обяд',items:[{id:'chicken',grams:'200'}]}
+  ])
+ });
+ assert.match(app.page(),/Запазени хранения \(2\)/);
+ app.click({dataset:{action:'food-detail',id:'avocado'}});
+ assert.match(app.node('modal-root').innerHTML,/role="dialog" aria-modal="true" aria-label="Авокадо"/);
+ assert.match(app.node('modal-root').innerHTML,/data-grams="100" aria-pressed="true"/);
+ app.click({dataset:{action:'detail-preset-grams',id:'avocado',grams:'150'}});
+ assert.match(app.node('detail-presets').innerHTML,/data-grams="150" aria-pressed="true"/);
+ assert.match(app.node('detail-presets').innerHTML,/data-grams="100" aria-pressed="false"/);
+});

@@ -155,3 +155,18 @@ test('exercise details link back to parent workouts, return to a previewed worko
  assert.match(a.nodes.app.innerHTML,/value="seconds" selected/);
  assert.match(a.nodes.app.innerHTML,/id="set-value"[^>]*value="30"/);
 });
+
+test('workout and exercise detail modals expose item-named dialogs and toggle favorites in place',()=>{
+ const a=createApp({},true,'#sessions');
+ a.handlers.click({target:{closest:()=>({dataset:{action:'workout-detail',id:'cal-start'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/role="dialog" aria-modal="true" aria-label="Силна основа"/);
+ assert.match(a.nodes['modal-root'].innerHTML,/data-action="favorite" data-kind="workouts" data-id="cal-start" aria-pressed="false"/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'favorite',kind:'workouts',id:'cal-start'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/data-action="favorite" data-kind="workouts" data-id="cal-start" aria-pressed="true"/);
+
+ a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Plank',fromWorkout:'cal-start'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/role="dialog" aria-modal="true" aria-label="Планк"/);
+ assert.match(a.nodes['modal-root'].innerHTML,/data-action="favorite" data-kind="exercises" data-id="Plank" aria-pressed="false"/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'favorite',kind:'exercises',id:'Plank'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/data-action="favorite" data-kind="exercises" data-id="Plank" aria-pressed="true"/);
+});

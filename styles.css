@@ -262,6 +262,11 @@
 .month-nav-actions{display:flex;align-items:center;gap:8px}
 .skip-link{position:fixed;left:12px;top:-80px;z-index:200;padding:10px 14px;border-radius:10px;background:var(--lime);color:#101a0c;font-weight:800;text-decoration:none;transition:top .15s}
 .skip-link:focus,.skip-link:focus-visible{top:12px;outline:2px solid #fff;outline-offset:2px}
+.results-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.results-head p{margin:0}
+.modal-header .card-title{align-items:center}
+.modal-header .card-title h2{margin:0}
+.portion-presets .btn[aria-pressed="true"]{border-color:var(--lime);color:var(--lime)}
 
 
 

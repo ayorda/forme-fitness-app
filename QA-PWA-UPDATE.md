@@ -14,5 +14,5 @@
 
 Допълнително е проверен публичният HTTPS адрес: след регистрация на service worker Начало, Тренировки, Хранене и Прогрес се заредиха офлайн в Chromium. Облачният тестов браузър изискваше игнориране на сертификатните грешки на средата при регистрацията; това не е настройка на приложението. Публичните `app.js`, `data.js`, `backup.js`, `styles.css` и `service-worker.js` съвпаднаха байт по байт с `main`.
 
-- **Допълнение (09.11.2026, v0.3.4):** В `service-worker.js` (`forme-mobile-v034-sync1`) навигацията вече връща кеширания `index.html` и при HTTP грешка от сървъра (`res.ok === false`), а медийният кеш (`forme-media-v029-optimized`) обработва безопасно офлайн заявки за неразгледани WebP файлове; покрито автоматично в `offline.test.js`.
+- **Допълнение (09.11.2026, v0.3.4–v0.3.9):** В `service-worker.js` (`forme-mobile-v039-polish1`) навигацията връща кеширания `index.html` и при HTTP грешка от сървъра (`res.ok === false`), медийният кеш (`forme-media-v029-optimized`) обработва безопасно офлайн заявки за неразгледани WebP файлове, а `<meta name="theme-color" content="#0a0f0e">` в `index.html` е уеднаквен с `manifest.webmanifest`; покрито автоматично в `offline.test.js`, `pwa.test.js` и `version-consistency.test.js`.
 

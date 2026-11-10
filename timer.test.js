@@ -197,3 +197,19 @@ test('workout player acquires and releases Screen Wake Lock when running, paused
  await Promise.resolve();
  assert.equal(released,2);
 });
+
+test('ArrowRight and ArrowLeft step forward and backward inside an active workout player',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start'); playerControl('player-start')");
+ a.handlers.keydown({key:'ArrowLeft',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.index'),0);
+ assert.equal(a.run('state.player.phase'),'work');
+ a.handlers.keydown({key:'ArrowRight',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.phase'),'rest');
+ a.handlers.keydown({key:'ArrowRight',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.index'),1);
+ assert.equal(a.run('state.player.phase'),'work');
+ a.handlers.keydown({key:'ArrowLeft',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.index'),0);
+ assert.equal(a.run('state.player.phase'),'work');
+});
