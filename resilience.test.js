@@ -308,3 +308,51 @@ test('midnight rollover advances default nutrition dates and refreshes Nutrition
  app.visibilitychange();
  assert.match(app.page(),/id="journal-date" type="date" value="2024-02-29"/);
 });
+
+test('log-saved-meal adds a saved meal directly to the nutrition journal without overwriting the draft plate',()=>{
+ const app=boot('#nutrition',{
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'200'}]),
+  'forme-saved-meals':JSON.stringify([{name:'Овесена закуска',items:[{id:'oats',grams:'80'},{id:'banana',grams:'100'}]}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(app.page(),/data-action="log-saved-meal" data-index="0"/);
+ app.click({dataset:{action:'log-saved-meal',index:'0'}});
+ assert.equal(app.toast(),'Записът е запазен.');
+ assert.match(app.page(),/Овесена закуска/);
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'200'}]);
+});
+
+test('nutrition journal displays fiber and switches dates via day stepper and 7-day chart bars',()=>{
+ const app=boot('#nutrition',{
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:100},
+   entries:[{id:'e1',date:'2026-11-08',name:'Обяд',items:[{id:'lentils',grams:'200'}]}]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/Фибри: 0 г/);
+ app.click({dataset:{action:'journal-step-date',offset:'-1'}});
+ assert.match(app.page(),/id="journal-date" type="date" value="2026-11-08"/);
+ assert.match(app.page(),/Обяд/);
+ assert.match(app.page(),/Фибри: 15,8 г/);
+ app.click({dataset:{action:'journal-pick-date',date:'2026-11-09'}});
+ assert.match(app.page(),/id="journal-date" type="date" value="2026-11-09"/);
+});
+
+test('exercise details display personal best from logged sets',()=>{
+ const storage={
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[],
+   sets:[
+    {id:'s1',exerciseId:'Plank',date:'2026-11-08',kind:'seconds',value:35},
+    {id:'s2',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:55}
+   ]
+  })
+ };
+ const app=boot('#exercises',storage);
+ app.click({dataset:{action:'exercise-detail',id:'Plank'}});
+ assert.match(app.node('modal-root').innerHTML,/Личен рекорд: 55 секунди/);
+});

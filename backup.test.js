@@ -65,3 +65,36 @@ test('exportData cleans unfinished draft meal rows and broken legacy keys so eve
  assert.equal(target.data['forme-sound'],undefined);
  assert.equal(JSON.parse(target.data['forme-progress-v1']).sessions.length,1);
 });
+
+test('exportData preserves valid progress sessions, nutrition entries, favorites and completions when mixed with broken items',()=>{
+ const source=storage({
+  'forme-favorites':JSON.stringify({exercises:['Plank',42],workouts:['cal-start',null]}),
+  'forme-plan':JSON.stringify({mon:'cal-start',tue:123}),
+  'forme-completed-workouts':JSON.stringify({'2026-11-09':{id:'cal-start',name:'Силна основа'},'bad-date':{id:'x',name:'y'}}),
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:99,minutesPerWeek:-10},
+   sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-09',minutes:12},{id:'bad',workoutId:'cal-start',date:'2026-02-30',minutes:10}],
+   sets:[{id:'set1',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:45},{id:'badset',exerciseId:'Plank',date:'2026-11-09',kind:'meters',value:10}]
+  }),
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:0,protein:5000},
+   entries:[
+    {id:'e1',date:'2026-11-09',name:'Lunch',items:[{id:'rice',grams:'150'},{id:'egg',grams:'0'}]},
+    {id:'e2',date:'2026-11-09',name:'Broken',items:[{id:'rice',grams:'0'}]}
+   ]
+  })
+ });
+ const exported=backup.exportData(source),target=storage();
+ assert.equal(backup.importData(target,exported),true);
+ assert.deepEqual(JSON.parse(target.data['forme-favorites']),{exercises:['Plank'],workouts:['cal-start']});
+ assert.deepEqual(JSON.parse(target.data['forme-plan']),{mon:'cal-start'});
+ assert.equal(Object.keys(JSON.parse(target.data['forme-completed-workouts'])).length,1);
+ const prog=JSON.parse(target.data['forme-progress-v1']);
+ assert.equal(prog.sessions.length,1);
+ assert.equal(prog.sets.length,1);
+ const nutr=JSON.parse(target.data['forme-nutrition-v1']);
+ assert.equal(nutr.entries.length,1);
+ assert.deepEqual(nutr.entries[0].items,[{id:'rice',grams:'150'}]);
+});

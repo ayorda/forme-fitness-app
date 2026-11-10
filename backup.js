@@ -14,12 +14,36 @@ function exportValue(key,value){
  if(validate({app:'FORME',version:1,data:{[key]:value}}))return value;
  try{
   const parsed=JSON.parse(value);
+  if(key==='forme-favorites'&&validObject(parsed)){
+   const ex=Array.isArray(parsed.exercises)?parsed.exercises.filter(x=>typeof x==='string'):[];
+   const wk=Array.isArray(parsed.workouts)?parsed.workouts.filter(x=>typeof x==='string'):[];
+   return JSON.stringify({exercises:ex,workouts:wk});
+  }
+  if((key==='forme-plan'||key==='forme-date-plans')&&validObject(parsed)){
+   return JSON.stringify(Object.fromEntries(Object.entries(parsed).filter(([,v])=>typeof v==='string')));
+  }
+  if(key==='forme-completed-workouts'&&validObject(parsed)){
+   return JSON.stringify(Object.fromEntries(Object.entries(parsed).filter(([d,v])=>date(d)&&validObject(v)&&typeof v.id==='string'&&typeof v.name==='string').map(([d,v])=>[d,{id:v.id,name:v.name}])));
+  }
   if(key==='forme-current-meal'&&Array.isArray(parsed)){
    return JSON.stringify(parsed.filter(x=>validObject(x)&&id(x.id)&&grams(x.grams)).map(x=>({id:x.id,grams:String(x.grams)})));
   }
   if(key==='forme-saved-meals'&&Array.isArray(parsed)){
    const cleaned=parsed.filter(x=>validObject(x)&&typeof x.name==='string'&&Array.isArray(x.items)).map(x=>({name:x.name,items:x.items.filter(i=>validObject(i)&&id(i.id)&&grams(i.grams)).map(i=>({id:i.id,grams:String(i.grams)}))})).filter(x=>x.items.length>0);
    return JSON.stringify(cleaned);
+  }
+  if(key==='forme-progress-v1'&&parsed?.version===1&&validObject(parsed)){
+   const g=validObject(parsed.goal)?parsed.goal:{};
+   const goal={workoutsPerWeek:Number.isInteger(g.workoutsPerWeek)&&g.workoutsPerWeek>=1&&g.workoutsPerWeek<=7?g.workoutsPerWeek:3,minutesPerWeek:Number.isInteger(g.minutesPerWeek)&&g.minutesPerWeek>=0&&g.minutesPerWeek<=2000?g.minutesPerWeek:90};
+   const sessions=Array.isArray(parsed.sessions)?parsed.sessions.filter(x=>validObject(x)&&id(x.id)&&id(x.workoutId)&&date(x.date)&&typeof x.minutes==='number'&&Number.isFinite(x.minutes)&&x.minutes>=0&&x.minutes<=600).map(x=>({id:x.id,workoutId:x.workoutId,date:x.date,minutes:Math.round(x.minutes)})):[];
+   const sets=Array.isArray(parsed.sets)?parsed.sets.filter(x=>validObject(x)&&id(x.id)&&id(x.exerciseId)&&date(x.date)&&['reps','seconds'].includes(x.kind)&&Number.isInteger(x.value)&&x.value>=1&&x.value<=3600).map(x=>({id:x.id,exerciseId:x.exerciseId,date:x.date,kind:x.kind,value:x.value})):[];
+   return JSON.stringify({version:1,goal,sessions,sets});
+  }
+  if(key==='forme-nutrition-v1'&&parsed?.version===1&&validObject(parsed)){
+   const g=validObject(parsed.goal)?parsed.goal:{};
+   const goal={kcal:Number.isInteger(g.kcal)&&g.kcal>=1&&g.kcal<=10000?g.kcal:2000,protein:Number.isInteger(g.protein)&&g.protein>=0&&g.protein<=1000?g.protein:100};
+   const entries=Array.isArray(parsed.entries)?parsed.entries.filter(x=>validObject(x)&&id(x.id)&&date(x.date)&&Array.isArray(x.items)).map(x=>({id:x.id,date:x.date,name:typeof x.name==='string'?x.name.slice(0,70):'',items:x.items.filter(i=>validObject(i)&&id(i.id)&&grams(i.grams)).map(i=>({id:i.id,grams:String(i.grams)}))})).filter(x=>journalItems(x.items)):[];
+   return JSON.stringify({version:1,goal,entries});
   }
   if(key==='forme-user-v1'&&parsed?.version===1&&validObject(parsed.records)){
    const records={};
@@ -43,7 +67,7 @@ function validate(payload){
   if(key==='forme-sound'){if(typeof parsed!=='boolean')return false;}
   else if(key==='forme-favorites'){if(!validObject(parsed)||!Array.isArray(parsed.exercises)||!Array.isArray(parsed.workouts)||![...parsed.exercises,...parsed.workouts].every(x=>typeof x==='string'))return false;}
   else if(key==='forme-plan'||key==='forme-date-plans'){if(!validObject(parsed)||!Object.values(parsed).every(x=>typeof x==='string'))return false;}
-  else if(key==='forme-completed-workouts'){if(!validObject(parsed)||!Object.values(parsed).every(x=>validObject(x)&&typeof x.id==='string'&&typeof x.name==='string'))return false;}
+  else if(key==='forme-completed-workouts'){if(!validObject(parsed)||!Object.entries(parsed).every(([d,x])=>date(d)&&validObject(x)&&typeof x.id==='string'&&typeof x.name==='string'))return false;}
   else if(key==='forme-user-v1'){if(parsed?.version!==1||!validObject(parsed.records)||Object.entries(parsed.records).some(([name,raw])=>!['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound'].includes(name)||!validate({app:'FORME',version:1,data:{['forme-'+name]:raw}})))return false;}
   else if(key==='forme-current-meal'){if(!items(parsed))return false;}
   else if(key==='forme-saved-meals'){if(!Array.isArray(parsed)||!parsed.every(x=>validObject(x)&&typeof x.name==='string'&&items(x.items)))return false;}

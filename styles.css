@@ -254,6 +254,10 @@
 .day-note-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
 .day-note-row .day-note{margin-top:0}
 .modal-back{margin-bottom:12px}
+.journal-date-controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.journal-day-btn{display:flex;flex-direction:column;align-items:center;gap:4px;background:transparent;border:1px solid transparent;border-radius:10px;padding:6px 2px;color:inherit;cursor:pointer;font:inherit}
+.journal-day-btn:hover,.journal-day-btn.active{border-color:var(--lime);background:#1b281c}
+
 
 
 

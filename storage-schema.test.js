@@ -21,3 +21,16 @@ test('updated legacy keys and versioned data stay in sync and failed write rolls
  assert.equal(store.data['forme-user-v1'],before);
  assert.equal(api.load('plan',{}).tue,'yoga-reset');
 });
+
+test('corrupted envelope entry falls back to intact legacy mirror instead of losing user data',()=>{
+ const store=storage({
+  'forme-user-v1':JSON.stringify({version:1,records:{favorites:'{broken-json',plan:{notString:true}}}),
+  'forme-favorites':JSON.stringify({exercises:['Plank'],workouts:['cal-start']}),
+  'forme-plan':JSON.stringify({mon:'cal-start'}),
+  'forme-sound':'false'
+ });
+ const api=create(store);
+ assert.equal(api.load('favorites',{exercises:[],workouts:[]}).exercises[0],'Plank');
+ assert.equal(api.load('plan',{}).mon,'cal-start');
+ assert.equal(api.load('sound',true),false);
+});
