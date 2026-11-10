@@ -260,6 +260,9 @@
 .journal-day-btn:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
 .portion-presets{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
 .month-nav-actions{display:flex;align-items:center;gap:8px}
+.skip-link{position:fixed;left:12px;top:-80px;z-index:200;padding:10px 14px;border-radius:10px;background:var(--lime);color:#101a0c;font-weight:800;text-decoration:none;transition:top .15s}
+.skip-link:focus,.skip-link:focus-visible{top:12px;outline:2px solid #fff;outline-offset:2px}
+
 
 
 

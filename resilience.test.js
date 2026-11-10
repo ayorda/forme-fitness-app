@@ -379,3 +379,46 @@ test('journal-today button jumps back to the current date when viewing an earlie
  app.click({dataset:{action:'journal-today'}});
  assert.match(app.page(),/id="journal-date" type="date" value="2026-11-09"/);
 });
+
+test('manual workout logging on Progress auto-fills duration, records minutes and syncs Home overview',()=>{
+ const app=boot('#progress',{},new Date(2026,10,9,12));
+ app.change({id:'log-workout-id',value:'yoga-flow',dataset:{}});
+ assert.equal(app.node('log-workout-minutes').value,'20');
+ app.node('log-workout-id').value='yoga-flow';
+ app.node('log-workout-date').value='2026-11-09';
+ app.click({dataset:{action:'progress-workout'}});
+ assert.equal(app.toast(),'Тренировката е записана в дневника.');
+ assert.match(app.page(),/<strong>20 \/ 90<\/strong>/);
+ app.click({dataset:{action:'nav',page:'home'}});
+ assert.match(app.page(),/<strong>1 \/ 3<\/strong> · <strong>20 \/ 90 мин<\/strong>/);
+ assert.match(app.page(),/Отбелязана като изпълнена: Дълбоко разтягане/);
+});
+
+test('home overview surfaces both weekly minutes goal and daily protein goal',()=>{
+ const app=boot('#home',{
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2200,protein:130},
+   entries:[{id:'e1',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'}]}]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/240 \/ 2\s*200 kcal/);
+ assert.match(app.page(),/Протеин: <strong>45 \/ 130 г<\/strong>/);
+});
+
+test('journal-copy-today duplicates an earlier meal entry directly into today',()=>{
+ const app=boot('#nutrition',{
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:100},
+   entries:[{id:'e-prev',date:'2026-11-08',name:'Вечеря',items:[{id:'salmon',grams:'150'}]}]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ app.click({dataset:{action:'journal-step-date',offset:'-1'}});
+ assert.match(app.page(),/data-action="journal-copy-today" data-id="e-prev"/);
+ app.click({dataset:{action:'journal-copy-today',id:'e-prev'}});
+ assert.equal(app.toast(),'Записът е запазен.');
+ assert.match(app.page(),/id="journal-date" type="date" value="2026-11-09"/);
+ assert.match(app.page(),/Вечеря/);
+});

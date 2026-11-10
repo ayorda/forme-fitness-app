@@ -29,7 +29,7 @@ test('every app module stays cached offline and viewed media is saved for reuse'
  const artPos=html.indexOf('<script src="exercise-art.js"></script>');
  const dataPos=html.indexOf('<script src="data.js"></script>');
  assert.ok(artPos>=0&&artPos<dataPos);
-  assert.ok(sw.includes('forme-mobile-v037-player1'));
+  assert.ok(sw.includes('forme-mobile-v038-log1'));
  assert.ok(sw.includes('exercise-art.js'));
  assert.ok(sw.includes('progress.js'));
  assert.ok(sw.includes('programs.js'));
@@ -53,4 +53,11 @@ test('every local resource referenced by index.html or the manifest is precached
     assert.ok(!ref.startsWith('http'), `local resource expected: ${ref}`);
     assert.ok(sw.includes(`'./${ref}'`), `${ref} referenced by the shell but missing from service worker ASSETS`);
   }
+});
+
+test('shell includes WCAG skip link and matches manifest theme_color', () => {
+  assert.match(html, /<a class="skip-link" href="#app" data-i18n="shell\.skip">/);
+  const metaTheme = html.match(/<meta name="theme-color" content="([^"]+)">/);
+  assert.ok(metaTheme, 'index.html declares meta theme-color');
+  assert.equal(metaTheme[1], manifest.theme_color);
 });
