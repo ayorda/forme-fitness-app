@@ -29,7 +29,7 @@ test('every app module stays cached offline and viewed media is saved for reuse'
  const artPos=html.indexOf('<script src="exercise-art.js"></script>');
  const dataPos=html.indexOf('<script src="data.js"></script>');
  assert.ok(artPos>=0&&artPos<dataPos);
-  assert.ok(sw.includes('forme-mobile-v039-polish1'));
+  assert.ok(sw.includes('forme-mobile-v0310-ux1'));
  assert.ok(sw.includes('exercise-art.js'));
  assert.ok(sw.includes('progress.js'));
  assert.ok(sw.includes('programs.js'));
@@ -60,4 +60,9 @@ test('shell includes WCAG skip link and matches manifest theme_color', () => {
   const metaTheme = html.match(/<meta name="theme-color" content="([^"]+)">/);
   assert.ok(metaTheme, 'index.html declares meta theme-color');
   assert.equal(metaTheme[1], manifest.theme_color);
+});
+
+test('stylesheet provides clean @media print rules hiding navigation chrome', () => {
+  const css = fs.readFileSync('styles.css', 'utf8');
+  assert.match(css, /@media print\{[\s\S]*\.sidebar,\.topbar,\.mobile-nav,\.skip-link,\.toast\{display:none!important\}/);
 });

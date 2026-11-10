@@ -272,3 +272,23 @@ test('inline reset-filters button appears whenever filters narrow results and hi
  assert.ok(foundCount(fd.nodes['food-results'].innerHTML).found>0);
  assert.match(fd.nodes['food-results'].innerHTML,/results-head[\s\S]*data-action="reset-filters" data-group="foods"/);
 });
+
+test('exercise and food search fields use type=search and clear immediately on Escape',()=>{
+ const ex=createApp('#exercises');
+ assert.match(ex.nodes.app.innerHTML,/id="ex-search" type="search"/);
+ type(ex,'exercises','q','планк');
+ assert.ok(foundCount(ex.nodes['exercise-results'].innerHTML).found<D.exercises.length);
+ const exInput={dataset:{filter:'exercises',key:'q'},value:'планк'};
+ ex.handlers.keydown({key:'Escape',target:exInput,preventDefault(){}});
+ assert.equal(exInput.value,'');
+ assert.equal(foundCount(ex.nodes['exercise-results'].innerHTML).found,D.exercises.length);
+
+ const fd=createApp('#nutrition');
+ assert.match(fd.nodes.app.innerHTML,/id="food-search" type="search"/);
+ type(fd,'foods','q','ориз');
+ assert.equal(foundCount(fd.nodes['food-results'].innerHTML).found,2);
+ const fdInput={dataset:{filter:'foods',key:'q'},value:'ориз'};
+ fd.handlers.keydown({key:'Escape',target:fdInput,preventDefault(){}});
+ assert.equal(fdInput.value,'');
+ assert.equal(foundCount(fd.nodes['food-results'].innerHTML).found,D.foods.length);
+});

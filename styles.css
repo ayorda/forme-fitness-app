@@ -267,6 +267,8 @@
 .modal-header .card-title{align-items:center}
 .modal-header .card-title h2{margin:0}
 .portion-presets .btn[aria-pressed="true"]{border-color:var(--lime);color:var(--lime)}
+.progress-weeks small{color:var(--dim);font-size:10px}
+@media print{.sidebar,.topbar,.mobile-nav,.skip-link,.toast{display:none!important}.shell{display:block}.main-area main{padding:0;min-height:0}body,.panel,.card,.note,.total,.day-card,.month-day,.today-plan,.home-progress{background:#fff!important;color:#111!important;border-color:#ccc!important;box-shadow:none!important}h1,h2,h3,h4,p,small,span,strong,b,td,th,.muted,.subtle{color:#111!important}}
 
 
 

@@ -438,3 +438,33 @@ test('saved meals tab shows count badge and food detail highlights active portio
  assert.match(app.node('detail-presets').innerHTML,/data-grams="150" aria-pressed="true"/);
  assert.match(app.node('detail-presets').innerHTML,/data-grams="100" aria-pressed="false"/);
 });
+
+test('empty favorites and saved meals screens offer 1-tap navigation actions',()=>{
+ const favApp=boot('#favorites');
+ assert.match(favApp.page(),/data-action="nav" data-page="sessions"/);
+ assert.match(favApp.page(),/data-action="nav" data-page="exercises"/);
+ favApp.click({dataset:{action:'nav',page:'exercises'}});
+ assert.match(favApp.page(),/id="ex-search"/);
+
+ const nutApp=boot('#nutrition');
+ nutApp.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(nutApp.page(),/data-action="go-meal"/);
+ nutApp.click({dataset:{action:'go-meal'}});
+ assert.match(nutApp.page(),/id="meal-food-select"/);
+});
+
+test('four-week program workout chips open workout preview modal and 4-week chart shows active minutes',()=>{
+ const app=boot('#progress',{
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-09',minutes:18}],
+   sets:[]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/1 тренировки · 18 мин/);
+ assert.match(app.page(),/<small>18 мин<\/small>/);
+ assert.match(app.page(),/program-card[\s\S]*data-action="workout-detail" data-id="cal-start"/);
+ app.click({dataset:{action:'workout-detail',id:'cal-start'}});
+ assert.match(app.node('modal-root').innerHTML,/<h2>Силна основа<\/h2>/);
+});
