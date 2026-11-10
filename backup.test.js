@@ -48,3 +48,20 @@ test('backup round trip accepts comma decimal grams used by the meal builder',()
  assert.equal(target.data['forme-current-meal'],source.data['forme-current-meal']);
  assert.equal(target.data['forme-nutrition-v1'],source.data['forme-nutrition-v1']);
 });
+
+test('exportData cleans unfinished draft meal rows and broken legacy keys so every exported backup restores',()=>{
+ const source=storage({
+  'forme-plan':'{"mon":"cal-start"}',
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'200'},{id:'rice',grams:''},{id:'egg',grams:'0'}]),
+  'forme-saved-meals':JSON.stringify([{name:'Valid',items:[{id:'rice',grams:'150'}]},{name:'Broken',items:[{id:'rice',grams:'0'}]}]),
+  'forme-user-v1':JSON.stringify({version:1,records:{'current-meal':JSON.stringify([{id:'chicken',grams:'200'},{id:'rice',grams:''}]),plan:'{"mon":"cal-start"}',sound:'"not-bool"'}}),
+  'forme-sound':'"not-bool"',
+  'forme-progress-v1':JSON.stringify({version:1,sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-09',minutes:12}],sets:[],goal:{workoutsPerWeek:3,minutesPerWeek:90}})
+ });
+ const exported=backup.exportData(source),target=storage();
+ assert.equal(backup.importData(target,exported),true);
+ assert.deepEqual(JSON.parse(target.data['forme-current-meal']),[{id:'chicken',grams:'200'}]);
+ assert.equal(JSON.parse(target.data['forme-saved-meals']).length,1);
+ assert.equal(target.data['forme-sound'],undefined);
+ assert.equal(JSON.parse(target.data['forme-progress-v1']).sessions.length,1);
+});

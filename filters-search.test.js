@@ -203,3 +203,17 @@ test('search and category filters narrow the exercise results together',()=>{
  type(a,'exercises','cat','');
  assert.ok(resultIds(a.nodes['exercise-results'].innerHTML).has('Plank'),'clearing the category restores the match');
 });
+
+test('exercise search finds movements by primary muscles in all three languages',()=>{
+ const biceps=[...C.filterExercises(D.exercises,{q:'бицепс'}).map(e=>e.id)].sort();
+ assert.deepEqual(biceps,['Australian_Rows','Chinups','One_Arm_Pull_Up','Pullups']);
+ assert.ok(C.filterExercises(D.exercises,{q:'гръб'}).some(e=>e.id==='Front_Lever'));
+ const c={window:{}};
+ vm.createContext(c);
+ for(const f of ['exercise-art.js','data.js','exercise-translations.js','locale-content.js'])
+  vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
+ const enList=c.window.FORME_DATA.exercises.map(e=>c.window.FORME_LOCALE_CONTENT.translateContent('exercise',e,'en'));
+ const deList=c.window.FORME_DATA.exercises.map(e=>c.window.FORME_LOCALE_CONTENT.translateContent('exercise',e,'de'));
+ assert.equal(C.filterExercises(enList,{q:'biceps'}).length,4);
+ assert.equal(C.filterExercises(deList,{q:'Bizeps'}).length,4);
+});

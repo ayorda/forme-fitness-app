@@ -33,7 +33,9 @@ const corrupted={
  'forme-date-plans':'null',
  'forme-completed-workouts':'[]',
  'forme-sound':'"yes"',
- 'forme-user-v1':'[]'
+ 'forme-user-v1':'[]',
+ 'forme-progress-v1':'{"version":1,"goal":"bad","sessions":[null,{"id":"x","workoutId":"cal-start","date":"2026-11-08","minutes":"<img onerror=1>"}],"sets":[null]}',
+ 'forme-nutrition-v1':'{"version":1,"goal":{"kcal":0,"protein":-5},"entries":[{"id":"a","date":"2026-11-08","name":{"x":1},"items":[null]}]}'
 };
 
 test('corrupted local data is repaired before every screen renders',()=>{
@@ -166,4 +168,69 @@ test('the player names the exercise that just finished and announces phase chang
  assert.match(app.node('player-layout').innerHTML,/player-rest-name/);
  assert.match(app.node('player-layout').innerHTML,/Изпълни: /);
  assert.doesNotMatch(app.node('player-layout').innerHTML,/undefined/);
+});
+
+test('editing a saved meal preserves its name when adding or removing ingredients',()=>{
+ const meals=[{name:'Обяд',items:[{id:'rice',grams:'150'}]}];
+ const app=boot('#nutrition',{'forme-saved-meals':JSON.stringify(meals)});
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ app.click({dataset:{action:'edit-saved-meal',index:'0'}});
+ assert.equal(app.node('meal-name').value,'Обяд');
+ app.node('meal-food-select').value='chicken';
+ app.click({dataset:{action:'add-selected-food'}});
+ assert.equal(app.node('meal-name').value,'Обяд');
+ app.click({dataset:{action:'save-meal'}});
+ const saved=JSON.parse(app.storage['forme-saved-meals']);
+ assert.equal(saved.length,1);
+ assert.equal(saved[0].name,'Обяд');
+ assert.equal(saved[0].items.length,2);
+});
+
+test('editing a journal entry shows an edit banner, keeps its name and date across ingredient edits, and supports cancel',()=>{
+ const date='2026-11-05';
+ const app=boot('#nutrition',{'forme-nutrition-v1':JSON.stringify({
+  version:1,goal:{kcal:2000,protein:100},
+  entries:[{id:'j1',date,name:'Закуска',items:[{id:'oats',grams:'80'}]}]
+ })});
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ app.change({id:'journal-date',value:date,dataset:{}});
+ app.click({dataset:{action:'journal-edit',id:'j1'}});
+ assert.match(app.page(),/meal-edit-note/);
+ assert.match(app.page(),/data-action="cancel-journal-edit"/);
+ assert.equal(app.node('meal-name').value,'Закуска');
+ assert.equal(app.node('meal-date').value,date);
+ app.node('meal-food-select').value='banana';
+ app.click({dataset:{action:'add-selected-food'}});
+ assert.equal(app.node('meal-name').value,'Закуска');
+ assert.equal(app.node('meal-date').value,date);
+ app.click({dataset:{action:'journal-save'}});
+ const updated=JSON.parse(app.storage['forme-nutrition-v1']).entries;
+ assert.equal(updated.length,1);
+ assert.equal(updated[0].name,'Закуска');
+ assert.equal(updated[0].date,date);
+ assert.equal(updated[0].items.length,2);
+ app.click({dataset:{action:'journal-edit',id:'j1'}});
+ app.click({dataset:{action:'cancel-journal-edit'}});
+ assert.doesNotMatch(app.page(),/meal-edit-note/);
+ app.click({dataset:{action:'journal-build'}});
+ assert.equal(app.node('meal-date').value,date);
+});
+
+test('saved meals, journal entries and progress history give each action button a specific accessible label',()=>{
+ const date='2026-11-08';
+ const app=boot('#nutrition',{
+  'forme-saved-meals':JSON.stringify([{name:'Вечеря',items:[{id:'salmon',grams:'150'}]}]),
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[{id:'j1',date,name:'Обяд',items:[{id:'rice',grams:'150'}]}]}),
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[{id:'p1',workoutId:'cal-start',date,minutes:12}],sets:[]})
+ });
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(app.page(),/aria-label="Зареди: Вечеря"/);
+ assert.match(app.page(),/aria-label="Редактирай: Вечеря"/);
+ assert.match(app.page(),/aria-label="Изтрий хранене: Вечеря"/);
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ app.change({id:'journal-date',value:date,dataset:{}});
+ assert.match(app.page(),/aria-label="Редактирай: Обяд"/);
+ assert.match(app.page(),/aria-label="Изтрий запис: Обяд"/);
+ app.click({dataset:{action:'nav',page:'progress'}});
+ assert.match(app.page(),/aria-label="Премахни запис: Силна основа"/);
 });

@@ -48,3 +48,34 @@ test('four-week programs use only the current workout catalog and preserve begin
   for(const slot of dates){const workout=workouts.find(x=>x.id===slot.workoutId);assert.ok(workout);if(program.level==='beginner')for(const id of workout.ids)assert.notEqual(exercises.find(x=>x.id===id).level,'elite');}
  }
 });
+
+test('corrupted progress storage repairs invalid goals, sessions and sets on startup',()=>{
+ const date='2026-11-09';
+ const {journal}=apis({
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:'broken',
+   sessions:[
+    null,
+    {id:'s-1',workoutId:'cal-start',date,minutes:12},
+    {id:'s-1',workoutId:'cal-start',date,minutes:99},
+    {id:'s-2',workoutId:'mob-daily',date,minutes:10},
+    {id:'bad-min',workoutId:'cal-start',date,minutes:'oops'},
+    {id:'bad-date',workoutId:'cal-start',date:'2026-02-30',minutes:10}
+   ],
+   sets:[
+    null,
+    {id:'set-1',exerciseId:'Plank',date,kind:'seconds',value:45},
+    {id:'set-bad',exerciseId:'Plank',date,kind:'meters',value:10}
+   ]
+  }),
+  'forme-completed-workouts':'[]'
+ });
+ const summary=journal.weekSummary(new Date(2026,10,9,12));
+ assert.equal(summary.goal.workoutsPerWeek,3);
+ assert.equal(summary.goal.minutesPerWeek,90);
+ assert.equal(summary.workouts,2);
+ assert.equal(summary.minutes,22);
+ assert.equal(summary.sets,1);
+ assert.deepEqual([...journal.sessions().map(x=>x.id)],['s-2','s-1']);
+});

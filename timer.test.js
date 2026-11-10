@@ -117,3 +117,16 @@ test('finishing while paused records only time before the pause',()=>{
  assert.equal(a.run('state.player.phase'),'done');
  assert.equal(result.minutes,1);
 });
+
+test('closing a completed workout refreshes weekly progress on the underlying screen',()=>{
+ const a=boot();
+ assert.match(a.nodes.app.innerHTML,/<strong>0 \/ 3<\/strong>/);
+ a.run("startWorkout('cal-start')");
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'workMs'},value:'5'}});
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'restMs'},value:'5'}});
+ a.run("playerControl('player-start')");
+ a.advance(600000);a.handlers.visibilitychange();
+ assert.equal(a.run('state.player.saved'),true);
+ a.handlers.keydown({key:'Escape'});
+ assert.match(a.nodes.app.innerHTML,/<strong>1 \/ 3<\/strong>/);
+});

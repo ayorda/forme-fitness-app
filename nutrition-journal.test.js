@@ -42,3 +42,24 @@ test('a cleared date never sums the whole history and the week view follows the 
  assert.equal(week[5].date,first);assert.equal(week[5].kcal,oneDay);assert.equal(week[6].kcal,oneDay*2);
  assert.equal(app.journal.week('bad date').length,7);
 });
+
+test('corrupted nutrition journal storage repairs goals, null items and non-string names',()=>{
+ const date='2026-11-07';
+ const app=setup({'forme-nutrition-v1':JSON.stringify({
+  version:1,
+  goal:{kcal:-10,protein:5000},
+  entries:[
+   null,
+   {id:'null-item',date,name:'Bad',items:[null]},
+   {id:'',date,name:'Empty id',items:[{id:'rice',grams:'100'}]},
+   {id:'valid-1',date,name:{broken:true},items:[{id:'rice',grams:150}]}
+  ]
+ })});
+ const summary=app.journal.day(date);
+ assert.equal(summary.goal.kcal,2000);
+ assert.equal(summary.goal.protein,100);
+ assert.equal(summary.count,1);
+ assert.equal(summary.kcal,195);
+ assert.equal(app.journal.entries(date)[0].name,'');
+ assert.equal(app.journal.entries(date)[0].items[0].grams,'150');
+});

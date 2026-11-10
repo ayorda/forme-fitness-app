@@ -2,13 +2,38 @@
 (function(root){
 'use strict';
 const keys=['forme-favorites','forme-plan','forme-date-plans','forme-completed-workouts','forme-current-meal','forme-saved-meals','forme-sound','forme-language','forme-user-v1','forme-progress-v1','forme-nutrition-v1'];
-function exportData(storage){const data={};for(const key of keys){const value=storage.getItem(key);if(value!==null)data[key]=value;}return JSON.stringify({app:'FORME',version:1,exportedAt:new Date().toISOString(),data},null,2);}
+const recordNames=['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound'];
 function validObject(value){return value&&typeof value==='object'&&!Array.isArray(value);}
 const date=value=>{if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))return false;const parsed=new Date(value+'T12:00:00');return !Number.isNaN(parsed.getTime())&&`${parsed.getFullYear()}-${String(parsed.getMonth()+1).padStart(2,'0')}-${String(parsed.getDate()).padStart(2,'0')}`===value;};
 const id=value=>typeof value==='string'&&/^[A-Za-z0-9_-]+$/.test(value);
 const grams=value=>{const normalized=String(value??'').trim().replace(',','.');const amount=Number(normalized);return /^\d+(?:\.\d+)?$/.test(normalized)&&Number.isFinite(amount)&&amount>0&&amount<=10000;};
 const items=value=>Array.isArray(value)&&value.every(x=>validObject(x)&&id(x.id)&&grams(x.grams));
 const journalItems=value=>items(value)&&value.length>0&&value.length<=100;
+function exportValue(key,value){
+ if(typeof value!=='string')return null;
+ if(validate({app:'FORME',version:1,data:{[key]:value}}))return value;
+ try{
+  const parsed=JSON.parse(value);
+  if(key==='forme-current-meal'&&Array.isArray(parsed)){
+   return JSON.stringify(parsed.filter(x=>validObject(x)&&id(x.id)&&grams(x.grams)).map(x=>({id:x.id,grams:String(x.grams)})));
+  }
+  if(key==='forme-saved-meals'&&Array.isArray(parsed)){
+   const cleaned=parsed.filter(x=>validObject(x)&&typeof x.name==='string'&&Array.isArray(x.items)).map(x=>({name:x.name,items:x.items.filter(i=>validObject(i)&&id(i.id)&&grams(i.grams)).map(i=>({id:i.id,grams:String(i.grams)}))})).filter(x=>x.items.length>0);
+   return JSON.stringify(cleaned);
+  }
+  if(key==='forme-user-v1'&&parsed?.version===1&&validObject(parsed.records)){
+   const records={};
+   for(const [name,raw] of Object.entries(parsed.records)){
+    if(!recordNames.includes(name))continue;
+    const fixed=exportValue('forme-'+name,raw);
+    if(fixed!==null)records[name]=fixed;
+   }
+   return JSON.stringify({version:1,records});
+  }
+ }catch{}
+ return null;
+}
+function exportData(storage){const data={};for(const key of keys){const value=exportValue(key,storage.getItem(key));if(value!==null)data[key]=value;}return JSON.stringify({app:'FORME',version:1,exportedAt:new Date().toISOString(),data},null,2);}
 function validate(payload){
  if(!validObject(payload)||payload.app!=='FORME'||payload.version!==1||!validObject(payload.data)||Object.keys(payload.data).some(k=>!keys.includes(k)))return false;
  for(const [key,value] of Object.entries(payload.data)){

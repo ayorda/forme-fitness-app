@@ -226,7 +226,7 @@
 .media-placeholder span{font:700 48px/1 var(--display);letter-spacing:-.13em;color:var(--lime)}
 .food-media-placeholder span{font-size:44px;letter-spacing:0;line-height:1.1}
 .food-media-placeholder small{max-width:150px;line-height:1.35}
-.meal-edit-note{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 16px}
+.meal-edit-note{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 16px}
 .meal-edit-note strong{color:#eaf6e4}
 .meal-edit-note .btn{margin-left:auto}
 .media-placeholder small{font-size:12px;letter-spacing:.03em;color:#c4d5c7}
