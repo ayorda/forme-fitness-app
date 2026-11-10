@@ -251,5 +251,9 @@
 .empty .btn{margin-top:12px}
 .avatar.active{border-color:var(--lime);color:var(--lime)}
 .program-card .card-meta{margin:8px 0 12px}
+.day-note-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
+.day-note-row .day-note{margin-top:0}
+.modal-back{margin-bottom:12px}
+
 
 

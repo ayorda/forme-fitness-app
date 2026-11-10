@@ -3,13 +3,15 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 
-function boot(hash,storage={}){
+function boot(hash,storage={},startNow=null){
  const handlers={},nodes={};
+ let now=startNow;
+ class Clock extends Date{constructor(...args){super(...(args.length?args:now?[now]:[]));}}
  const element=()=>({innerHTML:'',textContent:'',value:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},focus(){},querySelector(){return element();}});
  const document={body:{style:{}},hidden:false,activeElement:{isConnected:true,focus(){}},getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
  const window={addEventListener(){},scrollTo(){}};
  const localStorage={getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;}};
- const context={window,document,localStorage,location:{hash},Date,setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
+ const context={window,document,localStorage,location:{hash},Date:startNow?Clock:Date,setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(context);
  for(const file of ['exercise-art.js','data.js','core.js','food-art.js','state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','backup.js','app.js'])
   vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
@@ -22,7 +24,9 @@ function boot(hash,storage={}){
   click:target=>handlers.click({target:{closest:()=>target}}),
   change:target=>handlers.change({target}),
   input:target=>handlers.input({target}),
-  keydown:event=>handlers.keydown(event)
+  keydown:event=>handlers.keydown(event),
+  visibilitychange:()=>handlers.visibilitychange(),
+  advanceDay(){if(now)now=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,12);}
  };
 }
 
@@ -286,4 +290,21 @@ test('top-favorites button reflects saved favorites and active page state',()=>{
  assert.equal(attrs['aria-current'],'page');
  app.click({dataset:{action:'nav',page:'home'}});
  assert.equal(attrs['aria-current'],undefined);
+});
+
+test('activating a 4-week program near month-end jumps to the first scheduled workout month and selects its first day',()=>{
+ const app=boot('#progress',{},new Date(2024,1,28,12));
+ app.click({dataset:{action:'program-activate',id:'foundation'}});
+ assert.match(app.page(),/март 2024/);
+ assert.match(app.page(),/class="tag">4 март 2024/);
+ assert.match(app.page(),/Силна основа/);
+});
+
+test('midnight rollover advances default nutrition dates and refreshes Nutrition and Progress screens',()=>{
+ const app=boot('#nutrition',{},new Date(2024,1,28,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/id="journal-date" type="date" value="2024-02-28"/);
+ app.advanceDay();
+ app.visibilitychange();
+ assert.match(app.page(),/id="journal-date" type="date" value="2024-02-29"/);
 });

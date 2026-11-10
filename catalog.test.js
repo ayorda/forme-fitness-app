@@ -138,3 +138,20 @@ test('workout detail preview lists included exercises with muscles and opens com
   assert.ok(detail.includes('→'),language+' yoga progression arrow');
  }
 });
+
+test('exercise details link back to parent workouts, return to a previewed workout, and jump straight to set logging with the right metric',()=>{
+ const a=createApp({},true,'#sessions');
+ a.handlers.click({target:{closest:()=>({dataset:{action:'workout-detail',id:'cal-start'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/data-action="exercise-detail" data-id="Plank" data-from-workout="cal-start"/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Plank',fromWorkout:'cal-start'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/modal-back" data-action="workout-detail" data-id="cal-start">← Силна основа/);
+ assert.match(a.nodes['modal-root'].innerHTML,/Включено в тренировки/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'workout-detail',id:'cal-start'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/<h2>Силна основа<\/h2>/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Plank',fromWorkout:'cal-start'}})}});
+ a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-log-set',id:'Plank'}})}});
+ assert.equal(a.nodes['modal-root'].innerHTML,'');
+ assert.match(a.nodes.app.innerHTML,/value="Plank" selected/);
+ assert.match(a.nodes.app.innerHTML,/value="seconds" selected/);
+ assert.match(a.nodes.app.innerHTML,/id="set-value"[^>]*value="30"/);
+});
