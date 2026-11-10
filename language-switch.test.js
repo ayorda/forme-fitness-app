@@ -25,8 +25,10 @@ test('language picker persists choice and reloads the current page',()=>{
 
 test('unsupported language cannot replace a saved choice',()=>{
  const app=boot({'forme-language':'de'});
- app.handlers.change({target:{id:'language-select',value:'fr',dataset:{}}});
+ const target={id:'language-select',value:'fr',dataset:{}};
+ app.handlers.change({target});
  assert.equal(app.storage['forme-language'],'de');assert.equal(app.reloads(),0);
+ assert.equal(target.value,'de');
 });
 
 test('meal and food detail validation errors follow the selected language',()=>{

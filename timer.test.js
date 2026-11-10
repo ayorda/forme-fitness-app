@@ -3,13 +3,13 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 
-function boot(language='bg'){
+function boot(language='bg',navigator=undefined){
  let now=100000;const handlers={},nodes={},storage={};
  const element=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(){return element();}});
  const document={body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
  class Clock extends Date{static now(){return now;}}
  const window={addEventListener(){},scrollTo(){}};
- const context={window,document,localStorage:{getItem(key){return key==='forme-language'?language:storage[key]??null;},setItem(key,value){storage[key]=value;}},location:{hash:'#home'},Date:Clock,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
+ const context={window,document,navigator,localStorage:{getItem(key){return key==='forme-language'?language:storage[key]??null;},setItem(key,value){storage[key]=value;}},location:{hash:'#home'},Date:Clock,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(context);
  const files=['exercise-art.js','data.js','core.js','food-art.js','progress.js'];if(language!=='bg')files.push('i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');files.push('app.js');
  for(const file of files){
@@ -160,4 +160,40 @@ test('player displays easier regression during work and toggles start/pause/resu
  assert.equal(a.run('state.player.running'),false);
  a.handlers.keydown({key:' ',code:'Space',target:{tagName:'DIV'},preventDefault(){}});
  assert.equal(a.run('state.player.running'),true);
+});
+
+test('player-prev steps back from rest or later exercise without restarting the whole workout',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start'); playerControl('player-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/data-action="player-prev" disabled/);
+ a.run("playerControl('player-next')");
+ assert.equal(a.run('state.player.phase'),'rest');
+ a.run("playerControl('player-prev')");
+ assert.equal(a.run('state.player.phase'),'work');
+ assert.equal(a.run('state.player.index'),0);
+ a.run("playerControl('player-next'); playerControl('player-next')");
+ assert.equal(a.run('state.player.index'),1);
+ assert.equal(a.run('state.player.phase'),'work');
+ a.run("playerControl('player-prev')");
+ assert.equal(a.run('state.player.index'),0);
+ assert.equal(a.run('state.player.phase'),'work');
+});
+
+test('workout player acquires and releases Screen Wake Lock when running, paused and closed',async()=>{
+ let requested=0,released=0;
+ const nav={wakeLock:{async request(kind){assert.equal(kind,'screen');requested++;return {async release(){released++;}};}}};
+ const a=boot('bg',nav);
+ a.run("startWorkout('cal-start'); playerControl('player-start')");
+ await Promise.resolve();
+ assert.equal(requested,1);
+ assert.equal(released,0);
+ a.run("playerControl('player-pause')");
+ await Promise.resolve();
+ assert.equal(released,1);
+ a.run("playerControl('player-resume')");
+ await Promise.resolve();
+ assert.equal(requested,2);
+ a.handlers.keydown({key:'Escape'});
+ await Promise.resolve();
+ assert.equal(released,2);
 });

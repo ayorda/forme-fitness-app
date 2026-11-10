@@ -356,3 +356,26 @@ test('exercise details display personal best from logged sets',()=>{
  app.click({dataset:{action:'exercise-detail',id:'Plank'}});
  assert.match(app.node('modal-root').innerHTML,/Личен рекорд: 55 секунди/);
 });
+
+test('food details quick portion presets update grams and recalculate nutrition before adding to meal',()=>{
+ const app=boot('#nutrition');
+ app.click({dataset:{action:'food-detail',id:'chicken'}});
+ assert.match(app.node('modal-root').innerHTML,/data-action="detail-preset-grams" data-id="chicken" data-grams="200"/);
+ app.click({dataset:{action:'detail-preset-grams',id:'chicken',grams:'200'}});
+ assert.equal(app.node('detail-grams').value,'200');
+ assert.match(app.node('detail-table').innerHTML,/240 kcal/);
+ app.click({dataset:{action:'detail-add-food',id:'chicken'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'200'}]);
+ assert.match(app.page(),/240 <span>kcal<\/span>/);
+});
+
+test('journal-today button jumps back to the current date when viewing an earlier day',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.doesNotMatch(app.page(),/data-action="journal-today"/);
+ app.click({dataset:{action:'journal-step-date',offset:'-1'}});
+ assert.match(app.page(),/id="journal-date" type="date" value="2026-11-08"/);
+ assert.match(app.page(),/data-action="journal-today"/);
+ app.click({dataset:{action:'journal-today'}});
+ assert.match(app.page(),/id="journal-date" type="date" value="2026-11-09"/);
+});

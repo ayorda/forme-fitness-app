@@ -141,3 +141,14 @@ test('weekly and monthly plan views open workout detail previews for scheduled d
  a.click({action:'plan-view',view:'month'});a.click({action:'plan-date',date:'5'});
  assert.match(a.nodes.app.innerHTML,/data-action="workout-detail" data-id="cal-start"/);
 });
+
+test('plan-today button jumps back to the current month and selects today',()=>{
+ const a=boot();a.click({action:'plan-view',view:'month'});
+ assert.doesNotMatch(a.nodes.app.innerHTML,/data-action="plan-today"/);
+ a.click({action:'plan-month',offset:'1'});a.click({action:'plan-month',offset:'1'});
+ assert.match(a.nodes.app.innerHTML,/април 2024/);
+ assert.match(a.nodes.app.innerHTML,/data-action="plan-today"/);
+ a.click({action:'plan-today'});
+ assert.match(a.nodes.app.innerHTML,/февруари 2024/);
+ assert.match(a.nodes.app.innerHTML,/class="tag">15 февруари 2024/);
+});
