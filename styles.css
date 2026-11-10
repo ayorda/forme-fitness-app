@@ -241,3 +241,12 @@
 .home-steps{margin-top:34px}
 .section-title-compact{margin-top:0}
 .food-photo-credit{margin-top:10px}
+.card-action-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.workout-exercise-list{display:flex;flex-direction:column;margin:10px 0 6px}
+.workout-exercise-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.workout-exercise-row:last-child{border-bottom:0}
+.workout-exercise-row strong,.workout-exercise-row small{display:block}
+.workout-exercise-row small{color:var(--muted);margin-top:4px;font-size:12px}
+.meal-head-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0}
+.empty .btn{margin-top:12px}
+

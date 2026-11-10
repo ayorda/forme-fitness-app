@@ -21,7 +21,7 @@ function createApp(page='#sessions'){
  const localStorage={getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;}};
  const c={window,document,localStorage,location:{hash:page},setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(c);
- for(const f of ['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js','state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','backup.js','app.js'])
+ for(const f of ['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js','food-translations.js','state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','backup.js','app.js'])
   vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
  return {handlers,nodes};
 }
@@ -216,4 +216,39 @@ test('exercise search finds movements by primary muscles in all three languages'
  const deList=c.window.FORME_DATA.exercises.map(e=>c.window.FORME_LOCALE_CONTENT.translateContent('exercise',e,'de'));
  assert.equal(C.filterExercises(enList,{q:'biceps'}).length,4);
  assert.equal(C.filterExercises(deList,{q:'Bizeps'}).length,4);
+ assert.ok(C.filterExercises(D.exercises,{q:'прасец'}).some(e=>e.id==='Calf_Stretch_Hands_Against_Wall'));
+ assert.ok(C.filterExercises(D.exercises,{q:'side plank'}).some(e=>e.id==='Side_Bridge'));
+});
+
+test('food search finds items by preparation state and cross-language names via filterFoods and UI',()=>{
+ const cooked=[...C.filterFoods(D.foods,{q:'сварен'}).map(f=>f.id)].sort();
+ assert.deepEqual(cooked,['brownrice','lentils','quinoa','rice']);
+ assert.deepEqual([...C.filterFoods(D.foods,{q:'нискомаслен'}).map(f=>f.id)].sort(),['cottage','greek']);
+ const a=createApp('#nutrition');
+ type(a,'foods','q','cooked');
+ assert.ok(resultIds(a.nodes['food-results'].innerHTML).has('rice'));
+ type(a,'foods','q','Haferflocken');
+ assert.ok(resultIds(a.nodes['food-results'].innerHTML).has('oats'));
+});
+
+test('reset-filters restores all items when a filter combination yields no matches',()=>{
+ const w=createApp('#sessions');
+ type(w,'workouts','cat','yoga');
+ type(w,'workouts','equip','bar');
+ assert.equal(foundCount(w.nodes['workout-results'].innerHTML).found,0);
+ assert.match(w.nodes['workout-results'].innerHTML,/data-action="reset-filters"/);
+ w.handlers.click({target:{closest:()=>({dataset:{action:'reset-filters',group:'workouts'}})}});
+ assert.equal(foundCount(w.nodes['workout-results'].innerHTML).found,D.workouts.length);
+
+ const ex=createApp('#exercises');
+ type(ex,'exercises','q','zzzz');
+ assert.equal(foundCount(ex.nodes['exercise-results'].innerHTML).found,0);
+ ex.handlers.click({target:{closest:()=>({dataset:{action:'reset-filters',group:'exercises'}})}});
+ assert.equal(foundCount(ex.nodes['exercise-results'].innerHTML).found,D.exercises.length);
+
+ const fd=createApp('#nutrition');
+ type(fd,'foods','q','zzzz');
+ assert.equal(foundCount(fd.nodes['food-results'].innerHTML).found,0);
+ fd.handlers.click({target:{closest:()=>({dataset:{action:'reset-filters',group:'foods'}})}});
+ assert.equal(foundCount(fd.nodes['food-results'].innerHTML).found,D.foods.length);
 });

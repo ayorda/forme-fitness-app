@@ -120,3 +120,21 @@ test('food imagery is labeled as AI while nutrient state remains visible in each
   assert.ok(a.nodes['modal-root'].innerHTML.includes(state));
  }
 });
+test('workout detail preview lists included exercises with muscles and opens complete yoga/mobility details',()=>{
+ for(const [language,workoutTitle,childName,musclesHeading] of [
+  ['bg','Спокойно възстановяване','Поза на детето','Основни мускули'],
+  ['en','Calm Recovery','Child’s Pose','Main muscles'],
+  ['de','Ruhige Erholung','Kindhaltung','Hauptmuskeln']
+ ]){
+  const a=createApp({'forme-language':language},true,'#sessions');
+  a.handlers.click({target:{closest:()=>({dataset:{action:'workout-detail',id:'yoga-reset'}})}});
+  const modal=a.nodes['modal-root'].innerHTML;
+  assert.ok(modal.includes(workoutTitle),language+' workout title');
+  assert.ok(modal.includes(childName),language+' exercise in workout');
+  assert.match(modal,/data-action="start-workout" data-id="yoga-reset"/);
+  a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Childs_Pose'}})}});
+  const detail=a.nodes['modal-root'].innerHTML;
+  assert.ok(detail.includes(musclesHeading),language+' yoga muscles heading');
+  assert.ok(detail.includes('→'),language+' yoga progression arrow');
+ }
+});

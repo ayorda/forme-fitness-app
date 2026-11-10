@@ -21,7 +21,8 @@ function boot(hash,storage={}){
   storage,
   click:target=>handlers.click({target:{closest:()=>target}}),
   change:target=>handlers.change({target}),
-  input:target=>handlers.input({target})
+  input:target=>handlers.input({target}),
+  keydown:event=>handlers.keydown(event)
  };
 }
 
@@ -233,4 +234,34 @@ test('saved meals, journal entries and progress history give each action button 
  assert.match(app.page(),/aria-label="Изтрий запис: Обяд"/);
  app.click({dataset:{action:'nav',page:'progress'}});
  assert.match(app.page(),/aria-label="Премахни запис: Силна основа"/);
+});
+
+test('clear-meal empties the plate, resets edit state, and persists an empty current meal',()=>{
+ const app=boot('#nutrition',{
+  'forme-saved-meals':JSON.stringify([{name:'Обяд',items:[{id:'rice',grams:'150'},{id:'chicken',grams:'200'}]}])
+ });
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ app.click({dataset:{action:'edit-saved-meal',index:'0'}});
+ assert.match(app.page(),/data-action="clear-meal"/);
+ app.click({dataset:{action:'clear-meal'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[]);
+ assert.doesNotMatch(app.page(),/data-action="clear-meal"/);
+ assert.doesNotMatch(app.page(),/meal-edit-note/);
+ assert.match(app.page(),/Празна чиния/);
+});
+
+test('nutrition tabs expose WAI-ARIA tablist state and support keyboard navigation',()=>{
+ const app=boot('#nutrition');
+ assert.match(app.page(),/role="tablist"/);
+ assert.match(app.page(),/id="food-tab-library"[^>]*role="tab"[^>]*aria-selected="true"/);
+ assert.match(app.page(),/id="food-tab-meal"[^>]*role="tab"[^>]*aria-selected="false"/);
+ assert.match(app.page(),/id="food-tab-content" role="tabpanel" aria-labelledby="food-tab-library"/);
+ const key=(tab,k)=>app.keydown({key:k,preventDefault(){},target:{closest:()=>({dataset:{action:'food-tab',tab}})}});
+ key('library','ArrowRight');
+ assert.match(app.page(),/id="food-tab-meal"[^>]*role="tab"[^>]*aria-selected="true"/);
+ assert.match(app.page(),/aria-labelledby="food-tab-meal"/);
+ key('meal','End');
+ assert.match(app.page(),/id="food-tab-journal"[^>]*role="tab"[^>]*aria-selected="true"/);
+ key('journal','Home');
+ assert.match(app.page(),/id="food-tab-library"[^>]*role="tab"[^>]*aria-selected="true"/);
 });

@@ -101,7 +101,7 @@ const rows={
  'shell.space':['ТВОЕТО ПРОСТРАНСТВО','YOUR SPACE','DEIN BEREICH'],
  'shell.progress':['СЪЗДАДЕНО ЗА ПРОГРЕС','BUILT FOR PROGRESS','FÜR FORTSCHRITT GEMACHT'],
  'shell.nextStep':['Няма перфектен момент. Има следваща стъпка.','There is no perfect moment. Take the next step.','Es gibt keinen perfekten Moment. Geh den nächsten Schritt.'],
- 'shell.version':['v0.3.2 · Български · 0 €','v0.3.2 · English · €0','v0.3.2 · Deutsch · 0 €'],
+ 'shell.version':['v0.3.3 · Български · 0 €','v0.3.3 · English · €0','v0.3.3 · Deutsch · 0 €'],
  'shell.everyDay':['РАСТИ ВСЕКИ ДЕН','GROW EVERY DAY','WACHSE JEDEN TAG'],
  'shell.footer':['Създадено за движение и осъзнат избор · Данните са ориентировъчни, не медицински съвет.','Made for movement and mindful choices · Data is approximate, not medical advice.','Für Bewegung und bewusste Entscheidungen · Angaben sind Richtwerte, keine medizinische Beratung.'],
  'home.eyebrow':['ТВОЕТО МЯСТО ЗА ДВИЖЕНИЕ','YOUR SPACE TO MOVE','DEIN ORT FÜR BEWEGUNG'],
@@ -358,7 +358,11 @@ const rows={
  'food.fallbackTitle':['Снимката не е изтеглена','Photo not downloaded yet','Foto noch nicht geladen'],
  'timer.justFinished':['Изпълни: {exercise}','Completed: {exercise}','Abgeschlossen: {exercise}'],
  'timer.announceWork':['Работа: {exercise}','Work: {exercise}','Arbeit: {exercise}'],
- 'timer.announceRest':['Почивка. Следва: {exercise}','Rest. Next: {exercise}','Pause. Als Nächstes: {exercise}']
+ 'timer.announceRest':['Почивка. Следва: {exercise}','Rest. Next: {exercise}','Pause. Als Nächstes: {exercise}'],
+ 'workouts.includedExercises':['Включени упражнения','Included exercises','Enthaltene Übungen'],
+ 'nutrition.clearMeal':['Изчисти чинията','Clear meal','Mahlzeit leeren'],
+ 'nutrition.clearedMessage':['Текущото хранене е изчистено.','The current meal was cleared.','Die aktuelle Mahlzeit wurde geleert.'],
+ 'common.resetFilters':['Изчисти филтрите','Reset filters','Filter zurücksetzen']
 };
 const index={bg:0,en:1,de:2};
 function get(key,language,values={}){

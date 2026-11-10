@@ -66,6 +66,7 @@ test('every screen keeps images, ids, labels, buttons and links accessible in al
 
 test('exercise and food details keep the same guarantees while open over the page',()=>{
  const cases=[
+  ['#sessions',{action:'workout-detail',id:'cal-start'}],
   ['#exercises',{action:'exercise-detail',id:'Plank'}],
   ['#nutrition',{action:'food-detail',id:'rice'}]
  ];
