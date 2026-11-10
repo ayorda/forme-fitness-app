@@ -164,7 +164,7 @@
 .month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}.month-weekday{padding:7px 0;text-align:center;color:#a9bdb0;font-size:11px;font-weight:800}
 .month-day,.month-empty{min-width:0;min-height:72px}.month-day{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:9px 8px;background:#17221d;color:#edf5ec;border:1px solid #304238;border-radius:12px;text-align:left}.month-day strong{font-size:14px}.month-day-today{border-color:#b7e971}.month-day-selected{outline:2px solid var(--lime);outline-offset:1px}.month-day:focus-visible{outline:3px solid #fff;outline-offset:2px}.month-type{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;color:#c6dbcb}.month-type-cal{color:#c3ff5c}.month-type-yoga{color:#d6b8ff}.month-type-mobility{color:#a5dff2}.month-type-rest{color:#98aaa0}
 .month-hint{margin:15px 0}.month-selection{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:18px;padding:18px;border:1px solid #3a5038;border-radius:16px;background:#17241c}.month-selection h3{margin:7px 0}.month-selection p{margin:0;font-size:13px}
-.month-completed{color:var(--lime);font-size:12px}.month-selection .completion-status{margin-top:8px;color:#c3ffaf;font-weight:700}.month-selection-actions{display:flex;flex-wrap:wrap;gap:8px}
+.month-completed{color:var(--lime);font-size:12px}.completion-status{margin-top:8px;color:#c3ffaf;font-weight:700}.month-selection-actions{display:flex;flex-wrap:wrap;gap:8px}
 .month-selection{flex-wrap:wrap}.month-selection .month-plan-source{margin-top:6px;color:#afc8b3}.date-plan-editor{flex:1 0 100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:end}.date-plan-editor label{grid-column:1/-1;color:#c4d6c8;font-size:13px;font-weight:700}.date-plan-editor select{width:100%;min-width:0;min-height:44px;padding:9px;border:1px solid #425a45;border-radius:10px;background:#1b2821;color:#fff}
 .exercise-video{margin:18px 0}.exercise-video h3{margin-bottom:10px}.exercise-video video{display:block;width:100%;max-height:420px;border-radius:14px;background:#070c0a}.exercise-video [hidden]{display:none}
 .food-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.food-photo-tag{position:absolute;right:8px;bottom:8px;padding:4px 7px;border-radius:7px;background:#101816d9;color:#fff;font-size:9px;font-weight:800;letter-spacing:.06em}.food-photo[hidden],.food-photo-tag[hidden]{display:none}
@@ -249,4 +249,7 @@
 .workout-exercise-row small{color:var(--muted);margin-top:4px;font-size:12px}
 .meal-head-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0}
 .empty .btn{margin-top:12px}
+.avatar.active{border-color:var(--lime);color:var(--lime)}
+.program-card .card-meta{margin:8px 0 12px}
+
 

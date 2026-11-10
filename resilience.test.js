@@ -265,3 +265,25 @@ test('nutrition tabs expose WAI-ARIA tablist state and support keyboard navigati
  key('journal','Home');
  assert.match(app.page(),/id="food-tab-library"[^>]*role="tab"[^>]*aria-selected="true"/);
 });
+
+test('four-week program cards list their included workout names on Progress',()=>{
+ const app=boot('#progress');
+ assert.match(app.page(),/Силна основа/);
+ assert.match(app.page(),/Контрол и сила/);
+ assert.match(app.page(),/Свободни стави/);
+});
+
+test('top-favorites button reflects saved favorites and active page state',()=>{
+ const attrs={};
+ const app=boot('#home');
+ const topFav=app.node('top-favorites');
+ topFav.setAttribute=(k,v)=>{attrs[k]=v;};
+ topFav.removeAttribute=k=>{delete attrs[k];};
+ assert.equal(topFav.textContent,'♡');
+ app.click({dataset:{action:'favorite',kind:'workouts',id:'cal-start'}});
+ assert.equal(topFav.textContent,'♥');
+ app.click({dataset:{action:'nav',page:'favorites'}});
+ assert.equal(attrs['aria-current'],'page');
+ app.click({dataset:{action:'nav',page:'home'}});
+ assert.equal(attrs['aria-current'],undefined);
+});

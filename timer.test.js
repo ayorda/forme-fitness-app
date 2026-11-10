@@ -129,4 +129,35 @@ test('closing a completed workout refreshes weekly progress on the underlying sc
  assert.equal(a.run('state.player.saved'),true);
  a.handlers.keydown({key:'Escape'});
  assert.match(a.nodes.app.innerHTML,/<strong>1 \/ 3<\/strong>/);
+ assert.match(a.nodes.app.innerHTML,/Отбелязана като изпълнена: Силна основа/);
+});
+
+test('completing a workout marks today as completed in the Monthly Calendar',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'workMs'},value:'5'}});
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'restMs'},value:'5'}});
+ a.run("playerControl('player-start')");
+ a.advance(600000);a.handlers.visibilitychange();
+ a.handlers.keydown({key:'Escape'});
+ const click=dataset=>a.handlers.click({target:{closest:()=>({dataset})}});
+ click({action:'nav',page:'plan'});
+ click({action:'plan-view',view:'month'});
+ click({action:'plan-date',date:String(new Date().getDate())});
+ assert.match(a.nodes.app.innerHTML,/month-completed/);
+ assert.match(a.nodes.app.innerHTML,/Отбелязана като изпълнена: Силна основа/);
+ assert.doesNotMatch(a.nodes.app.innerHTML,/data-action="completion-remove"/);
+});
+
+test('player displays easier regression during work and toggles start/pause/resume with Space',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/По-лесен вариант: Клек до стол\./);
+ a.handlers.keydown({key:' ',code:'Space',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.running'),true);
+ a.advance(2000);
+ a.handlers.keydown({key:' ',code:'Space',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.running'),false);
+ a.handlers.keydown({key:' ',code:'Space',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.running'),true);
 });
