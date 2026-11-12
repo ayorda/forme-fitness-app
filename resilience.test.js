@@ -808,6 +808,31 @@ test('consecutive workout days streak appears on Home and Progress when active 2
  assert.match(app.page(),/🔥 3 поредни дни/);
 });
 
+test('workoutDetail shows completion history count and foodDetail links back to saved meals containing that ingredient',()=>{
+ const app=boot('#sessions',{
+  'forme-saved-meals':JSON.stringify([{name:'След тренировка',items:[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]}]),
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[
+    {id:'s1',workoutId:'cal-start',date:'2026-11-08',minutes:12},
+    {id:'s2',workoutId:'cal-start',date:'2026-11-09',minutes:12}
+   ],
+   sets:[]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'workout-detail',id:'cal-start'}});
+ assert.match(app.node('modal-root').innerHTML,/✓ 2 тренировки · 2026-11-09/);
+ app.click({dataset:{action:'close-modal'}});
+ app.click({dataset:{action:'nav',page:'nutrition'}});
+ app.click({dataset:{action:'food-detail',id:'chicken'}});
+ assert.match(app.node('modal-root').innerHTML,/data-action="detail-open-saved">След тренировка ↗/);
+ app.click({dataset:{action:'detail-open-saved'}});
+ assert.equal(app.node('modal-root').innerHTML,'');
+ assert.match(app.page(),/След тренировка/);
+});
+
+
 
 
 

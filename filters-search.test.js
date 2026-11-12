@@ -306,3 +306,18 @@ test('workout search finds programs by title, cross-language name and included e
  assert.equal(foundCount(wk.nodes['workout-results'].innerHTML).found,D.workouts.length);
 });
 
+test('food catalog sort orders foods by highest protein, lowest calories and highest fibre and resets cleanly',()=>{
+ assert.equal(C.sortFoods(D.foods,'protein')[0].id,'tuna');
+ const lowCal=C.sortFoods(D.foods,'kcalAsc');
+ assert.ok(lowCal[0].kcal<=lowCal[1].kcal);
+ const highFiber=C.sortFoods(D.foods,'fiber');
+ assert.ok(highFiber[0].fiber>=highFiber[1].fiber);
+ const fd=createApp('#nutrition');
+ assert.match(fd.nodes.app.innerHTML,/id="foods-sort"/);
+ type(fd,'foods','sort','protein');
+ const ordered=[...fd.nodes['food-results'].innerHTML.matchAll(/data-action="food-detail" data-id="([^"]+)"/g)].map(m=>m[1]);
+ assert.equal(ordered[0],'tuna');
+ assert.match(fd.nodes['food-results'].innerHTML,/data-action="reset-filters" data-group="foods"/);
+});
+
+
