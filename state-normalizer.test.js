@@ -48,6 +48,17 @@ test('a stored sound setting is only false when it was explicitly false',()=>{
  assert.equal(norm.sound(false),false);assert.equal(norm.sound('no'),true);assert.equal(norm.sound(undefined),true);
 });
 
+test('completed trims workout names and savedMeals validates trimmed 70-char limit',()=>{
+ const done=norm.completed({'2026-11-09':{id:'cal-start',name:'  Силна основа  '},'2026-11-10':{id:'cal-start',name:'   '}});
+ assert.equal(done['2026-11-09'].name,'Силна основа');
+ assert.equal(done['2026-11-10'],undefined);
+ const exact70='А'.repeat(70);
+ const saved=norm.savedMeals([{name:'  '+exact70+'  ',items:[{id:'egg',grams:100}]}]);
+ assert.equal(saved.length,1);
+ assert.equal(saved[0].name,exact70);
+});
+
+
 test('date and amount helpers reject impossible values',()=>{
  for(const value of ['2026-11-09','2024-02-29'])assert.equal(norm.validDate(value),true,value);
  for(const value of ['2026-02-30','2026-11-9','','2026-13-01',null,20261109])assert.equal(norm.validDate(value),false,String(value));

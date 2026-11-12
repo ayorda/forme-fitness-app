@@ -557,4 +557,47 @@ test('nutrition journal saves entry to saved meals in 1 tap and meal rows open f
  assert.match(app.node('modal-root').innerHTML,/<h2>Авокадо<\/h2>/);
 });
 
+test('home today card opens workout preview modal and renders visual goal meters',()=>{
+ const app=boot('#home',{
+  'forme-weekly-plan':JSON.stringify({mon:'cal-start'}),
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:4,minutesPerWeek:120},
+   sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-09',minutes:12}],
+   sets:[]
+  }),
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:100},
+   entries:[{id:'e1',date:'2026-11-09',name:'Закуска',items:[{id:'banana',grams:'200'}]}]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/today-plan-actions[\s\S]*data-action="workout-detail" data-id="cal-start"/);
+ assert.match(app.page(),/home-meters[\s\S]*width:25%[\s\S]*width:9%/);
+ app.click({dataset:{action:'workout-detail',id:'cal-start'}});
+ assert.match(app.node('modal-root').innerHTML,/<h2>Силна основа<\/h2>/);
+});
+
+test('saved meals and nutrition journal open food details directly and render protein meter',()=>{
+ const app=boot('#nutrition',{
+  'forme-saved-meals':JSON.stringify([{name:'След тренировка',items:[{id:'chicken',grams:'200'}]}]),
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:120},
+   entries:[{id:'e1',date:'2026-11-09',name:'Вечеря',items:[{id:'salmon',grams:'150'}]}]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(app.page(),/saved-ingredients[\s\S]*data-action="food-detail" data-id="chicken"/);
+ app.click({dataset:{action:'food-detail',id:'chicken'}});
+ assert.match(app.node('modal-root').innerHTML,/Пилешки гърди/);
+ app.click({dataset:{action:'close-modal'}});
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/journal-meters[\s\S]*progress goal-meter[\s\S]*progress goal-meter[\s\S]*width:26%/);
+ assert.match(app.page(),/journal-entry[\s\S]*data-action="food-detail" data-id="salmon"/);
+ app.click({dataset:{action:'food-detail',id:'salmon'}});
+ assert.match(app.node('modal-root').innerHTML,/Сьомга/);
+});
+
+
 

@@ -57,11 +57,13 @@ function datePlans(value,known){
 function completed(value){
  if(!plain(value))return {};
  const next={};
- for(const [date,record] of Object.entries(value)){
+ for(const [date,record] of Object.entries(value).slice(0,2000)){
   if(!validDate(date)||!plain(record))continue;
   if(typeof record.id!=='string'||!id(record.id))continue;
-  if(typeof record.name!=='string'||!record.name.trim()||record.name.length>120)continue;
-  next[date]={id:record.id,name:record.name};
+  if(typeof record.name!=='string')continue;
+  const name=record.name.trim();
+  if(!name||name.length>120)continue;
+  next[date]={id:record.id,name};
  }
  return next;
 }
@@ -81,7 +83,8 @@ function savedMeals(value,known){
  if(!Array.isArray(value))return [];
  return value.slice(0,200).filter(item=>{
   if(!plain(item)||typeof item.name!=='string')return false;
-  if(!item.name.trim()||item.name.length>70)return false;
+  const trimmed=item.name.trim();
+  if(!trimmed||trimmed.length>70)return false;
   return mealItems(item.items,known).length>0;
  }).map(item=>({name:item.name.trim(),items:mealItems(item.items,known)}));
 }

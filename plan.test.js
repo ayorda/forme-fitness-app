@@ -30,3 +30,12 @@ test('Today is highlighted correctly on Sunday and Monday',()=>{
     assert.equal((html.match(/today-badge/g)||[]).length,1);
   }
 });
+test('Weekly plan displays total planned minutes and 1-tap start button on today card',()=>{
+  const workouts=render({},1).workouts;
+  const {html}=render({mon:workouts[0].id,wed:workouts[4].id},1);
+  const totalMin=workouts[0].duration+workouts[4].duration;
+  assert.match(html,new RegExp(`с планирана тренировка · ${totalMin} мин`));
+  assert.equal((html.match(/data-action="start-workout"/g)||[]).length,1);
+  assert.match(html,new RegExp(`data-action="start-workout" data-id="${workouts[0].id}"`));
+});
+
