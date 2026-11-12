@@ -705,6 +705,27 @@ test('four-week program cards display total session count and total scheduled mi
  assert.match(app.page(),/program-meta">12 тренировки · \d+ мин/);
 });
 
+test('progress history paginates beyond 20 entries and set logger shows personal best hint',()=>{
+ const sets=Array.from({length:23},(_,i)=>({
+  id:'st-'+(i+1),
+  exerciseId:'Plank',
+  date:'2026-11-'+String((i%9)+1).padStart(2,'0'),
+  kind:'seconds',
+  value:30+i
+ }));
+ const app=boot('#progress',{
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets})
+ },new Date(2026,10,9,12));
+ assert.equal((app.page().match(/class="progress-entry"/g)||[]).length,20);
+ assert.match(app.page(),/data-action="progress-more">Покажи още \(3\)/);
+ app.click({dataset:{action:'progress-more'}});
+ assert.equal((app.page().match(/class="progress-entry"/g)||[]).length,23);
+ assert.doesNotMatch(app.page(),/data-action="progress-more"/);
+ app.change({id:'set-exercise',value:'Plank'});
+ assert.match(app.node('set-best-hint').textContent,/★ Личен рекорд: 52 секунди/);
+});
+
+
 
 
 

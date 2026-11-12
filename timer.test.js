@@ -247,4 +247,21 @@ test('workout player shows round counter and 1-tap Progress CTA upon completion'
  assert.equal(a.run('state.page'),'progress');
 });
 
+test('player displays common mistakes cue and supports M and R keyboard shortcuts without intercepting Ctrl+R',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/Често срещана грешка:/);
+ assert.equal(a.run('state.sound'),true);
+ a.handlers.keydown({key:'m',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.sound'),false);
+ a.run("playerControl('player-start'); playerControl('player-next')");
+ assert.equal(a.run('state.player.phase'),'rest');
+ a.handlers.keydown({key:'r',ctrlKey:true,target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.phase'),'rest');
+ a.handlers.keydown({key:'r',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.phase'),'ready');
+ assert.equal(a.run('state.player.index'),0);
+});
+
+
 
