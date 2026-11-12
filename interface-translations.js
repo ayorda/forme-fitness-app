@@ -107,7 +107,7 @@ const rows={
  'shell.space':['ТВОЕТО ПРОСТРАНСТВО','YOUR SPACE','DEIN BEREICH'],
  'shell.progress':['СЪЗДАДЕНО ЗА ПРОГРЕС','BUILT FOR PROGRESS','FÜR FORTSCHRITT GEMACHT'],
  'shell.nextStep':['Няма перфектен момент. Има следваща стъпка.','There is no perfect moment. Take the next step.','Es gibt keinen perfekten Moment. Geh den nächsten Schritt.'],
- 'shell.version':['v0.3.18 · Български · 0 €','v0.3.18 · English · €0','v0.3.18 · Deutsch · 0 €'],
+ 'shell.version':['v0.3.19 · Български · 0 €','v0.3.19 · English · €0','v0.3.19 · Deutsch · 0 €'],
  'shell.skip':['Към основното съдържание','Skip to main content','Zum Hauptinhalt springen'],
  'shell.everyDay':['РАСТИ ВСЕКИ ДЕН','GROW EVERY DAY','WACHSE JEDEN TAG'],
  'shell.footer':['Създадено за движение и осъзнат избор · Данните са ориентировъчни, не медицински съвет.','Made for movement and mindful choices · Data is approximate, not medical advice.','Für Bewegung und bewusste Entscheidungen · Angaben sind Richtwerte, keine medizinische Beratung.'],
@@ -379,6 +379,7 @@ const rows={
  'plan.clearDates':['Изчисти изборите по дати','Clear date overrides','Datumsauswahl löschen'],
  'plan.datesClearedMessage':['Изборите по дати са изчистени.','Date overrides cleared.','Datumsauswahl gelöscht.'],
  'common.showMore':['Покажи още ({count})','Show more ({count})','Mehr anzeigen ({count})'],
+ 'nutrition.searchSaved':['Търси в запазените хранения','Search saved meals','Gespeicherte Mahlzeiten durchsuchen'],
  'common.resetFilters':['Изчисти филтрите','Reset filters','Filter zurücksetzen']
 };
 const index={bg:0,en:1,de:2};

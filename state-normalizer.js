@@ -18,7 +18,7 @@ const plain=value=>!!value&&typeof value==='object'&&!Array.isArray(value);
 function uniqueStrings(value,allowed){
  if(!Array.isArray(value))return [];
  const seen=new Set();
- return value.filter(item=>{
+ return value.slice(0,500).filter(item=>{
   if(typeof item!=='string'||!id(item)||seen.has(item))return false;
   seen.add(item);
   return !allowed||allowed(item);
@@ -45,7 +45,7 @@ function plan(value,known){
 function datePlans(value,known){
  if(!plain(value))return {};
  const next={};
- for(const [date,workout] of Object.entries(value)){
+ for(const [date,workout] of Object.entries(value).slice(0,2000)){
   if(!validDate(date))continue;
   if(workout===''){next[date]='';continue;}
   if(typeof workout!=='string'||!id(workout))continue;

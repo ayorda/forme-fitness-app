@@ -34,3 +34,17 @@ test('corrupted envelope entry falls back to intact legacy mirror instead of los
  assert.equal(api.load('plan',{}).mon,'cal-start');
  assert.equal(api.load('sound',true),false);
 });
+
+test('storage schema bidirectionally heals corrupted envelope entries and missing legacy mirrors on startup',()=>{
+ const store=storage({
+  'forme-user-v1':JSON.stringify({version:1,records:{favorites:'{broken-json','saved-meals':JSON.stringify([{name:'Dinner',items:[{id:'rice',grams:'150'}]}]),unknownKey:'"drop"'}}),
+  'forme-favorites':JSON.stringify({exercises:['Pushups'],workouts:[]})
+ });
+ const api=create(store);
+ const healed=JSON.parse(store.data['forme-user-v1']);
+ assert.deepEqual(JSON.parse(healed.records.favorites),{exercises:['Pushups'],workouts:[]});
+ assert.equal(healed.records.unknownKey,undefined);
+ assert.equal(JSON.parse(store.data['forme-saved-meals'])[0].name,'Dinner');
+ assert.equal(api.load('saved-meals',[])[0].name,'Dinner');
+});
+

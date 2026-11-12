@@ -725,6 +725,24 @@ test('progress history paginates beyond 20 entries and set logger shows personal
  assert.match(app.node('set-best-hint').textContent,/★ Личен рекорд: 52 секунди/);
 });
 
+test('saved meals search filters by meal name and ingredient while preserving original item indices',()=>{
+ const app=boot('#nutrition',{
+  'forme-saved-meals':JSON.stringify([
+   {name:'Сутрешна закуска',items:[{id:'oats',grams:'80'}]},
+   {name:'След тренировка',items:[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]}
+  ])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(app.page(),/id="saved-meal-search" type="search"/);
+ app.input({dataset:{action:'saved-meal-search'},value:'пилешки'});
+ assert.doesNotMatch(app.node('saved-meal-results').innerHTML,/Сутрешна закуска/);
+ assert.match(app.node('saved-meal-results').innerHTML,/След тренировка[\s\S]*data-action="load-meal" data-index="1"/);
+ app.click({dataset:{action:'load-meal',index:'1'}});
+ assert.equal(app.node('meal-name').value,'След тренировка');
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]);
+});
+
+
 
 
 
