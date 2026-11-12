@@ -279,6 +279,7 @@
 .journal-meters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:6px 0 14px}
 .journal-meters small{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}
 .home-meters{display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:10px;margin-top:8px}
+.meal-goal-share{display:block;margin-top:4px;color:var(--muted);font-size:12px}
 @media print{.sidebar,.topbar,.mobile-nav,.skip-link,.toast{display:none!important}.shell{display:block}.main-area main{padding:0;min-height:0}body,.panel,.card,.note,.total,.day-card,.month-day,.today-plan,.home-progress{background:#fff!important;color:#111!important;border-color:#ccc!important;box-shadow:none!important}h1,h2,h3,h4,p,small,span,strong,b,td,th,.muted,.subtle{color:#111!important}}
 
 

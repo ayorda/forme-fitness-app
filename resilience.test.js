@@ -666,6 +666,41 @@ test('nutrition journal tab displays today entry count badge and progress displa
  assert.match(app.page(),/★ 2 · Личен рекорд/);
 });
 
+test('meal builder merges duplicate foods safely and displays percentage of daily calorie and protein goals',()=>{
+ const app=boot('#nutrition',{
+  'forme-current-meal':JSON.stringify([
+   {id:'chicken',grams:'100'},
+   {id:'rice',grams:'150'},
+   {id:'chicken',grams:'100'}
+  ]),
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/data-action="merge-meal"/);
+ assert.match(app.page(),/meal-goal-share[\s\S]*22% kcal · 49% протеин/);
+ app.click({dataset:{action:'merge-meal'}});
+ assert.equal(app.toast(),'Еднаквите продукти са обединени.');
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]);
+ assert.doesNotMatch(app.page(),/data-action="merge-meal"/);
+});
+
+test('journal entries can be loaded directly onto the meal plate as a fresh draft without entering edit mode',()=>{
+ const app=boot('#nutrition',{
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:100},
+   entries:[{id:'e1',date:'2026-11-09',name:'Обяд с ориз',items:[{id:'chicken',grams:'150'},{id:'rice',grams:'100'}]}]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ app.click({dataset:{action:'journal-load-meal',id:'e1'}});
+ assert.equal(app.toast(),'Храненето е заредено.');
+ assert.doesNotMatch(app.page(),/Редактираш запис от дневника/);
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'150'},{id:'rice',grams:'100'}]);
+ assert.equal(app.node('meal-name').value,'Обяд с ориз');
+});
+
+
 
 
 

@@ -107,7 +107,7 @@ const rows={
  'shell.space':['ТВОЕТО ПРОСТРАНСТВО','YOUR SPACE','DEIN BEREICH'],
  'shell.progress':['СЪЗДАДЕНО ЗА ПРОГРЕС','BUILT FOR PROGRESS','FÜR FORTSCHRITT GEMACHT'],
  'shell.nextStep':['Няма перфектен момент. Има следваща стъпка.','There is no perfect moment. Take the next step.','Es gibt keinen perfekten Moment. Geh den nächsten Schritt.'],
- 'shell.version':['v0.3.15 · Български · 0 €','v0.3.15 · English · €0','v0.3.15 · Deutsch · 0 €'],
+ 'shell.version':['v0.3.16 · Български · 0 €','v0.3.16 · English · €0','v0.3.16 · Deutsch · 0 €'],
  'shell.skip':['Към основното съдържание','Skip to main content','Zum Hauptinhalt springen'],
  'shell.everyDay':['РАСТИ ВСЕКИ ДЕН','GROW EVERY DAY','WACHSE JEDEN TAG'],
  'shell.footer':['Създадено за движение и осъзнат избор · Данните са ориентировъчни, не медицински съвет.','Made for movement and mindful choices · Data is approximate, not medical advice.','Für Bewegung und bewusste Entscheidungen · Angaben sind Richtwerte, keine medizinische Beratung.'],
@@ -372,6 +372,8 @@ const rows={
  'workouts.includedExercises':['Включени упражнения','Included exercises','Enthaltene Übungen'],
  'nutrition.clearMeal':['Изчисти чинията','Clear meal','Mahlzeit leeren'],
  'nutrition.clearedMessage':['Текущото хранене е изчистено.','The current meal was cleared.','Die aktuelle Mahlzeit wurde geleert.'],
+ 'nutrition.mergeItems':['Обедини еднаквите','Combine duplicates','Gleiche zusammenfassen'],
+ 'nutrition.mergedMessage':['Еднаквите продукти са обединени.','Duplicate foods combined.','Gleiche Lebensmittel zusammengefasst.'],
  'common.resetFilters':['Изчисти филтрите','Reset filters','Filter zurücksetzen']
 };
 const index={bg:0,en:1,de:2};
