@@ -3,7 +3,7 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 
-function boot(hash,storage={},startNow=null){
+function boot(hash,storage={},startNow=null,withI18n=false){
  const handlers={},nodes={};
  let now=startNow;
  class Clock extends Date{constructor(...args){super(...(args.length?args:now?[now]:[]));}}
@@ -13,7 +13,10 @@ function boot(hash,storage={},startNow=null){
  const localStorage={getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;}};
  const context={window,document,localStorage,location:{hash},Date:startNow?Clock:Date,setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(context);
- for(const file of ['exercise-art.js','data.js','core.js','food-art.js','state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','backup.js','app.js'])
+ const files=['exercise-art.js','data.js','core.js','food-art.js'];
+ if(withI18n)files.push('i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');
+ files.push('state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','backup.js','app.js');
+ for(const file of files)
   vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
  const page=()=>nodes.app.innerHTML;
  return {
@@ -741,6 +744,34 @@ test('saved meals search filters by meal name and ingredient while preserving or
  assert.equal(app.node('meal-name').value,'След тренировка');
  assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]);
 });
+
+test('favorites and progress headers display live item counts and multilingual search controls render cleanly',()=>{
+ for(const [lang,wkLabel,savedLabel] of [['bg','Търси тренировка','Търси в запазените хранения'],['en','Search workouts','Search saved meals'],['de','Training suchen','Gespeicherte Mahlzeiten durchsuchen']]){
+  const app=boot('#favorites',{
+   'forme-language':lang,
+   'forme-favorites':JSON.stringify({exercises:['Plank','Pushups'],workouts:['cal-start']}),
+   'forme-saved-meals':JSON.stringify([
+    {name:'A',items:[{id:'oats',grams:'80'}]},
+    {name:'B',items:[{id:'rice',grams:'150'}]}
+   ]),
+   'forme-progress-v1':JSON.stringify({
+    version:1,
+    goal:{workoutsPerWeek:3,minutesPerWeek:90},
+    sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-09',minutes:12}],
+    sets:[{id:'st1',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:45}]
+   })
+  },new Date(2026,10,9,12),true);
+  assert.match(app.page(),/class="heading-count">3<\/span>/);
+  app.click({dataset:{action:'nav',page:'progress'}});
+  assert.match(app.page(),/class="heading-count">2<\/span>/);
+  app.click({dataset:{action:'nav',page:'sessions'}});
+  assert.ok(app.page().includes(wkLabel));
+  app.click({dataset:{action:'nav',page:'nutrition'}});
+  app.click({dataset:{action:'food-tab',tab:'saved'}});
+  assert.ok(app.page().includes(savedLabel));
+ }
+});
+
 
 
 

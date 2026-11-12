@@ -281,7 +281,9 @@
 .home-meters{display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:10px;margin-top:8px}
 .meal-goal-share{display:block;margin-top:4px;color:var(--muted);font-size:12px}
 .program-meta{margin:4px 0 6px;font-size:12px}
-@media print{.sidebar,.topbar,.mobile-nav,.skip-link,.toast{display:none!important}.shell{display:block}.main-area main{padding:0;min-height:0}body,.panel,.card,.note,.total,.day-card,.month-day,.today-plan,.home-progress{background:#fff!important;color:#111!important;border-color:#ccc!important;box-shadow:none!important}h1,h2,h3,h4,p,small,span,strong,b,td,th,.muted,.subtle{color:#111!important}}
+.btn:focus-visible,.nav-item:focus-visible,.tab:focus-visible,.fav:focus-visible,.category-card:focus-visible,.avatar:focus-visible,.modal-close:focus-visible,.remove:focus-visible,.text-link:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+@media(max-width:780px){.saved-item{flex-direction:column;align-items:flex-start}.saved-actions,.journal-entry>div:last-child,.day-note-row{flex-wrap:wrap}}
+@media print{.sidebar,.topbar,.mobile-nav,.skip-link,.toast{display:none!important}.filters,.plan-view-switch,.backup-panel,.tabs{display:none!important}.shell{display:block}.main-area main{padding:0;min-height:0}body,.panel,.card,.note,.total,.day-card,.month-day,.today-plan,.home-progress{background:#fff!important;color:#111!important;border-color:#ccc!important;box-shadow:none!important}h1,h2,h3,h4,p,small,span,strong,b,td,th,.muted,.subtle{color:#111!important}}
 
 
 

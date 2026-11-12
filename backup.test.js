@@ -136,4 +136,20 @@ test('backup validates and cleans completion marks and overlong IDs',()=>{
  assert.deepEqual(JSON.parse(restored.data['forme-completed-workouts']),{'2026-11-09':{id:'cal-start',name:'Силна основа'}});
 });
 
+test('backup export and import enforce 500-item favorites and 2000-item date-plans caps',()=>{
+ const hugeFavs=Array.from({length:520},(_,i)=>'ex-'+i);
+ const hugeDates=Object.fromEntries(Array.from({length:2005},(_,i)=>['2026-01-'+String(i), 'cal-start']));
+ const target=storage({'forme-language':'bg'});
+ assert.equal(backup.importData(target,JSON.stringify({app:'FORME',version:1,data:{'forme-favorites':JSON.stringify({exercises:hugeFavs,workouts:[]})}})),false);
+ assert.equal(backup.importData(target,JSON.stringify({app:'FORME',version:1,data:{'forme-date-plans':JSON.stringify(hugeDates)}})),false);
+ const exported=backup.exportData(storage({
+  'forme-favorites':JSON.stringify({exercises:hugeFavs,workouts:[]}),
+  'forme-date-plans':JSON.stringify(hugeDates)
+ })),restored=storage();
+ assert.equal(backup.importData(restored,exported),true);
+ assert.equal(JSON.parse(restored.data['forme-favorites']).exercises.length,500);
+ assert.equal(Object.keys(JSON.parse(restored.data['forme-date-plans'])).length,2000);
+});
+
+
 
