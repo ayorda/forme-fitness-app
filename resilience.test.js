@@ -700,6 +700,12 @@ test('journal entries can be loaded directly onto the meal plate as a fresh draf
  assert.equal(app.node('meal-name').value,'Обяд с ориз');
 });
 
+test('four-week program cards display total session count and total scheduled minutes',()=>{
+ const app=boot('#progress',{},new Date(2026,10,9,12));
+ assert.match(app.page(),/program-meta">12 тренировки · \d+ мин/);
+});
+
+
 
 
 

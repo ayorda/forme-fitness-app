@@ -21,7 +21,7 @@ function createApp(page='#sessions'){
  const localStorage={getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;}};
  const c={window,document,localStorage,location:{hash:page},setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(c);
- for(const f of ['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js','food-translations.js','state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','backup.js','app.js'])
+ for(const f of ['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js','food-translations.js','workout-translations.js','state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','backup.js','app.js'])
   vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
  return {handlers,nodes};
 }
@@ -292,3 +292,17 @@ test('exercise and food search fields use type=search and clear immediately on E
  assert.equal(fdInput.value,'');
  assert.equal(foundCount(fd.nodes['food-results'].innerHTML).found,D.foods.length);
 });
+
+test('workout search finds programs by title, cross-language name and included exercise and clears on Escape',()=>{
+ const wk=createApp('#sessions');
+ assert.match(wk.nodes.app.innerHTML,/id="workout-search" type="search"/);
+ type(wk,'workouts','q','Strong foundation');
+ assert.ok(resultIds(wk.nodes['workout-results'].innerHTML).has('cal-start'));
+ type(wk,'workouts','q','Котешки гръб');
+ assert.ok(resultIds(wk.nodes['workout-results'].innerHTML).has('yoga-reset'));
+ const wkInput={dataset:{filter:'workouts',key:'q'},value:'Котешки гръб'};
+ wk.handlers.keydown({key:'Escape',target:wkInput,preventDefault(){}});
+ assert.equal(wkInput.value,'');
+ assert.equal(foundCount(wk.nodes['workout-results'].innerHTML).found,D.workouts.length);
+});
+

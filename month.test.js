@@ -152,3 +152,19 @@ test('plan-today button jumps back to the current month and selects today',()=>{
  assert.match(a.nodes.app.innerHTML,/февруари 2024/);
  assert.match(a.nodes.app.innerHTML,/class="tag">15 февруари 2024/);
 });
+
+test('monthly calendar summary counts planned and completed days and clear-date-plans resets custom date overrides',()=>{
+ const a=boot({
+  'forme-date-plans':JSON.stringify({'2024-02-06':'yoga-reset'}),
+  'forme-completed-workouts':JSON.stringify({'2024-02-05':{id:'cal-start',name:'Силна основа'}})
+ });
+ a.click({action:'plan-view',view:'month'});
+ assert.match(a.nodes.app.innerHTML,/plan-summary[\s\S]*5 \/ 29[\s\S]*✓ 1/);
+ assert.match(a.nodes.app.innerHTML,/data-action="clear-date-plans"[\s\S]*\(1\)/);
+ a.click({action:'clear-date-plans'});
+ assert.equal(a.nodes.toast.textContent,'Изборите по дати са изчистени.');
+ assert.deepEqual(JSON.parse(a.storage['forme-date-plans']),{});
+ assert.doesNotMatch(a.nodes.app.innerHTML,/data-action="clear-date-plans"/);
+ assert.match(a.nodes.app.innerHTML,/plan-summary[\s\S]*4 \/ 29[\s\S]*✓ 1/);
+});
+
