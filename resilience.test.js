@@ -772,6 +772,43 @@ test('favorites and progress headers display live item counts and multilingual s
  }
 });
 
+test('meal builder adds custom gram amounts directly and nutrition journal displays remaining daily kcal and protein',()=>{
+ const app=boot('#nutrition',{
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:100},
+   entries:[{id:'e1',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'}]}]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/id="meal-food-grams" inputmode="decimal" value="100"/);
+ app.node('meal-food-select').value='rice';
+ app.node('meal-food-grams').value='250';
+ app.click({dataset:{action:'add-selected-food'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'rice',grams:'250'}]);
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/Остават до целта: 1\s?760 kcal · 55 г протеин/i);
+});
+
+test('consecutive workout days streak appears on Home and Progress when active 2 or more days in a row',()=>{
+ const app=boot('#home',{
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[
+    {id:'s1',workoutId:'cal-start',date:'2026-11-07',minutes:12},
+    {id:'s2',workoutId:'mob-daily',date:'2026-11-08',minutes:10},
+    {id:'s3',workoutId:'yoga-reset',date:'2026-11-09',minutes:12}
+   ],
+   sets:[]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/🔥 3 поредни дни/);
+ app.click({dataset:{action:'nav',page:'progress'}});
+ assert.match(app.page(),/🔥 3 поредни дни/);
+});
+
+
 
 
 

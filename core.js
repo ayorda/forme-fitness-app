@@ -14,7 +14,14 @@ function filterWorkouts(workouts,filters={}){const q=(filters.q||'').toLocaleLow
 function filterExercises(exercises,filters){const q=(filters.q||'').toLocaleLowerCase('bg').trim();return exercises.filter(e=>(!q||[e.name,e.nameEn,e.nameDe,e.description,e.steps,e.muscles,e.searchText].join(' ').toLocaleLowerCase('bg').includes(q))&&(!filters.cat||e.cat===filters.cat)&&(!filters.level||e.level===filters.level)&&(!filters.equip||e.equip===filters.equip));}
 function filterFoods(foods,filters={}){const q=(filters.q||'').toLocaleLowerCase('bg').trim();return foods.filter(f=>(!q||[f.name,f.state,f.info,f.searchText].join(' ').toLocaleLowerCase('bg').includes(q))&&(!filters.cat||f.cat===filters.cat));}
 function formatClock(ms){const seconds=Math.max(0,Math.ceil(ms/1000));return `${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;}
-const core={validateGrams,calculateForGrams,sumMeal,mergeMealItems,filterWorkouts,filterExercises,filterFoods,formatClock};
+function workoutStreak(dates,todayKey){
+ if(!Array.isArray(dates)||typeof todayKey!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(todayKey))return 0;
+ const set=new Set(dates),toKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`,cur=new Date(todayKey+'T12:00:00');
+ if(Number.isNaN(cur.getTime()))return 0;
+ if(!set.has(todayKey)){cur.setDate(cur.getDate()-1);if(!set.has(toKey(cur)))return 0;}
+ let count=0;while(set.has(toKey(cur))){count++;cur.setDate(cur.getDate()-1);}return count;
+}
+const core={validateGrams,calculateForGrams,sumMeal,mergeMealItems,filterWorkouts,filterExercises,filterFoods,formatClock,workoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);
