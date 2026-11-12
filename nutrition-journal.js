@@ -48,7 +48,7 @@ function create(storage,foods,core){
  /* A date selector can be cleared by the user; an empty value must never mean "every date". */
  function entries(date){const matches=state.entries.filter(x=>(date===undefined||(validDate(date)&&x.date===date))&&validItems(x.items));return matches.sort((a,b)=>b.date.localeCompare(a.date));}
  function day(date){const matches=entries(date),sum=matches.reduce((acc,x)=>{const value=total(x.items);for(const field of ['kcal','protein','carbs','fat','fiber'])acc[field]+=value[field];return acc;},{kcal:0,protein:0,carbs:0,fat:0,fiber:0});return {...sum,count:matches.length,date:validDate(date)?date:null,validDate:validDate(date),goal:{...state.goal}};}
- function week(endDate){const last=validDate(endDate)?endDate:dateKey(new Date());const days=[];for(let offset=6;offset>=0;offset--){const date=new Date(last+'T12:00:00');date.setDate(date.getDate()-offset);const key=dateKey(date);days.push({date:key,kcal:day(key).kcal});}return days;}
+ function week(endDate){const last=validDate(endDate)?endDate:dateKey(new Date());const days=[];for(let offset=6;offset>=0;offset--){const date=new Date(last+'T12:00:00');date.setDate(date.getDate()-offset);const key=dateKey(date),d=day(key);days.push({date:key,kcal:d.kcal,protein:d.protein});}return days;}
  return Object.freeze({get:copy,entries,day,week,add,update,remove,setGoal,total,key});
 }
 root.FORME_NUTRITION_JOURNAL=Object.freeze({create,key,dateKey});

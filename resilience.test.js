@@ -599,5 +599,27 @@ test('saved meals and nutrition journal open food details directly and render pr
  assert.match(app.node('modal-root').innerHTML,/Сьомга/);
 });
 
+test('workoutDetail bridges to Progress logger and foodDetail logs directly to journal without altering plate',()=>{
+ const app=boot('#sessions',{
+  'forme-current-meal':JSON.stringify([{id:'rice',grams:'150'}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'workout-detail',id:'yoga-flow'}});
+ assert.match(app.node('modal-root').innerHTML,/data-action="workout-log-progress" data-id="yoga-flow"/);
+ app.click({dataset:{action:'workout-log-progress',id:'yoga-flow'}});
+ assert.equal(app.node('modal-root').innerHTML,'');
+ assert.match(app.page(),/option value="yoga-flow" selected/);
+ assert.match(app.page(),/id="log-workout-minutes" type="number" min="1" max="600" value="20"/);
+
+ app.click({dataset:{action:'nav',page:'nutrition'}});
+ app.click({dataset:{action:'food-detail',id:'banana'}});
+ app.click({dataset:{action:'detail-preset-grams',id:'banana',grams:'150'}});
+ app.click({dataset:{action:'detail-log-food',id:'banana'}});
+ assert.equal(app.toast(),'Записът е запазен.');
+ assert.equal(app.node('modal-root').innerHTML,'');
+ assert.match(app.page(),/journal-entry[\s\S]*Банан[\s\S]*150 г/);
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'rice',grams:'150'}]);
+});
+
+
 
 

@@ -230,3 +230,21 @@ test('workout player displays and live-updates total remaining workout time',()=
  assert.match(a.nodes['player-layout'].innerHTML,/id="player-total-remaining">00:00<\/b>/);
 });
 
+test('workout player shows round counter and 1-tap Progress CTA upon completion',()=>{
+ const a=boot('en');
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/EXERCISE 1 \/ 12 · ROUND 1 \/ 3/);
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'workMs'},value:'5'}});
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'restMs'},value:'5'}});
+ a.run("playerControl('player-start')");
+ for(let i=0;i<8;i++)a.run("playerControl('player-next')");
+ assert.match(a.nodes['player-layout'].innerHTML,/EXERCISE 5 \/ 12 · ROUND 2 \/ 3/);
+ a.advance(900000);
+ a.handlers.visibilitychange();
+ assert.match(a.nodes['player-layout'].innerHTML,/data-action="player-finish-progress"/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'player-finish-progress'}})}});
+ assert.equal(a.nodes['modal-root'].innerHTML,'');
+ assert.equal(a.run('state.page'),'progress');
+});
+
+

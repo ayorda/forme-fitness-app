@@ -5,7 +5,7 @@ const keys=['forme-favorites','forme-plan','forme-date-plans','forme-completed-w
 const recordNames=['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound'];
 function validObject(value){return value&&typeof value==='object'&&!Array.isArray(value);}
 const date=value=>{if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))return false;const parsed=new Date(value+'T12:00:00');return !Number.isNaN(parsed.getTime())&&`${parsed.getFullYear()}-${String(parsed.getMonth()+1).padStart(2,'0')}-${String(parsed.getDate()).padStart(2,'0')}`===value;};
-const id=value=>typeof value==='string'&&/^[A-Za-z0-9_-]+$/.test(value);
+const id=value=>typeof value==='string'&&/^[A-Za-z0-9_-]+$/.test(value)&&value.length<=60;
 const grams=value=>{const normalized=String(value??'').trim().replace(',','.');const amount=Number(normalized);return /^\d+(?:\.\d+)?$/.test(normalized)&&Number.isFinite(amount)&&amount>0&&amount<=10000;};
 const items=value=>Array.isArray(value)&&value.every(x=>validObject(x)&&id(x.id)&&grams(x.grams));
 const journalItems=value=>items(value)&&value.length>0&&value.length<=100;
@@ -25,7 +25,7 @@ function exportValue(key,value){
    return JSON.stringify(Object.fromEntries(Object.entries(parsed).filter(([,v])=>typeof v==='string')));
   }
   if(key==='forme-completed-workouts'&&validObject(parsed)){
-   return JSON.stringify(Object.fromEntries(Object.entries(parsed).filter(([d,v])=>date(d)&&validObject(v)&&typeof v.id==='string'&&typeof v.name==='string').map(([d,v])=>[d,{id:v.id,name:v.name}])));
+   return JSON.stringify(Object.fromEntries(Object.entries(parsed).slice(0,2000).filter(([d,v])=>date(d)&&validObject(v)&&id(v.id)&&typeof v.name==='string'&&v.name.trim()&&v.name.trim().length<=120).map(([d,v])=>[d,{id:v.id,name:v.name.trim()}])));
   }
   if(key==='forme-current-meal'&&Array.isArray(parsed)){
    return JSON.stringify(parsed.filter(x=>validObject(x)&&id(x.id)&&grams(x.grams)).map(x=>({id:x.id,grams:String(x.grams)})));
@@ -69,7 +69,7 @@ function validate(payload){
   if(key==='forme-sound'){if(typeof parsed!=='boolean')return false;}
   else if(key==='forme-favorites'){if(!validObject(parsed)||!Array.isArray(parsed.exercises)||!Array.isArray(parsed.workouts)||![...parsed.exercises,...parsed.workouts].every(x=>typeof x==='string'))return false;}
   else if(key==='forme-plan'||key==='forme-date-plans'){if(!validObject(parsed)||!Object.values(parsed).every(x=>typeof x==='string'))return false;}
-  else if(key==='forme-completed-workouts'){if(!validObject(parsed)||!Object.entries(parsed).every(([d,x])=>date(d)&&validObject(x)&&typeof x.id==='string'&&typeof x.name==='string'))return false;}
+  else if(key==='forme-completed-workouts'){if(!validObject(parsed)||Object.keys(parsed).length>2000||!Object.entries(parsed).every(([d,x])=>date(d)&&validObject(x)&&id(x.id)&&typeof x.name==='string'&&x.name.trim()!==''&&x.name.length<=120))return false;}
   else if(key==='forme-user-v1'){if(parsed?.version!==1||!validObject(parsed.records)||Object.entries(parsed.records).some(([name,raw])=>!['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound'].includes(name)||!validate({app:'FORME',version:1,data:{['forme-'+name]:raw}})))return false;}
   else if(key==='forme-current-meal'){if(!items(parsed))return false;}
   else if(key==='forme-saved-meals'){if(!Array.isArray(parsed)||parsed.length>200||!parsed.every(x=>validObject(x)&&typeof x.name==='string'&&x.name.trim()!==''&&x.name.length<=70&&journalItems(x.items)))return false;}

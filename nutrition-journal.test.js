@@ -63,3 +63,14 @@ test('corrupted nutrition journal storage repairs goals, null items and non-stri
  assert.equal(app.journal.entries(date)[0].name,'');
  assert.equal(app.journal.entries(date)[0].items[0].grams,'150');
 });
+
+test('week summary exposes daily protein alongside kcal',()=>{
+ const app=setup(),date='2026-11-09';
+ assert.equal(app.journal.add(date,[{id:'chicken',grams:'200'}],'Dinner'),true);
+ const week=app.journal.week(date);
+ assert.equal(week[6].date,date);
+ assert.equal(week[6].kcal,240);
+ assert.equal(week[6].protein,45);
+ assert.equal(week[5].protein,0);
+});
+

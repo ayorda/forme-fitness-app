@@ -120,3 +120,20 @@ test('backup rejects duplicate journal IDs and blank saved-meal names while expo
  assert.equal(JSON.parse(restored.data['forme-nutrition-v1']).entries.length,1);
 });
 
+test('backup validates and cleans completion marks and overlong IDs',()=>{
+ const blankComp=JSON.stringify({app:'FORME',version:1,data:{'forme-completed-workouts':JSON.stringify({'2026-11-09':{id:'cal-start',name:'   '}})}});
+ const longId=JSON.stringify({app:'FORME',version:1,data:{'forme-completed-workouts':JSON.stringify({'2026-11-09':{id:'a'.repeat(61),name:'Test'}})}});
+ const target=storage({'forme-language':'bg'});
+ assert.equal(backup.importData(target,blankComp),false);
+ assert.equal(backup.importData(target,longId),false);
+ assert.equal(target.data['forme-language'],'bg');
+
+ const dirty=storage({
+  'forme-completed-workouts':JSON.stringify({'2026-11-09':{id:'cal-start',name:'  Силна основа  '},'2026-11-10':{id:'cal-start',name:'   '},'2026-11-11':{id:'x'.repeat(61),name:'Bad'}})
+ });
+ const exported=backup.exportData(dirty),restored=storage();
+ assert.equal(backup.importData(restored,exported),true);
+ assert.deepEqual(JSON.parse(restored.data['forme-completed-workouts']),{'2026-11-09':{id:'cal-start',name:'Силна основа'}});
+});
+
+
