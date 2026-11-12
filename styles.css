@@ -271,6 +271,11 @@
 .goal-meter{margin:6px 0 0}
 .saved-ingredients{display:block;margin-top:4px;color:var(--muted);line-height:1.45}
 .backup-summary{margin:10px 0 12px}
+.progress-filters{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.progress-filters .btn[aria-pressed="true"]{border-color:var(--lime);color:var(--lime)}
+.link-btn{background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:#4b684f;text-underline-offset:3px}
+.link-btn:hover,.link-btn:focus-visible{color:var(--lime);text-decoration-color:var(--lime)}
+.link-btn:focus-visible{outline:2px solid var(--lime);outline-offset:2px;border-radius:4px}
 @media print{.sidebar,.topbar,.mobile-nav,.skip-link,.toast{display:none!important}.shell{display:block}.main-area main{padding:0;min-height:0}body,.panel,.card,.note,.total,.day-card,.month-day,.today-plan,.home-progress{background:#fff!important;color:#111!important;border-color:#ccc!important;box-shadow:none!important}h1,h2,h3,h4,p,small,span,strong,b,td,th,.muted,.subtle{color:#111!important}}
 
 

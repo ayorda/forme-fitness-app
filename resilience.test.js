@@ -507,3 +507,54 @@ test('progress and nutrition journal display visual goal meters and live backup 
  assert.match(app.page(),/progress goal-meter[\s\S]*width:12%/);
 });
 
+test('progress journal filters between all, workouts and sets and opens item details',()=>{
+ const app=boot('#progress',{
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-09',minutes:15}],
+   sets:[{id:'st1',exerciseId:'Plank',date:'2026-11-08',kind:'seconds',value:50}]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="progress-filter" data-view="all" aria-pressed="true"/);
+ app.click({dataset:{action:'progress-filter',view:'set'}});
+ assert.match(app.page(),/data-action="progress-filter" data-view="set" aria-pressed="true"/);
+ assert.match(app.page(),/2026-11-08 · 50 секунди/);
+ assert.doesNotMatch(app.page(),/2026-11-09 · 15 мин/);
+ app.click({dataset:{action:'exercise-detail',id:'Plank'}});
+ assert.match(app.node('modal-root').innerHTML,/<h2>Планк<\/h2>/);
+});
+
+test('exercise cards in catalog and favorites display personal best badge',()=>{
+ const app=boot('#favorites',{
+  'forme-favorites':JSON.stringify({exercises:['Plank'],workouts:[]}),
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[],
+   sets:[{id:'st1',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:70}]
+  })
+ });
+ assert.match(app.page(),/★ 70 секунди/);
+});
+
+test('nutrition journal saves entry to saved meals in 1 tap and meal rows open food details',()=>{
+ const app=boot('#nutrition',{
+  'forme-current-meal':JSON.stringify([{id:'avocado',grams:'100'}]),
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:100},
+   entries:[{id:'e1',date:'2026-11-09',name:'Обяд с ориз',items:[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]}]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ app.click({dataset:{action:'journal-save-meal',id:'e1'}});
+ assert.equal(app.toast(),'Храненето е запазено.');
+ assert.match(app.page(),/Запазени хранения \(1\)/);
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/class="link-btn" data-action="food-detail" data-id="avocado"/);
+ app.click({dataset:{action:'food-detail',id:'avocado'}});
+ assert.match(app.node('modal-root').innerHTML,/<h2>Авокадо<\/h2>/);
+});
+
+

@@ -213,3 +213,20 @@ test('ArrowRight and ArrowLeft step forward and backward inside an active workou
  assert.equal(a.run('state.player.index'),0);
  assert.equal(a.run('state.player.phase'),'work');
 });
+
+test('workout player displays and live-updates total remaining workout time',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/id="player-total-remaining">11:40<\/b>/);
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'restMs'},value:'30'}});
+ assert.equal(a.nodes['player-total-remaining'].textContent,'13:30');
+ a.run("playerControl('player-start')");
+ a.advance(10000);
+ a.handlers.visibilitychange();
+ assert.equal(a.nodes['player-total-remaining'].textContent,'13:20');
+ a.advance(900000);
+ a.handlers.visibilitychange();
+ assert.equal(a.run('state.player.phase'),'done');
+ assert.match(a.nodes['player-layout'].innerHTML,/id="player-total-remaining">00:00<\/b>/);
+});
+
