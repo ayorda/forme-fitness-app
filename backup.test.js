@@ -98,3 +98,25 @@ test('exportData preserves valid progress sessions, nutrition entries, favorites
  assert.equal(nutr.entries.length,1);
  assert.deepEqual(nutr.entries[0].items,[{id:'rice',grams:'150'}]);
 });
+
+test('backup rejects duplicate journal IDs and blank saved-meal names while exportData deduplicates and trims',()=>{
+ const dupProgress=JSON.stringify({app:'FORME',version:1,data:{'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[{id:'dup',workoutId:'cal-start',date:'2026-11-09',minutes:12},{id:'dup',workoutId:'mob-daily',date:'2026-11-08',minutes:10}],sets:[]})}});
+ const blankSaved=JSON.stringify({app:'FORME',version:1,data:{'forme-saved-meals':JSON.stringify([{name:'   ',items:[{id:'rice',grams:'100'}]}])}});
+ const target=storage({'forme-language':'bg'});
+ assert.equal(backup.importData(target,dupProgress),false);
+ assert.equal(backup.importData(target,blankSaved),false);
+ assert.equal(target.data['forme-language'],'bg');
+
+ const messy=storage({
+  'forme-saved-meals':JSON.stringify([{name:'  Обяд  ',items:[{id:'rice',grams:'150'}]},{name:'   ',items:[{id:'rice',grams:'100'}]}]),
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[{id:'dup',workoutId:'cal-start',date:'2026-11-09',minutes:12},{id:'dup',workoutId:'mob-daily',date:'2026-11-08',minutes:10}],sets:[{id:'s1',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:45},{id:'s1',exerciseId:'Plank',date:'2026-11-08',kind:'seconds',value:30}]}),
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[{id:'e1',date:'2026-11-09',name:'Обяд',items:[{id:'rice',grams:'150'}]},{id:'e1',date:'2026-11-08',name:'Вечеря',items:[{id:'egg',grams:'100'}]}]})
+ });
+ const exported=backup.exportData(messy),restored=storage();
+ assert.equal(backup.importData(restored,exported),true);
+ assert.deepEqual(JSON.parse(restored.data['forme-saved-meals']),[{name:'Обяд',items:[{id:'rice',grams:'150'}]}]);
+ assert.equal(JSON.parse(restored.data['forme-progress-v1']).sessions.length,1);
+ assert.equal(JSON.parse(restored.data['forme-progress-v1']).sets.length,1);
+ assert.equal(JSON.parse(restored.data['forme-nutrition-v1']).entries.length,1);
+});
+

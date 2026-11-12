@@ -468,3 +468,42 @@ test('four-week program workout chips open workout preview modal and 4-week char
  app.click({dataset:{action:'workout-detail',id:'cal-start'}});
  assert.match(app.node('modal-root').innerHTML,/<h2>Силна основа<\/h2>/);
 });
+
+test('progress set logging supports custom dates and personal best shows record date',()=>{
+ const app=boot('#progress',{},new Date(2026,10,9,12));
+ assert.match(app.page(),/id="set-date" type="date" value="2026-11-09"/);
+ app.node('set-exercise').value='Plank';
+ app.node('set-date').value='2026-11-07';
+ app.node('set-kind').value='seconds';
+ app.node('set-value').value='65';
+ app.click({dataset:{action:'progress-set'}});
+ assert.equal(app.toast(),'Серията е записана.');
+ assert.match(app.page(),/2026-11-07 · 65 секунди/);
+ app.click({dataset:{action:'nav',page:'exercises'}});
+ app.click({dataset:{action:'exercise-detail',id:'Plank'}});
+ assert.match(app.node('modal-root').innerHTML,/Личен рекорд: 65 секунди · 2026-11-07/);
+});
+
+test('saved meals preview protein total and localized ingredient breakdown',()=>{
+ const app=boot('#nutrition',{
+  'forme-saved-meals':JSON.stringify([{name:'След тренировка',items:[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]}])
+ });
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(app.page(),/протеин/i);
+ assert.match(app.page(),/saved-ingredients[\s\S]*\(200 г\)[\s\S]*\(150 г\)/);
+});
+
+test('progress and nutrition journal display visual goal meters and live backup record summary',()=>{
+ const app=boot('#progress',{
+  'forme-favorites':JSON.stringify({exercises:['Plank'],workouts:['cal-start']}),
+  'forme-saved-meals':JSON.stringify([{name:'Закуска',items:[{id:'oats',grams:'80'}]}]),
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:4,minutesPerWeek:100},sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-09',minutes:25}],sets:[{id:'st1',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:45}]}),
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[{id:'e1',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'}]}]})
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/progress goal-meter[\s\S]*width:25%/);
+ assert.match(app.page(),/backup-summary[\s\S]*1 тренировки[\s\S]*1 · Серии[\s\S]*1 · Дневник[\s\S]*1 · Запазени хранения[\s\S]*2 · Любими/);
+ app.click({dataset:{action:'nav',page:'nutrition'}});
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/progress goal-meter[\s\S]*width:12%/);
+});
+
