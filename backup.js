@@ -37,14 +37,14 @@ function exportValue(key,value){
   if(key==='forme-progress-v1'&&parsed?.version===1&&validObject(parsed)){
    const g=validObject(parsed.goal)?parsed.goal:{};
    const goal={workoutsPerWeek:Number.isInteger(g.workoutsPerWeek)&&g.workoutsPerWeek>=1&&g.workoutsPerWeek<=7?g.workoutsPerWeek:3,minutesPerWeek:Number.isInteger(g.minutesPerWeek)&&g.minutesPerWeek>=0&&g.minutesPerWeek<=2000?g.minutesPerWeek:90};
-   const sessions=Array.isArray(parsed.sessions)?uniqueIds(parsed.sessions.filter(x=>validObject(x)&&id(x.id)&&id(x.workoutId)&&date(x.date)&&typeof x.minutes==='number'&&Number.isFinite(x.minutes)&&x.minutes>=0&&x.minutes<=600).map(x=>({id:x.id,workoutId:x.workoutId,date:x.date,minutes:Math.round(x.minutes)}))):[];
-   const sets=Array.isArray(parsed.sets)?uniqueIds(parsed.sets.filter(x=>validObject(x)&&id(x.id)&&id(x.exerciseId)&&date(x.date)&&['reps','seconds'].includes(x.kind)&&Number.isInteger(x.value)&&x.value>=1&&x.value<=3600).map(x=>({id:x.id,exerciseId:x.exerciseId,date:x.date,kind:x.kind,value:x.value}))):[];
+   const sessions=Array.isArray(parsed.sessions)?uniqueIds(parsed.sessions.slice(0,5000).filter(x=>validObject(x)&&id(x.id)&&id(x.workoutId)&&date(x.date)&&typeof x.minutes==='number'&&Number.isFinite(x.minutes)&&x.minutes>=0&&x.minutes<=600).map(x=>({id:x.id,workoutId:x.workoutId,date:x.date,minutes:Math.round(x.minutes)}))):[];
+   const sets=Array.isArray(parsed.sets)?uniqueIds(parsed.sets.slice(0,5000).filter(x=>validObject(x)&&id(x.id)&&id(x.exerciseId)&&date(x.date)&&['reps','seconds'].includes(x.kind)&&Number.isInteger(x.value)&&x.value>=1&&x.value<=3600).map(x=>({id:x.id,exerciseId:x.exerciseId,date:x.date,kind:x.kind,value:x.value}))):[];
    return JSON.stringify({version:1,goal,sessions,sets});
   }
   if(key==='forme-nutrition-v1'&&parsed?.version===1&&validObject(parsed)){
    const g=validObject(parsed.goal)?parsed.goal:{};
    const goal={kcal:Number.isInteger(g.kcal)&&g.kcal>=1&&g.kcal<=10000?g.kcal:2000,protein:Number.isInteger(g.protein)&&g.protein>=0&&g.protein<=1000?g.protein:100};
-   const entries=Array.isArray(parsed.entries)?uniqueIds(parsed.entries.filter(x=>validObject(x)&&id(x.id)&&date(x.date)&&Array.isArray(x.items)).map(x=>({id:x.id,date:x.date,name:typeof x.name==='string'?x.name.slice(0,70):'',items:x.items.filter(i=>validObject(i)&&id(i.id)&&grams(i.grams)).map(i=>({id:i.id,grams:String(i.grams)}))})).filter(x=>journalItems(x.items))):[];
+   const entries=Array.isArray(parsed.entries)?uniqueIds(parsed.entries.slice(0,5000).filter(x=>validObject(x)&&id(x.id)&&date(x.date)&&Array.isArray(x.items)).map(x=>({id:x.id,date:x.date,name:typeof x.name==='string'?x.name.slice(0,70):'',items:x.items.filter(i=>validObject(i)&&id(i.id)&&grams(i.grams)).map(i=>({id:i.id,grams:String(i.grams)}))})).filter(x=>journalItems(x.items))):[];
    return JSON.stringify({version:1,goal,entries});
   }
   if(key==='forme-user-v1'&&parsed?.version===1&&validObject(parsed.records)){

@@ -170,3 +170,12 @@ test('workout and exercise detail modals expose item-named dialogs and toggle fa
  a.handlers.click({target:{closest:()=>({dataset:{action:'favorite',kind:'exercises',id:'Plank'}})}});
  assert.match(a.nodes['modal-root'].innerHTML,/data-action="favorite" data-kind="exercises" data-id="Plank" aria-pressed="true"/);
 });
+
+test('exercise search still matches original Bulgarian names when switched to English or German',()=>{
+ for(const language of ['en','de']){
+  const a=createApp({'forme-language':language},true,'#exercises');
+  a.handlers.input({target:{dataset:{filter:'exercises',key:'q'},value:'Набирания'}});
+  assert.match(a.nodes['exercise-results'].innerHTML,/data-id="Pullups"/);
+ }
+});
+

@@ -79,3 +79,12 @@ test('corrupted progress storage repairs invalid goals, sessions and sets on sta
  assert.equal(summary.sets,1);
  assert.deepEqual([...journal.sessions().map(x=>x.id)],['s-2','s-1']);
 });
+
+test('progress startup caps oversized session and set arrays safely',()=>{
+ const sessions=Array.from({length:5100},(_,i)=>({id:'s-'+i,workoutId:'cal-start',date:'2026-11-09',minutes:10}));
+ const sets=Array.from({length:5100},(_,i)=>({id:'st-'+i,exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:30}));
+ const {journal}=apis({'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions,sets})});
+ assert.equal(journal.get().sessions.length,5000);
+ assert.equal(journal.get().sets.length,5000);
+});
+

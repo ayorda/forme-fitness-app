@@ -620,6 +620,53 @@ test('workoutDetail bridges to Progress logger and foodDetail logs directly to j
  assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'rice',grams:'150'}]);
 });
 
+test('workoutDetail schedules workout for today in 1 tap and weekly plan displays today completion mark',()=>{
+ const app=boot('#home',{
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-09',minutes:12}],
+   sets:[]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'workout-detail',id:'cal-start'}});
+ assert.match(app.node('modal-root').innerHTML,/data-action="workout-plan-today" data-id="cal-start"/);
+ app.click({dataset:{action:'workout-plan-today',id:'cal-start'}});
+ assert.equal(app.toast(),'Планът за тази дата е запазен.');
+ assert.match(app.page(),/today-plan[\s\S]*Силна основа/);
+ app.click({dataset:{action:'workout-detail',id:'cal-start'}});
+ assert.match(app.node('modal-root').innerHTML,/✓ Днес: с планирана тренировка/);
+ app.click({dataset:{action:'close-modal'}});
+ app.click({dataset:{action:'nav',page:'plan'}});
+ assert.match(app.page(),/day-card-today[\s\S]*✓ Отбелязана като изпълнена: Силна основа/);
+});
+
+test('nutrition journal tab displays today entry count badge and progress displays personal record count',()=>{
+ const app=boot('#nutrition',{
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:100},
+   entries:[
+    {id:'e1',date:'2026-11-09',name:'Закуска',items:[{id:'egg',grams:'100'}]},
+    {id:'e2',date:'2026-11-09',name:'Обяд',items:[{id:'rice',grams:'150'}]}
+   ]
+  }),
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[],
+   sets:[
+    {id:'st1',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:60},
+    {id:'st2',exerciseId:'Pushups',date:'2026-11-09',kind:'reps',value:20}
+   ]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/Дневник \(2\)/);
+ app.click({dataset:{action:'nav',page:'progress'}});
+ assert.match(app.page(),/★ 2 · Личен рекорд/);
+});
+
+
 
 
 

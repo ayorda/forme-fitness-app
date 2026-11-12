@@ -10,7 +10,7 @@ const plain=value=>!!value&&typeof value==='object'&&!Array.isArray(value);
 function normalizeSessions(list){
  if(!Array.isArray(list))return [];
  const seen=new Set(),result=[];
- for(const x of list){
+ for(const x of list.slice(0,5000)){
   if(!plain(x)||!validId(x.id)||seen.has(x.id)||!validId(x.workoutId)||!validDate(x.date))continue;
   if(typeof x.minutes!=='number'||!Number.isFinite(x.minutes)||x.minutes<0||x.minutes>600)continue;
   seen.add(x.id);result.push({id:x.id,workoutId:x.workoutId,date:x.date,minutes:Math.round(x.minutes)});
@@ -20,7 +20,7 @@ function normalizeSessions(list){
 function normalizeSets(list){
  if(!Array.isArray(list))return [];
  const seen=new Set(),result=[];
- for(const x of list){
+ for(const x of list.slice(0,5000)){
   if(!plain(x)||!validId(x.id)||seen.has(x.id)||!validId(x.exerciseId)||!validDate(x.date))continue;
   if(!['reps','seconds'].includes(x.kind)||!Number.isInteger(x.value)||x.value<1||x.value>3600)continue;
   seen.add(x.id);result.push({id:x.id,exerciseId:x.exerciseId,date:x.date,kind:x.kind,value:x.value});

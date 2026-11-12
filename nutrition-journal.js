@@ -15,7 +15,7 @@ function create(storage,foods,core){
   if(plain(saved)&&saved.version===1){
    const g=plain(saved.goal)?saved.goal:{},seen=new Set(),entries=[];
    if(Array.isArray(saved.entries)){
-    for(const x of saved.entries){
+    for(const x of saved.entries.slice(0,5000)){
      if(!plain(x)||!validId(x.id)||seen.has(x.id)||!validDate(x.date)||!validItems(x.items))continue;
      seen.add(x.id);
      entries.push({id:x.id,date:x.date,name:typeof x.name==='string'?x.name.slice(0,70):'',items:x.items.map(i=>({id:i.id,grams:String(i.grams)}))});
