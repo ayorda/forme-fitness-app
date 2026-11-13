@@ -1307,6 +1307,27 @@ test('Active 4-week program cards track completed scheduled sessions and advance
  assert.match(app.page(),/▶ 11-11 · Спокойно възстановяване/);
 });
 
+test('Pressing / focuses the active screen search input without intercepting typing inside form controls',()=>{
+ const app=boot('#exercises',{},new Date(2026,10,9,12));
+ let focusedEx=false,prevented=false;
+ app.node('ex-search').focus=()=>{focusedEx=true;};
+ app.keydown({key:'/',target:{tagName:'DIV'},preventDefault(){prevented=true;}});
+ assert.equal(focusedEx,true);
+ assert.equal(prevented,true);
+
+ focusedEx=false;prevented=false;
+ app.keydown({key:'/',target:{tagName:'INPUT'},preventDefault(){prevented=true;}});
+ assert.equal(focusedEx,false);
+ assert.equal(prevented,false);
+
+ app.click({dataset:{action:'nav',page:'nutrition'}});
+ let focusedFood=false;
+ app.node('food-search').focus=()=>{focusedFood=true;};
+ app.keydown({key:'/',target:{tagName:'BUTTON'},preventDefault(){}});
+ assert.equal(focusedFood,true);
+});
+
+
 
 
 

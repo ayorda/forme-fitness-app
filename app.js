@@ -429,6 +429,11 @@ function handleChange(event){const t=event.target;if(t.id==='meal-date'){state.m
 document.addEventListener('click',handleClick);document.addEventListener('input',handleInput);document.addEventListener('change',handleChange);
 document.addEventListener('keydown',e=>{
  if(!modalRoot.innerHTML){
+  if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!['INPUT','TEXTAREA','SELECT'].includes(e.target?.tagName)&&!e.target?.isContentEditable){
+   const searchId=state.page==='sessions'?'workout-search':state.page==='exercises'?'ex-search':state.page==='nutrition'?(state.foodTab==='library'?'food-search':state.foodTab==='saved'?'saved-meal-search':null):state.page==='progress'?'progress-search':null;
+   const inp=searchId?document.getElementById(searchId):null;
+   if(inp){e.preventDefault?.();inp.focus?.();return;}
+  }
   if(e.key==='Escape'&&e.target?.dataset?.action==='saved-meal-search'&&(e.target.value||state.savedMealQuery)){
    e.preventDefault?.();e.target.value='';state.savedMealQuery='';
    const box=document.getElementById('saved-meal-results');if(box)box.innerHTML=renderSavedMealList();
