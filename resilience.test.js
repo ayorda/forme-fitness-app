@@ -954,6 +954,31 @@ test('meal builder scales portions cleanly and nutrition journal shows active-da
  assert.match(app.page(),/Средно за активните дни \(2\/7\): <strong>370 kcal<\/strong> · <strong>47,7 г протеин<\/strong> · ✓ 2\/7/);
 });
 
+test('Progress activity log marks PB sets with star badge and filters live by movement name or date with Escape clear',()=>{
+ const app=boot('#progress',{
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-08',minutes:12}],
+   sets:[
+    {id:'st1',exerciseId:'Pushups',date:'2026-11-07',kind:'reps',value:12},
+    {id:'st2',exerciseId:'Pushups',date:'2026-11-09',kind:'reps',value:22}
+   ]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/id="progress-search"/);
+ assert.match(app.page(),/2026-11-09 · 22 повторения · ★/);
+ assert.doesNotMatch(app.page(),/2026-11-07 · 12 повторения · ★/);
+ const search={dataset:{action:'progress-search'},value:'Push-Ups'};
+ app.input(search);
+ assert.match(app.node('progress-history-results').innerHTML,/Лицеви опори/);
+ assert.doesNotMatch(app.node('progress-history-results').innerHTML,/Силна основа/);
+ app.keydown({key:'Escape',target:search,preventDefault(){}});
+ assert.equal(search.value,'');
+ assert.match(app.node('progress-history-results').innerHTML,/Силна основа/);
+});
+
+
 
 
 
