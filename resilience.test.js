@@ -1654,6 +1654,19 @@ test('Workout player offers 1-tap round count selector before starting and updat
  assert.match(app.node('player-layout').innerHTML,/id="player-total-remaining">15:40<\/b>/);
 });
 
+test('Food detail modal offers exact portion preset for remaining daily protein and updates nutrition table live',()=>{
+ const app=boot('#nutrition',{
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[{id:'n1',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'267'}]}]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-detail',id:'chicken'}});
+ assert.match(app.node('modal-root').innerHTML,/data-action="detail-preset-grams" data-id="chicken" data-grams="178" aria-pressed="false">✓ 40 г протеин \(178 г\)/);
+
+ app.click({dataset:{action:'detail-preset-grams',id:'chicken',grams:'178'}});
+ assert.equal(app.node('detail-grams').value,'178');
+ assert.match(app.node('detail-table').innerHTML,/<th>178 г<\/th>/);
+});
+
+
 
 
 
