@@ -1349,6 +1349,17 @@ test('Progress history entries offer 1-tap repeat pre-fill for both workouts and
  assert.equal(app.node('log-workout-minutes').value,'14');
 });
 
+test('Workout detail modal shows personal record badges and 1-tap set-logging buttons on included exercises',()=>{
+ const app=boot('#sessions',{'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[{id:'st-p',exerciseId:'Pushups',date:'2026-11-08',kind:'reps',value:18}]})},new Date(2026,10,9,12));
+ app.click({dataset:{action:'workout-detail',id:'cal-start'}});
+ const html=app.node('modal-root').innerHTML;
+ assert.match(html,/Лицеви опори[\s\S]*★ 18 повторения/);
+ assert.match(html,/data-action="exercise-log-set" data-id="Pushups"/);
+ app.click({dataset:{action:'exercise-log-set',id:'Pushups'}});
+ assert.match(app.page(),/<option value="Pushups" selected>/);
+});
+
+
 
 
 
