@@ -2503,3 +2503,16 @@ test('Every live search offers a 1-tap clear button that resets the query and ke
  saved.click({dataset:{action:'clear-search',target:'saved'}});
  assert.match(saved.page(),/Закуска/);
 });
+
+test('Month calendar shows the plan completion percentage for the visible month',()=>{
+ const app=boot('#plan',{
+  'forme-plan':JSON.stringify({mon:'cal-start',wed:'yoga-reset',fri:'mob-daily'}),
+  'forme-completed-workouts':JSON.stringify({'2026-11-09':{id:'cal-start',name:'Силна основа'}})
+ },new Date(2026,10,11,12));
+ app.click({dataset:{action:'plan-view',view:'month'}});
+ app.click({dataset:{action:'plan-month',offset:'0'}});
+ const page=app.page();
+ // November 2026 has 5 Mondays, 4 Wednesdays, 4 Fridays => 13 planned days, 1 completed
+ assert.match(page,/month-completion">Изпълнение на плана: <strong>8%<\/strong> \(1\/13\)/);
+ assert.match(page,/month-completion[\s\S]*goal-meter[\s\S]*width:8%/);
+});
