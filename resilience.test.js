@@ -1395,6 +1395,15 @@ test('Alt+1..Alt+7 keyboard shortcuts switch between main screens without interc
  assert.match(app.page(),/ХРАНИ СЕ ОСЪЗНАТО/);
 });
 
+test('Exercise catalog cards expose a 1-tap set-logging button that opens Progress with the movement pre-selected',()=>{
+ const app=boot('#exercises',{},new Date(2026,10,9,12));
+ assert.match(app.node('exercise-results').innerHTML,/data-action="exercise-log-set" data-id="Plank"/);
+ app.click({dataset:{action:'exercise-log-set',id:'Plank'}});
+ assert.match(app.page(),/<option value="Plank" selected>/);
+ assert.match(app.page(),/<option value="seconds" selected>/);
+});
+
+
 
 
 
