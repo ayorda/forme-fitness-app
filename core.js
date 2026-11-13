@@ -17,7 +17,15 @@ function macroCalorieShares(totals){
 function sumMeal(items,foods){const total={kcal:0,protein:0,carbs:0,fat:0,fiber:0};let invalid=0;for(const item of items){const food=foods.find(f=>f.id===item.id),v=validateGrams(item.grams);if(!food||!v.ok){invalid++;continue;}const p=calculateForGrams(food,v.grams);for(const k in total)total[k]+=p[k];}return {...total,invalid};}
 function mergeMealItems(items){const out=[],byFood=new Map();for(const item of items||[]){if(!item||typeof item.id!=='string')continue;const v=validateGrams(item.grams);if(!v.ok){out.push({...item});continue;}if(!byFood.has(item.id)){const merged={...item,grams:String(v.grams)};byFood.set(item.id,merged);out.push(merged);}else{const prev=byFood.get(item.id),sum=Math.round((Number(prev.grams)+v.grams)*100)/100;if(sum<=10000)prev.grams=String(sum);else out.push({...item});}}return out;}
 function filterWorkouts(workouts,filters={}){const q=(filters.q||'').toLocaleLowerCase('bg').trim();return workouts.filter(w=>(!q||[w.name,w.tag,w.desc,w.searchText].join(' ').toLocaleLowerCase('bg').includes(q))&&(!filters.cat||w.cat===filters.cat)&&(!filters.level||w.level===filters.level)&&(!filters.maxTime||w.duration<=Number(filters.maxTime))&&(!filters.equip||w.equip===filters.equip));}
-function filterExercises(exercises,filters){const q=(filters.q||'').toLocaleLowerCase('bg').trim();return exercises.filter(e=>(!q||[e.name,e.nameEn,e.nameDe,e.description,e.steps,e.muscles,e.searchText].join(' ').toLocaleLowerCase('bg').includes(q))&&(!filters.cat||e.cat===filters.cat)&&(!filters.level||e.level===filters.level)&&(!filters.equip||e.equip===filters.equip));}
+const levelOrder={beginner:0,intermediate:1,advanced:2,elite:3};
+function sortExercises(exercises,sort='',locale='bg'){
+ const list=[...(exercises||[])];
+ if(sort==='levelAsc')return list.sort((a,b)=>(levelOrder[a.level]??9)-(levelOrder[b.level]??9)||String(a.name||'').localeCompare(String(b.name||''),locale));
+ if(sort==='levelDesc')return list.sort((a,b)=>(levelOrder[b.level]??-1)-(levelOrder[a.level]??-1)||String(a.name||'').localeCompare(String(b.name||''),locale));
+ if(sort==='nameAsc')return list.sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''),locale));
+ return list;
+}
+function filterExercises(exercises,filters={},locale='bg'){const q=(filters.q||'').toLocaleLowerCase('bg').trim(),matched=exercises.filter(e=>(!q||[e.name,e.nameEn,e.nameDe,e.description,e.steps,e.muscles,e.searchText].join(' ').toLocaleLowerCase('bg').includes(q))&&(!filters.cat||e.cat===filters.cat)&&(!filters.level||e.level===filters.level)&&(!filters.equip||e.equip===filters.equip));return filters.sort?sortExercises(matched,filters.sort,locale):matched;}
 function sortFoods(foods,sort=''){
  const list=[...(foods||[])];
  if(sort==='protein')return list.sort((a,b)=>b.protein-a.protein||a.kcal-b.kcal);
@@ -34,7 +42,7 @@ function workoutStreak(dates,todayKey){
  if(!set.has(todayKey)){cur.setDate(cur.getDate()-1);if(!set.has(toKey(cur)))return 0;}
  let count=0;while(set.has(toKey(cur))){count++;cur.setDate(cur.getDate()-1);}return count;
 }
-const core={validateGrams,calculateForGrams,macroCalorieShares,sumMeal,mergeMealItems,filterWorkouts,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
+const core={validateGrams,calculateForGrams,macroCalorieShares,sumMeal,mergeMealItems,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);

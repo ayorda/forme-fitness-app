@@ -320,4 +320,21 @@ test('food catalog sort orders foods by highest protein, lowest calories and hig
  assert.match(fd.nodes['food-results'].innerHTML,/data-action="reset-filters" data-group="foods"/);
 });
 
+test('exercise catalog sort orders exercises by difficulty and name and resets cleanly',()=>{
+ const asc=C.sortExercises(D.exercises,'levelAsc');
+ assert.equal(asc[0].level,'beginner');
+ assert.equal(asc[asc.length-1].level,'elite');
+ const desc=C.sortExercises(D.exercises,'levelDesc');
+ assert.equal(desc[0].level,'elite');
+ const byName=C.sortExercises(D.exercises,'nameAsc','bg');
+ assert.ok(byName[0].name.localeCompare(byName[1].name,'bg')<=0);
+ const ex=createApp('#exercises');
+ assert.match(ex.nodes.app.innerHTML,/id="exercises-sort"/);
+ type(ex,'exercises','sort','levelDesc');
+ const firstId=(ex.nodes['exercise-results'].innerHTML.match(/data-action="exercise-detail" data-id="([^"]+)"/)||[])[1];
+ assert.equal(D.exercises.find(x=>x.id===firstId)?.level,'elite');
+ assert.match(ex.nodes['exercise-results'].innerHTML,/data-action="reset-filters" data-group="exercises"/);
+});
+
+
 

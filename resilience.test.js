@@ -868,6 +868,26 @@ test('nutrition journal displays consecutive logging streak when entries exist o
  assert.match(app.page(),/🔥 2 поредни дни/);
 });
 
+test('exerciseDetail displays recent logged sets history when 2 or more sets exist for that movement',()=>{
+ const app=boot('#exercises',{
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[],
+   sets:[
+    {id:'st1',exerciseId:'Pushups',date:'2026-11-07',kind:'reps',value:12},
+    {id:'st2',exerciseId:'Pushups',date:'2026-11-09',kind:'reps',value:18}
+   ]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'exercise-detail',id:'Pushups'}});
+ const modal=app.node('modal-root').innerHTML;
+ assert.match(modal,/class="card-meta exercise-set-history"/);
+ assert.match(modal,/2026-11-09: 18 повторения/);
+ assert.match(modal,/2026-11-07: 12 повторения/);
+});
+
+
 
 
 
