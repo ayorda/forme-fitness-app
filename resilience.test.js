@@ -2457,3 +2457,16 @@ test('Exercises offer a 1-tap "not trained in 14+ days" quick filter that isolat
  app.click({dataset:{action:'toggle-ex-stale'}});
  assert.match(results(),/Намерени 49 от 49 упражнения/);
 });
+test('Workout details report the most recent logged session (date and minutes) instead of the oldest one',()=>{
+ const app=boot('#sessions',{
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sets:[],sessions:[
+   {id:'a',workoutId:'cal-start',date:'2026-10-02',minutes:11},
+   {id:'b',workoutId:'cal-start',date:'2026-11-06',minutes:18},
+   {id:'c',workoutId:'cal-start',date:'2026-10-20',minutes:13}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'workout-detail',id:'cal-start'}});
+ const modal=app.node('modal-root').innerHTML;
+ assert.match(modal,/✓ 3 тренировки · 2026-11-06 · 42 мин/);
+ assert.doesNotMatch(modal,/· 2026-10-02/);
+});
