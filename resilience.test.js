@@ -1962,6 +1962,16 @@ test('Workout player surfaces personal best during active exercise and on post-w
  assert.match(app.node('player-layout').innerHTML,/data-action="exercise-log-set" data-id="Pushups"[^>]*>\+ Лицеви опори \(★ 18\)/);
 });
 
+test('Favorites page saves 2+ favorite foods directly as a reusable saved meal template (favorites-save-meal)',()=>{
+ const app=boot('#favorites',{
+  'forme-favorites':JSON.stringify({workouts:[],exercises:[],foods:['chicken','rice','broccoli']})
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="favorites-save-meal">♡ Запази храненето/);
+ app.click({dataset:{action:'favorites-save-meal'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-saved-meals']),[{name:'Любими храни',items:[{id:'chicken',grams:'100'},{id:'rice',grams:'100'},{id:'broccoli',grams:'100'}]}]);
+ assert.match(app.page(),/Любими храни/);
+});
+
 
 
 
