@@ -1566,6 +1566,17 @@ test('Weekly plan rotates forward and backward by 1 day with wrap-around via shi
  assert.deepEqual(JSON.parse(app.storage['forme-plan']),{mon:'cal-start',wed:'yoga-reset',sun:'mob-daily'});
 });
 
+test('Month calendar selection copies a date-specific workout +7 days ahead in 1 tap',()=>{
+ const app=boot('#plan',{'forme-date-plans':JSON.stringify({'2026-11-09':'yoga-flow'})},new Date(2026,10,9,12));
+ app.click({dataset:{action:'plan-view',view:'month'}});
+ app.click({dataset:{action:'plan-date',date:'9'}});
+ assert.match(app.page(),/data-action="copy-date-next-week" data-id="yoga-flow" data-date="2026-11-16"/);
+ app.click({dataset:{action:'copy-date-next-week',id:'yoga-flow',date:'2026-11-16'}});
+ assert.equal(JSON.parse(app.storage['forme-date-plans'])['2026-11-16'],'yoga-flow');
+ assert.doesNotMatch(app.page(),/data-action="copy-date-next-week"/);
+});
+
+
 
 
 
