@@ -66,6 +66,21 @@ function workoutStreak(dates,todayKey){
  if(!set.has(todayKey)){cur.setDate(cur.getDate()-1);if(!set.has(toKey(cur)))return 0;}
  let count=0;while(set.has(toKey(cur))){count++;cur.setDate(cur.getDate()-1);}return count;
 }
+function longestWorkoutStreak(dates){
+ if(!Array.isArray(dates)||!dates.length)return 0;
+ const toKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+ const unique=[...new Set(dates.filter(d=>typeof d==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(d)))].sort();
+ let best=0,cur=0,prevKey='';
+ for(const key of unique){
+  const dt=new Date(key+'T12:00:00');
+  if(Number.isNaN(dt.getTime())||toKey(dt)!==key)continue;
+  const prev=new Date(dt);prev.setDate(prev.getDate()-1);
+  cur=toKey(prev)===prevKey?cur+1:1;
+  if(cur>best)best=cur;
+  prevKey=key;
+ }
+ return best;
+}
 function summarizeAllTimeProgress(sessions,sets){
  const sList=Array.isArray(sessions)?sessions:[],stList=Array.isArray(sets)?sets:[];
  const counts=new Map();let totalMinutes=0;
@@ -134,7 +149,7 @@ function topLoggedFoods(entries=[],limit=4){
  }
  return [...map.values()].sort((a,b)=>b.count-a.count||a.id.localeCompare(b.id)).slice(0,Math.max(1,Number(limit)||4));
 }
-const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,shiftWeeklyPlan,topLoggedFoods,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
+const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,shiftWeeklyPlan,topLoggedFoods,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak,longestWorkoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);

@@ -1728,6 +1728,24 @@ test('Meal builder shows per-item calorie share (%) on multi-item plates and fav
  assert.doesNotMatch(app.page(),/data-action="meal-fav-foods"/);
 });
 
+test('Progress lifetime summary computes and displays all-time longest workout streak even after a break',()=>{
+ const core=require('./core.js');
+ assert.equal(core.longestWorkoutStreak(['2026-10-01','2026-10-02','2026-10-03','2026-10-04','2026-11-08']),4);
+
+ const app=boot('#progress',{
+  'forme-progress-v1':JSON.stringify({
+   version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sets:[],
+   sessions:[
+    {id:'w1',workoutId:'mob-daily',date:'2026-10-01',minutes:10},
+    {id:'w2',workoutId:'mob-daily',date:'2026-10-02',minutes:10},
+    {id:'w3',workoutId:'mob-daily',date:'2026-10-03',minutes:10},
+    {id:'w4',workoutId:'mob-daily',date:'2026-10-04',minutes:10}
+   ]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/progress-lifetime[\s\S]*🔥 Най-дълга серия: 4 дни/);
+});
+
 
 
 
