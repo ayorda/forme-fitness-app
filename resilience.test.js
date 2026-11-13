@@ -2052,6 +2052,20 @@ test('Exercises catalog offers 1-tap Начинаещ quick filter toggle bidire
  assert.match(app.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
 });
 
+test('Workouts catalog offers 1-tap До 12 мин quick-session filter toggle bidirectionally synced with #workouts-maxTime',()=>{
+ const app=boot('#sessions',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.match(app.node('workout-results').innerHTML,/data-action="toggle-wk-short" aria-pressed="false">До 12 мин \(3\)/);
+ app.click({dataset:{action:'toggle-wk-short'}});
+ assert.equal(app.node('workouts-maxTime').value,'12');
+ assert.match(app.node('workout-results').innerHTML,/data-action="toggle-wk-short" aria-pressed="true"/);
+ assert.match(app.node('workout-results').innerHTML,/Намерени 3 от 6 тренировки/);
+ app.click({dataset:{action:'toggle-wk-none'}});
+ assert.match(app.node('workout-results').innerHTML,/Намерени 2 от 6 тренировки/);
+ app.click({dataset:{action:'reset-filters',group:'workouts'}});
+ assert.match(app.page(),/id="workouts-maxTime"[\s\S]*?<option value="" selected>/);
+ assert.match(app.node('workout-results').innerHTML,/Намерени 6 от 6 тренировки/);
+});
+
 
 
 
