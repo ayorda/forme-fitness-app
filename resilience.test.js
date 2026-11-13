@@ -2545,3 +2545,27 @@ test('Month selection can mark a single date as a rest day in one tap',()=>{
  assert.doesNotMatch(app.page(),/data-action="copy-date-rest"/);
  assert.match(app.page(),/Избор само за тази дата/);
 });
+
+test('Weekly plan view offers 1-tap rest buttons for every date-only override (week-mark-rest)',()=>{
+ const app=boot('#plan',{
+  'forme-language':'bg',
+  'forme-plan':JSON.stringify({mon:'cal-start',tue:'yoga-reset'}),
+  'forme-date-plans':JSON.stringify({'2026-11-10':'yoga-reset','2026-11-12':''})
+ },new Date(2026,10,9,12));
+ const page=app.page();
+ assert.match(page,/class="plan-rest-quick"/);
+ assert.match(page,/data-action="week-mark-rest" data-date="2026-11-10" aria-label="Маркирай като почивен ден: 2026-11-10 \(Спокойно възстановяване\)">Празен ден · ВТО/);
+ assert.doesNotMatch(page,/data-action="week-mark-rest" data-date="2026-11-12"/);
+ assert.equal((page.match(/data-action="week-mark-rest"/g)||[]).length,1);
+
+ app.click({dataset:{action:'week-mark-rest',date:'2026-11-10'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{'2026-11-10':'','2026-11-12':''});
+ assert.match(app.toast(),/Почивният ден е запазен/);
+ assert.doesNotMatch(app.page(),/data-action="week-mark-rest"/);
+ assert.match(app.page(),/day-date-override">Избор само за тази дата: <strong>Почивка<\/strong>/);
+});
+
+test('Weekly plan view hides the rest quick-picker when no date override exists',()=>{
+ const app=boot('#plan',{'forme-language':'bg','forme-plan':JSON.stringify({mon:'cal-start'})},new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/plan-rest-quick|week-mark-rest/);
+});
