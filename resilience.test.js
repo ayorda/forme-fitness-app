@@ -1498,6 +1498,15 @@ test('Nutrition Journal 2-step Clear Day removes only the selected date entries 
  assert.equal(stored.entries[0].date,'2026-11-08');
 });
 
+test('Workout catalog cards expose a 1-tap + Today scheduling button and switch to a ✓ Today badge',()=>{
+ const app=boot('#sessions',{},new Date(2026,10,9,12));
+ assert.match(app.node('workout-results').innerHTML,/data-action="workout-plan-today" data-id="mob-daily"/);
+ app.click({dataset:{action:'workout-plan-today',id:'mob-daily'}});
+ assert.match(app.node('workout-results').innerHTML,/✓ Днес/);
+ assert.doesNotMatch(app.node('workout-results').innerHTML,/data-action="workout-plan-today" data-id="mob-daily"/);
+});
+
+
 
 
 
