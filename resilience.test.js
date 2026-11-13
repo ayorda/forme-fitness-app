@@ -1105,6 +1105,21 @@ test('First-time empty plate offers USDA starter meal templates and food detail 
  assert.equal(app.node('meal-name').value,'Пилешко с ориз');
 });
 
+test('Weekly plan supports Strength and Mobility 3-day presets and workout detail schedules tomorrow in 1 tap',()=>{
+ const app=boot('#plan',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'preset-strength-plan'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-plan']),{mon:'cal-start',wed:'cal-control',fri:'cal-start'});
+ app.click({dataset:{action:'preset-mobility-plan'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-plan']),{mon:'mob-daily',wed:'yoga-flow',fri:'mob-deep'});
+
+ app.click({dataset:{action:'nav',page:'sessions'}});
+ app.click({dataset:{action:'workout-detail',id:'cal-control'}});
+ assert.match(app.node('modal-root').innerHTML,/data-action="workout-plan-tomorrow"/);
+ app.click({dataset:{action:'workout-plan-tomorrow',id:'cal-control'}});
+ assert.equal(JSON.parse(app.storage['forme-date-plans'])['2026-11-10'],'cal-control');
+});
+
+
 
 
 
