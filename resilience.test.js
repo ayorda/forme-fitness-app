@@ -2393,3 +2393,15 @@ test('Nutrition journal marks today in the 7-day strip while keeping dates for o
  app.click({dataset:{action:'journal-today'}});
  assert.match(app.page(),/id="journal-date" type="date" value="2026-11-12"/);
 });
+test('Workout cards show the last logged date next to the completion counter',()=>{
+ const app=boot('#sessions',{
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sets:[],sessions:[
+   {id:'s1',workoutId:'cal-start',date:'2026-10-28',minutes:20},
+   {id:'s2',workoutId:'cal-start',date:'2026-11-04',minutes:22},
+   {id:'s3',workoutId:'mob-daily',date:'2026-11-01',minutes:10}
+  ]})
+ },new Date(2026,10,9,12));
+ const results=app.node('workout-results').innerHTML;
+ assert.match(results,/✓ 2×[\s\S]*?class="chip">Последно 11-04<\/span>/);
+ assert.match(results,/class="chip">Последно 11-01<\/span>/);
+});
