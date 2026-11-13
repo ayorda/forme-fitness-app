@@ -1293,6 +1293,21 @@ test('Meal builder shows live per-ingredient kcal/protein breakdown and supports
  assert.match(app.node('meal-item-meta-0').textContent,/240 kcal · 45 г протеин/);
 });
 
+test('Active 4-week program cards track completed scheduled sessions and advance 1-tap next-workout launch',()=>{
+ const app=boot('#progress',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'program-activate',id:'foundation'}});
+ app.click({dataset:{action:'nav',page:'progress'}});
+ assert.match(app.page(),/✓ 12 \/ 12/);
+ assert.match(app.page(),/▶ 11-09 · Силна основа/);
+ app.node('log-workout-id').value='cal-start';
+ app.node('log-workout-date').value='2026-11-09';
+ app.node('log-workout-minutes').value='12';
+ app.click({dataset:{action:'progress-workout'}});
+ assert.match(app.page(),/✓ 12 \/ 12 · ★ 1 \/ 12/);
+ assert.match(app.page(),/▶ 11-11 · Спокойно възстановяване/);
+});
+
+
 
 
 
