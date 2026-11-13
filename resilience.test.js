@@ -21,6 +21,7 @@ function boot(hash,storage={},startNow=null,withI18n=false){
  const page=()=>nodes.app.innerHTML;
  return {
   page,
+  window,
   node:id=>document.getElementById(id),
   toast:()=>nodes.toast.textContent,
   storage,
@@ -1118,6 +1119,27 @@ test('Weekly plan supports Strength and Mobility 3-day presets and workout detai
  app.click({dataset:{action:'workout-plan-tomorrow',id:'cal-control'}});
  assert.equal(JSON.parse(app.storage['forme-date-plans'])['2026-11-10'],'cal-control');
 });
+
+test('Progress page summarizes all-time totals and most-practiced workout and triggers clean print view',()=>{
+ const app=boot('#progress',{
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[
+    {id:'s1',workoutId:'cal-start',date:'2026-10-01',minutes:12},
+    {id:'s2',workoutId:'cal-start',date:'2026-11-08',minutes:12},
+    {id:'s3',workoutId:'yoga-flow',date:'2026-11-09',minutes:18}
+   ],
+   sets:[{id:'t1',exerciseId:'Pushups',date:'2026-11-08',kind:'reps',value:15}]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/class="subtle progress-lifetime"[\s\S]*3 тренировки[\s\S]*42 мин[\s\S]*1 серии[\s\S]*★ Силна основа \(2×\)/);
+ let printed=0;
+ app.window.print=()=>{printed++;};
+ app.click({dataset:{action:'progress-print'}});
+ assert.equal(printed,1);
+});
+
 
 
 

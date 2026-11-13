@@ -66,7 +66,15 @@ function workoutStreak(dates,todayKey){
  if(!set.has(todayKey)){cur.setDate(cur.getDate()-1);if(!set.has(toKey(cur)))return 0;}
  let count=0;while(set.has(toKey(cur))){count++;cur.setDate(cur.getDate()-1);}return count;
 }
-const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
+function summarizeAllTimeProgress(sessions,sets){
+ const sList=Array.isArray(sessions)?sessions:[],stList=Array.isArray(sets)?sets:[];
+ const counts=new Map();let totalMinutes=0;
+ for(const s of sList){totalMinutes+=Math.max(0,Number(s?.minutes)||0);if(typeof s?.workoutId==='string'&&s.workoutId)counts.set(s.workoutId,(counts.get(s.workoutId)||0)+1);}
+ let topWorkoutId=null,topWorkoutCount=0;
+ for(const [wid,cnt] of counts)if(cnt>topWorkoutCount){topWorkoutId=wid;topWorkoutCount=cnt;}
+ return {totalWorkouts:sList.length,totalMinutes:Math.round(totalMinutes),totalSets:stList.length,topWorkoutId,topWorkoutCount};
+}
+const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);
