@@ -1894,6 +1894,16 @@ test('Meal builder add-food picker supports -25 / +25 g stepper buttons and sync
  assert.match(app.node('meal-presets').innerHTML,/data-grams="150" aria-pressed="true"/);
 });
 
+test('Foods catalog offers 1-tap high-protein filter (≥15 g) and clears with reset-filters',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ assert.match(app.node('food-results').innerHTML,/data-action="toggle-food-protein" aria-pressed="false">Протеин ≥15 г \(7\)/);
+ app.click({dataset:{action:'toggle-food-protein'}});
+ assert.match(app.node('food-results').innerHTML,/Намерени 7 от 30 храни/);
+ assert.match(app.node('food-results').innerHTML,/data-action="toggle-food-protein" aria-pressed="true"/);
+ app.click({dataset:{action:'reset-filters',group:'foods'}});
+ assert.match(app.node('food-results').innerHTML,/Намерени 30 от 30 храни/);
+});
+
 
 
 
