@@ -2315,3 +2315,22 @@ test('Nutrition journal shows the weekly logging progress (active days out of 7)
  assert.match(page,/journal-week-summary[\s\S]*Средно за активните дни \(3\/7\)/);
  assert.match(page,/journal-week-progress[\s\S]*goal-meter[\s\S]*width:43%/);
 });
+test('The player offers a 1-tap skip-rest action only during rest and jumps straight to the next exercise',()=>{
+ const app=boot('#sessions',{});
+ app.click({dataset:{action:'start-workout',id:'cal-start'}});
+ assert.doesNotMatch(app.node('player-layout').innerHTML,/data-action="player-skip-rest"/);
+ app.click({dataset:{action:'player-start'}});
+ assert.doesNotMatch(app.node('player-layout').innerHTML,/data-action="player-skip-rest"/);
+
+ app.click({dataset:{action:'player-next'}});
+ const during=app.node('player-layout').innerHTML;
+ assert.match(during,/data-action="player-skip-rest">⏭ Пропусни почивката/);
+
+ app.click({dataset:{action:'player-skip-rest'}});
+ const after=app.node('player-layout').innerHTML;
+ assert.doesNotMatch(after,/data-action="player-skip-rest"/);
+ assert.doesNotMatch(after,/undefined/);
+ assert.match(after,/data-action="player-pause"|data-action="player-resume"/);
+
+ app.click({dataset:{action:'player-start'}});
+});
