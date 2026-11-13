@@ -349,6 +349,18 @@ test('workout catalog sort orders sessions by duration and difficulty and resets
  assert.match(wk.nodes['workout-results'].innerHTML,/data-action="reset-filters" data-group="workouts"/);
 });
 
+test('food catalog sort supports protein density per 100 kcal and food detail shows protein efficiency chip',()=>{
+ const byDensity=C.sortFoods(D.foods,'proteinDensity');
+ assert.equal(byDensity[0].id,'tuna');
+ const fd=createApp('#nutrition');
+ type(fd,'foods','sort','proteinDensity');
+ const firstFood=(fd.nodes['food-results'].innerHTML.match(/data-action="food-detail" data-id="([^"]+)"/)||[])[1];
+ assert.equal(firstFood,'tuna');
+ fd.handlers.click({target:{closest:()=>({dataset:{action:'food-detail',id:'tuna'}})}});
+ assert.match(fd.nodes['modal-root'].innerHTML,/22 г протеин \/ 100 kcal/);
+});
+
+
 
 
 

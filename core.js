@@ -46,6 +46,7 @@ function filterExercises(exercises,filters={},locale='bg'){const q=(filters.q||'
 function sortFoods(foods,sort=''){
  const list=[...(foods||[])];
  if(sort==='protein')return list.sort((a,b)=>b.protein-a.protein||a.kcal-b.kcal);
+ if(sort==='proteinDensity')return list.sort((a,b)=>(b.protein/Math.max(1,b.kcal))-(a.protein/Math.max(1,a.kcal))||b.protein-a.protein);
  if(sort==='kcalAsc')return list.sort((a,b)=>a.kcal-b.kcal||b.protein-a.protein);
  if(sort==='fiber')return list.sort((a,b)=>b.fiber-a.fiber||a.kcal-b.kcal);
  return list;
