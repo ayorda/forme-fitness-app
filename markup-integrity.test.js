@@ -68,7 +68,8 @@ test('exercise and food details keep the same guarantees while open over the pag
  const cases=[
   ['#sessions',{action:'workout-detail',id:'cal-start'}],
   ['#exercises',{action:'exercise-detail',id:'Plank'}],
-  ['#nutrition',{action:'food-detail',id:'rice'}]
+  ['#nutrition',{action:'food-detail',id:'rice'}],
+  ['#home',{action:'open-shortcuts',id:'shortcuts'}]
  ];
  for(const [page,action] of cases){
   const a=boot(page);

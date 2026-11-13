@@ -1617,6 +1617,18 @@ test('Progress backup panel renders non-destructive #backup-merge-file input alo
  assert.match(app.toast(),/Архивът е обединен/);
 });
 
+test('Keyboard shortcuts help modal opens via ? key or open-shortcuts button and closes on Escape',()=>{
+ const app=boot('#home',{'forme-language':'en'},new Date(2026,10,9,12),true);
+ app.keydown({key:'?',target:{tagName:'BODY'},preventDefault(){}});
+ assert.match(app.node('modal-root').innerHTML,/<h2>Keyboard shortcuts<\/h2>/);
+ assert.match(app.node('modal-root').innerHTML,/Alt \+ 1…7/);
+ app.keydown({key:'Escape',target:{tagName:'BUTTON'},preventDefault(){}});
+ assert.equal(app.node('modal-root').innerHTML,'');
+ app.click({dataset:{action:'open-shortcuts'}});
+ assert.match(app.node('modal-root').innerHTML,/<h2>Keyboard shortcuts<\/h2>/);
+});
+
+
 
 
 

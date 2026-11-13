@@ -110,7 +110,7 @@ const rows={
  'shell.space':['ТВОЕТО ПРОСТРАНСТВО','YOUR SPACE','DEIN BEREICH'],
  'shell.progress':['СЪЗДАДЕНО ЗА ПРОГРЕС','BUILT FOR PROGRESS','FÜR FORTSCHRITT GEMACHT'],
  'shell.nextStep':['Няма перфектен момент. Има следваща стъпка.','There is no perfect moment. Take the next step.','Es gibt keinen perfekten Moment. Geh den nächsten Schritt.'],
- 'shell.version':['v0.3.82 · Български · 0 €','v0.3.82 · English · €0','v0.3.82 · Deutsch · 0 €'],
+ 'shell.version':['v0.3.83 · Български · 0 €','v0.3.83 · English · €0','v0.3.83 · Deutsch · 0 €'],
  'shell.skip':['Към основното съдържание','Skip to main content','Zum Hauptinhalt springen'],
  'shell.everyDay':['РАСТИ ВСЕКИ ДЕН','GROW EVERY DAY','WACHSE JEDEN TAG'],
  'shell.footer':['Създадено за движение и осъзнат избор · Данните са ориентировъчни, не медицински съвет.','Made for movement and mindful choices · Data is approximate, not medical advice.','Für Bewegung und bewusste Entscheidungen · Angaben sind Richtwerte, keine medizinische Beratung.'],
@@ -445,6 +445,16 @@ const rows={
  'journal.loadDayMeal':['Зареди целия ден','Load full day','Ganzen Tag laden'],
  'backup.merge':['Обедини JSON','Merge JSON','JSON zusammenführen'],
  'backup.merged':['Архивът е обединен с текущите данни.','Backup merged with current data.','Archiv mit aktuellen Daten zusammengeführt.'],
+ 'shortcuts.title':['Клавишни комбинации','Keyboard shortcuts','Tastenkombinationen'],
+ 'shortcuts.subtitle':['Бърза навигация с клавиатура без мишка.','Fast keyboard navigation without a mouse.','Schnelle Tastaturnavigation ohne Maus.'],
+ 'shortcuts.nav':['Превключване между 7-те основни екрана','Switch between the 7 main screens','Zwischen den 7 Hauptansichten wechseln'],
+ 'shortcuts.search':['Фокус върху търсачката на текущия екран','Focus the search field on the active screen','Suchfeld der aktuellen Ansicht fokussieren'],
+ 'shortcuts.help':['Отваряне на този списък с клавишни комбинации','Open this keyboard shortcuts guide','Diese Übersicht der Tastenkombinationen öffnen'],
+ 'shortcuts.detail':['Предишен / следващ елемент в детайли или стъпка в плеъра','Previous / next item in details or workout player step','Vorheriges / nächstes Element in Details oder Trainings-Player'],
+ 'shortcuts.play':['Старт, пауза и продължаване в плеъра','Start, pause and resume in the workout player','Start, Pause und Fortsetzen im Trainings-Player'],
+ 'shortcuts.time':['Изваждане или добавяне на 15 сек в плеъра','Subtract or add 15 sec in the workout player','15 Sek. im Trainings-Player abziehen oder hinzufügen'],
+ 'shortcuts.soundRestart':['Звуков сигнал (M) и рестарт (R) в плеъра','Toggle sound (M) and restart (R) in the player','Signalton (M) und Neustart (R) im Player'],
+ 'shortcuts.esc':['Изчистване на търсачка или затваряне на прозорец','Clear search input or close open dialog','Suchfeld leeren oder Dialog schließen'],
  'common.resetFilters':['Изчисти филтрите','Reset filters','Filter zurücksetzen']
 };
 const index={bg:0,en:1,de:2};
