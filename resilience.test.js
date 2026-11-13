@@ -933,6 +933,28 @@ test('Favorites screen offers 1-tap clear-favorites and Progress offers two-step
  assert.equal(app.storage['forme-language'],'bg');
 });
 
+test('meal builder scales portions cleanly and nutrition journal shows active-day 7-day averages and protein goal hits',()=>{
+ const C=require('./core.js');
+ assert.deepEqual(C.scaleMealItems([{id:'chicken',grams:'200'},{id:'rice',grams:'150'}],0.5),[{id:'chicken',grams:'100'},{id:'rice',grams:'75'}]);
+ const app=boot('#nutrition',{
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]),
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:40},
+   entries:[
+    {id:'e1',date:'2026-11-08',name:'Ден 1',items:[{id:'chicken',grams:'200'}]},
+    {id:'e2',date:'2026-11-09',name:'Ден 2',items:[{id:'chicken',grams:'200'},{id:'rice',grams:'200'}]}
+   ]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ app.click({dataset:{action:'scale-meal',factor:'2'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'400'},{id:'rice',grams:'300'}]);
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/Средно за активните дни \(2\/7\): <strong>370 kcal<\/strong> · <strong>47,7 г протеин<\/strong> · ✓ 2\/7/);
+});
+
+
 
 
 

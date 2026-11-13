@@ -107,7 +107,7 @@ const rows={
  'shell.space':['ТВОЕТО ПРОСТРАНСТВО','YOUR SPACE','DEIN BEREICH'],
  'shell.progress':['СЪЗДАДЕНО ЗА ПРОГРЕС','BUILT FOR PROGRESS','FÜR FORTSCHRITT GEMACHT'],
  'shell.nextStep':['Няма перфектен момент. Има следваща стъпка.','There is no perfect moment. Take the next step.','Es gibt keinen perfekten Moment. Geh den nächsten Schritt.'],
- 'shell.version':['v0.3.27 · Български · 0 €','v0.3.27 · English · €0','v0.3.27 · Deutsch · 0 €'],
+ 'shell.version':['v0.3.28 · Български · 0 €','v0.3.28 · English · €0','v0.3.28 · Deutsch · 0 €'],
  'shell.skip':['Към основното съдържание','Skip to main content','Zum Hauptinhalt springen'],
  'shell.everyDay':['РАСТИ ВСЕКИ ДЕН','GROW EVERY DAY','WACHSE JEDEN TAG'],
  'shell.footer':['Създадено за движение и осъзнат избор · Данните са ориентировъчни, не медицински съвет.','Made for movement and mindful choices · Data is approximate, not medical advice.','Für Bewegung und bewusste Entscheidungen · Angaben sind Richtwerte, keine medizinische Beratung.'],
@@ -398,6 +398,9 @@ const rows={
  'backup.resetYes':['Да, изчисти','Yes, clear','Ja, löschen'],
  'backup.resetDone':['Всички локални данни са изчистени.','All local data has been cleared.','Alle lokalen Daten wurden gelöscht.'],
  'favorites.clearAll':['Изчисти любимите','Clear favourites','Favoriten leeren'],
+ 'nutrition.scaleMeal':['Мащабирай порцията','Scale portion','Portion skalieren'],
+ 'nutrition.scaledMessage':['Грамажите са преизчислени.','Amounts updated.','Mengen angepasst.'],
+ 'journal.weekAvg':['Средно за активните дни','Active-day average','Schnitt aktiver Tage'],
  'common.resetFilters':['Изчисти филтрите','Reset filters','Filter zurücksetzen']
 };
 const index={bg:0,en:1,de:2};
