@@ -1166,6 +1166,23 @@ test('Home overview renders labeled protein meter alongside workout/kcal meters 
  assert.match(app.page(),/class="subtle today-next-up"[\s\S]*data-action="workout-detail" data-id="cal-control"/);
 });
 
+test('Favorite foods work across cards, food detail modal, library fav-only filter, Favorites page and JSON backup',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'favorite',kind:'foods',id:'salmon'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-favorites']),{exercises:[],workouts:[],foods:['salmon']});
+ assert.match(app.node('food-results').innerHTML,/data-action="toggle-food-fav"[^>]*>♥ Само любими \(1\)/);
+ app.click({dataset:{action:'toggle-food-fav'}});
+ assert.equal((app.node('food-results').innerHTML.match(/class="card food-card"/g)||[]).length,1);
+ assert.match(app.node('food-results').innerHTML,/Сьомга/);
+
+ app.click({dataset:{action:'nav',page:'favorites'}});
+ assert.match(app.page(),/Любими храни<\/h2><span class="subtle">1<\/span>[\s\S]*Сьомга/);
+ const exported=app.window.FORME_BACKUP.exportData({getItem:k=>app.storage[k]??null});
+ assert.equal(app.window.FORME_BACKUP.validate(JSON.parse(exported)),true);
+ assert.deepEqual(JSON.parse(JSON.parse(exported).data['forme-favorites']).foods,['salmon']);
+});
+
+
 
 
 

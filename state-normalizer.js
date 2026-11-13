@@ -26,9 +26,11 @@ function uniqueStrings(value,allowed){
 }
 function favorites(value,known){
  if(!plain(value))return {exercises:[],workouts:[]};
+ const foods=uniqueStrings(value.foods,item=>!known?.foods||known.foods.has(item));
  return {
   exercises:uniqueStrings(value.exercises,item=>!known?.exercises||known.exercises.has(item)),
-  workouts:uniqueStrings(value.workouts,item=>!known?.workouts||known.workouts.has(item))
+  workouts:uniqueStrings(value.workouts,item=>!known?.workouts||known.workouts.has(item)),
+  ...(foods.length?{foods}:{})
  };
 }
 function plan(value,known){
