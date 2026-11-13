@@ -2530,3 +2530,18 @@ test('Weekly plan view shows the same plan completion percentage as the month vi
  const empty=boot('#plan',{},new Date(2026,10,11,12));
  assert.doesNotMatch(empty.page(),/plan-week-completion/);
 });
+
+test('Month selection can mark a single date as a rest day in one tap',()=>{
+ const app=boot('#plan',{'forme-plan':JSON.stringify({mon:'cal-start',wed:'yoga-reset'})},new Date(2026,10,11,12));
+ app.click({dataset:{action:'plan-view',view:'month'}});
+ app.click({dataset:{action:'plan-date',date:'18'}});
+ const page=app.page();
+ assert.match(page,/data-action="copy-date-rest" data-id="yoga-reset" data-date="2026-11-18" aria-label="Маркирай като почивен ден: 2026-11-18">Празен ден/);
+
+ app.click({dataset:{action:'copy-date-rest',id:'yoga-reset',date:'2026-11-18'}});
+ assert.equal(JSON.parse(app.storage['forme-date-plans'])['2026-11-18'],'');
+ assert.match(app.toast(),/Почивният ден е запазен/);
+ assert.match(app.page(),/data-action="reset-date-plan"/);
+ assert.doesNotMatch(app.page(),/data-action="copy-date-rest"/);
+ assert.match(app.page(),/Избор само за тази дата/);
+});
