@@ -1636,6 +1636,25 @@ test('Home rest day offers 1-tap pull-forward of the next planned workout to tod
  assert.match(app.page(),/today-plan-actions[\s\S]*data-action="start-workout" data-id="yoga-flow"/);
 });
 
+test('Workout player offers 1-tap round count selector before starting and updates total steps and remaining time',()=>{
+ const app=boot('#sessions',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'start-workout',id:'cal-start'}});
+ assert.match(app.node('player-layout').innerHTML,/УПРАЖНЕНИЕ 1 \/ 12 · КРЪГ 1 \/ 3/);
+ assert.match(app.node('player-layout').innerHTML,/id="player-total-remaining">11:40<\/b>/);
+ assert.match(app.node('player-layout').innerHTML,/data-action="set-player-rounds" data-rounds="3" aria-pressed="true">Кръгове: 3/);
+
+ app.click({dataset:{action:'set-player-rounds',rounds:'1'}});
+ assert.match(app.node('player-layout').innerHTML,/УПРАЖНЕНИЕ 1 \/ 4/);
+ assert.match(app.node('player-layout').innerHTML,/id="player-total-remaining">03:40<\/b>/);
+ assert.doesNotMatch(app.node('player-layout').innerHTML,/КРЪГ 1/);
+ assert.match(app.node('player-layout').innerHTML,/data-action="set-player-rounds" data-rounds="1" aria-pressed="true">Кръгове: 1/);
+
+ app.click({dataset:{action:'set-player-rounds',rounds:'4'}});
+ assert.match(app.node('player-layout').innerHTML,/УПРАЖНЕНИЕ 1 \/ 16 · КРЪГ 1 \/ 4/);
+ assert.match(app.node('player-layout').innerHTML,/id="player-total-remaining">15:40<\/b>/);
+});
+
+
 
 
 
