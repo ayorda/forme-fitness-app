@@ -1530,6 +1530,15 @@ test('Exercise detail modal supports inline set logging with ±5 steppers and up
  assert.match(app.node('exercise-results').innerHTML,/★ 55 секунди/);
 });
 
+test('Food detail modal displays live daily goal percentages and macro calorie split as portion changes',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-detail',id:'chicken'}});
+ assert.match(app.node('modal-root').innerHTML,/detail-macro-summary">6% kcal · 23% протеин/);
+ app.click({dataset:{action:'detail-preset-grams',id:'chicken',grams:'200'}});
+ assert.match(app.node('detail-table').innerHTML,/detail-macro-summary">12% kcal · 45% протеин/);
+});
+
+
 
 
 
