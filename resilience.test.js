@@ -1478,6 +1478,27 @@ test('Saved Meals shows per-meal fiber and sorts by highest protein while preser
  assert.match(html,/Протеинов обяд[\s\S]*?data-action="load-meal" data-index="1"/);
 });
 
+test('Nutrition Journal 2-step Clear Day removes only the selected date entries and preserves other dates',()=>{
+ const app=boot('#nutrition',{'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+  {id:'e1',date:'2026-11-09',name:'Закуска',items:[{id:'oats',grams:'80'}]},
+  {id:'e2',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'}]},
+  {id:'e3',date:'2026-11-08',name:'Вчерашна вечеря',items:[{id:'salmon',grams:'180'}]}
+ ]})},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/data-action="journal-clear-day-ask">Изчисти деня<\/button>/);
+ app.click({dataset:{action:'journal-clear-day-ask'}});
+ assert.match(app.page(),/data-action="journal-clear-day-confirm"/);
+ app.click({dataset:{action:'journal-clear-day-cancel'}});
+ assert.match(app.page(),/Обяд/);
+ app.click({dataset:{action:'journal-clear-day-ask'}});
+ app.click({dataset:{action:'journal-clear-day-confirm'}});
+ assert.match(app.page(),/Все още няма записани хранения за тази дата/);
+ const stored=JSON.parse(app.storage['forme-nutrition-v1']);
+ assert.equal(stored.entries.length,1);
+ assert.equal(stored.entries[0].date,'2026-11-08');
+});
+
+
 
 
 

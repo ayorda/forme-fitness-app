@@ -44,12 +44,13 @@ function create(storage,foods,core){
   Object.assign(entry,{date,name,items:items.map(x=>({id:x.id,grams:String(x.grams)}))});return persist(next);
  }
  function remove(id){const next=copy();next.entries=next.entries.filter(x=>x.id!==id);return next.entries.length!==state.entries.length&&persist(next);}
+ function clearDay(date){if(!validDate(date))return false;const next=copy();next.entries=next.entries.filter(x=>x.date!==date);return next.entries.length!==state.entries.length&&persist(next);}
  function setGoal(kcal,protein){if(!Number.isInteger(kcal)||kcal<1||kcal>10000||!Number.isInteger(protein)||protein<0||protein>1000)return false;const next=copy();next.goal={kcal,protein};return persist(next);}
  /* A date selector can be cleared by the user; an empty value must never mean "every date". */
  function entries(date){const matches=state.entries.filter(x=>(date===undefined||(validDate(date)&&x.date===date))&&validItems(x.items));return matches.sort((a,b)=>b.date.localeCompare(a.date));}
  function day(date){const matches=entries(date),sum=matches.reduce((acc,x)=>{const value=total(x.items);for(const field of ['kcal','protein','carbs','fat','fiber'])acc[field]+=value[field];return acc;},{kcal:0,protein:0,carbs:0,fat:0,fiber:0});return {...sum,count:matches.length,date:validDate(date)?date:null,validDate:validDate(date),goal:{...state.goal}};}
  function week(endDate){const last=validDate(endDate)?endDate:dateKey(new Date());const days=[];for(let offset=6;offset>=0;offset--){const date=new Date(last+'T12:00:00');date.setDate(date.getDate()-offset);const key=dateKey(date),d=day(key);days.push({date:key,kcal:d.kcal,protein:d.protein});}return days;}
- return Object.freeze({get:copy,entries,day,week,add,update,remove,setGoal,total,key});
+ return Object.freeze({get:copy,entries,day,week,add,update,remove,clearDay,setGoal,total,key});
 }
 root.FORME_NUTRITION_JOURNAL=Object.freeze({create,key,dateKey});
 })(typeof window!=='undefined'?window:globalThis);
