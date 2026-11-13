@@ -832,6 +832,43 @@ test('workoutDetail shows completion history count and foodDetail links back to 
  assert.match(app.page(),/След тренировка/);
 });
 
+test('meal builder quick portion presets, macro calorie split, and saved meal duplication work cleanly',()=>{
+ const C=require('./core.js');
+ const shares=C.macroCalorieShares({protein:25,carbs:50,fat:11.11});
+ assert.equal(shares.proteinPct+shares.carbsPct+shares.fatPct,100);
+ const app=boot('#nutrition',{
+  'forme-saved-meals':JSON.stringify([{name:'Закуска',items:[{id:'oats',grams:'80'}]}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ app.node('meal-food-select').value='chicken';
+ app.click({dataset:{action:'meal-preset-grams',grams:'200'}});
+ assert.equal(app.node('meal-food-grams').value,'200');
+ app.click({dataset:{action:'add-selected-food'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'200'}]);
+ assert.match(app.page(),/class="meal-macro-split"/);
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ app.click({dataset:{action:'duplicate-saved-meal',index:'0'}});
+ const saved=JSON.parse(app.storage['forme-saved-meals']);
+ assert.equal(saved.length,2);
+ assert.equal(saved[1].name,'Закуска (2)');
+});
+
+test('nutrition journal displays consecutive logging streak when entries exist on 2 or more consecutive days',()=>{
+ const app=boot('#nutrition',{
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:100},
+   entries:[
+    {id:'n1',date:'2026-11-08',name:'Вчера',items:[{id:'egg',grams:'150'}]},
+    {id:'n2',date:'2026-11-09',name:'Днес',items:[{id:'oats',grams:'100'}]}
+   ]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/🔥 2 поредни дни/);
+});
+
+
 
 
 
