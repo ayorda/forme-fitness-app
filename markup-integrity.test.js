@@ -116,7 +116,7 @@ test('populated nutrition sub-tabs, month calendar, progress history and favorit
  const today=new Date();
  const y=today.getFullYear(),m=String(today.getMonth()+1).padStart(2,'0'),d=String(today.getDate()).padStart(2,'0'),todayKey=`${y}-${m}-${d}`;
  const populated={
-  'forme-favorites':JSON.stringify({workouts:['cal-start'],exercises:['Plank','Pullups']}),
+  'forme-favorites':JSON.stringify({workouts:['cal-start'],exercises:['Plank','Pullups'],foods:['salmon']}),
   'forme-current-meal':JSON.stringify([{id:'chicken',grams:'150'},{id:'chicken',grams:'50'},{id:'rice',grams:'150'}]),
   'forme-saved-meals':JSON.stringify([{name:'Обяд',items:[{id:'chicken',grams:'200'}]},{name:'Закуска',items:[{id:'oats',grams:'80'}]}]),
   'forme-plan':JSON.stringify({mon:'cal-start',wed:'yoga-reset'}),
@@ -155,7 +155,8 @@ test('populated nutrition sub-tabs, month calendar, progress history and favorit
   assert.deepEqual(checkAll([[`${language} favorites:populated`,favs.nodes.app.innerHTML]]),[]);
 
   const ex=boot('#exercises',language,populated);
-  assert.deepEqual(checkAll([[`${language} exercises:page`,ex.nodes.app.innerHTML],[`${language} exercises:results`,ex.nodes['exercise-results'].innerHTML]]),[]);
+  ex.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Pullups'}})}});
+  assert.deepEqual(checkAll([[`${language} exercises:page`,ex.nodes.app.innerHTML],[`${language} exercises:results`,ex.nodes['exercise-results'].innerHTML],[`${language} exercises:modal`,ex.nodes['modal-root'].innerHTML]]),[]);
  }
 });
 

@@ -1236,6 +1236,18 @@ test('Weekly plan displays category balance breakdown and Month Calendar pre-fil
  assert.match(app.page(),/id="log-workout-date" type="date" value="2026-11-02"/);
 });
 
+test('Workout player offers 1-tap Gentle, Standard and Intense pacing presets before starting',()=>{
+ const app=boot('#sessions',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'start-workout',id:'cal-start'}});
+ assert.match(app.node('player-layout').innerHTML,/data-action="set-player-pace" data-pace="default" aria-pressed="true"/);
+ app.click({dataset:{action:'set-player-pace',pace:'intense'}});
+ assert.match(app.node('player-layout').innerHTML,/data-action="set-player-pace" data-pace="intense" aria-pressed="true"/);
+ assert.match(app.node('player-layout').innerHTML,/id="work-seconds"[^>]*value="50"/);
+ app.click({dataset:{action:'player-start'}});
+ assert.doesNotMatch(app.node('player-layout').innerHTML,/data-action="set-player-pace"/);
+});
+
+
 
 
 
