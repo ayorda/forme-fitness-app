@@ -1846,6 +1846,17 @@ test('Progress set logger offers 1-tap progressive overload button (beat-set-pr)
  assert.match(app.node('set-best-actions').innerHTML,/data-action="beat-set-pr" data-kind="reps" data-value="16">★ \+1 \(16 повторения\)/);
 });
 
+test('Exercises catalog exposes a 1-tap bodyweight filter toggle (toggle-ex-none) synced with equipment select',()=>{
+ const app=boot('#exercises',{},new Date(2026,10,9,12));
+ assert.match(app.node('exercise-results').innerHTML,/data-action="toggle-ex-none" aria-pressed="false">Без оборудване \(\d+\)/);
+ app.click({dataset:{action:'toggle-ex-none'}});
+ assert.match(app.node('exercise-results').innerHTML,/data-action="toggle-ex-none" aria-pressed="true"/);
+ assert.doesNotMatch(app.node('exercise-results').innerHTML,/data-id="Pullups"/);
+ assert.match(app.node('exercise-results').innerHTML,/data-id="Pushups"/);
+ app.click({dataset:{action:'toggle-ex-none'}});
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
+});
+
 
 
 
