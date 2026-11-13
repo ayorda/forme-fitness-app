@@ -1547,6 +1547,16 @@ test('Meal Builder computes a 1-tap remaining daily protein portion preset for t
  assert.equal(app.node('meal-food-grams').value,'178');
 });
 
+test('Progress lifetime summary shows category balance and history filter isolates ★ personal record sets',()=>{
+ const app=boot('#progress',{'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-08',minutes:18},{id:'s2',workoutId:'mob-daily',date:'2026-11-09',minutes:10}],sets:[{id:'st1',exerciseId:'Plank',date:'2026-11-07',kind:'seconds',value:40},{id:'st2',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:65}]})},new Date(2026,10,9,12));
+ assert.match(app.page(),/progress-lifetime[\s\S]*Калистеника 1 · Мобилност 1/);
+ app.click({dataset:{action:'progress-filter',view:'pr'}});
+ assert.match(app.page(),/data-action="progress-filter" data-view="pr" aria-pressed="true"/);
+ assert.match(app.page(),/2026-11-09 · 65 секунди · ★/);
+ assert.doesNotMatch(app.page(),/2026-11-07 · 40 секунди/);
+});
+
+
 
 
 
