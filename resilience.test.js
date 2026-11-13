@@ -1506,6 +1506,18 @@ test('Workout catalog cards expose a 1-tap + Today scheduling button and switch 
  assert.doesNotMatch(app.node('workout-results').innerHTML,/data-action="workout-plan-today" data-id="mob-daily"/);
 });
 
+test('Completed Workout Player offers a 1-tap + Tomorrow scheduling action when tomorrow is free',()=>{
+ const app=boot('#sessions',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'start-workout',id:'mob-daily'}});
+ app.click({dataset:{action:'player-start'}});
+ for(let i=0;i<24;i++)app.click({dataset:{action:'player-next'}});
+ assert.match(app.node('player-layout').innerHTML,/data-action="workout-plan-tomorrow" data-id="mob-daily"/);
+ app.click({dataset:{action:'workout-plan-tomorrow',id:'mob-daily'}});
+ const datePlans=JSON.parse(app.storage['forme-date-plans']);
+ assert.equal(datePlans['2026-11-10'],'mob-daily');
+});
+
+
 
 
 
