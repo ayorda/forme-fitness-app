@@ -1867,6 +1867,19 @@ test('Weekly plan surfaces completed workouts across all 7 days of the current w
  assert.match(app.page(),/day-label">ПОН<\/div>[\s\S]*✓ Отбелязана като изпълнена: Силна основа/);
 });
 
+test('Home overview offers 1-tap saved meal quick-logging when today has 0 kcal and shows remaining daily targets once logged',()=>{
+ const app=boot('#home',{
+  'forme-saved-meals':JSON.stringify([{name:'Закуска',items:[{id:'chicken',grams:'200'}]}]),
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[]})
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="log-saved-meal" data-index="0"[^>]*>\+ ♡ Закуска/);
+ app.click({dataset:{action:'log-saved-meal',index:'0'}});
+ assert.equal(JSON.parse(app.storage['forme-nutrition-v1']).entries.length,1);
+ app.click({dataset:{action:'nav',page:'home'}});
+ assert.doesNotMatch(app.page(),/data-action="log-saved-meal"/);
+ assert.match(app.page(),/home-remaining">Остават до целта: <strong>1[\s\u00a0]?760 kcal<\/strong> · <strong>55 г протеин<\/strong>/);
+});
+
 
 
 
