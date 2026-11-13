@@ -2079,6 +2079,19 @@ test('Saved meal cards display daily kcal/protein goal share and offer 1-tap fav
  assert.doesNotMatch(app.page(),/data-action="saved-fav-foods"/);
 });
 
+test('Weekly plan weekday cards surface active date-only overrides (day-date-override) with 1-tap reset to weekly schedule',()=>{
+ const app=boot('#plan',{
+  'forme-language':'bg',
+  'forme-plan':JSON.stringify({mon:'cal-start'}),
+  'forme-date-plans':JSON.stringify({'2026-11-10':'yoga-reset','2026-11-11':''})
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/day-date-override">Избор само за тази дата: <strong>Спокойно възстановяване<\/strong>[\s\S]*?data-action="week-reset-date-plan" data-date="2026-11-10"/);
+ assert.match(app.page(),/day-date-override">Избор само за тази дата: <strong>Почивка<\/strong>[\s\S]*?data-action="week-reset-date-plan" data-date="2026-11-11"/);
+ app.click({dataset:{action:'week-reset-date-plan',date:'2026-11-10'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{'2026-11-11':''});
+ assert.doesNotMatch(app.page(),/data-date="2026-11-10"/);
+});
+
 
 
 
