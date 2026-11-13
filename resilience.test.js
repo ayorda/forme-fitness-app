@@ -1517,6 +1517,20 @@ test('Completed Workout Player offers a 1-tap + Tomorrow scheduling action when 
  assert.equal(datePlans['2026-11-10'],'mob-daily');
 });
 
+test('Exercise detail modal supports inline set logging with ±5 steppers and updates PR growth delta in place',()=>{
+ const app=boot('#exercises',{'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[{id:'st-1',exerciseId:'Plank',date:'2026-11-05',kind:'seconds',value:45}]})},new Date(2026,10,9,12));
+ app.click({dataset:{action:'exercise-detail',id:'Plank'}});
+ assert.match(app.node('modal-root').innerHTML,/id="detail-set-value"[^>]*value="45"/);
+ app.node('detail-set-value').value='45';
+ app.click({dataset:{action:'detail-step-set',delta:'5'}});
+ app.click({dataset:{action:'detail-step-set',delta:'5'}});
+ assert.equal(app.node('detail-set-value').value,'55');
+ app.click({dataset:{action:'detail-save-set',id:'Plank',kind:'seconds'}});
+ assert.match(app.node('modal-root').innerHTML,/★ Личен рекорд: 55 секунди · 2026-11-09 · ↑ \+10/);
+ assert.match(app.node('exercise-results').innerHTML,/★ 55 секунди/);
+});
+
+
 
 
 
