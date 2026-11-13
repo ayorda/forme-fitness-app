@@ -2009,6 +2009,18 @@ test('Meal builder picker displays live kcal/protein/fiber preview (#meal-pick-p
  assert.match(app.node('meal-pick-preview').textContent,/758 kcal · 26,3 г протеин · 20,2 г фибри/);
 });
 
+test('Foods catalog offers 1-tap Фибри ≥5 г quick filter toggle combinable with Протеин ≥15 г',()=>{
+ const app=boot('#nutrition',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.match(app.node('food-results').innerHTML,/data-action="toggle-food-fiber" aria-pressed="false">Фибри ≥5 г \(8\)/);
+ app.click({dataset:{action:'toggle-food-fiber'}});
+ assert.match(app.node('food-results').innerHTML,/data-action="toggle-food-fiber" aria-pressed="true"/);
+ assert.match(app.node('food-results').innerHTML,/Намерени 8 от 30 храни/);
+ app.click({dataset:{action:'toggle-food-protein'}});
+ assert.match(app.node('food-results').innerHTML,/Намерени 3 от 30 храни/);
+ app.click({dataset:{action:'reset-filters',group:'foods'}});
+ assert.match(app.node('food-results').innerHTML,/Намерени 30 от 30 храни/);
+});
+
 
 
 
