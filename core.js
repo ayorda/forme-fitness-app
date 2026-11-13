@@ -81,7 +81,25 @@ function exerciseProgressDelta(sets,exerciseId,kind){
  const first=Number(chrono[0].value),best=chrono.reduce((m,s)=>Math.max(m,Number(s.value)),0);
  return {first,best,gain:best-first,count:chrono.length};
 }
-const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
+function relatedExercises(exercises,currentId,limit=3){
+ const list=Array.isArray(exercises)?exercises:[],cur=list.find(e=>e?.id===currentId);
+ if(!cur)return [];
+ const rank=lvl=>({beginner:0,intermediate:1,advanced:2,elite:3}[lvl]??1);
+ const words=s=>new Set(String(s||'').toLocaleLowerCase('bg').split(/[^a-zа-я0-9]+/i).filter(w=>w.length>3));
+ const curWords=words(cur.muscles),curRank=rank(cur.level);
+ const scored=list.filter(e=>e&&e.id!==currentId&&e.cat===cur.cat).map(e=>{
+  let overlap=0;for(const w of words(e.muscles))if(curWords.has(w))overlap++;
+  const levelDiff=Math.abs(rank(e.level)-curRank),sameEquip=e.equip===cur.equip?1:0;
+  return {e,score:overlap*3+sameEquip*2-levelDiff*2};
+ }).sort((a,b)=>b.score-a.score);
+ const picked=scored.slice(0,limit).map(x=>x.e);
+ if(cur.equip!=='none'&&picked.length&&!picked.some(x=>x.equip==='none')){
+  const bw=scored.find(x=>x.e.equip==='none')?.e;
+  if(bw)picked[picked.length-1]=bw;
+ }
+ return picked;
+}
+const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);

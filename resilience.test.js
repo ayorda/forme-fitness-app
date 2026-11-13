@@ -1216,6 +1216,15 @@ test('Nutrition journal renders 25g daily fiber meter, 1-tap saved meal logging 
  assert.match(app.page(),/<small>Фибри \(25 г\)<\/small><div class="progress goal-meter"><span style="width:4[0-4]%"><\/span>/);
 });
 
+test('Exercise detail recommends related movements and includes a bodyweight alternative when viewing equipment-based exercises',()=>{
+ const app=boot('#exercises',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'exercise-detail',id:'Pullups'}});
+ const modal=app.node('modal-root').innerHTML;
+ assert.match(modal,/<h3>Подобни движения<\/h3>/);
+ assert.match(modal,/Без оборудване ↗/);
+});
+
+
 
 
 
