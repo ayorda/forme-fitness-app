@@ -1224,6 +1224,19 @@ test('Exercise detail recommends related movements and includes a bodyweight alt
  assert.match(modal,/Без оборудване ↗/);
 });
 
+test('Weekly plan displays category balance breakdown and Month Calendar pre-fills exact date into Progress workout log',()=>{
+ const app=boot('#plan',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'preset-balanced-plan'}});
+ assert.match(app.page(),/Калистеника 1 · Йога 1 · Мобилност 1/);
+
+ app.click({dataset:{action:'plan-view',view:'month'}});
+ app.click({dataset:{action:'plan-date',date:'2'}});
+ assert.match(app.page(),/data-action="month-log-workout" data-id="cal-start" data-date="2026-11-02"/);
+ app.click({dataset:{action:'month-log-workout',id:'cal-start',date:'2026-11-02'}});
+ assert.match(app.page(),/id="log-workout-date" type="date" value="2026-11-02"/);
+});
+
+
 
 
 
