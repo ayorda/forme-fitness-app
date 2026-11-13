@@ -2334,3 +2334,23 @@ test('The player offers a 1-tap skip-rest action only during rest and jumps stra
 
  app.click({dataset:{action:'player-start'}});
 });
+test('Pressing S during rest skips the break, the legend and shortcut dialog list it, and S does nothing during work',()=>{
+ const app=boot('#sessions',{});
+ app.click({dataset:{action:'start-workout',id:'cal-start'}});
+ app.click({dataset:{action:'player-start'}});
+ assert.match(app.node('player-layout').innerHTML,/S пропусни почивката/);
+
+ const key=k=>({key:k,preventDefault(){},target:{tagName:'BODY'}});
+ app.keydown(key('s'));
+ assert.doesNotMatch(app.node('player-layout').innerHTML,/data-action="player-skip-rest"/);
+
+ app.click({dataset:{action:'player-next'}});
+ assert.match(app.node('player-layout').innerHTML,/data-action="player-skip-rest"/);
+ app.keydown(key('S'));
+ const after=app.node('player-layout').innerHTML;
+ assert.doesNotMatch(after,/data-action="player-skip-rest"/);
+ assert.doesNotMatch(after,/undefined/);
+
+ app.click({dataset:{action:'open-shortcuts'}});
+ assert.match(app.node('modal-root').innerHTML,/shortcuts.skipRest|<kbd class="kbd">S<\/kbd>/);
+});
