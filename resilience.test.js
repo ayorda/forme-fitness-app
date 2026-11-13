@@ -1431,6 +1431,15 @@ test('Progress weekly goal presets update weekly workout and minute targets in 1
  assert.match(app.page(),/data-action="progress-goal-preset" data-workouts="5" data-minutes="150" aria-pressed="true"/);
 });
 
+test('Home overview surfaces an active draft plate summary with a 1-tap Continue Meal button',()=>{
+ const app=boot('#home',{'forme-current-meal':JSON.stringify([{id:'chicken',grams:'200'},{id:'banana',grams:'100'}])},new Date(2026,10,9,12));
+ assert.match(app.page(),/home-draft-meal">Сглоби хранене \(2\): <strong>329 kcal<\/strong>/);
+ assert.match(app.page(),/data-action="go-meal">Сглоби хранене \(2\) →/);
+ app.click({dataset:{action:'go-meal'}});
+ assert.match(app.page(),/Твоите продукти/);
+});
+
+
 
 
 
