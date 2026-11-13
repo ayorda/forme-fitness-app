@@ -298,6 +298,18 @@ test('player supports -15s interval reduction via button and - key while clampin
  assert.equal(a.run('state.player.remainingMs'),1000);
 });
 
+test('player shows keyboard shortcuts legend and previews upcoming movement instructions during rest',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/class="subtle player-shortcuts">Клавиши: Space пауза/);
+ a.run("playerControl('player-start'); playerControl('player-next')");
+ assert.equal(a.run('state.player.phase'),'rest');
+ const secondId=a.run("window.FORME_DATA.workouts.find(w=>w.id==='cal-start').ids[1]");
+ const secondSteps=a.run(`window.FORME_DATA.exercises.find(x=>x.id===${JSON.stringify(secondId)}).steps`);
+ assert.ok(a.nodes['player-layout'].innerHTML.includes(secondSteps));
+});
+
+
 
 
 
