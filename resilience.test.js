@@ -1538,6 +1538,16 @@ test('Food detail modal displays live daily goal percentages and macro calorie s
  assert.match(app.node('detail-table').innerHTML,/detail-macro-summary">12% kcal · 45% протеин/);
 });
 
+test('Meal Builder computes a 1-tap remaining daily protein portion preset for the selected food',()=>{
+ const app=boot('#nutrition',{'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:85},entries:[{id:'e1',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'}]}]})},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ app.change({id:'meal-food-select',value:'chicken'});
+ assert.match(app.node('meal-presets').innerHTML,/data-action="meal-preset-grams" data-grams="178"[^>]*>✓ 40 г протеин \(178 г\)/);
+ app.click({dataset:{action:'meal-preset-grams',grams:'178'}});
+ assert.equal(app.node('meal-food-grams').value,'178');
+});
+
+
 
 
 
