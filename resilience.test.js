@@ -1281,6 +1281,19 @@ test('Finished workout player displays session summary and 1-tap set-logging chi
  assert.match(app.page(),/<option value="Plank" selected>/);
 });
 
+test('Meal builder shows live per-ingredient kcal/protein breakdown and supports ±25 g stepper buttons',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ app.click({dataset:{action:'add-food',id:'chicken'}});
+ assert.match(app.page(),/id="meal-item-meta-0"[^>]*>120 kcal · 22,5 г протеин/);
+ app.click({dataset:{action:'step-meal-grams',index:'0',delta:'25'}});
+ assert.equal(JSON.parse(app.storage['forme-current-meal'])[0].grams,'125');
+ assert.match(app.page(),/id="meal-item-meta-0"[^>]*>150 kcal · 28,1 г протеин/);
+ app.input({dataset:{action:'meal-grams',index:'0'},value:'200',classList:{toggle(){}}});
+ assert.match(app.node('meal-item-meta-0').textContent,/240 kcal · 45 г протеин/);
+});
+
+
 
 
 
