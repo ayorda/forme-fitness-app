@@ -1439,6 +1439,22 @@ test('Home overview surfaces an active draft plate summary with a 1-tap Continue
  assert.match(app.page(),/Твоите продукти/);
 });
 
+test('Activity CSV export generates UTF-8 BOM RFC 4180 spreadsheet rows and neutralizes formula injection',()=>{
+ const core=require('./core.js');
+ const csv=core.exportActivityCsv({
+  sessions:[{date:'2026-11-08',title:'Силна основа',minutes:18}],
+  sets:[{date:'2026-11-09',title:'Планк, класически',kind:'seconds',value:65}],
+  nutritionEntries:[{date:'2026-11-09',title:'=Обяд "Протеин"',itemsCount:2,kcal:540.44,protein:48.2,carbs:52.1,fat:11.3,fiber:6.8}]
+ });
+ assert.ok(csv.startsWith('\uFEFFdate,type,name,metric,value,kcal,protein_g,carbs_g,fat_g,fiber_g\r\n'));
+ assert.match(csv,/2026-11-09,set,"Планк, класически",seconds,65,,,,,\r\n/);
+ assert.match(csv,/2026-11-09,nutrition,"'=Обяд ""Протеин""",meal,2,540\.4,48\.2,52\.1,11\.3,6\.8\r\n/);
+ assert.match(csv,/2026-11-08,workout,Силна основа,minutes,18,,,,,\r\n/);
+ const app=boot('#progress',{},new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="backup-export-csv">Изтегли CSV<\/button>/);
+});
+
+
 
 
 

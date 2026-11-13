@@ -105,7 +105,18 @@ function relatedFoods(foods,currentId,limit=3){
  const curDens=cur.protein/Math.max(1,cur.kcal);
  return list.filter(f=>f&&f.id!==currentId&&f.cat===cur.cat).sort((a,b)=>Math.abs(a.protein/Math.max(1,a.kcal)-curDens)-Math.abs(b.protein/Math.max(1,b.kcal)-curDens)||Math.abs(a.kcal-cur.kcal)-Math.abs(b.kcal-cur.kcal)).slice(0,limit);
 }
-const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,relatedFoods,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
+function exportActivityCsv({sessions=[],sets=[],nutritionEntries=[]}={}){
+ const cell=val=>{if(val===null||val===undefined||val==='')return '';let s=String(val);if(/^[=+\-@\t\r]/.test(s))s="'"+s;return /[",\r\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s;};
+ const round1=n=>Number.isFinite(Number(n))?Math.round(Number(n)*10)/10:'';
+ const rows=[
+  ...(Array.isArray(sessions)?sessions:[]).map(s=>({date:String(s?.date||''),cols:[s?.date,'workout',s?.title||s?.workoutId||'','minutes',round1(s?.minutes),'','','','','']})),
+  ...(Array.isArray(sets)?sets:[]).map(s=>({date:String(s?.date||''),cols:[s?.date,'set',s?.title||s?.exerciseId||'',s?.kind||'reps',round1(s?.value),'','','','','']})),
+  ...(Array.isArray(nutritionEntries)?nutritionEntries:[]).map(e=>({date:String(e?.date||''),cols:[e?.date,'nutrition',e?.title||'','meal',round1(e?.itemsCount),round1(e?.kcal),round1(e?.protein),round1(e?.carbs),round1(e?.fat),round1(e?.fiber)]}))
+ ].sort((a,b)=>b.date.localeCompare(a.date));
+ const head='date,type,name,metric,value,kcal,protein_g,carbs_g,fat_g,fiber_g';
+ return '\uFEFF'+[head,...rows.map(r=>r.cols.map(cell).join(','))].join('\r\n')+'\r\n';
+}
+const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);
