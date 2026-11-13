@@ -1073,6 +1073,24 @@ test('Progress screen showcases Personal Records board and pre-fills set form on
  assert.equal(app.node('set-value').value,'14');
 });
 
+test('Home rest day shows next planned workout within 7 days and Month Calendar resets a single date override in 1 tap',()=>{
+ const app=boot('#home',{
+  'forme-plan':JSON.stringify({wed:'yoga-reset'}),
+  'forme-date-plans':JSON.stringify({'2026-11-10':'mob-daily'})
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/Няма планирана тренировка/);
+ assert.match(app.page(),/Следва по план: ВТО · Движи се свободно/);
+
+ app.click({dataset:{action:'nav',page:'plan'}});
+ app.click({dataset:{action:'plan-view',view:'month'}});
+ app.click({dataset:{action:'plan-date',date:'10'}});
+ assert.match(app.page(),/data-action="reset-date-plan"/);
+ app.click({dataset:{action:'reset-date-plan'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{});
+ assert.doesNotMatch(app.page(),/data-action="reset-date-plan"/);
+});
+
+
 
 
 
