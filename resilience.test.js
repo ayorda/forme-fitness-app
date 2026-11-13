@@ -1327,6 +1327,17 @@ test('Pressing / focuses the active screen search input without intercepting typ
  assert.equal(focusedFood,true);
 });
 
+test('Nutrition journal entries display per-meal fiber and support 1-tap same-day duplication',()=>{
+ const app=boot('#nutrition',{'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:120},entries:[{id:'n-oats',date:'2026-11-09',name:'Закуска',items:[{id:'oats',grams:'100'}]}]})},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/10,1 г фибри/);
+ assert.equal((app.page().match(/class="journal-entry"/g)||[]).length,1);
+ app.click({dataset:{action:'journal-duplicate',id:'n-oats'}});
+ assert.equal((app.page().match(/class="journal-entry"/g)||[]).length,2);
+ assert.match(app.page(),/Фибри: 20,2 г/);
+});
+
+
 
 
 
