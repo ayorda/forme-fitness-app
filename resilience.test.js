@@ -2470,3 +2470,36 @@ test('Workout details report the most recent logged session (date and minutes) i
  assert.match(modal,/✓ 3 тренировки · 2026-11-06 · 42 мин/);
  assert.doesNotMatch(modal,/· 2026-10-02/);
 });
+test('Every live search offers a 1-tap clear button that resets the query and keeps focus in the field',()=>{
+ // Progress journal search
+ const progress=boot('#progress',{
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sets:[],sessions:[
+   {id:'a',workoutId:'cal-start',date:'2026-11-05',minutes:20},
+   {id:'b',workoutId:'mob-daily',date:'2026-11-06',minutes:10}
+  ]})
+ },new Date(2026,10,9,12));
+ assert.match(progress.page(),/data-action="clear-search" data-target="progress"[^>]*hidden/);
+ progress.input({dataset:{action:'progress-search'},value:'силна'});
+ assert.match(progress.node('progress-history-results').innerHTML,/Силна основа/);
+ let focused=false;
+ progress.node('progress-search').focus=()=>{focused=true;};
+ progress.click({dataset:{action:'clear-search',target:'progress'}});
+ assert.equal(focused,true);
+ assert.match(progress.page(),/Движи се свободно/);
+ assert.match(progress.page(),/id="progress-search" type="search" data-action="progress-search" value=""/);
+
+ // Favorites search
+ const favs=boot('#favorites',{'forme-favorites':JSON.stringify({workouts:['cal-start'],exercises:['Plank']})},new Date(2026,10,9,12));
+ assert.match(favs.page(),/data-action="clear-search" data-target="favorites"[^>]*hidden/);
+ favs.input({dataset:{action:'favorites-search'},value:'планк'});
+ favs.click({dataset:{action:'clear-search',target:'favorites'}});
+ assert.match(favs.page(),/Планк/);
+
+ // Saved meals search
+ const saved=boot('#nutrition',{'forme-saved-meals':JSON.stringify([{name:'Обяд',items:[{id:'rice',grams:'150'}]},{name:'Закуска',items:[{id:'oats',grams:'60'}]}])},new Date(2026,10,9,12));
+ saved.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(saved.page(),/data-action="clear-search" data-target="saved"[^>]*hidden/);
+ saved.input({dataset:{action:'saved-meal-search'},value:'обяд'});
+ saved.click({dataset:{action:'clear-search',target:'saved'}});
+ assert.match(saved.page(),/Закуска/);
+});

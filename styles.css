@@ -321,3 +321,6 @@
 .date-with-today{display:flex;gap:6px;align-items:center}
 .date-with-today input{flex:1 1 auto;min-width:0}
 .date-with-today .btn{flex:0 0 auto;white-space:nowrap}
+.search-with-clear{display:flex;gap:6px;align-items:center}
+.search-with-clear input{flex:1 1 auto;min-width:0}
+.search-with-clear .search-clear{flex:0 0 auto;min-width:36px;padding:6px 10px;font-size:15px;line-height:1}
