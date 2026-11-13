@@ -1090,6 +1090,22 @@ test('Home rest day shows next planned workout within 7 days and Month Calendar 
  assert.doesNotMatch(app.page(),/data-action="reset-date-plan"/);
 });
 
+test('First-time empty plate offers USDA starter meal templates and food detail computes exact grams for 25g protein',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-detail',id:'chicken'}});
+ assert.match(app.node('modal-root').innerHTML,/data-grams="111"[^>]*>25 г протеин \(111 г\)/);
+ app.click({dataset:{action:'detail-preset-grams',id:'chicken',grams:'111'}});
+ assert.equal(app.node('detail-grams').value,'111');
+ app.click({dataset:{action:'close-modal'}});
+
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/data-action="meal-starter" data-template="lunch"/);
+ app.click({dataset:{action:'meal-starter',template:'lunch'}});
+ assert.equal(JSON.parse(app.storage['forme-current-meal']).length,3);
+ assert.equal(app.node('meal-name').value,'Пилешко с ориз');
+});
+
+
 
 
 

@@ -8,6 +8,12 @@ function validateGrams(raw){
  return {ok:true,grams};
 }
 function calculateForGrams(food,grams){const m=grams/100;return {kcal:food.kcal*m,protein:food.protein*m,carbs:food.carbs*m,fat:food.fat*m,fiber:food.fiber*m};}
+function gramsForTargetProtein(food,targetProtein=25){
+ const p=Number(food?.protein),t=Number(targetProtein);
+ if(!Number.isFinite(p)||p<=0||!Number.isFinite(t)||t<=0)return null;
+ const grams=Math.round(t/p*100);
+ return grams>=1&&grams<=10000?grams:null;
+}
 function macroCalorieShares(totals){
  const p=Math.max(0,Number(totals?.protein)||0)*4,c=Math.max(0,Number(totals?.carbs)||0)*4,f=Math.max(0,Number(totals?.fat)||0)*9,sum=p+c+f;
  if(sum<=0)return {proteinPct:0,carbsPct:0,fatPct:0};
@@ -60,7 +66,7 @@ function workoutStreak(dates,todayKey){
  if(!set.has(todayKey)){cur.setDate(cur.getDate()-1);if(!set.has(toKey(cur)))return 0;}
  let count=0;while(set.has(toKey(cur))){count++;cur.setDate(cur.getDate()-1);}return count;
 }
-const core={validateGrams,calculateForGrams,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
+const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);

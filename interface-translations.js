@@ -107,7 +107,7 @@ const rows={
  'shell.space':['ТВОЕТО ПРОСТРАНСТВО','YOUR SPACE','DEIN BEREICH'],
  'shell.progress':['СЪЗДАДЕНО ЗА ПРОГРЕС','BUILT FOR PROGRESS','FÜR FORTSCHRITT GEMACHT'],
  'shell.nextStep':['Няма перфектен момент. Има следваща стъпка.','There is no perfect moment. Take the next step.','Es gibt keinen perfekten Moment. Geh den nächsten Schritt.'],
- 'shell.version':['v0.3.38 · Български · 0 €','v0.3.38 · English · €0','v0.3.38 · Deutsch · 0 €'],
+ 'shell.version':['v0.3.39 · Български · 0 €','v0.3.39 · English · €0','v0.3.39 · Deutsch · 0 €'],
  'shell.skip':['Към основното съдържание','Skip to main content','Zum Hauptinhalt springen'],
  'shell.everyDay':['РАСТИ ВСЕКИ ДЕН','GROW EVERY DAY','WACHSE JEDEN TAG'],
  'shell.footer':['Създадено за движение и осъзнат избор · Данните са ориентировъчни, не медицински съвет.','Made for movement and mindful choices · Data is approximate, not medical advice.','Für Bewegung und bewusste Entscheidungen · Angaben sind Richtwerte, keine medizinische Beratung.'],
@@ -412,6 +412,9 @@ const rows={
  'progress.removeProgram':['Премахни от плана','Remove from plan','Aus Plan entfernen'],
  'progress.recordsTitle':['Лични рекорди','Personal records','Persönliche Rekorde'],
  'today.nextPlanned':['Следва по план','Next planned','Als Nächstes geplant'],
+ 'nutrition.templateLunch':['Пилешко с ориз','Chicken & rice','Hähnchen mit Reis'],
+ 'nutrition.templateBreakfast':['Овес и кисело мляко','Oats & Greek yogurt','Hafer & Joghurt'],
+ 'nutrition.templateDinner':['Сьомга с картофи','Salmon & potatoes','Lachs mit Kartoffeln'],
  'common.resetFilters':['Изчисти филтрите','Reset filters','Filter zurücksetzen']
 };
 const index={bg:0,en:1,de:2};
