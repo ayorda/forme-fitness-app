@@ -1556,6 +1556,17 @@ test('Progress lifetime summary shows category balance and history filter isolat
  assert.doesNotMatch(app.page(),/2026-11-07 · 40 секунди/);
 });
 
+test('Weekly plan rotates forward and backward by 1 day with wrap-around via shift-plan',()=>{
+ const app=boot('#plan',{'forme-plan':JSON.stringify({mon:'cal-start',wed:'yoga-reset',sun:'mob-daily'})},new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="shift-plan" data-delta="-1"/);
+ assert.match(app.page(),/data-action="shift-plan" data-delta="1"/);
+ app.click({dataset:{action:'shift-plan',delta:'1'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-plan']),{mon:'mob-daily',tue:'cal-start',thu:'yoga-reset'});
+ app.click({dataset:{action:'shift-plan',delta:'-1'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-plan']),{mon:'cal-start',wed:'yoga-reset',sun:'mob-daily'});
+});
+
+
 
 
 

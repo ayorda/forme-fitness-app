@@ -116,7 +116,12 @@ function exportActivityCsv({sessions=[],sets=[],nutritionEntries=[]}={}){
  const head='date,type,name,metric,value,kcal,protein_g,carbs_g,fat_g,fiber_g';
  return '\uFEFF'+[head,...rows.map(r=>r.cols.map(cell).join(','))].join('\r\n')+'\r\n';
 }
-const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
+function shiftWeeklyPlan(plan={},dayKeys=['mon','tue','wed','thu','fri','sat','sun'],delta=1){
+ const keys=Array.isArray(dayKeys)&&dayKeys.length?dayKeys:['mon','tue','wed','thu','fri','sat','sun'],n=keys.length,step=Number.isInteger(delta)?delta:1,out={};
+ keys.forEach((key,i)=>{const src=keys[((i-step)%n+n)%n],val=plan?.[src];if(typeof val==='string'&&val)out[key]=val;});
+ return out;
+}
+const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,shiftWeeklyPlan,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);
