@@ -1035,6 +1035,25 @@ test('Workouts screen shows completion counter chips on cards and filters by Fav
  assert.match(app.node('workout-results').innerHTML,/Намерени 6 от 6 тренировки/);
 });
 
+test('Empty meal plate offers 1-tap saved meal shortcuts and Nutrition Journal displays daily macro calorie split',()=>{
+ const app=boot('#nutrition',{
+  'forme-saved-meals':JSON.stringify([{name:'След тренировка',items:[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]}]),
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:100},
+   entries:[{id:'n1',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]}]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/data-action="load-meal" data-index="0"[^>]*>♡ След тренировка/);
+ app.click({dataset:{action:'load-meal',index:'0'}});
+ assert.equal(JSON.parse(app.storage['forme-current-meal']).length,2);
+
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/class="journal-macro-split">Протеин \d+% · Въглехидрати \d+% · Мазнини \d+%</);
+});
+
+
 
 
 
