@@ -2038,6 +2038,20 @@ test('Meal builder shows daily fibre goal share in mealTotals and logs selected 
  assert.deepEqual(entries[0].items,[{id:'banana',grams:'150'}]);
 });
 
+test('Exercises catalog offers 1-tap Начинаещ quick filter toggle bidirectionally synced with #exercises-level',()=>{
+ const app=boot('#exercises',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.match(app.node('exercise-results').innerHTML,/data-action="toggle-ex-beginner" aria-pressed="false">Начинаещ \(22\)/);
+ app.click({dataset:{action:'toggle-ex-beginner'}});
+ assert.equal(app.node('exercises-level').value,'beginner');
+ assert.match(app.node('exercise-results').innerHTML,/data-action="toggle-ex-beginner" aria-pressed="true"/);
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 22 от 49 упражнения/);
+ app.input({dataset:{filter:'exercises',key:'level'},value:'advanced'});
+ assert.match(app.node('exercise-results').innerHTML,/data-action="toggle-ex-beginner" aria-pressed="false"/);
+ app.click({dataset:{action:'reset-filters',group:'exercises'}});
+ assert.match(app.page(),/id="exercises-level"[\s\S]*?<option value="" selected>/);
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
+});
+
 
 
 
