@@ -1266,6 +1266,22 @@ test('Detail modals support Prev/Next buttons and ArrowLeft/ArrowRight keyboard 
  assert.match(app.node('modal-root').innerHTML,/<h2>Силна основа<\/h2>/);
 });
 
+test('Finished workout player displays session summary and 1-tap set-logging chips for every included movement',()=>{
+ const app=boot('#sessions',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'start-workout',id:'cal-start'}});
+ app.click({dataset:{action:'player-start'}});
+ for(let i=0;i<30;i++){
+  if(/player-done-summary/.test(app.node('player-layout').innerHTML))break;
+  app.click({dataset:{action:'player-next'}});
+ }
+ const doneHtml=app.node('player-layout').innerHTML;
+ assert.match(doneHtml,/class="card-meta player-done-summary"/);
+ assert.match(doneHtml,/class="card-meta player-done-exercises"[\s\S]*data-action="exercise-log-set" data-id="Plank"/);
+ app.click({dataset:{action:'exercise-log-set',id:'Plank'}});
+ assert.match(app.page(),/<option value="Plank" selected>/);
+});
+
+
 
 
 
