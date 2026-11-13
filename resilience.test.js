@@ -1586,6 +1586,19 @@ test('Workout detail shows cumulative logged minutes and favorites all included 
  assert.match(app.node('modal-root').innerHTML,/✓ ♥ Любими/);
 });
 
+test('Favorites page renders a summary overview strip and logs all favorite foods to today journal in 1 tap',()=>{
+ const app=boot('#favorites',{'forme-favorites':JSON.stringify({workouts:['cal-start'],exercises:['Plank'],foods:['chicken','oats']})},new Date(2026,10,9,12));
+ assert.match(app.page(),/plan-summary"><strong>♥ 4<\/strong><span>1 тренировки \(12 мин\) · 1 упражнения · 2 храни \(499 kcal/);
+ assert.match(app.page(),/data-action="favorites-to-journal"/);
+ app.click({dataset:{action:'favorites-to-journal'}});
+ const entries=JSON.parse(app.storage['forme-nutrition-v1']).entries;
+ assert.equal(entries.length,1);
+ assert.equal(entries[0].date,'2026-11-09');
+ assert.equal(entries[0].name,'Любими храни');
+ assert.deepEqual(entries[0].items,[{id:'chicken',grams:'100'},{id:'oats',grams:'100'}]);
+});
+
+
 
 
 
