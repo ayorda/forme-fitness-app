@@ -1370,6 +1370,16 @@ test('Meal builder add bar dynamically updates 25 g target-protein portion prese
  assert.doesNotMatch(app.node('meal-presets').innerHTML,/25 г протеин/);
 });
 
+test('Favorites page adds all non-duplicate favorite foods directly to Meal Builder in 1 tap',()=>{
+ const app=boot('#favorites',{'forme-favorites':JSON.stringify({exercises:[],workouts:[],foods:['oats','greek','banana']}),'forme-current-meal':JSON.stringify([{id:'oats',grams:'80'}])},new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="favorites-to-meal"/);
+ app.click({dataset:{action:'favorites-to-meal'}});
+ const meal=JSON.parse(app.storage['forme-current-meal']);
+ assert.deepEqual(meal,[{id:'oats',grams:'80'},{id:'greek',grams:'100'},{id:'banana',grams:'100'}]);
+ assert.equal((app.page().match(/class="meal-row"/g)||[]).length,3);
+});
+
+
 
 
 
