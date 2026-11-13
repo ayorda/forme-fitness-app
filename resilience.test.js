@@ -2092,6 +2092,26 @@ test('Weekly plan weekday cards surface active date-only overrides (day-date-ove
  assert.doesNotMatch(app.page(),/data-date="2026-11-10"/);
 });
 
+test('Progress manual workout logger offers -5 / +5 min steppers and 10–30 min quick duration presets',()=>{
+ const app=boot('#progress',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="step-workout-minutes" data-delta="-5"/);
+ assert.match(app.page(),/data-action="preset-workout-minutes" data-minutes="20"/);
+ app.node('log-workout-minutes').value='12';
+ app.click({dataset:{action:'step-workout-minutes',delta:'5'}});
+ assert.equal(app.node('log-workout-minutes').value,'17');
+ app.click({dataset:{action:'step-workout-minutes',delta:'-5'}});
+ app.click({dataset:{action:'step-workout-minutes',delta:'-5'}});
+ app.click({dataset:{action:'step-workout-minutes',delta:'-5'}});
+ app.click({dataset:{action:'step-workout-minutes',delta:'-5'}});
+ assert.equal(app.node('log-workout-minutes').value,'1');
+ app.click({dataset:{action:'preset-workout-minutes',minutes:'30'}});
+ assert.equal(app.node('log-workout-minutes').value,'30');
+ app.node('log-workout-id').value='cal-start';
+ app.node('log-workout-date').value='2026-11-09';
+ app.click({dataset:{action:'progress-workout'}});
+ assert.equal(JSON.parse(app.storage['forme-progress-v1']).sessions[0].minutes,30);
+});
+
 
 
 
