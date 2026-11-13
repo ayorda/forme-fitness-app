@@ -1746,6 +1746,20 @@ test('Progress lifetime summary computes and displays all-time longest workout s
  assert.match(app.page(),/progress-lifetime[\s\S]*🔥 Най-дълга серия: 4 дни/);
 });
 
+test('Month calendar displays planned and logged monthly minutes and copies a workout to +1 day in 1 tap',()=>{
+ const app=boot('#plan',{
+  'forme-plan':JSON.stringify({mon:'cal-start'}),
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sets:[],sessions:[{id:'w1',workoutId:'cal-start',date:'2026-11-02',minutes:15}]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'plan-view',view:'month'}});
+ assert.match(app.page(),/plan-summary"><strong>5 \/ 30<\/strong><span>с планирана тренировка · 60 мин · ✓ 1 \(15 мин\)<\/span>/);
+
+ app.click({dataset:{action:'plan-date',date:'9'}});
+ assert.match(app.page(),/data-action="copy-date-next-day" data-id="cal-start" data-date="2026-11-10">\+ След 1 ден/);
+ app.click({dataset:{action:'copy-date-next-day',id:'cal-start',date:'2026-11-10'}});
+ assert.equal(JSON.parse(app.storage['forme-date-plans'])['2026-11-10'],'cal-start');
+});
+
 
 
 
