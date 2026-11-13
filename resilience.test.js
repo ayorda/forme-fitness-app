@@ -1403,6 +1403,16 @@ test('Exercise catalog cards expose a 1-tap set-logging button that opens Progre
  assert.match(app.page(),/<option value="seconds" selected>/);
 });
 
+test('Food catalog cards allow 1-tap logging of 100 g directly into today’s Nutrition Journal',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ assert.match(app.node('food-results').innerHTML,/data-action="quick-log-food" data-id="banana"/);
+ app.click({dataset:{action:'quick-log-food',id:'banana'}});
+ assert.match(app.page(),/>Дневник \(1\)</);
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/Банан/);
+});
+
+
 
 
 
