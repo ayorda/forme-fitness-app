@@ -1666,6 +1666,18 @@ test('Food detail modal offers exact portion preset for remaining daily protein 
  assert.match(app.node('detail-table').innerHTML,/<th>178 г<\/th>/);
 });
 
+test('Saved meals empty state offers 1-tap starter pack and renders overview summary and macro calorie split',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(app.page(),/data-action="seed-saved-starters">\+ Запази 3 базови хранения/);
+
+ app.click({dataset:{action:'seed-saved-starters'}});
+ assert.equal(JSON.parse(app.storage['forme-saved-meals']).length,3);
+ assert.match(app.page(),/plan-summary[\s\S]*<strong>♡ 3<\/strong><span>Средно:/);
+ assert.match(app.page(),/saved-macro-split">Протеин \d+% · Въглехидрати \d+% · Мазнини \d+%/);
+});
+
+
 
 
 
