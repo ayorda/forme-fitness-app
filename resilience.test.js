@@ -1904,6 +1904,16 @@ test('Foods catalog offers 1-tap high-protein filter (≥15 g) and clears with r
  assert.match(app.node('food-results').innerHTML,/Намерени 30 от 30 храни/);
 });
 
+test('Exercise detail inline set logger offers 1-tap progressive overload button above personal best',()=>{
+ const app=boot('#exercises',{'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[{id:'st-1',exerciseId:'Pushups',date:'2026-11-05',kind:'reps',value:14}]})},new Date(2026,10,9,12));
+ app.click({dataset:{action:'exercise-detail',id:'Pushups'}});
+ assert.match(app.node('modal-root').innerHTML,/data-action="detail-beat-pr" data-value="15">★ \+1 \(15 повторения\)/);
+ app.click({dataset:{action:'detail-beat-pr',value:'15'}});
+ assert.equal(app.node('detail-set-value').value,'15');
+ app.click({dataset:{action:'detail-save-set',id:'Pushups',kind:'reps'}});
+ assert.match(app.node('modal-root').innerHTML,/data-action="detail-beat-pr" data-value="16">★ \+1 \(16 повторения\)/);
+});
+
 
 
 
