@@ -1677,6 +1677,21 @@ test('Saved meals empty state offers 1-tap starter pack and renders overview sum
  assert.match(app.page(),/saved-macro-split">Протеин \d+% · Въглехидрати \d+% · Мазнини \d+%/);
 });
 
+test('Exercise catalog offers 1-tap personal records filter (toggle-ex-pr) and resets cleanly',()=>{
+ const app=boot('#exercises',{
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[{id:'s1',exerciseId:'Pushups',kind:'reps',value:20,date:'2026-11-09'},{id:'s2',exerciseId:'Plank',kind:'seconds',value:60,date:'2026-11-09'}]})
+ },new Date(2026,10,9,12));
+ assert.match(app.node('exercise-results').innerHTML,/data-action="toggle-ex-pr" aria-pressed="false">★ Лични рекорди \(2\)/);
+
+ app.click({dataset:{action:'toggle-ex-pr'}});
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 2 от 49 упражнения/);
+ assert.match(app.node('exercise-results').innerHTML,/data-action="toggle-ex-pr" aria-pressed="true">★ Лични рекорди \(2\)/);
+
+ app.click({dataset:{action:'reset-filters',group:'exercises'}});
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
+});
+
+
 
 
 
