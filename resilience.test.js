@@ -989,6 +989,35 @@ test('Exercises screen offers Favorites-only filter toggle when favorite exercis
  assert.match(app.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
 });
 
+test('Nutrition journal copies previous day entries when current day is empty and Progress removes 4-week program dates cleanly',()=>{
+ const app=boot('#nutrition',{
+  'forme-date-plans':JSON.stringify({'2026-11-10':'mob-daily'}),
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:100},
+   entries:[
+    {id:'p1',date:'2026-11-08',name:'Закуска',items:[{id:'oats',grams:'80'}]},
+    {id:'p2',date:'2026-11-08',name:'Обяд',items:[{id:'chicken',grams:'200'}]}
+   ]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/data-action="journal-copy-prev">\+ Копирай от предходния ден \(2\)/);
+ app.click({dataset:{action:'journal-copy-prev'}});
+ const todayEntries=JSON.parse(app.storage['forme-nutrition-v1']).entries.filter(e=>e.date==='2026-11-09');
+ assert.equal(todayEntries.length,2);
+ assert.doesNotMatch(app.page(),/data-action="journal-copy-prev"/);
+
+ app.click({dataset:{action:'nav',page:'progress'}});
+ app.click({dataset:{action:'program-activate',id:'foundation'}});
+ app.click({dataset:{action:'nav',page:'progress'}});
+ assert.match(app.page(),/data-action="program-clear" data-id="foundation"/);
+ app.click({dataset:{action:'program-clear',id:'foundation'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{'2026-11-10':'mob-daily'});
+ assert.doesNotMatch(app.page(),/data-action="program-clear" data-id="foundation"/);
+});
+
+
 
 
 
