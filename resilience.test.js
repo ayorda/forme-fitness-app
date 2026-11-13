@@ -1836,6 +1836,16 @@ test('Favorites page distributes 2+ favorite workouts evenly across the weekly p
  assert.match(app.page(),/3 от 7 дни/);
 });
 
+test('Progress set logger offers 1-tap progressive overload button (beat-set-pr) above personal best',()=>{
+ const app=boot('#progress',{'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[{id:'st1',exerciseId:'Plank',date:'2026-11-08',kind:'seconds',value:45},{id:'st2',exerciseId:'Pushups',date:'2026-11-08',kind:'reps',value:15}]})},new Date(2026,10,9,12));
+ app.change({id:'set-exercise',value:'Plank'});
+ assert.match(app.node('set-best-actions').innerHTML,/data-action="beat-set-pr" data-kind="seconds" data-value="50">★ \+5 \(50 секунди\)/);
+ app.click({dataset:{action:'beat-set-pr',kind:'seconds',value:'50'}});
+ assert.equal(app.node('set-value').value,'50');
+ app.change({id:'set-exercise',value:'Pushups'});
+ assert.match(app.node('set-best-actions').innerHTML,/data-action="beat-set-pr" data-kind="reps" data-value="16">★ \+1 \(16 повторения\)/);
+});
+
 
 
 
