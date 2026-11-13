@@ -1824,6 +1824,18 @@ test('Saved meals offer non-destructive + Хранене (append-saved-meal) tha
  assert.match(app.page(),/Сглоби хранене \(2\)/);
 });
 
+test('Favorites page distributes 2+ favorite workouts evenly across the weekly plan in 1 tap and shows exercise PR count',()=>{
+ const app=boot('#favorites',{
+  'forme-favorites':JSON.stringify({workouts:['cal-start','yoga-reset','mob-daily'],exercises:['Plank','Pushups']}),
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[{id:'st1',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:45}]})
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/2 упражнения \(★ 1\)/);
+ assert.match(app.page(),/data-action="favorites-to-plan"/);
+ app.click({dataset:{action:'favorites-to-plan'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-plan']),{mon:'cal-start',wed:'yoga-reset',fri:'mob-daily'});
+ assert.match(app.page(),/3 от 7 дни/);
+});
+
 
 
 

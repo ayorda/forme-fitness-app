@@ -136,6 +136,12 @@ function shiftWeeklyPlan(plan={},dayKeys=['mon','tue','wed','thu','fri','sat','s
  keys.forEach((key,i)=>{const src=keys[((i-step)%n+n)%n],val=plan?.[src];if(typeof val==='string'&&val)out[key]=val;});
  return out;
 }
+function planFromWorkouts(workoutIds=[],dayKeys=['mon','tue','wed','thu','fri','sat','sun']){
+ const ids=(Array.isArray(workoutIds)?workoutIds:[]).filter(x=>typeof x==='string'&&x),keys=Array.isArray(dayKeys)&&dayKeys.length===7?dayKeys:['mon','tue','wed','thu','fri','sat','sun'];
+ if(!ids.length)return {};
+ const slotMap={1:[0],2:[0,3],3:[0,2,4],4:[0,1,3,5],5:[0,1,2,4,5],6:[0,1,2,3,4,5]}[Math.min(ids.length,7)]||[0,1,2,3,4,5,6];
+ const out={};slotMap.forEach((dayIdx,i)=>{if(ids[i])out[keys[dayIdx]]=ids[i];});return out;
+}
 function topLoggedFoods(entries=[],limit=4){
  const map=new Map(),sorted=[...(Array.isArray(entries)?entries:[])].sort((a,b)=>String(b?.date||'').localeCompare(String(a?.date||'')));
  for(const entry of sorted){
@@ -149,7 +155,7 @@ function topLoggedFoods(entries=[],limit=4){
  }
  return [...map.values()].sort((a,b)=>b.count-a.count||a.id.localeCompare(b.id)).slice(0,Math.max(1,Number(limit)||4));
 }
-const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,shiftWeeklyPlan,topLoggedFoods,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak,longestWorkoutStreak};
+const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,shiftWeeklyPlan,planFromWorkouts,topLoggedFoods,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak,longestWorkoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);
