@@ -1465,6 +1465,20 @@ test('Meal Builder offers 1-tap meal-slot name presets for saving and logging me
  assert.match(app.page(),/<h4>Закуска<\/h4>/);
 });
 
+test('Saved Meals shows per-meal fiber and sorts by highest protein while preserving original item indices',()=>{
+ const app=boot('#nutrition',{'forme-saved-meals':JSON.stringify([
+  {name:'Лека закуска',items:[{id:'oats',grams:'100'}]},
+  {name:'Протеинов обяд',items:[{id:'chicken',grams:'200'}]}
+ ])},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(app.page(),/10,1 г фибри/);
+ app.change({id:'saved-meal-sort',dataset:{action:'saved-meal-sort'},value:'protein'});
+ const html=app.node('saved-meal-results').innerHTML;
+ assert.ok(html.indexOf('Протеинов обяд')<html.indexOf('Лека закуска'));
+ assert.match(html,/Протеинов обяд[\s\S]*?data-action="load-meal" data-index="1"/);
+});
+
+
 
 
 
