@@ -278,7 +278,8 @@
 .link-btn:focus-visible{outline:2px solid var(--lime);outline-offset:2px;border-radius:4px}
 .journal-meters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:6px 0 14px}
 .journal-meters small{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}
-.home-meters{display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:10px;margin-top:8px}
+.home-meters{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-top:8px}
+.home-meters small{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}
 .meal-goal-share{display:block;margin-top:4px;color:var(--muted);font-size:12px}
 .program-meta{margin:4px 0 6px;font-size:12px}
 .meal-add-fields{display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:10px;align-items:end}

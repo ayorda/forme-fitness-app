@@ -1149,6 +1149,24 @@ test('Workout player renders live round circuit step strip marking completed and
  assert.match(app.node('player-layout').innerHTML,/class="card-meta player-round-steps"[\s\S]*<span class="chip">✓ /);
 });
 
+test('Home overview renders labeled protein meter alongside workout/kcal meters and nutrition streak and opens upcoming rest-day workout',()=>{
+ const app=boot('#home',{
+  'forme-plan':JSON.stringify({wed:'cal-control'}),
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:100},
+   entries:[
+    {id:'n1',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'}]},
+    {id:'n2',date:'2026-11-10',name:'Обяд',items:[{id:'chicken',grams:'200'}]}
+   ]
+  })
+ },new Date(2026,10,10,12));
+ assert.match(app.page(),/🔥 2 поредни дни/);
+ assert.match(app.page(),/<small>Протеин<\/small><div class="progress goal-meter"><span style="width:45%"><\/span>/);
+ assert.match(app.page(),/class="subtle today-next-up"[\s\S]*data-action="workout-detail" data-id="cal-control"/);
+});
+
+
 
 
 
