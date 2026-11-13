@@ -1255,6 +1255,18 @@ test('Food detail recommends similar USDA foods from the same food group with 1-
  assert.match(modal,/data-action="food-detail" data-id="(tuna|turkey|cottage|greek|salmon|egg)"/);
 });
 
+test('Detail modals support Prev/Next buttons and ArrowLeft/ArrowRight keyboard browsing across filtered catalog items',()=>{
+ const app=boot('#sessions',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'workout-detail',id:'cal-start'}});
+ assert.match(app.node('modal-root').innerHTML,/1 \/ 6/);
+ app.click({dataset:{action:'detail-step',dir:'1'}});
+ assert.match(app.node('modal-root').innerHTML,/2 \/ 6/);
+ assert.match(app.node('modal-root').innerHTML,/<h2>Контрол и сила<\/h2>/);
+ app.keydown({key:'ArrowLeft',target:{tagName:'DIV'},preventDefault(){}});
+ assert.match(app.node('modal-root').innerHTML,/<h2>Силна основа<\/h2>/);
+});
+
+
 
 
 
