@@ -1936,6 +1936,16 @@ test('Nutrition journal entries support non-destructive + Хранене (journa
  assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'oats',grams:'100'},{id:'banana',grams:'100'}]);
 });
 
+test('Weekly plan offers 1-tap past-weekday workout logging (month-log-workout) with exact date prefilled',()=>{
+ const app=boot('#plan',{
+  'forme-plan':JSON.stringify({mon:'cal-start',wed:'yoga-reset'})
+ },new Date(2026,10,11,12));
+ assert.match(app.page(),/data-action="month-log-workout" data-id="cal-start" data-date="2026-11-09"/);
+ app.click({dataset:{action:'month-log-workout',id:'cal-start',date:'2026-11-09'}});
+ assert.match(app.page(),/id="log-workout-date" type="date" value="2026-11-09"/);
+ assert.match(app.page(),/<option value="cal-start" selected>/);
+});
+
 
 
 
