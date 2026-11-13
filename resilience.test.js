@@ -1422,6 +1422,16 @@ test('Nutrition Journal daily goal presets save kcal and protein targets in 1 ta
  assert.match(app.page(),/data-action="journal-goal-preset" data-kcal="2500" data-protein="160" aria-pressed="true"/);
 });
 
+test('Progress weekly goal presets update weekly workout and minute targets in 1 tap',()=>{
+ const app=boot('#progress',{},new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="progress-goal-preset" data-workouts="5" data-minutes="150" aria-pressed="false"/);
+ app.click({dataset:{action:'progress-goal-preset',workouts:'5',minutes:'150'}});
+ assert.match(app.page(),/<strong>0 \/ 5<\/strong>/);
+ assert.match(app.page(),/<strong>0 \/ 150<\/strong>/);
+ assert.match(app.page(),/data-action="progress-goal-preset" data-workouts="5" data-minutes="150" aria-pressed="true"/);
+});
+
+
 
 
 
