@@ -1182,6 +1182,27 @@ test('Favorite foods work across cards, food detail modal, library fav-only filt
  assert.deepEqual(JSON.parse(JSON.parse(exported).data['forme-favorites']).foods,['salmon']);
 });
 
+test('PR board shows progression gain since earliest set and set form provides quick ±1/±5 value steppers',()=>{
+ const app=boot('#progress',{
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[],
+   sets:[
+    {id:'s1',exerciseId:'Pushups',date:'2026-10-15',kind:'reps',value:10},
+    {id:'s2',exerciseId:'Pushups',date:'2026-11-09',kind:'reps',value:18}
+   ]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/class="pr-entry"[\s\S]*★ 18 повторения · 2026-11-09 · ↑ \+8/);
+ app.node('set-value').value='10';
+ app.click({dataset:{action:'step-set-value',delta:'5'}});
+ assert.equal(app.node('set-value').value,'15');
+ app.click({dataset:{action:'step-set-value',delta:'-1'}});
+ assert.equal(app.node('set-value').value,'14');
+});
+
+
 
 
 
