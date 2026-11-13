@@ -1607,6 +1607,17 @@ test('Nutrition journal loads an entire multi-entry day into Meal Builder with m
  assert.equal(app.node('meal-name').value,'2026-11-09');
 });
 
+test('Progress backup panel renders non-destructive #backup-merge-file input alongside destructive restore',async()=>{
+ const app=boot('#progress',{'forme-plan':JSON.stringify({mon:'cal-start'})},new Date(2026,10,9,12));
+ assert.match(app.page(),/id="backup-merge-file" type="file"/);
+ const archive=JSON.stringify({app:'FORME',version:1,data:{'forme-plan':JSON.stringify({fri:'yoga-reset'})}});
+ app.change({id:'backup-merge-file',value:'archive.json',files:[{text:()=>Promise.resolve(archive)}]});
+ await Promise.resolve();
+ assert.deepEqual(JSON.parse(app.storage['forme-plan']),{mon:'cal-start',fri:'yoga-reset'});
+ assert.match(app.toast(),/Архивът е обединен/);
+});
+
+
 
 
 

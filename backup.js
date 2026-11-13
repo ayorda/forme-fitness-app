@@ -84,10 +84,79 @@ function importData(storage,text){let parsed;try{parsed=JSON.parse(text);}catch{
  const prior={};try{for(const key of keys)prior[key]=storage.getItem(key);for(const key of keys){if(Object.hasOwn(parsed.data,key))storage.setItem(key,parsed.data[key]);else storage.removeItem(key);}return true;}
  catch{for(const key of keys)try{if(prior[key]===null)storage.removeItem(key);else if(prior[key]!==undefined)storage.setItem(key,prior[key]);}catch{}return false;}
 }
+function mergeByIdAndSig(curList,incList,sigFn,limit){
+ const out=[...curList],usedIds=new Set(out.map(x=>x.id)),usedSigs=new Set(out.map(sigFn));
+ let seq=1;
+ for(const item of incList){
+  if(out.length>=limit)break;
+  const sig=sigFn(item);
+  if(usedSigs.has(sig))continue;
+  let nextId=item.id;
+  while(usedIds.has(nextId))nextId='m'+(seq++);
+  usedIds.add(nextId);usedSigs.add(sig);
+  out.push(nextId===item.id?item:{...item,id:nextId});
+ }
+ return out;
+}
+function mergeRecordValue(name,curRaw,incRaw){
+ if(incRaw===null||incRaw===undefined)return curRaw;
+ if(curRaw===null||curRaw===undefined)return incRaw;
+ const cur=JSON.parse(curRaw),inc=JSON.parse(incRaw);
+ if(name==='favorites'){
+  const ex=[...new Set([...cur.exercises,...inc.exercises])].slice(0,500),wk=[...new Set([...cur.workouts,...inc.workouts])].slice(0,500),fd=[...new Set([...(cur.foods||[]),...(inc.foods||[])])].slice(0,500);
+  return JSON.stringify(fd.length?{exercises:ex,workouts:wk,foods:fd}:{exercises:ex,workouts:wk});
+ }
+ if(name==='plan'||name==='date-plans'||name==='completed-workouts')return JSON.stringify(Object.fromEntries(Object.entries({...inc,...cur}).slice(0,2000)));
+ if(name==='current-meal')return JSON.stringify(cur.length?[...cur,...inc.filter(x=>!cur.some(c=>c.id===x.id))].slice(0,100):inc);
+ if(name==='saved-meals'){
+  const sig=m=>m.name+'\0'+JSON.stringify(m.items),seen=new Set(cur.map(sig)),out=[...cur];
+  for(const m of inc){if(out.length>=200)break;const s=sig(m);if(!seen.has(s)){seen.add(s);out.push(m);}}
+  return JSON.stringify(out);
+ }
+ return curRaw;
+}
+function mergeData(storage,text){
+ let parsed;try{parsed=JSON.parse(text);}catch{return false;}
+ if(!validate(parsed))return false;
+ const incUser=parsed.data['forme-user-v1']?JSON.parse(parsed.data['forme-user-v1']).records:{};
+ const curUserRaw=exportValue('forme-user-v1',storage.getItem('forme-user-v1')),curUser=curUserRaw?JSON.parse(curUserRaw).records:{};
+ const nextWrites={},mergedRecords={...curUser};
+ for(const name of recordNames){
+  const key='forme-'+name,incRaw=parsed.data[key]??incUser[name]??null;
+  if(incRaw===null)continue;
+  const curRaw=exportValue(key,storage.getItem(key))??curUser[name]??null;
+  const merged=mergeRecordValue(name,curRaw,incRaw);
+  if(merged!==null){nextWrites[key]=merged;mergedRecords[name]=merged;}
+ }
+ if(curUserRaw!==null||Object.hasOwn(parsed.data,'forme-user-v1'))nextWrites['forme-user-v1']=JSON.stringify({version:1,records:mergedRecords});
+ if(Object.hasOwn(parsed.data,'forme-progress-v1')){
+  const curProgRaw=exportValue('forme-progress-v1',storage.getItem('forme-progress-v1'));
+  if(!curProgRaw)nextWrites['forme-progress-v1']=parsed.data['forme-progress-v1'];
+  else{
+   const curProg=JSON.parse(curProgRaw),incProg=JSON.parse(parsed.data['forme-progress-v1']);
+   const sessions=mergeByIdAndSig(curProg.sessions,incProg.sessions,s=>`${s.date}|${s.workoutId}|${s.minutes}`,5000);
+   const sets=mergeByIdAndSig(curProg.sets,incProg.sets,s=>`${s.date}|${s.exerciseId}|${s.kind}|${s.value}`,5000);
+   nextWrites['forme-progress-v1']=JSON.stringify({version:1,goal:curProg.goal,sessions,sets});
+  }
+ }
+ if(Object.hasOwn(parsed.data,'forme-nutrition-v1')){
+  const curNutrRaw=exportValue('forme-nutrition-v1',storage.getItem('forme-nutrition-v1'));
+  if(!curNutrRaw)nextWrites['forme-nutrition-v1']=parsed.data['forme-nutrition-v1'];
+  else{
+   const curNutr=JSON.parse(curNutrRaw),incNutr=JSON.parse(parsed.data['forme-nutrition-v1']);
+   const entries=mergeByIdAndSig(curNutr.entries,incNutr.entries,e=>`${e.date}|${e.name}|${JSON.stringify(e.items)}`,5000);
+   nextWrites['forme-nutrition-v1']=JSON.stringify({version:1,goal:curNutr.goal,entries});
+  }
+ }
+ if(Object.hasOwn(parsed.data,'forme-language')&&!storage.getItem('forme-language'))nextWrites['forme-language']=parsed.data['forme-language'];
+ const writeKeys=Object.keys(nextWrites),prior={};
+ try{for(const k of writeKeys)prior[k]=storage.getItem(k);for(const k of writeKeys)storage.setItem(k,nextWrites[k]);return true;}
+ catch{for(const k of writeKeys)try{if(prior[k]===null)storage.removeItem(k);else if(prior[k]!==undefined)storage.setItem(k,prior[k]);}catch{}return false;}
+}
 function clearData(storage){
  const dataKeys=keys.filter(k=>k!=='forme-language'),prior={};
  try{for(const k of dataKeys)prior[k]=storage.getItem(k);for(const k of dataKeys)storage.removeItem(k);return true;}
  catch{for(const k of dataKeys)try{if(prior[k]!==null&&prior[k]!==undefined)storage.setItem(k,prior[k]);}catch{}return false;}
 }
-root.FORME_BACKUP=Object.freeze({keys,exportData,importData,clearData,validate});
+root.FORME_BACKUP=Object.freeze({keys,exportData,importData,mergeData,clearData,validate});
 })(typeof window!=='undefined'?window:globalThis);

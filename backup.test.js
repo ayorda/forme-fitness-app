@@ -175,6 +175,39 @@ test('backup enforces 100-item current-meal cap, 5000-record journal caps, and a
  assert.equal(failingRemove.data['forme-plan'],'{"mon":"cal-start"}');
 });
 
+test('mergeData non-destructively unions favorites, plans, saved meals, and journals with ID collision re-keying and atomic rollback',()=>{
+ const local=storage({
+  'forme-favorites':JSON.stringify({exercises:['Plank'],workouts:['cal-start'],foods:['chicken']}),
+  'forme-plan':JSON.stringify({mon:'cal-start'}),
+  'forme-saved-meals':JSON.stringify([{name:'Обяд',items:[{id:'chicken',grams:'200'}]}]),
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:4,minutesPerWeek:120},sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-09',minutes:18}],sets:[{id:'st1',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:60}]}),
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2200,protein:140},entries:[{id:'e1',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'}]}]})
+ });
+ const remote=backup.exportData(storage({
+  'forme-favorites':JSON.stringify({exercises:['Pushups','Plank'],workouts:['yoga-flow'],foods:['oats']}),
+  'forme-plan':JSON.stringify({mon:'mob-daily',wed:'yoga-flow'}),
+  'forme-saved-meals':JSON.stringify([{name:'Обяд',items:[{id:'chicken',grams:'200'}]},{name:'Закуска',items:[{id:'oats',grams:'80'}]}]),
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:2,minutesPerWeek:45},sessions:[{id:'s_same',workoutId:'cal-start',date:'2026-11-09',minutes:18},{id:'s1',workoutId:'yoga-flow',date:'2026-11-08',minutes:20}],sets:[{id:'st1',exerciseId:'Pushups',date:'2026-11-08',kind:'reps',value:15}]}),
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:1800,protein:90},entries:[{id:'e1',date:'2026-11-08',name:'Вечеря',items:[{id:'salmon',grams:'150'}]}]})
+ }));
+ assert.equal(backup.mergeData(local,remote),true);
+ assert.deepEqual(JSON.parse(local.data['forme-favorites']),{exercises:['Plank','Pushups'],workouts:['cal-start','yoga-flow'],foods:['chicken','oats']});
+ assert.deepEqual(JSON.parse(local.data['forme-plan']),{mon:'cal-start',wed:'yoga-flow'});
+ assert.equal(JSON.parse(local.data['forme-saved-meals']).length,2);
+ const mergedProg=JSON.parse(local.data['forme-progress-v1']);
+ assert.deepEqual(mergedProg.goal,{workoutsPerWeek:4,minutesPerWeek:120});
+ assert.equal(mergedProg.sessions.length,2);
+ assert.equal(new Set(mergedProg.sessions.map(s=>s.id)).size,2);
+ assert.equal(mergedProg.sets.length,2);
+ assert.equal(JSON.parse(local.data['forme-nutrition-v1']).entries.length,2);
+ assert.equal(backup.validate(JSON.parse(backup.exportData(local))),true);
+
+ const snap={'forme-favorites':JSON.stringify({exercises:['Plank'],workouts:[]})},failing=storage(snap,'forme-progress-v1');
+ assert.equal(backup.mergeData(failing,remote),false);
+ assert.deepEqual(failing.data,snap);
+});
+
+
 
 
 
