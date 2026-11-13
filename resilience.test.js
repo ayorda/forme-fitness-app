@@ -2405,3 +2405,24 @@ test('Workout cards show the last logged date next to the completion counter',()
  assert.match(results,/✓ 2×[\s\S]*?class="chip">Последно 11-04<\/span>/);
  assert.match(results,/class="chip">Последно 11-01<\/span>/);
 });
+test('Nutrition journal offers 1-tap "save day" that stores the whole day as a single merged saved meal',()=>{
+ const app=boot('#nutrition',{
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+   {id:'a',date:'2026-11-09',name:'Закуска',items:[{id:'oats',grams:'80'}]},
+   {id:'b',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'},{id:'oats',grams:'20'}]}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/data-action="journal-save-day-meal" aria-label="Запази деня">♡ Запази деня/);
+
+ app.click({dataset:{action:'journal-save-day-meal'}});
+ const saved=JSON.parse(app.storage['forme-saved-meals']);
+ assert.equal(saved.length,1);
+ assert.equal(saved[0].name,'Ден 2026-11-09');
+ assert.deepEqual(saved[0].items.map(x=>[x.id,x.grams]),[['oats','100'],['chicken','200']]);
+ assert.match(app.toast(),/Храненето е запазено/);
+
+ // a second click keeps a single extra copy each time (append-only, bounded by 200)
+ app.click({dataset:{action:'journal-save-day-meal'}});
+ assert.equal(JSON.parse(app.storage['forme-saved-meals']).length,2);
+});
