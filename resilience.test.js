@@ -2277,3 +2277,26 @@ test('Progress shows the weekday split of logged workouts with the most active d
  assert.match(app.page(),/progress-top-day">Най-активен ден: <strong>ПОН<\/strong> · 2 тренировки/);
  assert.match(app.page(),/aria-label="ПОН: 2 тренировки · 30 мин"/);
 });
+test('Favorites offers 1-tap section filters and keeps the search query across views',()=>{
+ const app=boot('#favorites',{
+  'forme-favorites':JSON.stringify({workouts:['cal-start'],exercises:['Plank','Pullups'],foods:['oats']})
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="favorites-filter" data-view="all" aria-pressed="true">Всички \(4\)/);
+ assert.match(app.page(),/data-action="favorites-filter" data-view="exercises" aria-pressed="false">Упражнения \(2\)/);
+ assert.match(app.page(),/data-action="favorites-filter" data-view="foods" aria-pressed="false">Храни \(1\)/);
+
+ app.click({dataset:{action:'favorites-filter',view:'exercises'}});
+ assert.match(app.page(),/data-action="favorites-filter" data-view="exercises" aria-pressed="true"/);
+ const section=()=>app.page().slice(app.page().indexOf('id="favorites-results"'));
+ assert.match(section(),/Любими упражнения/);
+ assert.doesNotMatch(section(),/Любими тренировки|Любими храни/);
+ assert.match(section(),/data-action="exercise-detail" data-id="Plank"/);
+
+ app.click({dataset:{action:'favorites-filter',view:'foods'}});
+ assert.match(section(),/Овесени ядки/);
+ assert.doesNotMatch(section(),/Любими тренировки|Любими упражнения/);
+
+ app.click({dataset:{action:'favorites-filter',view:'all'}});
+ const all=section();
+ assert.match(all,/Силна основа/);assert.match(all,/Планк/);assert.match(all,/Овесени ядки/);
+});
