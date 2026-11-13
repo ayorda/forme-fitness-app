@@ -1784,6 +1784,17 @@ test('Workouts catalog offers a 1-tap completed workouts filter (toggle-wk-done)
  assert.match(app.node('workout-results').innerHTML,/Намерени 6 от 6 тренировки/);
 });
 
+test('Workout player round strip buttons jump directly to any exercise before or during a workout',()=>{
+ const app=boot('#sessions',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'start-workout',id:'cal-start'}});
+ assert.match(app.node('player-layout').innerHTML,/data-action="select-player-step" data-step="2"/);
+ app.click({dataset:{action:'select-player-step',step:'2'}});
+ assert.match(app.node('player-layout').innerHTML,/УПРАЖНЕНИЕ 3 \/ 12[\s\S]*<h2>Планк<\/h2>/);
+ app.click({dataset:{action:'player-start'}});
+ app.click({dataset:{action:'select-player-step',step:'1'}});
+ assert.match(app.node('player-layout').innerHTML,/УПРАЖНЕНИЕ 2 \/ 12[\s\S]*РАБОТА[\s\S]*<h2>Лицеви опори<\/h2>/);
+});
+
 
 
 
