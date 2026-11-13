@@ -2066,6 +2066,19 @@ test('Workouts catalog offers 1-tap До 12 мин quick-session filter toggle b
  assert.match(app.node('workout-results').innerHTML,/Намерени 6 от 6 тренировки/);
 });
 
+test('Saved meal cards display daily kcal/protein goal share and offer 1-tap favorite-all-ingredients (saved-fav-foods)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-saved-meals':JSON.stringify([{name:'След тренировка',items:[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(app.page(),/saved-goal-share">22% kcal · 49% протеин/);
+ assert.match(app.page(),/data-action="saved-fav-foods" data-index="0"/);
+ app.click({dataset:{action:'saved-fav-foods',index:'0'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-favorites']).foods,['chicken','rice']);
+ assert.doesNotMatch(app.page(),/data-action="saved-fav-foods"/);
+});
+
 
 
 
