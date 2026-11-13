@@ -1576,6 +1576,17 @@ test('Month calendar selection copies a date-specific workout +7 days ahead in 1
  assert.doesNotMatch(app.page(),/data-action="copy-date-next-week"/);
 });
 
+test('Workout detail shows cumulative logged minutes and favorites all included exercises in 1 tap',()=>{
+ const app=boot('#sessions',{'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-08',minutes:18},{id:'s2',workoutId:'cal-start',date:'2026-11-09',minutes:19}],sets:[]})},new Date(2026,10,9,12));
+ app.click({dataset:{action:'workout-detail',id:'cal-start'}});
+ assert.match(app.node('modal-root').innerHTML,/✓ 2 тренировки · 2026-11-09 · 37 мин/);
+ assert.match(app.node('modal-root').innerHTML,/data-action="workout-fav-exercises" data-id="cal-start"/);
+ app.click({dataset:{action:'workout-fav-exercises',id:'cal-start'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-favorites']).exercises,['Bodyweight_Squat','Pushups','Plank','Mountain_Climbers']);
+ assert.match(app.node('modal-root').innerHTML,/✓ ♥ Любими/);
+});
+
+
 
 
 
