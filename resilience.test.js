@@ -1914,6 +1914,17 @@ test('Exercise detail inline set logger offers 1-tap progressive overload button
  assert.match(app.node('modal-root').innerHTML,/data-action="detail-beat-pr" data-value="16">★ \+1 \(16 повторения\)/);
 });
 
+test('Workouts catalog offers 1-tap bodyweight filter (Без оборудване) bidirectionally synced with equipment select',()=>{
+ const app=boot('#sessions',{},new Date(2026,10,9,12));
+ assert.match(app.node('workout-results').innerHTML,/data-action="toggle-wk-none" aria-pressed="false">Без оборудване \(2\)/);
+ app.click({dataset:{action:'toggle-wk-none'}});
+ assert.match(app.node('workout-results').innerHTML,/Намерени 2 от 6 тренировки/);
+ assert.match(app.node('workout-results').innerHTML,/data-action="toggle-wk-none" aria-pressed="true"/);
+ assert.equal(app.node('workouts-equip').value,'none');
+ app.click({dataset:{action:'reset-filters',group:'workouts'}});
+ assert.match(app.node('workout-results').innerHTML,/Намерени 6 от 6 тренировки/);
+});
+
 
 
 
