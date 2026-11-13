@@ -1691,6 +1691,29 @@ test('Exercise catalog offers 1-tap personal records filter (toggle-ex-pr) and r
  assert.match(app.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
 });
 
+test('Nutrition journal surfaces top logged foods with recent grams for 1-tap quick logging',()=>{
+ const core=require('./core.js');
+ const top=core.topLoggedFoods([
+  {date:'2026-11-07',items:[{id:'oats',grams:'70'},{id:'chicken',grams:'200'}]},
+  {date:'2026-11-08',items:[{id:'oats',grams:'80'}]}
+ ],3);
+ assert.deepEqual(top,[{id:'oats',count:2,grams:'80'},{id:'chicken',count:1,grams:'200'}]);
+
+ const app=boot('#nutrition',{
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+   {id:'n1',date:'2026-11-07',name:'Закуска',items:[{id:'oats',grams:'70'}]},
+   {id:'n2',date:'2026-11-08',name:'Закуска',items:[{id:'oats',grams:'80'}]}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/journal-frequent-foods[\s\S]*data-action="journal-log-frequent" data-id="oats" data-grams="80">\+ Овесени ядки \(80 г\)/);
+
+ app.click({dataset:{action:'journal-log-frequent',id:'oats',grams:'80'}});
+ const todayEntries=JSON.parse(app.storage['forme-nutrition-v1']).entries.filter(e=>e.date==='2026-11-09');
+ assert.equal(todayEntries.length,1);
+ assert.deepEqual(todayEntries[0].items,[{id:'oats',grams:'80'}]);
+});
+
 
 
 

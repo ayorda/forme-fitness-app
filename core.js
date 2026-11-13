@@ -121,7 +121,20 @@ function shiftWeeklyPlan(plan={},dayKeys=['mon','tue','wed','thu','fri','sat','s
  keys.forEach((key,i)=>{const src=keys[((i-step)%n+n)%n],val=plan?.[src];if(typeof val==='string'&&val)out[key]=val;});
  return out;
 }
-const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,shiftWeeklyPlan,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
+function topLoggedFoods(entries=[],limit=4){
+ const map=new Map(),sorted=[...(Array.isArray(entries)?entries:[])].sort((a,b)=>String(b?.date||'').localeCompare(String(a?.date||'')));
+ for(const entry of sorted){
+  for(const item of Array.isArray(entry?.items)?entry.items:[]){
+   const id=typeof item?.id==='string'?item.id:'',v=validateGrams(item?.grams);
+   if(!id||!v.ok)continue;
+   const prev=map.get(id);
+   if(prev)prev.count+=1;
+   else map.set(id,{id,count:1,grams:String(v.grams)});
+  }
+ }
+ return [...map.values()].sort((a,b)=>b.count-a.count||a.id.localeCompare(b.id)).slice(0,Math.max(1,Number(limit)||4));
+}
+const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,shiftWeeklyPlan,topLoggedFoods,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);
