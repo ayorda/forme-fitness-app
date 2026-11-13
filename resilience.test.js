@@ -1774,6 +1774,16 @@ test('Backup restore and merge toasts include validated archive record counts vi
  assert.match(app.toast(),/Архивът е обединен с текущите данни\. \(1 тренировки, 1 · Серии, 1 · Дневник\)/);
 });
 
+test('Workouts catalog offers a 1-tap completed workouts filter (toggle-wk-done) and clears it via reset-filters',()=>{
+ const app=boot('#sessions',{'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-09',minutes:12},{id:'s2',workoutId:'mob-daily',date:'2026-11-08',minutes:10}],sets:[]})},new Date(2026,10,9,12));
+ assert.match(app.node('workout-results').innerHTML,/data-action="toggle-wk-done" aria-pressed="false">✓ Изпълнени \(2\)/);
+ app.click({dataset:{action:'toggle-wk-done'}});
+ assert.match(app.node('workout-results').innerHTML,/Намерени 2 от 6 тренировки/);
+ assert.match(app.node('workout-results').innerHTML,/data-action="toggle-wk-done" aria-pressed="true"/);
+ app.click({dataset:{action:'reset-filters',group:'workouts'}});
+ assert.match(app.node('workout-results').innerHTML,/Намерени 6 от 6 тренировки/);
+});
+
 
 
 
