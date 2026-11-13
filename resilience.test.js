@@ -1202,6 +1202,21 @@ test('PR board shows progression gain since earliest set and set form provides q
  assert.equal(app.node('set-value').value,'14');
 });
 
+test('Nutrition journal renders 25g daily fiber meter, 1-tap saved meal logging on empty day, and pins favorite foods first in meal builder',()=>{
+ const app=boot('#nutrition',{
+  'forme-favorites':JSON.stringify({exercises:[],workouts:[],foods:['avocado']}),
+  'forme-saved-meals':JSON.stringify([{name:'Овесена закуска',items:[{id:'oats',grams:'100'}]}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/<select id="meal-food-select"><option value="avocado">♥ Авокадо/);
+
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/data-action="log-saved-meal" data-index="0"[^>]*>\+ ♡ Овесена закуска/);
+ app.click({dataset:{action:'log-saved-meal',index:'0'}});
+ assert.match(app.page(),/<small>Фибри \(25 г\)<\/small><div class="progress goal-meter"><span style="width:4[0-4]%"><\/span>/);
+});
+
+
 
 
 
