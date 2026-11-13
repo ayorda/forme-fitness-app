@@ -2021,6 +2021,23 @@ test('Foods catalog offers 1-tap Фибри ≥5 г quick filter toggle combinab
  assert.match(app.node('food-results').innerHTML,/Намерени 30 от 30 храни/);
 });
 
+test('Meal builder shows daily fibre goal share in mealTotals and logs selected picker food directly to journal without altering plate',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-current-meal':JSON.stringify([{id:'oats',grams:'100'}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/meal-goal-share[\s\S]*19% kcal · 13% протеин · 40% фибри/);
+ app.node('meal-food-select').value='banana';
+ app.node('meal-food-grams').value='150';
+ app.click({dataset:{action:'log-selected-food'}});
+ assert.equal(app.toast(),'Записът е запазен.');
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'oats',grams:'100'}]);
+ const entries=JSON.parse(app.storage['forme-nutrition-v1']).entries;
+ assert.equal(entries.length,1);
+ assert.deepEqual(entries[0].items,[{id:'banana',grams:'150'}]);
+});
+
 
 
 
