@@ -1454,6 +1454,18 @@ test('Activity CSV export generates UTF-8 BOM RFC 4180 spreadsheet rows and neut
  assert.match(app.page(),/data-action="backup-export-csv">Изтегли CSV<\/button>/);
 });
 
+test('Meal Builder offers 1-tap meal-slot name presets for saving and logging meals without typing',()=>{
+ const app=boot('#nutrition',{'forme-current-meal':JSON.stringify([{id:'oats',grams:'80'}])},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/data-action="meal-name-preset" data-slot="breakfast" data-name="Закуска" aria-pressed="false"/);
+ app.click({dataset:{action:'meal-name-preset',slot:'breakfast',name:'Закуска'}});
+ assert.equal(app.node('meal-name').value,'Закуска');
+ assert.match(app.node('meal-name-presets').innerHTML,/data-slot="breakfast" data-name="Закуска" aria-pressed="true"/);
+ app.click({dataset:{action:'save-meal'}});
+ assert.match(app.page(),/<h4>Закуска<\/h4>/);
+});
+
+
 
 
 
