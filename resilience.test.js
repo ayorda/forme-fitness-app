@@ -2376,3 +2376,20 @@ test('Progress workout logger offers the same 1-tap today date button',()=>{
  assert.equal(app.node('log-workout-date').value,'2026-11-20');
  assert.match(app.toast(),/2026-11-20/);
 });
+test('Nutrition journal marks today in the 7-day strip while keeping dates for other days',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,12,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ const page=app.page();
+ assert.match(page,/data-date="2026-11-12"[^>]*><small>Днес<\/small>/);
+ assert.match(page,/data-date="2026-11-11"[^>]*><small>11-11<\/small>/);
+ assert.doesNotMatch(page,/data-action="journal-today">Днес/);
+
+ app.click({dataset:{action:'journal-step-date',offset:'-1'}});
+ assert.match(app.page(),/id="journal-date" type="date" value="2026-11-11"/);
+ assert.match(app.page(),/data-date="2026-11-11"[^>]*><small>11-11<\/small>/);
+ assert.doesNotMatch(app.page(),/data-date="2026-11-12"/);
+ assert.match(app.page(),/data-action="journal-today">Днес/);
+
+ app.click({dataset:{action:'journal-today'}});
+ assert.match(app.page(),/id="journal-date" type="date" value="2026-11-12"/);
+});
