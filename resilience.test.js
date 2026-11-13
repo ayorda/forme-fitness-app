@@ -1997,6 +1997,18 @@ test('C.compareWeeks and Progress weekly stat cards display positive week-over-w
  assert.match(app.page(),/тази седмица · ↑ \+1/);
 });
 
+test('Meal builder picker displays live kcal/protein/fiber preview (#meal-pick-preview) before adding',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/id="meal-pick-preview">120 kcal · 22,5 г протеин/);
+ app.node('meal-food-grams').value='100';
+ app.change({id:'meal-food-select',value:'oats'});
+ assert.match(app.node('meal-pick-preview').textContent,/379 kcal · 13,2 г протеин · 10,1 г фибри/);
+ app.node('meal-food-select').value='oats';
+ app.click({dataset:{action:'meal-preset-grams',grams:'200'}});
+ assert.match(app.node('meal-pick-preview').textContent,/758 kcal · 26,3 г протеин · 20,2 г фибри/);
+});
+
 
 
 
