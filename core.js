@@ -89,6 +89,15 @@ function summarizeAllTimeProgress(sessions,sets){
  for(const [wid,cnt] of counts)if(cnt>topWorkoutCount){topWorkoutId=wid;topWorkoutCount=cnt;}
  return {totalWorkouts:sList.length,totalMinutes:Math.round(totalMinutes),totalSets:stList.length,topWorkoutId,topWorkoutCount};
 }
+function compareWeeks(currentWeek={},previousWeek={}){
+ const hadPrev=(Number(previousWeek?.workouts)||0)>0||(Number(previousWeek?.minutes)||0)>0||(Number(previousWeek?.sets)||0)>0;
+ if(!hadPrev)return null;
+ return {
+  workoutsDelta:(Number(currentWeek?.workouts)||0)-(Number(previousWeek?.workouts)||0),
+  minutesDelta:Math.round(((Number(currentWeek?.minutes)||0)-(Number(previousWeek?.minutes)||0))*10)/10,
+  setsDelta:(Number(currentWeek?.sets)||0)-(Number(previousWeek?.sets)||0)
+ };
+}
 function exerciseProgressDelta(sets,exerciseId,kind){
  const list=(Array.isArray(sets)?sets:[]).filter(s=>s?.exerciseId===exerciseId&&s?.kind===kind&&Number.isFinite(Number(s?.value)));
  if(list.length<2)return null;
@@ -155,7 +164,7 @@ function topLoggedFoods(entries=[],limit=4){
  }
  return [...map.values()].sort((a,b)=>b.count-a.count||a.id.localeCompare(b.id)).slice(0,Math.max(1,Number(limit)||4));
 }
-const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,shiftWeeklyPlan,planFromWorkouts,topLoggedFoods,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak,longestWorkoutStreak};
+const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,compareWeeks,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,shiftWeeklyPlan,planFromWorkouts,topLoggedFoods,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak,longestWorkoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);

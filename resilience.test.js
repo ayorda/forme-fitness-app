@@ -1972,6 +1972,31 @@ test('Favorites page saves 2+ favorite foods directly as a reusable saved meal t
  assert.match(app.page(),/Любими храни/);
 });
 
+test('C.compareWeeks and Progress weekly stat cards display positive week-over-week growth vs previous week',()=>{
+ const core=require('./core.js');
+ assert.equal(core.compareWeeks({workouts:2,minutes:40,sets:3},{workouts:0,minutes:0,sets:0}),null);
+ assert.deepEqual(core.compareWeeks({workouts:3,minutes:65,sets:5},{workouts:1,minutes:20,sets:2}),{workoutsDelta:2,minutesDelta:45,setsDelta:3});
+ const app=boot('#progress',{
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[
+    {id:'s-prev',workoutId:'mob-daily',date:'2026-11-03',minutes:10},
+    {id:'s-1',workoutId:'cal-start',date:'2026-11-09',minutes:20},
+    {id:'s-2',workoutId:'yoga-reset',date:'2026-11-10',minutes:15}
+   ],
+   sets:[
+    {id:'st-prev',exerciseId:'Plank',date:'2026-11-03',kind:'seconds',value:30},
+    {id:'st-1',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:40},
+    {id:'st-2',exerciseId:'Pushups',date:'2026-11-10',kind:'reps',value:12}
+   ]
+  })
+ },new Date(2026,10,11,12));
+ assert.match(app.page(),/тренировки · ↑ \+1/);
+ assert.match(app.page(),/записани минути · ↑ \+25/);
+ assert.match(app.page(),/тази седмица · ↑ \+1/);
+});
+
 
 
 
