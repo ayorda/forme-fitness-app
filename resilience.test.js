@@ -2438,3 +2438,22 @@ test('Exercise cards show the most recent set date next to the personal record',
  assert.equal((results.match(/Последно 11-06/g)||[]).length,1);
  assert.doesNotMatch(results,/Последно 10-30/);
 });
+test('Exercises offer a 1-tap "not trained in 14+ days" quick filter that isolates stale movements',()=>{
+ const app=boot('#exercises',{
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[
+   {id:'a',exerciseId:'Pullups',kind:'reps',value:9,date:'2026-11-08'},
+   {id:'b',exerciseId:'Plank',kind:'seconds',value:40,date:'2026-10-01'}
+  ]})
+ },new Date(2026,10,9,12));
+ const results=()=>app.node('exercise-results').innerHTML;
+ assert.match(results(),/data-action="toggle-ex-stale" aria-pressed="false">Не са тренирани от 14 дни \(48\)/);
+
+ app.click({dataset:{action:'toggle-ex-stale'}});
+ assert.match(results(),/data-action="toggle-ex-stale" aria-pressed="true"/);
+ assert.doesNotMatch(results(),/data-id="Pullups"/);
+ assert.match(results(),/data-id="Plank"/);
+ assert.match(results(),/Намерени 48 от 49 упражнения/);
+
+ app.click({dataset:{action:'toggle-ex-stale'}});
+ assert.match(results(),/Намерени 49 от 49 упражнения/);
+});
