@@ -1880,6 +1880,20 @@ test('Home overview offers 1-tap saved meal quick-logging when today has 0 kcal 
  assert.match(app.page(),/home-remaining">Остават до целта: <strong>1[\s\u00a0]?760 kcal<\/strong> · <strong>55 г протеин<\/strong>/);
 });
 
+test('Meal builder add-food picker supports -25 / +25 g stepper buttons and syncs portion presets',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/data-action="meal-step-grams" data-delta="-25"/);
+ app.node('meal-food-grams').value='100';
+ app.node('meal-food-select').value='chicken';
+ app.click({dataset:{action:'meal-step-grams',delta:'-25'}});
+ assert.equal(app.node('meal-food-grams').value,'75');
+ app.click({dataset:{action:'meal-step-grams',delta:'25'}});
+ app.click({dataset:{action:'meal-step-grams',delta:'50'}});
+ assert.equal(app.node('meal-food-grams').value,'150');
+ assert.match(app.node('meal-presets').innerHTML,/data-grams="150" aria-pressed="true"/);
+});
+
 
 
 
