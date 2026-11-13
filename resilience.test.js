@@ -1812,6 +1812,18 @@ test('Food detail modal offers -25 / +25g stepper buttons (detail-step-grams) th
  assert.equal(app.node('detail-grams').value,'100');
 });
 
+test('Saved meals offer non-destructive + Хранене (append-saved-meal) that merges ingredients onto the active plate',()=>{
+ const app=boot('#nutrition',{
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'100'}]),
+  'forme-saved-meals':JSON.stringify([{name:'Обяд',items:[{id:'chicken',grams:'150'},{id:'rice',grams:'120'}]}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(app.page(),/data-action="append-saved-meal" data-index="0"/);
+ app.click({dataset:{action:'append-saved-meal',index:'0'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'250'},{id:'rice',grams:'120'}]);
+ assert.match(app.page(),/Сглоби хранене \(2\)/);
+});
+
 
 
 
