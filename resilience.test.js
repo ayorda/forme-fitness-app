@@ -1946,6 +1946,22 @@ test('Weekly plan offers 1-tap past-weekday workout logging (month-log-workout) 
  assert.match(app.page(),/<option value="cal-start" selected>/);
 });
 
+test('Workout player surfaces personal best during active exercise and on post-workout exercise chips',()=>{
+ const app=boot('#sessions',{
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[{id:'st-1',exerciseId:'Pushups',date:'2026-11-05',kind:'reps',value:18}]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'start-workout',id:'cal-start'}});
+ app.click({dataset:{action:'set-player-rounds',rounds:'1'}});
+ app.click({dataset:{action:'select-player-step',step:'1'}});
+ assert.match(app.node('player-layout').innerHTML,/player-best-hint">★ Личен рекорд: 18 повторения/);
+ app.click({dataset:{action:'player-start'}});
+ for(let i=0;i<20;i++){
+  if(/player-done-exercises/.test(app.node('player-layout').innerHTML))break;
+  app.click({dataset:{action:'player-next'}});
+ }
+ assert.match(app.node('player-layout').innerHTML,/data-action="exercise-log-set" data-id="Pushups"[^>]*>\+ Лицеви опори \(★ 18\)/);
+});
+
 
 
 
