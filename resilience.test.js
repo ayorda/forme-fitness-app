@@ -2112,6 +2112,26 @@ test('Progress manual workout logger offers -5 / +5 min steppers and 10–30 min
  assert.equal(JSON.parse(app.storage['forme-progress-v1']).sessions[0].minutes,30);
 });
 
+test('Nutrition journal shows per-entry % kcal share when multiple meals logged and offers 1-tap favorite all day foods',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,goal:{kcal:2000,protein:100},
+   entries:[
+    {id:'j1',date:'2026-11-09',name:'Закуска',items:[{id:'chicken',grams:'100'}]},
+    {id:'j2',date:'2026-11-09',name:'Вечеря',items:[{id:'chicken',grams:'300'}]}
+   ]
+  })
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/120 kcal · 22,5 г протеин · 25% kcal/);
+ assert.match(app.page(),/360 kcal · 67,5 г протеин · 75% kcal/);
+ assert.match(app.page(),/data-action="journal-day-fav-foods"/);
+ app.click({dataset:{action:'journal-day-fav-foods'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-favorites']).foods,['chicken']);
+ assert.doesNotMatch(app.page(),/data-action="journal-day-fav-foods"/);
+});
+
 
 
 
