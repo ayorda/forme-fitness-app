@@ -81,6 +81,24 @@ function longestWorkoutStreak(dates){
  }
  return best;
 }
+function weekdayActivity(sessions,dayKeys=['mon','tue','wed','thu','fri','sat','sun']){
+ const keys=Array.isArray(dayKeys)&&dayKeys.length===7?dayKeys:['mon','tue','wed','thu','fri','sat','sun'];
+ const days=keys.map(key=>({key,workouts:0,minutes:0}));
+ for(const s of Array.isArray(sessions)?sessions:[]){
+  const date=typeof s?.date==='string'?s.date:'';
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))continue;
+  const dt=new Date(date+'T12:00:00');
+  if(Number.isNaN(dt.getTime()))continue;
+  const slot=days[(dt.getDay()+6)%7];
+  if(!slot)continue;
+  slot.workouts+=1;
+  slot.minutes+=Math.max(0,Number(s?.minutes)||0);
+ }
+ let top=null;
+ for(const day of days)if(day.workouts>0&&(!top||day.workouts>top.workouts||(day.workouts===top.workouts&&day.minutes>top.minutes)))top=day;
+ const totalWorkouts=days.reduce((sum,day)=>sum+day.workouts,0),totalMinutes=days.reduce((sum,day)=>sum+day.minutes,0);
+ return {days,top:top?top.key:null,topWorkouts:top?top.workouts:0,topMinutes:top?Math.round(top.minutes*10)/10:0,totalWorkouts,totalMinutes:Math.round(totalMinutes*10)/10};
+}
 function summarizeAllTimeProgress(sessions,sets){
  const sList=Array.isArray(sessions)?sessions:[],stList=Array.isArray(sets)?sets:[];
  const counts=new Map();let totalMinutes=0;
@@ -164,7 +182,7 @@ function topLoggedFoods(entries=[],limit=4){
  }
  return [...map.values()].sort((a,b)=>b.count-a.count||a.id.localeCompare(b.id)).slice(0,Math.max(1,Number(limit)||4));
 }
-const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,compareWeeks,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,shiftWeeklyPlan,planFromWorkouts,topLoggedFoods,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak,longestWorkoutStreak};
+const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,compareWeeks,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,shiftWeeklyPlan,planFromWorkouts,topLoggedFoods,weekdayActivity,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak,longestWorkoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);

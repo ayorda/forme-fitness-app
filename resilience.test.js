@@ -2254,3 +2254,26 @@ test('Home overview shows remaining weekly workouts/minutes (.home-workout-statu
 
 
 
+test('Progress shows the weekday split of logged workouts with the most active day highlighted',()=>{
+ const core=require('./core.js');
+ const split=core.weekdayActivity([
+  {date:'2026-11-09',minutes:20},{date:'2026-11-09',minutes:10},{date:'2026-11-11',minutes:25},{date:'2026-11-14',minutes:5},{date:'bad',minutes:9},null
+ ],['mon','tue','wed','thu','fri','sat','sun']);
+ assert.equal(split.top,'mon');assert.equal(split.topWorkouts,2);assert.equal(split.totalWorkouts,4);assert.equal(split.totalMinutes,60);
+ assert.deepEqual(split.days.map(d=>d.workouts),[2,0,1,0,0,1,0]);
+
+ const app=boot('#progress',{
+  'forme-progress-v1':JSON.stringify({
+   version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sets:[],
+   sessions:[
+    {id:'s1',workoutId:'cal-start',date:'2026-11-09',minutes:20},
+    {id:'s2',workoutId:'mob-daily',date:'2026-11-09',minutes:10},
+    {id:'s3',workoutId:'yoga-reset',date:'2026-11-11',minutes:25}
+   ]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/progress-weekdays[\s\S]*Разпределение по дни/);
+ assert.match(app.page(),/weekday-bar-top[\s\S]*ПОН/);
+ assert.match(app.page(),/progress-top-day">Най-активен ден: <strong>ПОН<\/strong> · 2 тренировки/);
+ assert.match(app.page(),/aria-label="ПОН: 2 тренировки · 30 мин"/);
+});
