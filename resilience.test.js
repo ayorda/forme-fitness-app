@@ -978,6 +978,18 @@ test('Progress activity log marks PB sets with star badge and filters live by mo
  assert.match(app.node('progress-history-results').innerHTML,/Силна основа/);
 });
 
+test('Exercises screen offers Favorites-only filter toggle when favorite exercises exist and resets cleanly',()=>{
+ const app=boot('#exercises',{
+  'forme-favorites':JSON.stringify({workouts:[],exercises:['Plank','Pullups']})
+ },new Date(2026,10,9,12));
+ assert.match(app.node('exercise-results').innerHTML,/data-action="toggle-ex-fav"/);
+ app.click({dataset:{action:'toggle-ex-fav'}});
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 2 от 49 упражнения/);
+ app.click({dataset:{action:'reset-filters',group:'exercises'}});
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
+});
+
+
 
 
 

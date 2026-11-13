@@ -336,5 +336,19 @@ test('exercise catalog sort orders exercises by difficulty and name and resets c
  assert.match(ex.nodes['exercise-results'].innerHTML,/data-action="reset-filters" data-group="exercises"/);
 });
 
+test('workout catalog sort orders sessions by duration and difficulty and resets cleanly',()=>{
+ const shortFirst=C.sortWorkouts(D.workouts,'durationAsc');
+ assert.equal(shortFirst[0].id,'mob-daily');
+ const longFirst=C.sortWorkouts(D.workouts,'durationDesc');
+ assert.ok(longFirst[0].duration>=longFirst[1].duration);
+ const wk=createApp('#sessions');
+ assert.match(wk.nodes.app.innerHTML,/id="workouts-sort"/);
+ type(wk,'workouts','sort','durationAsc');
+ const firstId=(wk.nodes['workout-results'].innerHTML.match(/data-action="workout-detail" data-id="([^"]+)"/)||[])[1];
+ assert.equal(firstId,'mob-daily');
+ assert.match(wk.nodes['workout-results'].innerHTML,/data-action="reset-filters" data-group="workouts"/);
+});
+
+
 
 

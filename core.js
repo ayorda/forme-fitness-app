@@ -26,8 +26,15 @@ function summarizeNutritionWeek(week,goal){
  const sumKcal=active.reduce((s,d)=>s+(Number(d.kcal)||0),0),sumProt=active.reduce((s,d)=>s+(Number(d.protein)||0),0),pGoal=Number(goal?.protein)||0;
  return {loggedDays:active.length,avgKcal:Math.round(sumKcal/active.length),avgProtein:Math.round(sumProt/active.length*10)/10,proteinGoalDays:pGoal>0?active.filter(d=>(Number(d.protein)||0)>=pGoal).length:0};
 }
-function filterWorkouts(workouts,filters={}){const q=(filters.q||'').toLocaleLowerCase('bg').trim();return workouts.filter(w=>(!q||[w.name,w.tag,w.desc,w.searchText].join(' ').toLocaleLowerCase('bg').includes(q))&&(!filters.cat||w.cat===filters.cat)&&(!filters.level||w.level===filters.level)&&(!filters.maxTime||w.duration<=Number(filters.maxTime))&&(!filters.equip||w.equip===filters.equip));}
 const levelOrder={beginner:0,intermediate:1,advanced:2,elite:3};
+function sortWorkouts(workouts,sort=''){
+ const list=[...(workouts||[])];
+ if(sort==='durationAsc')return list.sort((a,b)=>a.duration-b.duration);
+ if(sort==='durationDesc')return list.sort((a,b)=>b.duration-a.duration);
+ if(sort==='levelAsc')return list.sort((a,b)=>(levelOrder[a.level]??9)-(levelOrder[b.level]??9)||a.duration-b.duration);
+ return list;
+}
+function filterWorkouts(workouts,filters={}){const q=(filters.q||'').toLocaleLowerCase('bg').trim(),matched=workouts.filter(w=>(!q||[w.name,w.tag,w.desc,w.searchText].join(' ').toLocaleLowerCase('bg').includes(q))&&(!filters.cat||w.cat===filters.cat)&&(!filters.level||w.level===filters.level)&&(!filters.maxTime||w.duration<=Number(filters.maxTime))&&(!filters.equip||w.equip===filters.equip));return filters.sort?sortWorkouts(matched,filters.sort):matched;}
 function sortExercises(exercises,sort='',locale='bg'){
  const list=[...(exercises||[])];
  if(sort==='levelAsc')return list.sort((a,b)=>(levelOrder[a.level]??9)-(levelOrder[b.level]??9)||String(a.name||'').localeCompare(String(b.name||''),locale));
@@ -52,7 +59,7 @@ function workoutStreak(dates,todayKey){
  if(!set.has(todayKey)){cur.setDate(cur.getDate()-1);if(!set.has(toKey(cur)))return 0;}
  let count=0;while(set.has(toKey(cur))){count++;cur.setDate(cur.getDate()-1);}return count;
 }
-const core={validateGrams,calculateForGrams,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
+const core={validateGrams,calculateForGrams,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);
