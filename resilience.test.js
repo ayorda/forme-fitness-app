@@ -2426,3 +2426,15 @@ test('Nutrition journal offers 1-tap "save day" that stores the whole day as a s
  app.click({dataset:{action:'journal-save-day-meal'}});
  assert.equal(JSON.parse(app.storage['forme-saved-meals']).length,2);
 });
+test('Exercise cards show the most recent set date next to the personal record',()=>{
+ const app=boot('#exercises',{
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[
+   {id:'a',exerciseId:'Pullups',kind:'reps',value:8,date:'2026-10-30'},
+   {id:'b',exerciseId:'Pullups',kind:'reps',value:9,date:'2026-11-06'}
+  ]})
+ },new Date(2026,10,9,12));
+ const results=app.node('exercise-results').innerHTML;
+ assert.match(results,/★ 9 повторения[\s\S]*?class="chip">Последно 11-06<\/span>/);
+ assert.equal((results.match(/Последно 11-06/g)||[]).length,1);
+ assert.doesNotMatch(results,/Последно 10-30/);
+});
