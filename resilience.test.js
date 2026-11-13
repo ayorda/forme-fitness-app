@@ -1857,6 +1857,16 @@ test('Exercises catalog exposes a 1-tap bodyweight filter toggle (toggle-ex-none
  assert.match(app.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
 });
 
+test('Weekly plan surfaces completed workouts across all 7 days of the current week and in plan-summary',()=>{
+ // 2026-11-11 is Wednesday; Monday 2026-11-09 was completed
+ const app=boot('#plan',{
+  'forme-plan':JSON.stringify({mon:'cal-start',wed:'yoga-reset',fri:'mob-daily'}),
+  'forme-completed-workouts':JSON.stringify({'2026-11-09':{id:'cal-start',name:'Силна основа'}})
+ },new Date(2026,10,11,12));
+ assert.match(app.page(),/plan-summary"><strong>3 от 7 дни<\/strong><span>[^<]*· ✓ 1<\/span>/);
+ assert.match(app.page(),/day-label">ПОН<\/div>[\s\S]*✓ Отбелязана като изпълнена: Силна основа/);
+});
+
 
 
 
