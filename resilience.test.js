@@ -1714,6 +1714,20 @@ test('Nutrition journal surfaces top logged foods with recent grams for 1-tap qu
  assert.deepEqual(todayEntries[0].items,[{id:'oats',grams:'80'}]);
 });
 
+test('Meal builder shows per-item calorie share (%) on multi-item plates and favorites all plate foods in 1 tap',()=>{
+ const app=boot('#nutrition',{
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'100'},{id:'rice',grams:'100'}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/id="meal-item-meta-0"[^>]*>120 kcal · 22,5 г протеин · 48% kcal/);
+ assert.match(app.page(),/id="meal-item-meta-1"[^>]*>130 kcal · 2,7 г протеин · 52% kcal/);
+ assert.match(app.page(),/data-action="meal-fav-foods">♥ Запази всички в любими/);
+
+ app.click({dataset:{action:'meal-fav-foods'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-favorites']).foods,['chicken','rice']);
+ assert.doesNotMatch(app.page(),/data-action="meal-fav-foods"/);
+});
+
 
 
 
