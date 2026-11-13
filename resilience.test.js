@@ -1017,6 +1017,25 @@ test('Nutrition journal copies previous day entries when current day is empty an
  assert.doesNotMatch(app.page(),/data-action="program-clear" data-id="foundation"/);
 });
 
+test('Workouts screen shows completion counter chips on cards and filters by Favorites-only with clean reset',()=>{
+ const app=boot('#sessions',{
+  'forme-favorites':JSON.stringify({workouts:['cal-start','yoga-reset'],exercises:[]}),
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-08',minutes:12},{id:'s2',workoutId:'cal-start',date:'2026-11-09',minutes:15}],
+   sets:[]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(app.node('workout-results').innerHTML,/✓ 2×/);
+ assert.match(app.node('workout-results').innerHTML,/data-action="toggle-wk-fav"/);
+ app.click({dataset:{action:'toggle-wk-fav'}});
+ assert.match(app.node('workout-results').innerHTML,/Намерени 2 от 6 тренировки/);
+ app.click({dataset:{action:'reset-filters',group:'workouts'}});
+ assert.match(app.node('workout-results').innerHTML,/Намерени 6 от 6 тренировки/);
+});
+
+
 
 
 
