@@ -1925,6 +1925,17 @@ test('Workouts catalog offers 1-tap bodyweight filter (Без оборудван
  assert.match(app.node('workout-results').innerHTML,/Намерени 6 от 6 тренировки/);
 });
 
+test('Nutrition journal entries support non-destructive + Хранене (journal-append-meal) merging onto current plate',()=>{
+ const app=boot('#nutrition',{
+  'forme-current-meal':JSON.stringify([{id:'oats',grams:'60'}]),
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[{id:'e1',date:'2026-11-09',name:'Закуска',items:[{id:'oats',grams:'40'},{id:'banana',grams:'100'}]}]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/data-action="journal-append-meal" data-id="e1"/);
+ app.click({dataset:{action:'journal-append-meal',id:'e1'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'oats',grams:'100'},{id:'banana',grams:'100'}]);
+});
+
 
 
 
