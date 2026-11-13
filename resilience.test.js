@@ -1795,6 +1795,12 @@ test('Workout player round strip buttons jump directly to any exercise before or
  assert.match(app.node('player-layout').innerHTML,/УПРАЖНЕНИЕ 2 \/ 12[\s\S]*РАБОТА[\s\S]*<h2>Лицеви опори<\/h2>/);
 });
 
+test('Nutrition journal surfaces all-time longest nutrition logging streak even when current streak is broken',()=>{
+ const app=boot('#nutrition',{'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:120},entries:[{id:'e1',date:'2026-10-10',name:'З',items:[{id:'oats',grams:'80'}]},{id:'e2',date:'2026-10-11',name:'З',items:[{id:'oats',grams:'80'}]},{id:'e3',date:'2026-10-12',name:'З',items:[{id:'oats',grams:'80'}]},{id:'e4',date:'2026-10-13',name:'З',items:[{id:'oats',grams:'80'}]}]})},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/🔥 Най-дълга серия: 4 дни/);
+});
+
 
 
 
