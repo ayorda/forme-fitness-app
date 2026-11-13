@@ -2155,6 +2155,32 @@ test('Favorites screen offers live multilingual search (#favorites-search) with 
  assert.match(app.node('favorites-results').innerHTML,/Овесени ядки/);
 });
 
+test('Home overview shows remaining weekly workouts/minutes (.home-workout-status) and weekly goal achieved badge',()=>{
+ const partial=boot('#home',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:60},
+   sessions:[{id:'s1',date:'2026-11-09',workoutId:'cal-start',name:'Силна основа',minutes:20}],
+   sets:[]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(partial.page(),/home-workout-status">Остават за седмицата: <strong>2 тренировки<\/strong> · <strong>40 мин<\/strong>/);
+ const done=boot('#home',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:2,minutesPerWeek:40},
+   sessions:[
+    {id:'s1',date:'2026-11-09',workoutId:'cal-start',name:'Силна основа',minutes:25},
+    {id:'s2',date:'2026-11-09',workoutId:'mob-daily',name:'Движение без схващане',minutes:20}
+   ],
+   sets:[]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(done.page(),/home-workout-status">✓ Седмичната цел е изпълнена/);
+});
+
 
 
 
