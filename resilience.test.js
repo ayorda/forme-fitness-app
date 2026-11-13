@@ -1053,6 +1053,27 @@ test('Empty meal plate offers 1-tap saved meal shortcuts and Nutrition Journal d
  assert.match(app.page(),/class="journal-macro-split">Протеин \d+% · Въглехидрати \d+% · Мазнини \d+%</);
 });
 
+test('Progress screen showcases Personal Records board and pre-fills set form on 1-tap pick',()=>{
+ const app=boot('#progress',{
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[],
+   sets:[
+    {id:'st1',exerciseId:'Plank',date:'2026-11-08',kind:'seconds',value:75},
+    {id:'st2',exerciseId:'Pullups',date:'2026-11-09',kind:'reps',value:14}
+   ]
+  })
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/★ Лични рекорди/);
+ assert.match(app.page(),/class="panel pr-board"/);
+ assert.match(app.page(),/★ 14 повторения · 2026-11-09/);
+ app.click({dataset:{action:'progress-pick-exercise',id:'Pullups'}});
+ assert.match(app.page(),/<option value="Pullups" selected>/);
+ assert.equal(app.node('set-value').value,'14');
+});
+
+
 
 
 

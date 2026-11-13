@@ -198,10 +198,10 @@
 .progress-forms .btn{margin-top:8px}
 .progress-section{margin-top:30px}
 .progress-section>.subtle{margin-top:10px}
-.progress-entry{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
-.progress-entry:last-child{border-bottom:0}
-.progress-entry strong,.progress-entry small{display:block}
-.progress-entry small{color:var(--muted);margin-top:5px}
+.progress-entry,.pr-entry{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.progress-entry:last-child,.pr-entry:last-child{border-bottom:0}
+.progress-entry strong,.progress-entry small,.pr-entry strong,.pr-entry small{display:block}
+.progress-entry small,.pr-entry small{color:var(--muted);margin-top:5px}
 @media(max-width:780px){.progress-stats{gap:7px}.progress-stats .panel{padding:12px 9px}.progress-stats strong{font-size:20px}.mobile-nav{grid-template-columns:repeat(6,minmax(0,1fr))}.mobile-nav .nav-name{white-space:nowrap;font-size:8px}}
 @media(max-width:400px){.progress-stats{grid-template-columns:repeat(2,1fr)}.progress-stats .panel:last-child{grid-column:span 2}.mobile-nav .nav-item{padding-left:0;padding-right:0}}
 /* Daily nutrition journal and local backup controls. */
