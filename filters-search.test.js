@@ -21,7 +21,7 @@ function createApp(page='#sessions'){
  const localStorage={getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;}};
  const c={window,document,localStorage,location:{hash:page},setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(c);
- for(const f of ['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js','state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','backup.js','app.js'])
+ for(const f of ['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js','food-translations.js','workout-translations.js','state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','backup.js','app.js'])
   vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
  return {handlers,nodes};
 }
@@ -203,3 +203,164 @@ test('search and category filters narrow the exercise results together',()=>{
  type(a,'exercises','cat','');
  assert.ok(resultIds(a.nodes['exercise-results'].innerHTML).has('Plank'),'clearing the category restores the match');
 });
+
+test('exercise search finds movements by primary muscles in all three languages',()=>{
+ const biceps=[...C.filterExercises(D.exercises,{q:'бицепс'}).map(e=>e.id)].sort();
+ assert.deepEqual(biceps,['Australian_Rows','Chinups','One_Arm_Pull_Up','Pullups']);
+ assert.ok(C.filterExercises(D.exercises,{q:'гръб'}).some(e=>e.id==='Front_Lever'));
+ const c={window:{}};
+ vm.createContext(c);
+ for(const f of ['exercise-art.js','data.js','exercise-translations.js','locale-content.js'])
+  vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
+ const enList=c.window.FORME_DATA.exercises.map(e=>c.window.FORME_LOCALE_CONTENT.translateContent('exercise',e,'en'));
+ const deList=c.window.FORME_DATA.exercises.map(e=>c.window.FORME_LOCALE_CONTENT.translateContent('exercise',e,'de'));
+ assert.equal(C.filterExercises(enList,{q:'biceps'}).length,4);
+ assert.equal(C.filterExercises(deList,{q:'Bizeps'}).length,4);
+ assert.ok(C.filterExercises(D.exercises,{q:'прасец'}).some(e=>e.id==='Calf_Stretch_Hands_Against_Wall'));
+ assert.ok(C.filterExercises(D.exercises,{q:'side plank'}).some(e=>e.id==='Side_Bridge'));
+});
+
+test('food search finds items by preparation state and cross-language names via filterFoods and UI',()=>{
+ const cooked=[...C.filterFoods(D.foods,{q:'сварен'}).map(f=>f.id)].sort();
+ assert.deepEqual(cooked,['brownrice','lentils','quinoa','rice']);
+ assert.deepEqual([...C.filterFoods(D.foods,{q:'нискомаслен'}).map(f=>f.id)].sort(),['cottage','greek']);
+ const a=createApp('#nutrition');
+ type(a,'foods','q','cooked');
+ assert.ok(resultIds(a.nodes['food-results'].innerHTML).has('rice'));
+ type(a,'foods','q','Haferflocken');
+ assert.ok(resultIds(a.nodes['food-results'].innerHTML).has('oats'));
+});
+
+test('reset-filters restores all items when a filter combination yields no matches',()=>{
+ const w=createApp('#sessions');
+ type(w,'workouts','cat','yoga');
+ type(w,'workouts','equip','bar');
+ assert.equal(foundCount(w.nodes['workout-results'].innerHTML).found,0);
+ assert.match(w.nodes['workout-results'].innerHTML,/data-action="reset-filters"/);
+ w.handlers.click({target:{closest:()=>({dataset:{action:'reset-filters',group:'workouts'}})}});
+ assert.equal(foundCount(w.nodes['workout-results'].innerHTML).found,D.workouts.length);
+
+ const ex=createApp('#exercises');
+ type(ex,'exercises','q','zzzz');
+ assert.equal(foundCount(ex.nodes['exercise-results'].innerHTML).found,0);
+ ex.handlers.click({target:{closest:()=>({dataset:{action:'reset-filters',group:'exercises'}})}});
+ assert.equal(foundCount(ex.nodes['exercise-results'].innerHTML).found,D.exercises.length);
+
+ const fd=createApp('#nutrition');
+ type(fd,'foods','q','zzzz');
+ assert.equal(foundCount(fd.nodes['food-results'].innerHTML).found,0);
+ fd.handlers.click({target:{closest:()=>({dataset:{action:'reset-filters',group:'foods'}})}});
+ assert.equal(foundCount(fd.nodes['food-results'].innerHTML).found,D.foods.length);
+});
+
+test('inline reset-filters button appears whenever filters narrow results and hides once cleared',()=>{
+ const w=createApp('#sessions');
+ assert.doesNotMatch(w.nodes['workout-results'].innerHTML,/data-action="reset-filters"/);
+ type(w,'workouts','cat','cal');
+ assert.ok(foundCount(w.nodes['workout-results'].innerHTML).found>0);
+ assert.match(w.nodes['workout-results'].innerHTML,/results-head[\s\S]*data-action="reset-filters" data-group="workouts"/);
+ w.handlers.click({target:{closest:()=>({dataset:{action:'reset-filters',group:'workouts'}})}});
+ assert.doesNotMatch(w.nodes['workout-results'].innerHTML,/data-action="reset-filters"/);
+
+ const ex=createApp('#exercises');
+ type(ex,'exercises','q','планк');
+ assert.ok(foundCount(ex.nodes['exercise-results'].innerHTML).found>0);
+ assert.match(ex.nodes['exercise-results'].innerHTML,/results-head[\s\S]*data-action="reset-filters" data-group="exercises"/);
+
+ const fd=createApp('#nutrition');
+ type(fd,'foods','cat','protein');
+ assert.ok(foundCount(fd.nodes['food-results'].innerHTML).found>0);
+ assert.match(fd.nodes['food-results'].innerHTML,/results-head[\s\S]*data-action="reset-filters" data-group="foods"/);
+});
+
+test('exercise and food search fields use type=search and clear immediately on Escape',()=>{
+ const ex=createApp('#exercises');
+ assert.match(ex.nodes.app.innerHTML,/id="ex-search" type="search"/);
+ type(ex,'exercises','q','планк');
+ assert.ok(foundCount(ex.nodes['exercise-results'].innerHTML).found<D.exercises.length);
+ const exInput={dataset:{filter:'exercises',key:'q'},value:'планк'};
+ ex.handlers.keydown({key:'Escape',target:exInput,preventDefault(){}});
+ assert.equal(exInput.value,'');
+ assert.equal(foundCount(ex.nodes['exercise-results'].innerHTML).found,D.exercises.length);
+
+ const fd=createApp('#nutrition');
+ assert.match(fd.nodes.app.innerHTML,/id="food-search" type="search"/);
+ type(fd,'foods','q','ориз');
+ assert.equal(foundCount(fd.nodes['food-results'].innerHTML).found,2);
+ const fdInput={dataset:{filter:'foods',key:'q'},value:'ориз'};
+ fd.handlers.keydown({key:'Escape',target:fdInput,preventDefault(){}});
+ assert.equal(fdInput.value,'');
+ assert.equal(foundCount(fd.nodes['food-results'].innerHTML).found,D.foods.length);
+});
+
+test('workout search finds programs by title, cross-language name and included exercise and clears on Escape',()=>{
+ const wk=createApp('#sessions');
+ assert.match(wk.nodes.app.innerHTML,/id="workout-search" type="search"/);
+ type(wk,'workouts','q','Strong foundation');
+ assert.ok(resultIds(wk.nodes['workout-results'].innerHTML).has('cal-start'));
+ type(wk,'workouts','q','Котешки гръб');
+ assert.ok(resultIds(wk.nodes['workout-results'].innerHTML).has('yoga-reset'));
+ const wkInput={dataset:{filter:'workouts',key:'q'},value:'Котешки гръб'};
+ wk.handlers.keydown({key:'Escape',target:wkInput,preventDefault(){}});
+ assert.equal(wkInput.value,'');
+ assert.equal(foundCount(wk.nodes['workout-results'].innerHTML).found,D.workouts.length);
+});
+
+test('food catalog sort orders foods by highest protein, lowest calories and highest fibre and resets cleanly',()=>{
+ assert.equal(C.sortFoods(D.foods,'protein')[0].id,'tuna');
+ const lowCal=C.sortFoods(D.foods,'kcalAsc');
+ assert.ok(lowCal[0].kcal<=lowCal[1].kcal);
+ const highFiber=C.sortFoods(D.foods,'fiber');
+ assert.ok(highFiber[0].fiber>=highFiber[1].fiber);
+ const fd=createApp('#nutrition');
+ assert.match(fd.nodes.app.innerHTML,/id="foods-sort"/);
+ type(fd,'foods','sort','protein');
+ const ordered=[...fd.nodes['food-results'].innerHTML.matchAll(/data-action="food-detail" data-id="([^"]+)"/g)].map(m=>m[1]);
+ assert.equal(ordered[0],'tuna');
+ assert.match(fd.nodes['food-results'].innerHTML,/data-action="reset-filters" data-group="foods"/);
+});
+
+test('exercise catalog sort orders exercises by difficulty and name and resets cleanly',()=>{
+ const asc=C.sortExercises(D.exercises,'levelAsc');
+ assert.equal(asc[0].level,'beginner');
+ assert.equal(asc[asc.length-1].level,'elite');
+ const desc=C.sortExercises(D.exercises,'levelDesc');
+ assert.equal(desc[0].level,'elite');
+ const byName=C.sortExercises(D.exercises,'nameAsc','bg');
+ assert.ok(byName[0].name.localeCompare(byName[1].name,'bg')<=0);
+ const ex=createApp('#exercises');
+ assert.match(ex.nodes.app.innerHTML,/id="exercises-sort"/);
+ type(ex,'exercises','sort','levelDesc');
+ const firstId=(ex.nodes['exercise-results'].innerHTML.match(/data-action="exercise-detail" data-id="([^"]+)"/)||[])[1];
+ assert.equal(D.exercises.find(x=>x.id===firstId)?.level,'elite');
+ assert.match(ex.nodes['exercise-results'].innerHTML,/data-action="reset-filters" data-group="exercises"/);
+});
+
+test('workout catalog sort orders sessions by duration and difficulty and resets cleanly',()=>{
+ const shortFirst=C.sortWorkouts(D.workouts,'durationAsc');
+ assert.equal(shortFirst[0].id,'mob-daily');
+ const longFirst=C.sortWorkouts(D.workouts,'durationDesc');
+ assert.ok(longFirst[0].duration>=longFirst[1].duration);
+ const wk=createApp('#sessions');
+ assert.match(wk.nodes.app.innerHTML,/id="workouts-sort"/);
+ type(wk,'workouts','sort','durationAsc');
+ const firstId=(wk.nodes['workout-results'].innerHTML.match(/data-action="workout-detail" data-id="([^"]+)"/)||[])[1];
+ assert.equal(firstId,'mob-daily');
+ assert.match(wk.nodes['workout-results'].innerHTML,/data-action="reset-filters" data-group="workouts"/);
+});
+
+test('food catalog sort supports protein density per 100 kcal and food detail shows protein efficiency chip',()=>{
+ const byDensity=C.sortFoods(D.foods,'proteinDensity');
+ assert.equal(byDensity[0].id,'tuna');
+ const fd=createApp('#nutrition');
+ type(fd,'foods','sort','proteinDensity');
+ const firstFood=(fd.nodes['food-results'].innerHTML.match(/data-action="food-detail" data-id="([^"]+)"/)||[])[1];
+ assert.equal(firstFood,'tuna');
+ fd.handlers.click({target:{closest:()=>({dataset:{action:'food-detail',id:'tuna'}})}});
+ assert.match(fd.nodes['modal-root'].innerHTML,/22 г протеин \/ 100 kcal/);
+});
+
+
+
+
+

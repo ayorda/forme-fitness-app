@@ -12,5 +12,11 @@
   "icons": [
     {"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
     {"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ],
+  "shortcuts": [
+    {"name":"Тренировки","short_name":"Тренировки","url":"./index.html#sessions","icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"}]},
+    {"name":"Хранене","short_name":"Хранене","url":"./index.html#nutrition","icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"}]},
+    {"name":"Моят план","short_name":"План","url":"./index.html#plan","icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"}]},
+    {"name":"Прогрес","short_name":"Прогрес","url":"./index.html#progress","icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"}]}
   ]
 }

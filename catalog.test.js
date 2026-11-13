@@ -120,3 +120,62 @@ test('food imagery is labeled as AI while nutrient state remains visible in each
   assert.ok(a.nodes['modal-root'].innerHTML.includes(state));
  }
 });
+test('workout detail preview lists included exercises with muscles and opens complete yoga/mobility details',()=>{
+ for(const [language,workoutTitle,childName,musclesHeading] of [
+  ['bg','Спокойно възстановяване','Поза на детето','Основни мускули'],
+  ['en','Calm Recovery','Child’s Pose','Main muscles'],
+  ['de','Ruhige Erholung','Kindhaltung','Hauptmuskeln']
+ ]){
+  const a=createApp({'forme-language':language},true,'#sessions');
+  a.handlers.click({target:{closest:()=>({dataset:{action:'workout-detail',id:'yoga-reset'}})}});
+  const modal=a.nodes['modal-root'].innerHTML;
+  assert.ok(modal.includes(workoutTitle),language+' workout title');
+  assert.ok(modal.includes(childName),language+' exercise in workout');
+  assert.match(modal,/data-action="start-workout" data-id="yoga-reset"/);
+  a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Childs_Pose'}})}});
+  const detail=a.nodes['modal-root'].innerHTML;
+  assert.ok(detail.includes(musclesHeading),language+' yoga muscles heading');
+  assert.ok(detail.includes('→'),language+' yoga progression arrow');
+ }
+});
+
+test('exercise details link back to parent workouts, return to a previewed workout, and jump straight to set logging with the right metric',()=>{
+ const a=createApp({},true,'#sessions');
+ a.handlers.click({target:{closest:()=>({dataset:{action:'workout-detail',id:'cal-start'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/data-action="exercise-detail" data-id="Plank" data-from-workout="cal-start"/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Plank',fromWorkout:'cal-start'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/modal-back" data-action="workout-detail" data-id="cal-start">← Силна основа/);
+ assert.match(a.nodes['modal-root'].innerHTML,/Включено в тренировки/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'workout-detail',id:'cal-start'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/<h2>Силна основа<\/h2>/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Plank',fromWorkout:'cal-start'}})}});
+ a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-log-set',id:'Plank'}})}});
+ assert.equal(a.nodes['modal-root'].innerHTML,'');
+ assert.match(a.nodes.app.innerHTML,/value="Plank" selected/);
+ assert.match(a.nodes.app.innerHTML,/value="seconds" selected/);
+ assert.match(a.nodes.app.innerHTML,/id="set-value"[^>]*value="30"/);
+});
+
+test('workout and exercise detail modals expose item-named dialogs and toggle favorites in place',()=>{
+ const a=createApp({},true,'#sessions');
+ a.handlers.click({target:{closest:()=>({dataset:{action:'workout-detail',id:'cal-start'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/role="dialog" aria-modal="true" aria-label="Силна основа"/);
+ assert.match(a.nodes['modal-root'].innerHTML,/data-action="favorite" data-kind="workouts" data-id="cal-start" aria-pressed="false"/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'favorite',kind:'workouts',id:'cal-start'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/data-action="favorite" data-kind="workouts" data-id="cal-start" aria-pressed="true"/);
+
+ a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Plank',fromWorkout:'cal-start'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/role="dialog" aria-modal="true" aria-label="Планк"/);
+ assert.match(a.nodes['modal-root'].innerHTML,/data-action="favorite" data-kind="exercises" data-id="Plank" aria-pressed="false"/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'favorite',kind:'exercises',id:'Plank'}})}});
+ assert.match(a.nodes['modal-root'].innerHTML,/data-action="favorite" data-kind="exercises" data-id="Plank" aria-pressed="true"/);
+});
+
+test('exercise search still matches original Bulgarian names when switched to English or German',()=>{
+ for(const language of ['en','de']){
+  const a=createApp({'forme-language':language},true,'#exercises');
+  a.handlers.input({target:{dataset:{filter:'exercises',key:'q'},value:'Набирания'}});
+  assert.match(a.nodes['exercise-results'].innerHTML,/data-id="Pullups"/);
+ }
+});
+

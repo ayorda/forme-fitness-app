@@ -1,4 +1,4 @@
-/* Workout content; UI language selection remains disabled until all screens are translated. */
+/* English and German translations for all workouts in the FORME catalog. */
 (function(root){
 'use strict';
 const en={

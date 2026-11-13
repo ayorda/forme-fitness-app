@@ -3,13 +3,13 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 
-function boot(language='bg'){
+function boot(language='bg',navigator=undefined){
  let now=100000;const handlers={},nodes={},storage={};
  const element=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(){return element();}});
  const document={body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
  class Clock extends Date{static now(){return now;}}
  const window={addEventListener(){},scrollTo(){}};
- const context={window,document,localStorage:{getItem(key){return key==='forme-language'?language:storage[key]??null;},setItem(key,value){storage[key]=value;}},location:{hash:'#home'},Date:Clock,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
+ const context={window,document,navigator,localStorage:{getItem(key){return key==='forme-language'?language:storage[key]??null;},setItem(key,value){storage[key]=value;}},location:{hash:'#home'},Date:Clock,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(context);
  const files=['exercise-art.js','data.js','core.js','food-art.js','progress.js'];if(language!=='bg')files.push('i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');files.push('app.js');
  for(const file of files){
@@ -117,3 +117,200 @@ test('finishing while paused records only time before the pause',()=>{
  assert.equal(a.run('state.player.phase'),'done');
  assert.equal(result.minutes,1);
 });
+
+test('closing a completed workout refreshes weekly progress on the underlying screen',()=>{
+ const a=boot();
+ assert.match(a.nodes.app.innerHTML,/<strong>0 \/ 3<\/strong>/);
+ a.run("startWorkout('cal-start')");
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'workMs'},value:'5'}});
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'restMs'},value:'5'}});
+ a.run("playerControl('player-start')");
+ a.advance(600000);a.handlers.visibilitychange();
+ assert.equal(a.run('state.player.saved'),true);
+ a.handlers.keydown({key:'Escape'});
+ assert.match(a.nodes.app.innerHTML,/<strong>1 \/ 3<\/strong>/);
+ assert.match(a.nodes.app.innerHTML,/Отбелязана като изпълнена: Силна основа/);
+});
+
+test('completing a workout marks today as completed in the Monthly Calendar',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'workMs'},value:'5'}});
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'restMs'},value:'5'}});
+ a.run("playerControl('player-start')");
+ a.advance(600000);a.handlers.visibilitychange();
+ a.handlers.keydown({key:'Escape'});
+ const click=dataset=>a.handlers.click({target:{closest:()=>({dataset})}});
+ click({action:'nav',page:'plan'});
+ click({action:'plan-view',view:'month'});
+ click({action:'plan-date',date:String(new Date().getDate())});
+ assert.match(a.nodes.app.innerHTML,/month-completed/);
+ assert.match(a.nodes.app.innerHTML,/Отбелязана като изпълнена: Силна основа/);
+ assert.doesNotMatch(a.nodes.app.innerHTML,/data-action="completion-remove"/);
+});
+
+test('player displays easier regression during work and toggles start/pause/resume with Space',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/По-лесен вариант: Клек до стол\./);
+ a.handlers.keydown({key:' ',code:'Space',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.running'),true);
+ a.advance(2000);
+ a.handlers.keydown({key:' ',code:'Space',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.running'),false);
+ a.handlers.keydown({key:' ',code:'Space',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.running'),true);
+});
+
+test('player-prev steps back from rest or later exercise without restarting the whole workout',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start'); playerControl('player-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/data-action="player-prev" disabled/);
+ a.run("playerControl('player-next')");
+ assert.equal(a.run('state.player.phase'),'rest');
+ a.run("playerControl('player-prev')");
+ assert.equal(a.run('state.player.phase'),'work');
+ assert.equal(a.run('state.player.index'),0);
+ a.run("playerControl('player-next'); playerControl('player-next')");
+ assert.equal(a.run('state.player.index'),1);
+ assert.equal(a.run('state.player.phase'),'work');
+ a.run("playerControl('player-prev')");
+ assert.equal(a.run('state.player.index'),0);
+ assert.equal(a.run('state.player.phase'),'work');
+});
+
+test('workout player acquires and releases Screen Wake Lock when running, paused and closed',async()=>{
+ let requested=0,released=0;
+ const nav={wakeLock:{async request(kind){assert.equal(kind,'screen');requested++;return {async release(){released++;}};}}};
+ const a=boot('bg',nav);
+ a.run("startWorkout('cal-start'); playerControl('player-start')");
+ await Promise.resolve();
+ assert.equal(requested,1);
+ assert.equal(released,0);
+ a.run("playerControl('player-pause')");
+ await Promise.resolve();
+ assert.equal(released,1);
+ a.run("playerControl('player-resume')");
+ await Promise.resolve();
+ assert.equal(requested,2);
+ a.handlers.keydown({key:'Escape'});
+ await Promise.resolve();
+ assert.equal(released,2);
+});
+
+test('ArrowRight and ArrowLeft step forward and backward inside an active workout player',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start'); playerControl('player-start')");
+ a.handlers.keydown({key:'ArrowLeft',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.index'),0);
+ assert.equal(a.run('state.player.phase'),'work');
+ a.handlers.keydown({key:'ArrowRight',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.phase'),'rest');
+ a.handlers.keydown({key:'ArrowRight',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.index'),1);
+ assert.equal(a.run('state.player.phase'),'work');
+ a.handlers.keydown({key:'ArrowLeft',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.index'),0);
+ assert.equal(a.run('state.player.phase'),'work');
+});
+
+test('workout player displays and live-updates total remaining workout time',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/id="player-total-remaining">11:40<\/b>/);
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'restMs'},value:'30'}});
+ assert.equal(a.nodes['player-total-remaining'].textContent,'13:30');
+ a.run("playerControl('player-start')");
+ a.advance(10000);
+ a.handlers.visibilitychange();
+ assert.equal(a.nodes['player-total-remaining'].textContent,'13:20');
+ a.advance(900000);
+ a.handlers.visibilitychange();
+ assert.equal(a.run('state.player.phase'),'done');
+ assert.match(a.nodes['player-layout'].innerHTML,/id="player-total-remaining">00:00<\/b>/);
+});
+
+test('workout player shows round counter and 1-tap Progress CTA upon completion',()=>{
+ const a=boot('en');
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/EXERCISE 1 \/ 12 · ROUND 1 \/ 3/);
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'workMs'},value:'5'}});
+ a.handlers.change({target:{dataset:{action:'player-setting',key:'restMs'},value:'5'}});
+ a.run("playerControl('player-start')");
+ for(let i=0;i<8;i++)a.run("playerControl('player-next')");
+ assert.match(a.nodes['player-layout'].innerHTML,/EXERCISE 5 \/ 12 · ROUND 2 \/ 3/);
+ a.advance(900000);
+ a.handlers.visibilitychange();
+ assert.match(a.nodes['player-layout'].innerHTML,/data-action="player-finish-progress"/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'player-finish-progress'}})}});
+ assert.equal(a.nodes['modal-root'].innerHTML,'');
+ assert.equal(a.run('state.page'),'progress');
+});
+
+test('player displays common mistakes cue and supports M and R keyboard shortcuts without intercepting Ctrl+R',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/Често срещана грешка:/);
+ assert.equal(a.run('state.sound'),true);
+ a.handlers.keydown({key:'m',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.sound'),false);
+ a.run("playerControl('player-start'); playerControl('player-next')");
+ assert.equal(a.run('state.player.phase'),'rest');
+ a.handlers.keydown({key:'r',ctrlKey:true,target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.phase'),'rest');
+ a.handlers.keydown({key:'r',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.phase'),'ready');
+ assert.equal(a.run('state.player.index'),0);
+});
+
+test('player supports +15s interval extension via button and + key, shows harder cue, and offers post-workout set logging',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/По-труден вариант:/);
+ assert.match(a.nodes['player-layout'].innerHTML,/data-action="player-add-time" disabled/);
+ a.run("playerControl('player-start')");
+ const before=a.run('state.player.remainingMs');
+ a.run("playerControl('player-add-time')");
+ assert.equal(a.run('state.player.remainingMs'),before+15000);
+ a.handlers.keydown({key:'+',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.remainingMs'),before+30000);
+ a.advance(900000);
+ a.handlers.visibilitychange();
+ assert.equal(a.run('state.player.phase'),'done');
+ assert.match(a.nodes['player-layout'].innerHTML,/data-action="player-log-set"/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'player-log-set'}})}});
+ assert.equal(a.nodes['modal-root'].innerHTML,'');
+ assert.equal(a.run('state.page'),'progress');
+ assert.equal(a.run('state.setExerciseId'),a.run("window.FORME_DATA.workouts.find(w=>w.id==='cal-start').ids[0]"));
+});
+
+test('player supports -15s interval reduction via button and - key while clamping at 1 second minimum',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/data-action="player-sub-time" disabled/);
+ a.run("playerControl('player-start')");
+ const before=a.run('state.player.remainingMs');
+ a.run("playerControl('player-sub-time')");
+ assert.equal(a.run('state.player.remainingMs'),Math.max(1000,before-15000));
+ a.handlers.keydown({key:'-',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.remainingMs'),Math.max(1000,before-30000));
+ a.handlers.keydown({key:'-',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.remainingMs'),1000);
+});
+
+test('player shows keyboard shortcuts legend and previews upcoming movement instructions during rest',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/class="subtle player-shortcuts">Клавиши: Space пауза/);
+ a.run("playerControl('player-start'); playerControl('player-next')");
+ assert.equal(a.run('state.player.phase'),'rest');
+ const secondId=a.run("window.FORME_DATA.workouts.find(w=>w.id==='cal-start').ids[1]");
+ const secondSteps=a.run(`window.FORME_DATA.exercises.find(x=>x.id===${JSON.stringify(secondId)}).steps`);
+ assert.ok(a.nodes['player-layout'].innerHTML.includes(secondSteps));
+});
+
+
+
+
+
+

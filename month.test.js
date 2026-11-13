@@ -112,3 +112,59 @@ test('clearing the weekly plan leaves individual dates and completion records in
  a.click({action:'plan-view',view:'month'});a.click({action:'plan-date',date:'5'});
  assert.match(a.nodes.app.innerHTML,/Отбелязана като изпълнена: Спокойно възстановяване/);
 });
+
+test('monthly calendar supports ArrowLeft, ArrowRight, ArrowDown, ArrowUp, Home and End keyboard navigation across month boundaries',()=>{
+ const a=boot();a.click({action:'plan-view',view:'month'});a.click({action:'plan-date',date:'28'});
+ const press=(date,key)=>a.handlers.keydown({key,preventDefault(){},target:{closest:s=>s==='[data-action="plan-date"]'?{dataset:{action:'plan-date',date:String(date)}}:null}});
+ press(28,'ArrowRight');
+ assert.match(a.nodes.app.innerHTML,/class="tag">29 февруари 2024/);
+ press(29,'ArrowRight');
+ assert.match(a.nodes.app.innerHTML,/март 2024/);
+ assert.match(a.nodes.app.innerHTML,/class="tag">1 март 2024/);
+ press(1,'ArrowDown');
+ assert.match(a.nodes.app.innerHTML,/class="tag">8 март 2024/);
+ press(8,'End');
+ assert.match(a.nodes.app.innerHTML,/class="tag">31 март 2024/);
+ press(31,'Home');
+ assert.match(a.nodes.app.innerHTML,/class="tag">1 март 2024/);
+ press(1,'ArrowLeft');
+ assert.match(a.nodes.app.innerHTML,/февруари 2024/);
+ assert.match(a.nodes.app.innerHTML,/class="tag">29 февруари 2024/);
+});
+
+test('weekly and monthly plan views open workout detail previews for scheduled days',()=>{
+ const a=boot({'forme-plan':JSON.stringify({mon:'cal-start'})});
+ assert.match(a.nodes.app.innerHTML,/data-action="workout-detail" data-id="cal-start"/);
+ a.click({action:'workout-detail',id:'cal-start'});
+ assert.match(a.nodes['modal-root'].innerHTML,/<h2>Силна основа<\/h2>/);
+ a.handlers.keydown({key:'Escape'});
+ a.click({action:'plan-view',view:'month'});a.click({action:'plan-date',date:'5'});
+ assert.match(a.nodes.app.innerHTML,/data-action="workout-detail" data-id="cal-start"/);
+});
+
+test('plan-today button jumps back to the current month and selects today',()=>{
+ const a=boot();a.click({action:'plan-view',view:'month'});
+ assert.doesNotMatch(a.nodes.app.innerHTML,/data-action="plan-today"/);
+ a.click({action:'plan-month',offset:'1'});a.click({action:'plan-month',offset:'1'});
+ assert.match(a.nodes.app.innerHTML,/април 2024/);
+ assert.match(a.nodes.app.innerHTML,/data-action="plan-today"/);
+ a.click({action:'plan-today'});
+ assert.match(a.nodes.app.innerHTML,/февруари 2024/);
+ assert.match(a.nodes.app.innerHTML,/class="tag">15 февруари 2024/);
+});
+
+test('monthly calendar summary counts planned and completed days and clear-date-plans resets custom date overrides',()=>{
+ const a=boot({
+  'forme-date-plans':JSON.stringify({'2024-02-06':'yoga-reset'}),
+  'forme-completed-workouts':JSON.stringify({'2024-02-05':{id:'cal-start',name:'Силна основа'}})
+ });
+ a.click({action:'plan-view',view:'month'});
+ assert.match(a.nodes.app.innerHTML,/plan-summary[\s\S]*5 \/ 29[\s\S]*✓ 1/);
+ assert.match(a.nodes.app.innerHTML,/data-action="clear-date-plans"[\s\S]*\(1\)/);
+ a.click({action:'clear-date-plans'});
+ assert.equal(a.nodes.toast.textContent,'Изборите по дати са изчистени.');
+ assert.deepEqual(JSON.parse(a.storage['forme-date-plans']),{});
+ assert.doesNotMatch(a.nodes.app.innerHTML,/data-action="clear-date-plans"/);
+ assert.match(a.nodes.app.innerHTML,/plan-summary[\s\S]*4 \/ 29[\s\S]*✓ 1/);
+});
+

@@ -164,7 +164,7 @@
 .month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}.month-weekday{padding:7px 0;text-align:center;color:#a9bdb0;font-size:11px;font-weight:800}
 .month-day,.month-empty{min-width:0;min-height:72px}.month-day{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:9px 8px;background:#17221d;color:#edf5ec;border:1px solid #304238;border-radius:12px;text-align:left}.month-day strong{font-size:14px}.month-day-today{border-color:#b7e971}.month-day-selected{outline:2px solid var(--lime);outline-offset:1px}.month-day:focus-visible{outline:3px solid #fff;outline-offset:2px}.month-type{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;color:#c6dbcb}.month-type-cal{color:#c3ff5c}.month-type-yoga{color:#d6b8ff}.month-type-mobility{color:#a5dff2}.month-type-rest{color:#98aaa0}
 .month-hint{margin:15px 0}.month-selection{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:18px;padding:18px;border:1px solid #3a5038;border-radius:16px;background:#17241c}.month-selection h3{margin:7px 0}.month-selection p{margin:0;font-size:13px}
-.month-completed{color:var(--lime);font-size:12px}.month-selection .completion-status{margin-top:8px;color:#c3ffaf;font-weight:700}.month-selection-actions{display:flex;flex-wrap:wrap;gap:8px}
+.month-completed{color:var(--lime);font-size:12px}.completion-status{margin-top:8px;color:#c3ffaf;font-weight:700}.month-selection-actions{display:flex;flex-wrap:wrap;gap:8px}
 .month-selection{flex-wrap:wrap}.month-selection .month-plan-source{margin-top:6px;color:#afc8b3}.date-plan-editor{flex:1 0 100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:end}.date-plan-editor label{grid-column:1/-1;color:#c4d6c8;font-size:13px;font-weight:700}.date-plan-editor select{width:100%;min-width:0;min-height:44px;padding:9px;border:1px solid #425a45;border-radius:10px;background:#1b2821;color:#fff}
 .exercise-video{margin:18px 0}.exercise-video h3{margin-bottom:10px}.exercise-video video{display:block;width:100%;max-height:420px;border-radius:14px;background:#070c0a}.exercise-video [hidden]{display:none}
 .food-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.food-photo-tag{position:absolute;right:8px;bottom:8px;padding:4px 7px;border-radius:7px;background:#101816d9;color:#fff;font-size:9px;font-weight:800;letter-spacing:.06em}.food-photo[hidden],.food-photo-tag[hidden]{display:none}
@@ -198,10 +198,10 @@
 .progress-forms .btn{margin-top:8px}
 .progress-section{margin-top:30px}
 .progress-section>.subtle{margin-top:10px}
-.progress-entry{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
-.progress-entry:last-child{border-bottom:0}
-.progress-entry strong,.progress-entry small{display:block}
-.progress-entry small{color:var(--muted);margin-top:5px}
+.progress-entry,.pr-entry{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.progress-entry:last-child,.pr-entry:last-child{border-bottom:0}
+.progress-entry strong,.progress-entry small,.pr-entry strong,.pr-entry small{display:block}
+.progress-entry small,.pr-entry small{color:var(--muted);margin-top:5px}
 @media(max-width:780px){.progress-stats{gap:7px}.progress-stats .panel{padding:12px 9px}.progress-stats strong{font-size:20px}.mobile-nav{grid-template-columns:repeat(6,minmax(0,1fr))}.mobile-nav .nav-name{white-space:nowrap;font-size:8px}}
 @media(max-width:400px){.progress-stats{grid-template-columns:repeat(2,1fr)}.progress-stats .panel:last-child{grid-column:span 2}.mobile-nav .nav-item{padding-left:0;padding-right:0}}
 /* Daily nutrition journal and local backup controls. */
@@ -212,8 +212,8 @@
 .journal-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}.journal-week>div{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0;font-size:10px}.journal-week .progress-bar{height:72px}.journal-week small{color:var(--muted)}
 .journal-goal-fields{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}.journal-goal-fields label{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:12px}
 .journal-entry{display:flex;justify-content:space-between;gap:15px;padding:15px 0;border-bottom:1px solid var(--line)}.journal-entry:last-child{border:0}.journal-entry small,.journal-entry span{display:block;color:var(--muted);margin-top:5px}.journal-entry>div:last-child{display:flex;align-items:center;gap:6px}
-.backup-panel{margin-top:25px}.backup-import{display:inline-flex;align-items:center;position:relative;overflow:hidden;margin-left:8px}.backup-import input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
-@media(max-width:780px){.home-progress{align-items:flex-start;flex-direction:column}.journal-entry{flex-direction:column}.journal-week{gap:3px}.journal-week small{font-size:9px}.backup-import{margin-top:8px}}
+.backup-panel{margin-top:25px}.backup-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.backup-import{display:inline-flex;align-items:center;position:relative;overflow:hidden;margin-left:0}.backup-import input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}.backup-import:focus-within{outline:2px solid var(--lime);outline-offset:2px}
+@media(max-width:780px){.home-progress{align-items:flex-start;flex-direction:column}.journal-entry{flex-direction:column}.journal-week{gap:3px}.journal-week small{font-size:9px}}
 @media(max-width:780px){.tabs .tab:last-child{grid-column:auto}}
 @media(max-width:780px){.progress-forms{grid-template-columns:minmax(0,1fr)}.progress-forms .panel{min-width:0}.progress-forms select{width:100%;max-width:100%}}
 
@@ -226,7 +226,7 @@
 .media-placeholder span{font:700 48px/1 var(--display);letter-spacing:-.13em;color:var(--lime)}
 .food-media-placeholder span{font-size:44px;letter-spacing:0;line-height:1.1}
 .food-media-placeholder small{max-width:150px;line-height:1.35}
-.meal-edit-note{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 16px}
+.meal-edit-note{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 16px}
 .meal-edit-note strong{color:#eaf6e4}
 .meal-edit-note .btn{margin-left:auto}
 .media-placeholder small{font-size:12px;letter-spacing:.03em;color:#c4d5c7}
@@ -241,3 +241,71 @@
 .home-steps{margin-top:34px}
 .section-title-compact{margin-top:0}
 .food-photo-credit{margin-top:10px}
+.card-action-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.workout-exercise-list{display:flex;flex-direction:column;margin:10px 0 6px}
+.workout-exercise-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.workout-exercise-row:last-child{border-bottom:0}
+.workout-exercise-row strong,.workout-exercise-row small{display:block}
+.workout-exercise-row small{color:var(--muted);margin-top:4px;font-size:12px}
+.meal-head-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0}
+.empty .btn{margin-top:12px}
+.avatar.active{border-color:var(--lime);color:var(--lime)}
+.program-card .card-meta{margin:8px 0 12px}
+.day-note-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
+.day-note-row .day-note{margin-top:0}
+.modal-back{margin-bottom:12px}
+.journal-date-controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.journal-day-btn{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0;width:100%;background:transparent;border:1px solid transparent;border-radius:10px;padding:6px 2px;color:inherit;cursor:pointer;font:inherit;font-size:10px}
+.journal-day-btn:hover,.journal-day-btn.active{border-color:var(--lime);background:#1b281c}
+.journal-day-btn:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+.portion-presets{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.month-nav-actions{display:flex;align-items:center;gap:8px}
+.skip-link{position:fixed;left:12px;top:-80px;z-index:200;padding:10px 14px;border-radius:10px;background:var(--lime);color:#101a0c;font-weight:800;text-decoration:none;transition:top .15s}
+.skip-link:focus,.skip-link:focus-visible{top:12px;outline:2px solid #fff;outline-offset:2px}
+.results-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.results-head p{margin:0}
+.modal-header .card-title{align-items:center}
+.modal-header .card-title h2{margin:0}
+.portion-presets .btn[aria-pressed="true"]{border-color:var(--lime);color:var(--lime)}
+.progress-weeks small{color:var(--dim);font-size:10px}
+.goal-meter{margin:6px 0 0}
+.saved-ingredients{display:block;margin-top:4px;color:var(--muted);line-height:1.45}
+.backup-summary{margin:10px 0 12px}
+.progress-filters{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.progress-filters .btn[aria-pressed="true"]{border-color:var(--lime);color:var(--lime)}
+.link-btn{background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:#4b684f;text-underline-offset:3px}
+.link-btn:hover,.link-btn:focus-visible{color:var(--lime);text-decoration-color:var(--lime)}
+.link-btn:focus-visible{outline:2px solid var(--lime);outline-offset:2px;border-radius:4px}
+.journal-meters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:6px 0 14px}
+.journal-meters small{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}
+.home-meters{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-top:8px}
+.home-meters small{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}
+.meal-goal-share{display:block;margin-top:4px;color:var(--muted);font-size:12px}
+.program-meta{margin:4px 0 6px;font-size:12px}
+.meal-add-fields{display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:10px;align-items:end}
+.meal-grams-pick{min-width:0}
+.meal-macro-split{display:block;margin-top:4px;color:var(--muted);font-size:12px}
+#meal-presets{margin-top:8px}
+.backup-reset-confirm{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.journal-week-summary{margin:10px 0 0;font-size:13px}
+.journal-macro-split{color:var(--muted);font-size:13px}
+.player-shortcuts{margin:8px 0 0;font-size:12px}
+.progress-lifetime{margin:12px 0 0;font-size:13px}
+.player-round-steps{margin:8px 0 4px}
+.player-round-steps .chip.active{border-color:var(--lime);color:var(--lime)}
+.player-paces{margin:8px 0}
+.detail-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.player-done-summary,.player-done-exercises{margin:8px 0}
+.meal-row .meal-item-meta{color:var(--lime)}
+.meal-steppers{display:flex;gap:6px;margin-top:6px}
+.meal-steppers .btn-small{padding:4px 8px;min-height:28px;font-size:11px}
+@media(max-width:480px){.meal-add-fields{grid-template-columns:1fr}}
+.btn:focus-visible,.nav-item:focus-visible,.tab:focus-visible,.fav:focus-visible,.category-card:focus-visible,.avatar:focus-visible,.modal-close:focus-visible,.remove:focus-visible,.text-link:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+@media(max-width:780px){.saved-item{flex-direction:column;align-items:flex-start}.saved-actions,.journal-entry>div:last-child,.day-note-row{flex-wrap:wrap}}
+@media print{.sidebar,.topbar,.mobile-nav,.skip-link,.toast{display:none!important}.filters,.plan-view-switch,.backup-panel,.tabs{display:none!important}.shell{display:block}.main-area main{padding:0;min-height:0}body,.panel,.card,.note,.total,.day-card,.month-day,.today-plan,.home-progress{background:#fff!important;color:#111!important;border-color:#ccc!important;box-shadow:none!important}h1,h2,h3,h4,p,small,span,strong,b,td,th,.muted,.subtle{color:#111!important}}
+
+
+
+
+
+

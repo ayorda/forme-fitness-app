@@ -1,5 +1,4 @@
-/* Partial translation content for the 30 requested calisthenics movements.
-   The language selector remains disabled until all app content is translated. */
+/* English and German training content for all 49 exercises in the FORME catalog. */
 (function(root){
 'use strict';
 const en={
@@ -32,7 +31,26 @@ const en={
  Straddle_Planche:['A horizontal strength support with the legs apart.','Only after stable preparatory variations, shift your weight forward and hold with a braced body and straight elbows.','Tuck planche.'],
  Full_Planche:['An elite horizontal support with the body extended.','This requires long-term preparation and stable control in easier variations. Practise only under qualified supervision.','Straddle or tuck planche according to readiness.'],
  One_Arm_Pull_Up:['An elite one-arm pull-up with very high loading.','This requires extended specific preparation and shoulder and elbow control. Work with appropriate assistance and supervision.','Two-arm pull-ups and a controlled assisted progression.'],
- Iron_Cross:['An elite static ring hold with extreme demands on the shoulders and elbows.','This requires years of ring preparation and supervision by a qualified coach. Do not attempt without them.','Structured preparatory ring work with a coach.']
+ Iron_Cross:['An elite static ring hold with extreme demands on the shoulders and elbows.','This requires years of ring preparation and supervision by a qualified coach. Do not attempt without them.','Structured preparatory ring work with a coach.'],
+ Mountain_Climbers:['Dynamic work for the trunk and heart rate.','Start in a push-up position. Draw one knee toward your chest and alternate legs at a controlled pace.','Alternate knees slowly.'],
+ Bench_Dips:['A supported triceps exercise.','Place your hands on a stable bench behind you. Bend your elbows moderately without letting your shoulders collapse, then push up.','Bend your knees and reduce the range.'],
+ Side_Bridge:['Stability for the side abdominal muscles.','Support yourself on one forearm. Align shoulder, hips and ankles. Hold without letting the hips drop.','Bend the lower knee and keep it on the floor.'],
+ Childs_Pose:['A calm position to relax the back.','Kneel, sit back toward your heels and reach your arms forward. Breathe smoothly.','Separate the knees and place a cushion under your torso.'],
+ Cat_Stretch:['Gentle spinal mobility.','Start on hands and knees. Exhale and round your back, then return smoothly to neutral.','Use a smaller range.'],
+ Butt_Lift_Bridge:['Opening the front of the body and activating the glutes.','Lie on your back with bent knees. Lift your hips by pressing through your heels, then lower slowly.','Lift your hips less.'],
+ Dancers_Stretch:['A gentle seated stretch and twist.','Sit with one leg extended. Cross the other over it and gently rotate your torso. Change sides.','Keep both legs more relaxed.'],
+ Seated_Floor_Hamstring_Stretch:['A stretch for the backs of the thighs.','Sit with one leg extended. Hinge from the hips toward the extended leg without pulling suddenly. Change sides.','Bend the knee slightly.'],
+ Groin_and_Back_Stretch:['Relaxing the inner thighs.','Sit and bring the soles of your feet together. Let your knees move outward and lean slightly forward without forcing.','Place support under your knees.'],
+ Spinal_Stretch:['A gentle practice for the back and shoulders.','Sit securely on a chair. Place your hands behind your head, lower your chin slightly and relax your back without pain.','Use a smaller range.'],
+ Seated_Overhead_Stretch:['A smooth side stretch for the trunk and shoulders.','Sit with your feet together. Support one hand to the side, raise the other overhead and lean gently sideways. Change sides.','Reduce the side bend.'],
+ Standing_Hip_Circles:['Active hip mobility.','Stand on one leg, using support if needed. Lift one knee and draw a slow circle. Change direction and leg.','Make smaller circles.'],
+ Hip_Circles_prone:['Controlled hip movement.','Start on all fours. Lift one bent knee and make a smooth circle without arching your lower back.','Make the circle smaller.'],
+ Arm_Circles:['A warm-up for the shoulder girdle.','Extend your arms to the sides. Make small circles forward and backward, gradually increasing their size.','Start with very small circles.'],
+ Kneeling_Hip_Flexor:['Mobility for the front of the hips.','Kneel on one knee. Gently tuck your pelvis and shift your weight forward. Change sides.','Place soft support under the knee.'],
+ Dynamic_Chest_Stretch:['Mobility for the chest and shoulders.','Extend your arms in front of your body. Open them to the sides with control, return and repeat without forcing.','Use a smaller range.'],
+ Shoulder_Stretch:['A gentle stretch for the back of the shoulder.','Bring one arm across your chest and gently support it with the other. Change sides.','Use less pressure.'],
+ Calf_Stretch_Hands_Against_Wall:['Mobility for the ankle and calf.','Place your palms on a wall. Step one leg back with the heel on the floor. Lean forward and change sides.','Bring the back foot closer.'],
+ Kneeling_Forearm_Stretch:['Preparing the wrists for supports and handstands.','Kneel and place your palms on the floor with fingers toward your knees. Shift your weight gently back without pain.','Use less load.']
 };
 const de={
  Pushups:['Kräftigung für Brust, Schultern und Trizeps.','Setze die Hände etwas breiter als schulterbreit auf. Spanne den Körper an, senke die Brust kontrolliert und drücke dich wieder hoch.','Liegestütze mit den Knien auf dem Boden.'],
@@ -64,7 +82,26 @@ const de={
  Straddle_Planche:['Ein waagerechter Kraftstütz mit gespreizten Beinen.','Verlagere erst nach stabilen Vorübungen das Gewicht nach vorn und halte den Körper angespannt und die Ellbogen gestreckt.','Tuck Planche.'],
  Full_Planche:['Ein waagerechter Stütz auf Eliteniveau mit gestrecktem Körper.','Dies erfordert langfristige Vorbereitung und sichere Kontrolle leichterer Varianten. Übe nur unter qualifizierter Aufsicht.','Straddle oder Tuck Planche entsprechend deiner Vorbereitung.'],
  One_Arm_Pull_Up:['Ein einarmiger Klimmzug auf Eliteniveau mit sehr hoher Belastung.','Dies erfordert langfristige spezifische Vorbereitung sowie Schulter- und Ellbogenkontrolle. Arbeite mit geeigneter Unterstützung und Aufsicht.','Beidarmige Klimmzüge und eine kontrollierte unterstützte Progression.'],
- Iron_Cross:['Ein statischer Ringhalt auf Eliteniveau mit extremer Belastung für Schultern und Ellbogen.','Dies erfordert jahrelange Vorbereitung an Ringen und direkte Aufsicht durch einen qualifizierten Trainer. Versuche es nicht ohne diese Voraussetzungen.','Strukturierte Vorbereitungsarbeit an Ringen mit einem Trainer.']
+ Iron_Cross:['Ein statischer Ringhalt auf Eliteniveau mit extremer Belastung für Schultern und Ellbogen.','Dies erfordert jahrelange Vorbereitung an Ringen und direkte Aufsicht durch einen qualifizierten Trainer. Versuche es nicht ohne diese Voraussetzungen.','Strukturierte Vorbereitungsarbeit an Ringen mit einem Trainer.'],
+ Mountain_Climbers:['Dynamische Belastung für Rumpf und Herzfrequenz.','Beginne in einer Liegestützposition. Ziehe ein Knie zur Brust und wechsle die Beine in kontrolliertem Tempo.','Wechsle die Knie langsam.'],
+ Bench_Dips:['Eine gestützte Übung für den Trizeps.','Stütze die Hände hinter dir auf eine stabile Bank. Beuge die Ellbogen mäßig, ohne die Schultern einsinken zu lassen, und drücke dich hoch.','Beuge die Knie und verkleinere den Bewegungsbereich.'],
+ Side_Bridge:['Stabilität für die seitliche Bauchmuskulatur.','Stütze dich auf einen Unterarm. Richte Schulter, Hüfte und Knöchel aus. Halte die Position, ohne die Hüfte absinken zu lassen.','Beuge das untere Knie und lege es auf den Boden.'],
+ Childs_Pose:['Eine ruhige Position zum Entspannen des Rückens.','Knie dich hin, setze dich Richtung Fersen zurück und strecke die Arme nach vorn. Atme gleichmäßig.','Öffne die Knie und lege ein Kissen unter den Oberkörper.'],
+ Cat_Stretch:['Sanfte Mobilisierung der Wirbelsäule.','Beginne auf Händen und Knien. Atme aus und runde den Rücken; kehre dann fließend in die neutrale Position zurück.','Nutze einen kleineren Bewegungsbereich.'],
+ Butt_Lift_Bridge:['Öffnung der Körpervorderseite und Aktivierung des Gesäßes.','Lege dich mit gebeugten Knien auf den Rücken. Hebe die Hüfte durch Druck über die Fersen und senke sie langsam.','Hebe die Hüfte weniger hoch.'],
+ Dancers_Stretch:['Eine sanfte Dehnung und Drehung im Sitzen.','Setze dich mit einem gestreckten Bein hin. Führe das andere darüber und drehe den Oberkörper vorsichtig. Wechsle die Seite.','Lass beide Beine entspannter.'],
+ Seated_Floor_Hamstring_Stretch:['Dehnung der Oberschenkelrückseiten.','Setze dich mit einem gestreckten Bein hin. Beuge dich aus der Hüfte zum gestreckten Bein, ohne ruckartig zu ziehen. Wechsle die Seite.','Beuge das Knie leicht.'],
+ Groin_and_Back_Stretch:['Entspannung der Oberschenkelinnenseiten.','Setze dich hin und bringe die Fußsohlen zusammen. Lass die Knie nach außen sinken und lehne dich leicht vor, ohne Druck auszuüben.','Lege eine Stütze unter die Knie.'],
+ Spinal_Stretch:['Eine sanfte Übung für Rücken und Schultern.','Setze dich stabil auf einen Stuhl. Lege die Hände hinter den Kopf, senke das Kinn leicht und entspanne den Rücken ohne Schmerzen.','Nutze einen kleineren Bewegungsbereich.'],
+ Seated_Overhead_Stretch:['Eine fließende seitliche Dehnung für Rumpf und Schultern.','Setze dich mit zusammengelegten Füßen hin. Stütze eine Hand seitlich auf, führe die andere über den Kopf und neige den Rumpf sanft zur Seite. Wechsle die Seite.','Verringere die seitliche Neigung.'],
+ Standing_Hip_Circles:['Aktive Mobilität der Hüfte.','Stehe auf einem Bein und nutze bei Bedarf eine Stütze. Hebe ein Knie und zeichne einen langsamen Kreis. Wechsle Richtung und Bein.','Mache kleinere Kreise.'],
+ Hip_Circles_prone:['Kontrollierte Bewegung des Hüftgelenks.','Beginne im Vierfüßlerstand. Hebe ein gebeugtes Knie und zeichne einen fließenden Kreis, ohne den unteren Rücken zu überstrecken.','Verkleinere den Kreis.'],
+ Arm_Circles:['Aufwärmen des Schultergürtels.','Strecke die Arme seitlich aus. Mache kleine Kreise vorwärts und rückwärts und vergrößere sie schrittweise.','Beginne mit sehr kleinen Kreisen.'],
+ Kneeling_Hip_Flexor:['Mobilisierung der Hüftvorderseite.','Knie auf einem Knie. Kippe das Becken leicht und verlagere das Gewicht nach vorn. Wechsle die Seite.','Lege eine weiche Unterlage unter das Knie.'],
+ Dynamic_Chest_Stretch:['Beweglichkeit für Brust und Schultern.','Strecke die Arme vor dem Körper aus. Öffne sie kontrolliert zur Seite, führe sie zurück und wiederhole ohne Schwung.','Nutze einen kleineren Bewegungsbereich.'],
+ Shoulder_Stretch:['Eine sanfte Dehnung der hinteren Schulter.','Führe einen Arm vor die Brust und halte ihn vorsichtig mit dem anderen. Wechsle die Seite.','Verringere den Druck.'],
+ Calf_Stretch_Hands_Against_Wall:['Beweglichkeit für Sprunggelenk und Wade.','Setze die Hände an eine Wand. Stelle ein Bein nach hinten und halte die Ferse am Boden. Lehne dich vor und wechsle das Bein.','Stelle den hinteren Fuß näher heran.'],
+ Kneeling_Forearm_Stretch:['Vorbereitung der Handgelenke für Stütz und Handstand.','Knie dich hin und setze die Handflächen mit den Fingern zu den Knien auf. Verlagere das Gewicht leicht zurück, ohne Schmerzen zuzulassen.','Verwende weniger Belastung.']
 };
 const enMeta={
  Pushups:['Chest, shoulders, triceps','Stable support and trunk control','Letting the lower back sag','Archer push-ups','Controlled repetitions'],
@@ -96,7 +133,26 @@ const enMeta={
  Straddle_Planche:['Shoulders, chest, wrists','Stable tuck planche and strong wrist and elbow control','Shifting the weight suddenly','Full planche after long preparation','Seconds with control'],
  Full_Planche:['Shoulders, chest, wrists','Stable straddle planche and long-term preparation with a coach','Attempting before sufficient strength and readiness','A longer hold only when ready','Seconds with control'],
  One_Arm_Pull_Up:['Back, biceps, grip','Long-term preparation and strong assisted one-arm pulling','Suddenly loading the elbow','Less assistance only when ready','Controlled repetitions per side'],
- Iron_Cross:['Shoulders, chest, arms','Years of ring preparation and direct supervision by a qualified coach','Attempting without specific preparation','A longer hold only with a coach','Seconds with control']
+ Iron_Cross:['Shoulders, chest, arms','Years of ring preparation and direct supervision by a qualified coach','Attempting without specific preparation','A longer hold only with a coach','Seconds with control'],
+ Mountain_Climbers:['Abdomen, shoulders, hip flexors','Stable push-up support position','Lifting or dropping the hips','Faster controlled alternation','Controlled repetitions'],
+ Bench_Dips:['Triceps, front shoulders, chest','Shoulder mobility and a stable bench','Shrugging the shoulders toward the ears','Straight legs in front of the body','Controlled repetitions'],
+ Side_Bridge:['Obliques, shoulders, glutes','Trunk control in a plank','Dropping the hips or twisting the torso','Side plank with the top leg raised','Seconds per side'],
+ Childs_Pose:['Back, shoulders, hips','Comfortable knee and ankle flexion','Holding the breath or tensing the shoulders','Longer hold with a gentle side reach','Seconds with calm breathing'],
+ Cat_Stretch:['Spine, abdomen, shoulders','Comfortable support on hands and knees','Moving quickly out of sync with the breath','Slow segmental spinal articulation','Smooth repetitions with the breath'],
+ Butt_Lift_Bridge:['Glutes, hamstrings, trunk','Stable foot and shoulder contact while lying down','Overarching the lower back at the top','Glute bridge with a pause at the top','Controlled repetitions'],
+ Dancers_Stretch:['Spine, glutes, outer thigh','Comfortable upright seated posture','Rounding the back and forcing the twist with the arms','Deeper twist with an elongated spine','Seconds per side'],
+ Seated_Floor_Hamstring_Stretch:['Hamstrings, calves, lower back','Comfortable seated posture with a neutral pelvis','Bouncing or strongly rounding the back','Deeper hip hinge with a long spine','Seconds per side'],
+ Groin_and_Back_Stretch:['Inner thighs, hips, lower back','Comfortable seated posture without knee pain','Pushing the knees down forcefully','Gentle forward hinge from the hips with a hold','Seconds with calm breathing'],
+ Spinal_Stretch:['Upper back, neck, shoulders','Stable seated posture on a chair with feet flat','Pulling the head down with the hands','Slow thoracic extension after the release','Seconds with calm breathing'],
+ Seated_Overhead_Stretch:['Side trunk, back, shoulders','Stable seated posture with relaxed shoulders','Lifting the opposite hip off the floor','Longer side reach without twisting','Seconds per side'],
+ Standing_Hip_Circles:['Hips, glutes, trunk','Single-leg balance or light wall support','Leaning the torso instead of moving from the hip','Controlled circles without hand support','Controlled repetitions per side'],
+ Hip_Circles_prone:['Hips, glutes, trunk','Stable all-fours support','Arching the lower back and bending the elbows','Slower circles through your full controlled range','Controlled repetitions per side'],
+ Arm_Circles:['Shoulders, upper back, chest','Upright posture with free shoulder movement','Shrugging the shoulders and swinging with momentum','Slow wide circles with active shoulder blades','Controlled repetitions in both directions'],
+ Kneeling_Hip_Flexor:['Hip flexors, quadriceps, glutes','Comfortable kneeling support on a mat','Overarching the lower back while leaning forward','Overhead arm reach with the glute engaged','Seconds per side'],
+ Dynamic_Chest_Stretch:['Chest, front shoulders, upper back','Upright posture and comfortable arm range','Flinging the arms back and arching the lower back','Brief pause in the open position with upper-back engagement','Controlled repetitions'],
+ Shoulder_Stretch:['Rear shoulder, upper back','Upright posture with a relaxed neck','Lifting the shoulder toward the chin or twisting the torso','Longer hold with the shoulder blade gently depressed','Seconds per side'],
+ Calf_Stretch_Hands_Against_Wall:['Calves, Achilles tendon, ankles','Stable wall support and a straight back foot','Lifting the back heel or turning the foot outward','Alternating with a slightly bent back knee for the lower calf','Seconds per side'],
+ Kneeling_Forearm_Stretch:['Forearms, wrists, palms','Comfortable kneeling position on a mat','Shifting weight suddenly or pushing into sharp pain','Gently alternating palm directions with light pressure','Seconds with control']
 };
 const deMeta={
  Pushups:['Brust, Schultern, Trizeps','Stabiler Stütz und Rumpfkontrolle','Durchhängen des unteren Rückens','Archer-Liegestütze','Kontrollierte Wiederholungen'],
@@ -128,55 +184,30 @@ const deMeta={
  Straddle_Planche:['Schultern, Brust, Handgelenke','Stabile Tuck Planche und starke Kontrolle der Handgelenke und Ellbogen','Ruckartige Gewichtsverlagerung','Full Planche nach langer Vorbereitung','Sekunden mit Kontrolle'],
  Full_Planche:['Schultern, Brust, Handgelenke','Stabile Straddle Planche und langfristige Vorbereitung mit einem Trainer','Versuch ohne ausreichende Kraft und Vorbereitung','Längerer Halt nur bei entsprechender Vorbereitung','Sekunden mit Kontrolle'],
  One_Arm_Pull_Up:['Rücken, Bizeps, Griffkraft','Langfristige Vorbereitung und starke unterstützte einarmige Zugübungen','Ruckartige Belastung des Ellbogens','Weniger Unterstützung nur bei entsprechender Vorbereitung','Kontrollierte Wiederholungen pro Seite'],
- Iron_Cross:['Schultern, Brust, Arme','Jahrelange Vorbereitung an Ringen und direkte Aufsicht durch einen qualifizierten Trainer','Versuch ohne spezifische Vorbereitung','Längerer Halt nur mit einem Trainer','Sekunden mit Kontrolle']
-};
-const extraEn={
- Mountain_Climbers:['Mountain Climbers','Dynamic work for the trunk and heart rate.','Start in a push-up position. Draw one knee toward your chest and alternate legs at a controlled pace.','Alternate knees slowly.'],
- Bench_Dips:['Bench Dips','A supported triceps exercise.','Place your hands on a stable bench behind you. Bend your elbows moderately without letting your shoulders collapse, then push up.','Bend your knees and reduce the range.'],
- Side_Bridge:['Side Plank','Stability for the side abdominal muscles.','Support yourself on one forearm. Align shoulder, hips and ankles. Hold without letting the hips drop.','Bend the lower knee and keep it on the floor.'],
- Childs_Pose:['Child’s Pose','A calm position to relax the back.','Kneel, sit back toward your heels and reach your arms forward. Breathe smoothly.','Separate the knees and place a cushion under your torso.'],
- Cat_Stretch:['Cat Stretch','Gentle spinal mobility.','Start on hands and knees. Exhale and round your back, then return smoothly to neutral.','Use a smaller range.'],
- Butt_Lift_Bridge:['Glute Bridge','Opening the front of the body and activating the glutes.','Lie on your back with bent knees. Lift your hips by pressing through your heels, then lower slowly.','Lift your hips less.'],
- Dancers_Stretch:['Seated Twist','A gentle seated stretch and twist.','Sit with one leg extended. Cross the other over it and gently rotate your torso. Change sides.','Keep both legs more relaxed.'],
- Seated_Floor_Hamstring_Stretch:['Seated Forward Bend','A stretch for the backs of the thighs.','Sit with one leg extended. Hinge from the hips toward the extended leg without pulling suddenly. Change sides.','Bend the knee slightly.'],
- Groin_and_Back_Stretch:['Seated Butterfly','Relaxing the inner thighs.','Sit and bring the soles of your feet together. Let your knees move outward and lean slightly forward without forcing.','Place support under your knees.'],
- Spinal_Stretch:['Seated Spinal Stretch','A gentle practice for the back and shoulders.','Sit securely on a chair. Place your hands behind your head, lower your chin slightly and relax your back without pain.','Use a smaller range.'],
- Seated_Overhead_Stretch:['Seated Side Stretch','A smooth side stretch for the trunk and shoulders.','Sit with your feet together. Support one hand to the side, raise the other overhead and lean gently sideways. Change sides.','Reduce the side bend.'],
- Standing_Hip_Circles:['Standing Hip Circles','Active hip mobility.','Stand on one leg, using support if needed. Lift one knee and draw a slow circle. Change direction and leg.','Make smaller circles.'],
- Hip_Circles_prone:['Knee Circles on All Fours','Controlled hip movement.','Start on all fours. Lift one bent knee and make a smooth circle without arching your lower back.','Make the circle smaller.'],
- Arm_Circles:['Arm Circles','A warm-up for the shoulder girdle.','Extend your arms to the sides. Make small circles forward and backward, gradually increasing their size.','Start with very small circles.'],
- Kneeling_Hip_Flexor:['Kneeling Hip Flexor Stretch','Mobility for the front of the hips.','Kneel on one knee. Gently tuck your pelvis and shift your weight forward. Change sides.','Place soft support under the knee.'],
- Dynamic_Chest_Stretch:['Dynamic Chest Opening','Mobility for the chest and shoulders.','Extend your arms in front of your body. Open them to the sides with control, return and repeat without forcing.','Use a smaller range.'],
- Shoulder_Stretch:['Shoulder Stretch','A gentle stretch for the back of the shoulder.','Bring one arm across your chest and gently support it with the other. Change sides.','Use less pressure.'],
- Calf_Stretch_Hands_Against_Wall:['Wall Calf Stretch','Mobility for the ankle and calf.','Place your palms on a wall. Step one leg back with the heel on the floor. Lean forward and change sides.','Bring the back foot closer.'],
- Kneeling_Forearm_Stretch:['Wrist Stretch','Preparing the wrists for supports and handstands.','Kneel and place your palms on the floor with fingers toward your knees. Shift your weight gently back without pain.','Use less load.']
-};
-const extraDe={
- Mountain_Climbers:['Mountain Climbers','Dynamische Belastung für Rumpf und Herzfrequenz.','Beginne in einer Liegestützposition. Ziehe ein Knie zur Brust und wechsle die Beine in kontrolliertem Tempo.','Wechsle die Knie langsam.'],
- Bench_Dips:['Bank-Dips','Eine gestützte Übung für den Trizeps.','Stütze die Hände hinter dir auf eine stabile Bank. Beuge die Ellbogen mäßig, ohne die Schultern einsinken zu lassen, und drücke dich hoch.','Beuge die Knie und verkleinere den Bewegungsbereich.'],
- Side_Bridge:['Seitstütz','Stabilität für die seitliche Bauchmuskulatur.','Stütze dich auf einen Unterarm. Richte Schulter, Hüfte und Knöchel aus. Halte die Position, ohne die Hüfte absinken zu lassen.','Beuge das untere Knie und lege es auf den Boden.'],
- Childs_Pose:['Kindhaltung','Eine ruhige Position zum Entspannen des Rückens.','Knie dich hin, setze dich Richtung Fersen zurück und strecke die Arme nach vorn. Atme gleichmäßig.','Öffne die Knie und lege ein Kissen unter den Oberkörper.'],
- Cat_Stretch:['Katzenbuckel','Sanfte Mobilisierung der Wirbelsäule.','Beginne auf Händen und Knien. Atme aus und runde den Rücken; kehre dann fließend in die neutrale Position zurück.','Nutze einen kleineren Bewegungsbereich.'],
- Butt_Lift_Bridge:['Gesäßbrücke','Öffnung der Körpervorderseite und Aktivierung des Gesäßes.','Lege dich mit gebeugten Knien auf den Rücken. Hebe die Hüfte durch Druck über die Fersen und senke sie langsam.','Hebe die Hüfte weniger hoch.'],
- Dancers_Stretch:['Drehung im Sitzen','Eine sanfte Dehnung und Drehung im Sitzen.','Setze dich mit einem gestreckten Bein hin. Führe das andere darüber und drehe den Oberkörper vorsichtig. Wechsle die Seite.','Lass beide Beine entspannter.'],
- Seated_Floor_Hamstring_Stretch:['Vorbeuge im Sitzen','Dehnung der Oberschenkelrückseiten.','Setze dich mit einem gestreckten Bein hin. Beuge dich aus der Hüfte zum gestreckten Bein, ohne ruckartig zu ziehen. Wechsle die Seite.','Beuge das Knie leicht.'],
- Groin_and_Back_Stretch:['Schmetterling im Sitzen','Entspannung der Oberschenkelinnenseiten.','Setze dich hin und bringe die Fußsohlen zusammen. Lass die Knie nach außen sinken und lehne dich leicht vor, ohne Druck auszuüben.','Lege eine Stütze unter die Knie.'],
- Spinal_Stretch:['Wirbelsäulendehnung im Sitzen','Eine sanfte Übung für Rücken und Schultern.','Setze dich stabil auf einen Stuhl. Lege die Hände hinter den Kopf, senke das Kinn leicht und entspanne den Rücken ohne Schmerzen.','Nutze einen kleineren Bewegungsbereich.'],
- Seated_Overhead_Stretch:['Seitliche Dehnung im Sitzen','Eine fließende seitliche Dehnung für Rumpf und Schultern.','Setze dich mit zusammengelegten Füßen hin. Stütze eine Hand seitlich auf, führe die andere über den Kopf und neige den Rumpf sanft zur Seite. Wechsle die Seite.','Verringere die seitliche Neigung.'],
- Standing_Hip_Circles:['Hüftkreisen im Stand','Aktive Mobilität der Hüfte.','Stehe auf einem Bein und nutze bei Bedarf eine Stütze. Hebe ein Knie und zeichne einen langsamen Kreis. Wechsle Richtung und Bein.','Mache kleinere Kreise.'],
- Hip_Circles_prone:['Kniekreisen im Vierfüßlerstand','Kontrollierte Bewegung des Hüftgelenks.','Beginne im Vierfüßlerstand. Hebe ein gebeugtes Knie und zeichne einen fließenden Kreis, ohne den unteren Rücken zu überstrecken.','Verkleinere den Kreis.'],
- Arm_Circles:['Armkreisen','Aufwärmen des Schultergürtels.','Strecke die Arme seitlich aus. Mache kleine Kreise vorwärts und rückwärts und vergrößere sie schrittweise.','Beginne mit sehr kleinen Kreisen.'],
- Kneeling_Hip_Flexor:['Hüftbeugerdehnung im Kniestand','Mobilisierung der Hüftvorderseite.','Knie auf einem Knie. Kippe das Becken leicht und verlagere das Gewicht nach vorn. Wechsle die Seite.','Lege eine weiche Unterlage unter das Knie.'],
- Dynamic_Chest_Stretch:['Dynamische Brustöffnung','Beweglichkeit für Brust und Schultern.','Strecke die Arme vor dem Körper aus. Öffne sie kontrolliert zur Seite, führe sie zurück und wiederhole ohne Schwung.','Nutze einen kleineren Bewegungsbereich.'],
- Shoulder_Stretch:['Schulterdehnung','Eine sanfte Dehnung der hinteren Schulter.','Führe einen Arm vor die Brust und halte ihn vorsichtig mit dem anderen. Wechsle die Seite.','Verringere den Druck.'],
- Calf_Stretch_Hands_Against_Wall:['Wadendehnung an der Wand','Beweglichkeit für Sprunggelenk und Wade.','Setze die Hände an eine Wand. Stelle ein Bein nach hinten und halte die Ferse am Boden. Lehne dich vor und wechsle das Bein.','Stelle den hinteren Fuß näher heran.'],
- Kneeling_Forearm_Stretch:['Handgelenkdehnung','Vorbereitung der Handgelenke für Stütz und Handstand.','Knie dich hin und setze die Handflächen mit den Fingern zu den Knien auf. Verlagere das Gewicht leicht zurück, ohne Schmerzen zuzulassen.','Verwende weniger Belastung.']
+ Iron_Cross:['Schultern, Brust, Arme','Jahrelange Vorbereitung an Ringen und direkte Aufsicht durch einen qualifizierten Trainer','Versuch ohne spezifische Vorbereitung','Längerer Halt nur mit einem Trainer','Sekunden mit Kontrolle'],
+ Mountain_Climbers:['Bauch, Schultern, Hüftbeuger','Stabile Liegestützposition','Anheben oder Durchhängen der Hüfte','Schnellerer kontrollierter Wechsel','Kontrollierte Wiederholungen'],
+ Bench_Dips:['Trizeps, vordere Schultern, Brust','Schulterbeweglichkeit und eine stabile Bank','Hochziehen der Schultern zu den Ohren','Gestreckte Beine vor dem Körper','Kontrollierte Wiederholungen'],
+ Side_Bridge:['Seitliche Bauchmuskeln, Schultern, Gesäß','Rumpfkontrolle im Unterarmstütz','Absinken der Hüfte oder Verdrehen des Rumpfes','Seitstütz mit angehobenem oberen Bein','Sekunden pro Seite'],
+ Childs_Pose:['Rücken, Schultern, Hüfte','Angenehme Beugung in Knien und Sprunggelenken','Luft anhalten oder Anspannen der Schultern','Längerer Halt mit sanfter seitlicher Streckung','Sekunden mit ruhiger Atmung'],
+ Cat_Stretch:['Wirbelsäule, Bauch, Schultern','Bequemer Vierfüßlerstand','Schnelle Bewegung ohne Abstimmung mit der Atmung','Langsame segmentale Mobilisierung der Wirbelsäule','Fließende Wiederholungen mit der Atmung'],
+ Butt_Lift_Bridge:['Gesäß, hintere Oberschenkel, Rumpf','Stabiler Fuß- und Schulterkontakt in Rückenlage','Überstrecken des unteren Rückens am oberen Punkt','Gesäßbrücke mit Halten am oberen Punkt','Kontrollierte Wiederholungen'],
+ Dancers_Stretch:['Wirbelsäule, Gesäß, Außenseite des Oberschenkels','Aufrechter Sitz am Boden','Rundrücken und Erzwingen der Drehung mit den Armen','Tiefere Drehung mit aufgerichteter Wirbelsäule','Sekunden pro Seite'],
+ Seated_Floor_Hamstring_Stretch:['Hintere Oberschenkel, Waden, unterer Rücken','Bequemer Sitz mit neutralem Becken','Ruckartiges Federn oder starkes Runden des Rückens','Tiefere Vorbeuge aus der Hüfte mit langem Rücken','Sekunden pro Seite'],
+ Groin_and_Back_Stretch:['Oberschenkelinnenseiten, Hüfte, unterer Rücken','Bequemer Sitz ohne Knieschmerzen','Kräftiges Herunterdrücken der Knie','Sanfte Vorbeuge aus der Hüfte mit Halten','Sekunden mit ruhiger Atmung'],
+ Spinal_Stretch:['Oberer Rücken, Nacken, Schultern','Stabiler Sitz auf einem Stuhl mit flachen Füßen','Herunterziehen des Kopfes mit den Händen','Langsame Aufrichtung des Brustkorbs nach dem Lösen','Sekunden mit ruhiger Atmung'],
+ Seated_Overhead_Stretch:['Seitlicher Rumpf, Rücken, Schultern','Stabiler Sitz mit entspannten Schultern','Abheben der gegenüberliegenden Beckenseite vom Boden','Längere seitliche Streckung ohne Verdrehen','Sekunden pro Seite'],
+ Standing_Hip_Circles:['Hüftgelenke, Gesäß, Rumpf','Einbeinstand oder leichter Halt an der Wand','Ausweichen mit dem Oberkörper statt Bewegung aus der Hüfte','Kontrollierte Kreise ohne Abstützen','Kontrollierte Wiederholungen pro Seite'],
+ Hip_Circles_prone:['Hüftgelenke, Gesäß, Rumpf','Stabiler Vierfüßlerstand','Hohlkreuz und Beugen der Stützellbogen','Langsamere Kreise im vollen kontrollierten Bereich','Kontrollierte Wiederholungen pro Seite'],
+ Arm_Circles:['Schultern, oberer Rücken, Brust','Aufrechte Haltung mit freier Schulterbewegung','Hochziehen der Schultern und Schwung holen','Langsame weite Kreise mit aktiven Schulterblättern','Kontrollierte Wiederholungen in beide Richtungen'],
+ Kneeling_Hip_Flexor:['Hüftbeuger, vorderer Oberschenkel, Gesäß','Bequemer Kniestand auf einer Matte','Starkes Hohlkreuz beim Vorschieben','Arm über den Kopf führen bei angespanntem Gesäß','Sekunden pro Seite'],
+ Dynamic_Chest_Stretch:['Brust, vordere Schultern, oberer Rücken','Aufrechte Haltung und angenehmer Bewegungsbereich der Arme','Ruckartiges Zurückwerfen der Arme und Hohlkreuz','Kurzes Halten in der offenen Position mit aktivem oberen Rücken','Kontrollierte Wiederholungen'],
+ Shoulder_Stretch:['Hintere Schulter, oberer Rücken','Aufrechte Haltung mit entspanntem Nacken','Hochziehen der Schulter zum Kinn oder Verdrehen des Rumpfes','Längerer Halt mit sanft gesenktem Schulterblatt','Sekunden pro Seite'],
+ Calf_Stretch_Hands_Against_Wall:['Waden, Achillessehne, Sprunggelenke','Stabiler Halt an der Wand und gerade ausgerichteter Fuß','Abheben der hinteren Ferse oder Ausdrehen des Fußes','Wechsel mit leicht gebeugtem hinteren Knie für die tiefe Wade','Sekunden pro Seite'],
+ Kneeling_Forearm_Stretch:['Unterarme, Handgelenke, Handflächen','Bequemer Kniestand auf einer Matte','Ruckartige Gewichtsverlagerung oder Drücken in stechenden Schmerz','Sanfter Richtungswechsel der Handflächen mit leichtem Druck','Sekunden mit Kontrolle']
 };
 function get(id,language){
  const record=language==='en'?en[id]:language==='de'?de[id]:null,meta=language==='en'?enMeta[id]:language==='de'?deMeta[id]:null;
  const exercise=root.FORME_DATA?.exercises?.find(item=>item.id===id),name=language==='en'?exercise?.nameEn:exercise?.nameDe;
- const extra=language==='en'?extraEn[id]:language==='de'?extraDe[id]:null;
- if(!record&&extra&&exercise)return {name:extra[0],description:extra[1],steps:extra[2],easier:extra[3],caution:''};
  if(!record||!meta||!exercise||!name)return null;
  const caution=exercise.caution?(language==='en'?'High loading: prepare gradually and work with a qualified coach. Stop if you feel pain.':'Hohe Belastung: Bereite die Bewegung schrittweise vor und arbeite mit einem qualifizierten Trainer. Stoppe bei Schmerzen.'):'';
  return {name,description:record[0],steps:record[1],easier:record[2],muscles:meta[0],prerequisites:meta[1],commonMistakes:meta[2],harder:meta[3],measure:meta[4],progression:`${record[2]} → ${name} → ${meta[3]}`,caution};

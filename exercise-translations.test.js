@@ -20,3 +20,17 @@ test('every existing exercise has a translated name, description, instructions a
   for(const field of ['name','description','steps','easier'])assert.ok(typeof translated[field]==='string'&&translated[field].trim(),exercise.id+' '+lang+' '+field);
  }
 });
+test('all 49 exercises across calisthenics, yoga and mobility have complete BG, EN and DE training metadata',()=>{
+ const exercises=context.window.FORME_DATA.exercises;
+ assert.equal(exercises.length,49);
+ for(const exercise of exercises){
+  for(const field of ['name','nameEn','nameDe','muscles','prerequisites','steps','commonMistakes','easier','harder','progression','measure'])
+   assert.ok(typeof exercise[field]==='string'&&exercise[field].trim(),`${exercise.id} bg ${field}`);
+  for(const lang of ['en','de']){
+   const translated=context.window.FORME_EXERCISE_TRANSLATIONS.get(exercise.id,lang);
+   assert.ok(translated,`${exercise.id} ${lang}`);
+   for(const field of ['name','description','steps','easier','muscles','prerequisites','commonMistakes','harder','progression','measure'])
+    assert.ok(typeof translated[field]==='string'&&translated[field].trim(),`${exercise.id} ${lang} ${field}`);
+  }
+ }
+});

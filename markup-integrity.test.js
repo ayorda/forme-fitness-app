@@ -3,11 +3,11 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 
-function boot(page,language='bg'){
+function boot(page,language='bg',extraStorage={}){
  const handlers={},nodes={};
  const element=()=>({innerHTML:'',textContent:'',value:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(){return element();}});
  const document={body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
- const storage=language==='bg'?{}:{'forme-language':language};
+ const storage={...(language==='bg'?{}:{'forme-language':language}),...extraStorage};
  const c={window:{addEventListener(){},scrollTo(){}},document,localStorage:{getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;}},location:{hash:page},setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(c);
  for(const f of ['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js','i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js','state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','backup.js','app.js'])
@@ -66,8 +66,10 @@ test('every screen keeps images, ids, labels, buttons and links accessible in al
 
 test('exercise and food details keep the same guarantees while open over the page',()=>{
  const cases=[
+  ['#sessions',{action:'workout-detail',id:'cal-start'}],
   ['#exercises',{action:'exercise-detail',id:'Plank'}],
-  ['#nutrition',{action:'food-detail',id:'rice'}]
+  ['#nutrition',{action:'food-detail',id:'rice'}],
+  ['#home',{action:'open-shortcuts',id:'shortcuts'}]
  ];
  for(const [page,action] of cases){
   const a=boot(page);
@@ -110,3 +112,52 @@ test('every WebP on disk is documented in the manifest and every documented file
  assert.deepEqual(missing,[],'manifest records without a file on disk');
  assert.equal(disk.length,158,'79 records keep both 480 and 960 variants');
 });
+
+test('populated nutrition sub-tabs, month calendar, progress history and favorites keep accessible markup in BG/EN/DE',()=>{
+ const today=new Date();
+ const y=today.getFullYear(),m=String(today.getMonth()+1).padStart(2,'0'),d=String(today.getDate()).padStart(2,'0'),todayKey=`${y}-${m}-${d}`;
+ const populated={
+  'forme-favorites':JSON.stringify({workouts:['cal-start'],exercises:['Plank','Pullups'],foods:['salmon']}),
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'150'},{id:'chicken',grams:'50'},{id:'rice',grams:'150'}]),
+  'forme-saved-meals':JSON.stringify([{name:'Обяд',items:[{id:'chicken',grams:'200'}]},{name:'Закуска',items:[{id:'oats',grams:'80'}]}]),
+  'forme-plan':JSON.stringify({mon:'cal-start',wed:'yoga-reset'}),
+  'forme-date-plans':JSON.stringify({[todayKey]:'cal-start'}),
+  'forme-progress-v1':JSON.stringify({
+   version:1,
+   goal:{workoutsPerWeek:3,minutesPerWeek:90},
+   sessions:[{id:'s1',workoutId:'cal-start',date:todayKey,minutes:15}],
+   sets:[{id:'st1',exerciseId:'Plank',date:todayKey,kind:'seconds',value:60},{id:'st2',exerciseId:'Pullups',date:todayKey,kind:'reps',value:10}]
+  }),
+  'forme-nutrition-v1':JSON.stringify({
+   version:1,
+   goal:{kcal:2000,protein:100},
+   entries:[{id:'n1',date:todayKey,name:'Обяд',items:[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]}]
+  })
+ };
+ for(const language of ['bg','en','de']){
+  const nutr=boot('#nutrition',language,populated);
+  for(const tab of ['meal','saved','journal']){
+   nutr.handlers.click({target:{closest:()=>({dataset:{action:'food-tab',tab}})}});
+   const problems=checkAll([[`${language} nutrition:${tab}`,nutr.nodes.app.innerHTML]]);
+   assert.deepEqual(problems,[],problems.join('; '));
+  }
+  const plan=boot('#plan',language,populated);
+  plan.handlers.click({target:{closest:()=>({dataset:{action:'plan-view',view:'month'}})}});
+  plan.handlers.click({target:{closest:()=>({dataset:{action:'plan-date',date:String(today.getDate())}})}});
+  assert.deepEqual(checkAll([[`${language} plan:month`,plan.nodes.app.innerHTML]]),[]);
+
+  const prog=boot('#progress',language,populated);
+  prog.handlers.click({target:{closest:()=>({dataset:{action:'program-activate',id:'foundation'}})}});
+  prog.handlers.click({target:{closest:()=>({dataset:{action:'nav',page:'progress'}})}});
+  prog.handlers.click({target:{closest:()=>({dataset:{action:'backup-reset-ask'}})}});
+  assert.deepEqual(checkAll([[`${language} progress:populated`,prog.nodes.app.innerHTML]]),[]);
+
+  const favs=boot('#favorites',language,populated);
+  assert.deepEqual(checkAll([[`${language} favorites:populated`,favs.nodes.app.innerHTML]]),[]);
+
+  const ex=boot('#exercises',language,populated);
+  ex.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Pullups'}})}});
+  assert.deepEqual(checkAll([[`${language} exercises:page`,ex.nodes.app.innerHTML],[`${language} exercises:results`,ex.nodes['exercise-results'].innerHTML],[`${language} exercises:modal`,ex.nodes['modal-root'].innerHTML]]),[]);
+ }
+});
+
