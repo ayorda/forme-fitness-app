@@ -1359,6 +1359,18 @@ test('Workout detail modal shows personal record badges and 1-tap set-logging bu
  assert.match(app.page(),/<option value="Pushups" selected>/);
 });
 
+test('Meal builder add bar dynamically updates 25 g target-protein portion preset when switching food selection',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/data-action="meal-preset-grams" data-grams="111"[^>]*>25 г протеин \(111 г\)/);
+ app.node('meal-food-grams').value='100';
+ app.change({id:'meal-food-select',value:'egg',dataset:{}});
+ assert.match(app.node('meal-presets').innerHTML,/25 г протеин \(199 г\)/);
+ app.change({id:'meal-food-select',value:'apple',dataset:{}});
+ assert.doesNotMatch(app.node('meal-presets').innerHTML,/25 г протеин/);
+});
+
+
 
 
 
