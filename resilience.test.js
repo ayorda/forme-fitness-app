@@ -1379,6 +1379,23 @@ test('Favorites page adds all non-duplicate favorite foods directly to Meal Buil
  assert.equal((app.page().match(/class="meal-row"/g)||[]).length,3);
 });
 
+test('Alt+1..Alt+7 keyboard shortcuts switch between main screens without intercepting Ctrl/Cmd or open modals',()=>{
+ const app=boot('#home',{},new Date(2026,10,9,12));
+ let prevented=false;
+ app.keydown({key:'6',altKey:true,ctrlKey:false,metaKey:false,preventDefault(){prevented=true;}});
+ assert.equal(prevented,true);
+ assert.match(app.page(),/ТВОЕТО ДВИЖЕНИЕ/);
+
+ prevented=false;
+ app.keydown({key:'2',altKey:true,ctrlKey:true,metaKey:false,preventDefault(){prevented=true;}});
+ assert.equal(prevented,false);
+ assert.match(app.page(),/ТВОЕТО ДВИЖЕНИЕ/);
+
+ app.keydown({key:'4',altKey:true,ctrlKey:false,metaKey:false,preventDefault(){}});
+ assert.match(app.page(),/ХРАНИ СЕ ОСЪЗНАТО/);
+});
+
+
 
 
 

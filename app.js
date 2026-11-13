@@ -432,6 +432,10 @@ function handleChange(event){const t=event.target;if(t.id==='meal-food-select'){
 document.addEventListener('click',handleClick);document.addEventListener('input',handleInput);document.addEventListener('change',handleChange);
 document.addEventListener('keydown',e=>{
  if(!modalRoot.innerHTML){
+  if(e.altKey&&!e.ctrlKey&&!e.metaKey&&/^[1-7]$/.test(String(e.key||''))){
+   const dest=nav[Number(e.key)-1]?.[0];
+   if(dest){e.preventDefault?.();navigate(dest);return;}
+  }
   if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!['INPUT','TEXTAREA','SELECT'].includes(e.target?.tagName)&&!e.target?.isContentEditable){
    const searchId=state.page==='sessions'?'workout-search':state.page==='exercises'?'ex-search':state.page==='nutrition'?(state.foodTab==='library'?'food-search':state.foodTab==='saved'?'saved-meal-search':null):state.page==='progress'?'progress-search':null;
    const inp=searchId?document.getElementById(searchId):null;
