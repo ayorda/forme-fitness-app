@@ -1801,6 +1801,17 @@ test('Nutrition journal surfaces all-time longest nutrition logging streak even 
  assert.match(app.page(),/🔥 Най-дълга серия: 4 дни/);
 });
 
+test('Food detail modal offers -25 / +25g stepper buttons (detail-step-grams) that recalculate macros live',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-detail',id:'chicken'}});
+ assert.match(app.node('modal-root').innerHTML,/data-action="detail-step-grams" data-id="chicken" data-delta="25"/);
+ app.click({dataset:{action:'detail-step-grams',id:'chicken',delta:'25'}});
+ assert.equal(app.node('detail-grams').value,'125');
+ assert.match(app.node('detail-table').innerHTML,/<th>125 г<\/th>[\s\S]*150 kcal/);
+ app.click({dataset:{action:'detail-step-grams',id:'chicken',delta:'-25'}});
+ assert.equal(app.node('detail-grams').value,'100');
+});
+
 
 
 
