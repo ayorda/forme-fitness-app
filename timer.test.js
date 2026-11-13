@@ -284,6 +284,21 @@ test('player supports +15s interval extension via button and + key, shows harder
  assert.equal(a.run('state.setExerciseId'),a.run("window.FORME_DATA.workouts.find(w=>w.id==='cal-start').ids[0]"));
 });
 
+test('player supports -15s interval reduction via button and - key while clamping at 1 second minimum',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/data-action="player-sub-time" disabled/);
+ a.run("playerControl('player-start')");
+ const before=a.run('state.player.remainingMs');
+ a.run("playerControl('player-sub-time')");
+ assert.equal(a.run('state.player.remainingMs'),Math.max(1000,before-15000));
+ a.handlers.keydown({key:'-',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.remainingMs'),Math.max(1000,before-30000));
+ a.handlers.keydown({key:'-',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.remainingMs'),1000);
+});
+
+
 
 
 
