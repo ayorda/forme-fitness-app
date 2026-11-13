@@ -99,7 +99,13 @@ function relatedExercises(exercises,currentId,limit=3){
  }
  return picked;
 }
-const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
+function relatedFoods(foods,currentId,limit=3){
+ const list=Array.isArray(foods)?foods:[],cur=list.find(f=>f?.id===currentId);
+ if(!cur)return [];
+ const curDens=cur.protein/Math.max(1,cur.kcal);
+ return list.filter(f=>f&&f.id!==currentId&&f.cat===cur.cat).sort((a,b)=>Math.abs(a.protein/Math.max(1,a.kcal)-curDens)-Math.abs(b.protein/Math.max(1,b.kcal)-curDens)||Math.abs(a.kcal-cur.kcal)-Math.abs(b.kcal-cur.kcal)).slice(0,limit);
+}
+const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,exerciseProgressDelta,relatedExercises,relatedFoods,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);

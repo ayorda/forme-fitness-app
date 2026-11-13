@@ -1247,6 +1247,15 @@ test('Workout player offers 1-tap Gentle, Standard and Intense pacing presets be
  assert.doesNotMatch(app.node('player-layout').innerHTML,/data-action="set-player-pace"/);
 });
 
+test('Food detail recommends similar USDA foods from the same food group with 1-tap navigation',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-detail',id:'chicken'}});
+ const modal=app.node('modal-root').innerHTML;
+ assert.match(modal,/<h3>Подобни храни<\/h3>/);
+ assert.match(modal,/data-action="food-detail" data-id="(tuna|turkey|cottage|greek|salmon|egg)"/);
+});
+
+
 
 
 
