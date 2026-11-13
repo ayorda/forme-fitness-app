@@ -1598,6 +1598,16 @@ test('Favorites page renders a summary overview strip and logs all favorite food
  assert.deepEqual(entries[0].items,[{id:'chicken',grams:'100'},{id:'oats',grams:'100'}]);
 });
 
+test('Nutrition journal loads an entire multi-entry day into Meal Builder with merged food grams',()=>{
+ const app=boot('#nutrition',{'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:120},entries:[{id:'e1',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'120'},{id:'rice',grams:'150'}]},{id:'e2',date:'2026-11-09',name:'Вечеря',items:[{id:'chicken',grams:'130'}]}]})},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/data-action="journal-load-day-meal"/);
+ app.click({dataset:{action:'journal-load-day-meal'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'250'},{id:'rice',grams:'150'}]);
+ assert.equal(app.node('meal-name').value,'2026-11-09');
+});
+
+
 
 
 
