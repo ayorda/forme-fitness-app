@@ -263,5 +263,27 @@ test('player displays common mistakes cue and supports M and R keyboard shortcut
  assert.equal(a.run('state.player.index'),0);
 });
 
+test('player supports +15s interval extension via button and + key, shows harder cue, and offers post-workout set logging',()=>{
+ const a=boot();
+ a.run("startWorkout('cal-start')");
+ assert.match(a.nodes['player-layout'].innerHTML,/По-труден вариант:/);
+ assert.match(a.nodes['player-layout'].innerHTML,/data-action="player-add-time" disabled/);
+ a.run("playerControl('player-start')");
+ const before=a.run('state.player.remainingMs');
+ a.run("playerControl('player-add-time')");
+ assert.equal(a.run('state.player.remainingMs'),before+15000);
+ a.handlers.keydown({key:'+',target:{tagName:'DIV'},preventDefault(){}});
+ assert.equal(a.run('state.player.remainingMs'),before+30000);
+ a.advance(900000);
+ a.handlers.visibilitychange();
+ assert.equal(a.run('state.player.phase'),'done');
+ assert.match(a.nodes['player-layout'].innerHTML,/data-action="player-log-set"/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'player-log-set'}})}});
+ assert.equal(a.nodes['modal-root'].innerHTML,'');
+ assert.equal(a.run('state.page'),'progress');
+ assert.equal(a.run('state.setExerciseId'),a.run("window.FORME_DATA.workouts.find(w=>w.id==='cal-start').ids[0]"));
+});
+
+
 
 
