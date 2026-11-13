@@ -1412,6 +1412,17 @@ test('Food catalog cards allow 1-tap logging of 100 g directly into today’s Nu
  assert.match(app.page(),/Банан/);
 });
 
+test('Nutrition Journal daily goal presets save kcal and protein targets in 1 tap',()=>{
+ const app=boot('#nutrition',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/data-action="journal-goal-preset" data-kcal="2500" data-protein="160" aria-pressed="false"/);
+ app.click({dataset:{action:'journal-goal-preset',kcal:'2500',protein:'160'}});
+ assert.match(app.page(),/0 \/ 2500 kcal/);
+ assert.match(app.page(),/Протеин: 0 \/ 160 г/);
+ assert.match(app.page(),/data-action="journal-goal-preset" data-kcal="2500" data-protein="160" aria-pressed="true"/);
+});
+
+
 
 
 
