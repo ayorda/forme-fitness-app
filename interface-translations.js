@@ -110,7 +110,7 @@ const rows={
  'shell.space':['ТВОЕТО ПРОСТРАНСТВО','YOUR SPACE','DEIN BEREICH'],
  'shell.progress':['СЪЗДАДЕНО ЗА ПРОГРЕС','BUILT FOR PROGRESS','FÜR FORTSCHRITT GEMACHT'],
  'shell.nextStep':['Няма перфектен момент. Има следваща стъпка.','There is no perfect moment. Take the next step.','Es gibt keinen perfekten Moment. Geh den nächsten Schritt.'],
- 'shell.version':['v0.3.121 · Български · 0 €','v0.3.121 · English · €0','v0.3.121 · Deutsch · 0 €'],
+ 'shell.version':['v0.3.122 · Български · 0 €','v0.3.122 · English · €0','v0.3.122 · Deutsch · 0 €'],
  'shell.skip':['Към основното съдържание','Skip to main content','Zum Hauptinhalt springen'],
  'shell.everyDay':['РАСТИ ВСЕКИ ДЕН','GROW EVERY DAY','WACHSE JEDEN TAG'],
  'shell.footer':['Създадено за движение и осъзнат избор · Данните са ориентировъчни, не медицински съвет.','Made for movement and mindful choices · Data is approximate, not medical advice.','Für Bewegung und bewusste Entscheidungen · Angaben sind Richtwerte, keine medizinische Beratung.'],
@@ -464,6 +464,7 @@ const rows={
  'shortcuts.esc':['Изчистване на търсачка или затваряне на прозорец','Clear search input or close open dialog','Suchfeld leeren oder Dialog schließen'],
  'workouts.doneOnly':['Изпълнени','Completed','Absolviert'],
  'favorites.planWorkouts':['Разпредели в седмичния план','Distribute across weekly plan','Auf Wochenplan verteilen'],
+ 'favorites.search':['Търси в любими','Search favorites','In Favoriten suchen'],
  'common.resetFilters':['Изчисти филтрите','Reset filters','Filter zurücksetzen']
 };
 const index={bg:0,en:1,de:2};

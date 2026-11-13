@@ -2132,6 +2132,29 @@ test('Nutrition journal shows per-entry % kcal share when multiple meals logged 
  assert.doesNotMatch(app.page(),/data-action="journal-day-fav-foods"/);
 });
 
+test('Favorites screen offers live multilingual search (#favorites-search) with / focus and Escape clear',()=>{
+ const app=boot('#favorites',{
+  'forme-language':'bg',
+  'forme-favorites':JSON.stringify({workouts:['cal-start'],exercises:['Plank','Pushups'],foods:['oats']})
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/id="favorites-search"/);
+ let focused=false;
+ app.node('favorites-search').focus=()=>{focused=true;};
+ app.keydown({key:'/',target:{tagName:'BODY'},preventDefault(){}});
+ assert.equal(focused,true);
+ app.input({dataset:{action:'favorites-search'},value:'push'});
+ assert.match(app.node('favorites-results').innerHTML,/Лицеви опори/);
+ assert.doesNotMatch(app.node('favorites-results').innerHTML,/Силна основа/);
+ assert.doesNotMatch(app.node('favorites-results').innerHTML,/Овесени ядки/);
+ const inp=app.node('favorites-search');
+ inp.dataset={action:'favorites-search'};
+ inp.value='push';
+ app.keydown({key:'Escape',target:inp,preventDefault(){}});
+ assert.equal(inp.value,'');
+ assert.match(app.node('favorites-results').innerHTML,/Силна основа/);
+ assert.match(app.node('favorites-results').innerHTML,/Овесени ядки/);
+});
+
 
 
 
