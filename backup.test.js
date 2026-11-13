@@ -151,5 +151,30 @@ test('backup export and import enforce 500-item favorites and 2000-item date-pla
  assert.equal(Object.keys(JSON.parse(restored.data['forme-date-plans'])).length,2000);
 });
 
+test('backup enforces 100-item current-meal cap, 5000-record journal caps, and atomic clearData preserving language',()=>{
+ const overMeal=Array.from({length:105},()=>({id:'rice',grams:'100'}));
+ const overSessions=Array.from({length:5002},(_,i)=>({id:'s'+i,workoutId:'cal-start',date:'2026-11-09',minutes:10}));
+ const target=storage({'forme-language':'de','forme-plan':'{"mon":"cal-start"}'});
+ assert.equal(backup.importData(target,JSON.stringify({app:'FORME',version:1,data:{'forme-current-meal':JSON.stringify(overMeal)}})),false);
+ assert.equal(backup.importData(target,JSON.stringify({app:'FORME',version:1,data:{'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:overSessions,sets:[]})}})),false);
+ const exported=backup.exportData(storage({'forme-current-meal':JSON.stringify(overMeal)})),restored=storage();
+ assert.equal(backup.importData(restored,exported),true);
+ assert.equal(JSON.parse(restored.data['forme-current-meal']).length,100);
+
+ assert.equal(backup.clearData(target),true);
+ assert.equal(target.data['forme-language'],'de');
+ assert.equal(target.data['forme-plan'],undefined);
+
+ const failingRemove={
+  data:{'forme-language':'en','forme-plan':'{"mon":"cal-start"}','forme-sound':'false'},
+  getItem(k){return this.data[k]??null;},
+  setItem(k,v){this.data[k]=String(v);},
+  removeItem(k){if(k==='forme-sound')throw new Error('quota');delete this.data[k];}
+ };
+ assert.equal(backup.clearData(failingRemove),false);
+ assert.equal(failingRemove.data['forme-plan'],'{"mon":"cal-start"}');
+});
+
+
 
 

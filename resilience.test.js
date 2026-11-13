@@ -10,7 +10,7 @@ function boot(hash,storage={},startNow=null,withI18n=false){
  const element=()=>({innerHTML:'',textContent:'',value:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},focus(){},querySelector(){return element();}});
  const document={body:{style:{}},hidden:false,activeElement:{isConnected:true,focus(){}},getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
  const window={addEventListener(){},scrollTo(){}};
- const localStorage={getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;}};
+ const localStorage={getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;},removeItem:key=>{delete storage[key];}};
  const context={window,document,localStorage,location:{hash},Date:startNow?Clock:Date,setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(context);
  const files=['exercise-art.js','data.js','core.js','food-art.js'];
@@ -909,6 +909,30 @@ test('activating a 4-week program reflects active scheduled slot count on Progre
  app.click({dataset:{action:'nav',page:'progress'}});
  assert.match(app.page(),/12 тренировки · \d+ мин · ✓ 12 \/ 12/);
 });
+
+test('Favorites screen offers 1-tap clear-favorites and Progress offers two-step local data reset without window.confirm',()=>{
+ const app=boot('#favorites',{
+  'forme-language':'bg',
+  'forme-favorites':JSON.stringify({workouts:['cal-start'],exercises:['Pushups']}),
+  'forme-saved-meals':JSON.stringify([{name:'Обяд',items:[{id:'rice',grams:'150'}]}])
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="clear-favorites"/);
+ app.click({dataset:{action:'clear-favorites'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-favorites']),{exercises:[],workouts:[]});
+ assert.doesNotMatch(app.page(),/data-action="clear-favorites"/);
+
+ app.click({dataset:{action:'nav',page:'progress'}});
+ assert.match(app.page(),/data-action="backup-reset-ask"/);
+ app.click({dataset:{action:'backup-reset-ask'}});
+ assert.match(app.page(),/data-action="backup-reset-confirm"/);
+ app.click({dataset:{action:'backup-reset-cancel'}});
+ assert.doesNotMatch(app.page(),/data-action="backup-reset-confirm"/);
+ app.click({dataset:{action:'backup-reset-ask'}});
+ app.click({dataset:{action:'backup-reset-confirm'}});
+ assert.equal(app.storage['forme-saved-meals'],undefined);
+ assert.equal(app.storage['forme-language'],'bg');
+});
+
 
 
 

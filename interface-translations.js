@@ -107,7 +107,7 @@ const rows={
  'shell.space':['ТВОЕТО ПРОСТРАНСТВО','YOUR SPACE','DEIN BEREICH'],
  'shell.progress':['СЪЗДАДЕНО ЗА ПРОГРЕС','BUILT FOR PROGRESS','FÜR FORTSCHRITT GEMACHT'],
  'shell.nextStep':['Няма перфектен момент. Има следваща стъпка.','There is no perfect moment. Take the next step.','Es gibt keinen perfekten Moment. Geh den nächsten Schritt.'],
- 'shell.version':['v0.3.26 · Български · 0 €','v0.3.26 · English · €0','v0.3.26 · Deutsch · 0 €'],
+ 'shell.version':['v0.3.27 · Български · 0 €','v0.3.27 · English · €0','v0.3.27 · Deutsch · 0 €'],
  'shell.skip':['Към основното съдържание','Skip to main content','Zum Hauptinhalt springen'],
  'shell.everyDay':['РАСТИ ВСЕКИ ДЕН','GROW EVERY DAY','WACHSE JEDEN TAG'],
  'shell.footer':['Създадено за движение и осъзнат избор · Данните са ориентировъчни, не медицински съвет.','Made for movement and mindful choices · Data is approximate, not medical advice.','Für Bewegung und bewusste Entscheidungen · Angaben sind Richtwerte, keine medizinische Beratung.'],
@@ -393,6 +393,11 @@ const rows={
  'exercises.sortName':['По име (А–Я)','By name (A–Z)','Nach Name (A–Z)'],
  'plan.presetBalanced':['Балансиран план (3 дни)','Balanced plan (3 days)','Ausgewogener Plan (3 Tage)'],
  'timer.addSeconds':['+15 сек','+15 sec','+15 Sek.'],
+ 'backup.reset':['Изчисти всички данни','Clear all data','Alle Daten löschen'],
+ 'backup.resetConfirmTitle':['Сигурен ли си? Това изтрива локалните записи на това устройство.','Are you sure? This deletes all local records on this device.','Bist du sicher? Dadurch werden alle lokalen Einträge auf diesem Gerät gelöscht.'],
+ 'backup.resetYes':['Да, изчисти','Yes, clear','Ja, löschen'],
+ 'backup.resetDone':['Всички локални данни са изчистени.','All local data has been cleared.','Alle lokalen Daten wurden gelöscht.'],
+ 'favorites.clearAll':['Изчисти любимите','Clear favourites','Favoriten leeren'],
  'common.resetFilters':['Изчисти филтрите','Reset filters','Filter zurücksetzen']
 };
 const index={bg:0,en:1,de:2};

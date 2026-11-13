@@ -285,6 +285,7 @@
 .meal-grams-pick{min-width:0}
 .meal-macro-split{display:block;margin-top:4px;color:var(--muted);font-size:12px}
 #meal-presets{margin-top:8px}
+.backup-reset-confirm{margin-top:12px;display:flex;flex-direction:column;gap:10px}
 @media(max-width:480px){.meal-add-fields{grid-template-columns:1fr}}
 .btn:focus-visible,.nav-item:focus-visible,.tab:focus-visible,.fav:focus-visible,.category-card:focus-visible,.avatar:focus-visible,.modal-close:focus-visible,.remove:focus-visible,.text-link:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
 @media(max-width:780px){.saved-item{flex-direction:column;align-items:flex-start}.saved-actions,.journal-entry>div:last-child,.day-note-row{flex-wrap:wrap}}

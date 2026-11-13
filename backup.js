@@ -28,7 +28,7 @@ function exportValue(key,value){
    return JSON.stringify(Object.fromEntries(Object.entries(parsed).slice(0,2000).filter(([d,v])=>date(d)&&validObject(v)&&id(v.id)&&typeof v.name==='string'&&v.name.trim()&&v.name.trim().length<=120).map(([d,v])=>[d,{id:v.id,name:v.name.trim()}])));
   }
   if(key==='forme-current-meal'&&Array.isArray(parsed)){
-   return JSON.stringify(parsed.filter(x=>validObject(x)&&id(x.id)&&grams(x.grams)).map(x=>({id:x.id,grams:String(x.grams)})));
+   return JSON.stringify(parsed.filter(x=>validObject(x)&&id(x.id)&&grams(x.grams)).slice(0,100).map(x=>({id:x.id,grams:String(x.grams)})));
   }
   if(key==='forme-saved-meals'&&Array.isArray(parsed)){
    const cleaned=parsed.slice(0,200).filter(x=>validObject(x)&&typeof x.name==='string'&&x.name.trim()&&x.name.trim().length<=70&&Array.isArray(x.items)).map(x=>({name:x.name.trim(),items:x.items.filter(i=>validObject(i)&&id(i.id)&&grams(i.grams)).map(i=>({id:i.id,grams:String(i.grams)}))})).filter(x=>journalItems(x.items));
@@ -71,10 +71,10 @@ function validate(payload){
   else if(key==='forme-plan'||key==='forme-date-plans'){if(!validObject(parsed)||Object.keys(parsed).length>2000||!Object.values(parsed).every(x=>typeof x==='string'))return false;}
   else if(key==='forme-completed-workouts'){if(!validObject(parsed)||Object.keys(parsed).length>2000||!Object.entries(parsed).every(([d,x])=>date(d)&&validObject(x)&&id(x.id)&&typeof x.name==='string'&&x.name.trim()!==''&&x.name.length<=120))return false;}
   else if(key==='forme-user-v1'){if(parsed?.version!==1||!validObject(parsed.records)||Object.entries(parsed.records).some(([name,raw])=>!['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound'].includes(name)||!validate({app:'FORME',version:1,data:{['forme-'+name]:raw}})))return false;}
-  else if(key==='forme-current-meal'){if(!items(parsed))return false;}
+  else if(key==='forme-current-meal'){if(!items(parsed)||parsed.length>100)return false;}
   else if(key==='forme-saved-meals'){if(!Array.isArray(parsed)||parsed.length>200||!parsed.every(x=>validObject(x)&&typeof x.name==='string'&&x.name.trim()!==''&&x.name.length<=70&&journalItems(x.items)))return false;}
-  else if(key==='forme-progress-v1'){if(parsed?.version!==1||!Array.isArray(parsed.sessions)||!Array.isArray(parsed.sets)||!Number.isInteger(parsed.goal?.workoutsPerWeek)||parsed.goal.workoutsPerWeek<1||parsed.goal.workoutsPerWeek>7||!Number.isInteger(parsed.goal?.minutesPerWeek)||parsed.goal.minutesPerWeek<0||parsed.goal.minutesPerWeek>2000||!parsed.sessions.every(x=>validObject(x)&&id(x.id)&&id(x.workoutId)&&date(x.date)&&Number.isFinite(x.minutes)&&x.minutes>=0&&x.minutes<=600)||!parsed.sets.every(x=>validObject(x)&&id(x.id)&&id(x.exerciseId)&&date(x.date)&&['reps','seconds'].includes(x.kind)&&Number.isInteger(x.value)&&x.value>=1&&x.value<=3600)||!hasUniqueIds(parsed.sessions)||!hasUniqueIds(parsed.sets))return false;}
-  else if(key==='forme-nutrition-v1'){if(parsed?.version!==1||!Array.isArray(parsed.entries)||!Number.isInteger(parsed.goal?.kcal)||parsed.goal.kcal<1||parsed.goal.kcal>10000||!Number.isInteger(parsed.goal?.protein)||parsed.goal.protein<0||parsed.goal.protein>1000||!parsed.entries.every(x=>validObject(x)&&id(x.id)&&date(x.date)&&typeof x.name==='string'&&x.name.length<=70&&journalItems(x.items))||!hasUniqueIds(parsed.entries))return false;}
+  else if(key==='forme-progress-v1'){if(parsed?.version!==1||!Array.isArray(parsed.sessions)||!Array.isArray(parsed.sets)||parsed.sessions.length>5000||parsed.sets.length>5000||!Number.isInteger(parsed.goal?.workoutsPerWeek)||parsed.goal.workoutsPerWeek<1||parsed.goal.workoutsPerWeek>7||!Number.isInteger(parsed.goal?.minutesPerWeek)||parsed.goal.minutesPerWeek<0||parsed.goal.minutesPerWeek>2000||!parsed.sessions.every(x=>validObject(x)&&id(x.id)&&id(x.workoutId)&&date(x.date)&&Number.isFinite(x.minutes)&&x.minutes>=0&&x.minutes<=600)||!parsed.sets.every(x=>validObject(x)&&id(x.id)&&id(x.exerciseId)&&date(x.date)&&['reps','seconds'].includes(x.kind)&&Number.isInteger(x.value)&&x.value>=1&&x.value<=3600)||!hasUniqueIds(parsed.sessions)||!hasUniqueIds(parsed.sets))return false;}
+  else if(key==='forme-nutrition-v1'){if(parsed?.version!==1||!Array.isArray(parsed.entries)||parsed.entries.length>5000||!Number.isInteger(parsed.goal?.kcal)||parsed.goal.kcal<1||parsed.goal.kcal>10000||!Number.isInteger(parsed.goal?.protein)||parsed.goal.protein<0||parsed.goal.protein>1000||!parsed.entries.every(x=>validObject(x)&&id(x.id)&&date(x.date)&&typeof x.name==='string'&&x.name.length<=70&&journalItems(x.items))||!hasUniqueIds(parsed.entries))return false;}
   else if(!validObject(parsed))return false;
  }
  return true;
@@ -83,5 +83,10 @@ function importData(storage,text){let parsed;try{parsed=JSON.parse(text);}catch{
  const prior={};try{for(const key of keys)prior[key]=storage.getItem(key);for(const key of keys){if(Object.hasOwn(parsed.data,key))storage.setItem(key,parsed.data[key]);else storage.removeItem(key);}return true;}
  catch{for(const key of keys)try{if(prior[key]===null)storage.removeItem(key);else if(prior[key]!==undefined)storage.setItem(key,prior[key]);}catch{}return false;}
 }
-root.FORME_BACKUP=Object.freeze({keys,exportData,importData,validate});
+function clearData(storage){
+ const dataKeys=keys.filter(k=>k!=='forme-language'),prior={};
+ try{for(const k of dataKeys)prior[k]=storage.getItem(k);for(const k of dataKeys)storage.removeItem(k);return true;}
+ catch{for(const k of dataKeys)try{if(prior[k]!==null&&prior[k]!==undefined)storage.setItem(k,prior[k]);}catch{}return false;}
+}
+root.FORME_BACKUP=Object.freeze({keys,exportData,importData,clearData,validate});
 })(typeof window!=='undefined'?window:globalThis);
