@@ -2300,3 +2300,18 @@ test('Favorites offers 1-tap section filters and keeps the search query across v
  const all=section();
  assert.match(all,/Силна основа/);assert.match(all,/Планк/);assert.match(all,/Овесени ядки/);
 });
+test('Nutrition journal shows the weekly logging progress (active days out of 7) once any day is logged',()=>{
+ const app=boot('#nutrition',{
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+   {id:'a',date:'2026-11-09',name:'Закуска',items:[{id:'oats',grams:'80'}]},
+   {id:'b',date:'2026-11-10',name:'Обяд',items:[{id:'chicken',grams:'200'}]},
+   {id:'c',date:'2026-11-08',name:'Предишния ден',items:[{id:'rice',grams:'100'}]},
+   {id:'d',date:'2026-10-20',name:'Извън прозореца',items:[{id:'rice',grams:'100'}]}
+  ]})
+ },new Date(2026,10,10,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ const page=app.page();
+ assert.match(page,/journal-week-progress">Напредък за седмицата: <strong>3\/7 активни дни<\/strong> · 43%/);
+ assert.match(page,/journal-week-summary[\s\S]*Средно за активните дни \(3\/7\)/);
+ assert.match(page,/journal-week-progress[\s\S]*goal-meter[\s\S]*width:43%/);
+});
