@@ -1140,6 +1140,16 @@ test('Progress page summarizes all-time totals and most-practiced workout and tr
  assert.equal(printed,1);
 });
 
+test('Workout player renders live round circuit step strip marking completed and active exercises',()=>{
+ const app=boot('#sessions',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'start-workout',id:'cal-start'}});
+ assert.match(app.node('player-layout').innerHTML,/class="card-meta player-round-steps"[\s\S]*<span class="chip active">1\. /);
+ app.click({dataset:{action:'player-start'}});
+ app.click({dataset:{action:'player-next'}});
+ assert.match(app.node('player-layout').innerHTML,/class="card-meta player-round-steps"[\s\S]*<span class="chip">✓ /);
+});
+
+
 
 
 

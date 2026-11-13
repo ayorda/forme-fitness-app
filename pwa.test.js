@@ -18,6 +18,11 @@ test('PWA has valid standalone metadata and icons', () => {
   assert.equal(manifest.lang, 'bg');
   assert.equal(manifest.display, 'standalone');
   for (const i of manifest.icons) assert.ok(fs.existsSync(i.src));
+  assert.equal(manifest.shortcuts.length, 4);
+  for (const s of manifest.shortcuts) {
+    assert.match(s.url, /^\.\/index\.html#(sessions|nutrition|plan|progress)$/);
+    for (const ic of s.icons) assert.ok(fs.existsSync(ic.src));
+  }
 });
 
 test('Mobile navigation is above the main content in document order', () => {
@@ -29,7 +34,7 @@ test('every app module stays cached offline and viewed media is saved for reuse'
  const artPos=html.indexOf('<script src="exercise-art.js"></script>');
  const dataPos=html.indexOf('<script src="data.js"></script>');
  assert.ok(artPos>=0&&artPos<dataPos);
-  assert.ok(sw.includes('forme-mobile-v0341-prog4'));
+  assert.ok(sw.includes('forme-mobile-v0342-pwa2'));
  assert.ok(sw.includes('exercise-art.js'));
  assert.ok(sw.includes('progress.js'));
  assert.ok(sw.includes('programs.js'));
