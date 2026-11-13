@@ -2354,3 +2354,17 @@ test('Pressing S during rest skips the break, the legend and shortcut dialog lis
  app.click({dataset:{action:'open-shortcuts'}});
  assert.match(app.node('modal-root').innerHTML,/shortcuts.skipRest|<kbd class="kbd">S<\/kbd>/);
 });
+test('Progress set form offers a 1-tap "today" date button and remembers the chosen date across re-renders',()=>{
+ const app=boot('#progress',{},new Date(2026,10,15,12));
+ assert.match(app.page(),/data-action="set-date-today" aria-label="Задай днешна дата">Днес/);
+ const input=app.node('set-date');
+ input.value='2026-11-02';
+ app.change({id:'set-date',value:'2026-11-02'});
+ app.click({dataset:{action:'set-date-today'}});
+ assert.equal(input.value,'2026-11-15');
+ assert.match(app.toast(),/Дата: 2026-11-15/);
+
+ app.click({dataset:{action:'nav',page:'home'}});
+ app.click({dataset:{action:'nav',page:'progress'}});
+ assert.equal(app.node('set-date').value,'2026-11-15');
+});

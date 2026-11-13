@@ -318,3 +318,6 @@
 .weekday-bar strong{font:700 13px/1 var(--display);color:var(--text)}
 .progress-top-day{margin-top:10px}
 @media(max-width:780px){.weekday-bars{gap:5px}.weekday-bar{font-size:9px}.weekday-bar strong{font-size:11px}}
+.date-with-today{display:flex;gap:6px;align-items:center}
+.date-with-today input{flex:1 1 auto;min-width:0}
+.date-with-today .btn{flex:0 0 auto;white-space:nowrap}
