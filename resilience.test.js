@@ -2516,3 +2516,17 @@ test('Month calendar shows the plan completion percentage for the visible month'
  assert.match(page,/month-completion">Изпълнение на плана: <strong>8%<\/strong> \(1\/13\)/);
  assert.match(page,/month-completion[\s\S]*goal-meter[\s\S]*width:8%/);
 });
+
+test('Weekly plan view shows the same plan completion percentage as the month view',()=>{
+ // 2026-11-11 is Wednesday; Monday 2026-11-09 was completed
+ const app=boot('#plan',{
+  'forme-plan':JSON.stringify({mon:'cal-start',wed:'yoga-reset',fri:'mob-daily'}),
+  'forme-completed-workouts':JSON.stringify({'2026-11-09':{id:'cal-start',name:'Силна основа'}})
+ },new Date(2026,10,11,12));
+ const page=app.page();
+ assert.match(page,/plan-week-completion">Изпълнение на плана: <strong>33%<\/strong> \(1\/3\)/);
+ assert.match(page,/plan-week-completion[\s\S]*goal-meter[\s\S]*width:33%/);
+
+ const empty=boot('#plan',{},new Date(2026,10,11,12));
+ assert.doesNotMatch(empty.page(),/plan-week-completion/);
+});
