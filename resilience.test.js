@@ -1628,6 +1628,15 @@ test('Keyboard shortcuts help modal opens via ? key or open-shortcuts button and
  assert.match(app.node('modal-root').innerHTML,/<h2>Keyboard shortcuts<\/h2>/);
 });
 
+test('Home rest day offers 1-tap pull-forward of the next planned workout to today',()=>{
+ const app=boot('#home',{'forme-plan':JSON.stringify({wed:'yoga-flow'})},new Date(2026,10,9,12));
+ assert.match(app.page(),/today-plan-actions[\s\S]*data-action="workout-plan-today" data-id="yoga-flow">\+ Днес: Дълбоко разтягане/);
+ app.click({dataset:{action:'workout-plan-today',id:'yoga-flow'}});
+ assert.equal(JSON.parse(app.storage['forme-date-plans'])['2026-11-09'],'yoga-flow');
+ assert.match(app.page(),/today-plan-actions[\s\S]*data-action="start-workout" data-id="yoga-flow"/);
+});
+
+
 
 
 
