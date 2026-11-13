@@ -2368,3 +2368,11 @@ test('Progress set form offers a 1-tap "today" date button and remembers the cho
  app.click({dataset:{action:'nav',page:'progress'}});
  assert.equal(app.node('set-date').value,'2026-11-15');
 });
+test('Progress workout logger offers the same 1-tap today date button',()=>{
+ const app=boot('#progress',{},new Date(2026,10,20,12));
+ assert.match(app.page(),/data-action="log-workout-date-today" aria-label="Задай днешна дата">Днес/);
+ app.node('log-workout-date').value='2026-10-01';
+ app.click({dataset:{action:'log-workout-date-today'}});
+ assert.equal(app.node('log-workout-date').value,'2026-11-20');
+ assert.match(app.toast(),/2026-11-20/);
+});
