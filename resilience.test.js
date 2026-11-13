@@ -887,6 +887,30 @@ test('exerciseDetail displays recent logged sets history when 2 or more sets exi
  assert.match(modal,/2026-11-07: 12 повторения/);
 });
 
+test('Home and Weekly Plan allow 1-tap today completion toggle and balanced 3-day weekly preset',()=>{
+ const app=boot('#home',{
+  'forme-plan':JSON.stringify({mon:'cal-start'})
+ },new Date(2026,10,9,12)); // 2026-11-09 is Monday
+ assert.match(app.page(),/data-action="today-completion-add"/);
+ app.click({dataset:{action:'today-completion-add'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-completed-workouts']),{'2026-11-09':{id:'cal-start',name:'Силна основа'}});
+ assert.match(app.page(),/data-action="today-completion-remove"/);
+ app.click({dataset:{action:'nav',page:'plan'}});
+ assert.match(app.page(),/data-action="today-completion-remove"/);
+ app.click({dataset:{action:'today-completion-remove'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-completed-workouts']),{});
+ app.click({dataset:{action:'preset-balanced-plan'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-plan']),{mon:'cal-start',wed:'yoga-reset',fri:'mob-daily'});
+});
+
+test('activating a 4-week program reflects active scheduled slot count on Progress program cards',()=>{
+ const app=boot('#progress',{},new Date(2026,10,9,12));
+ app.click({dataset:{action:'program-activate',id:'foundation'}});
+ app.click({dataset:{action:'nav',page:'progress'}});
+ assert.match(app.page(),/12 тренировки · \d+ мин · ✓ 12 \/ 12/);
+});
+
+
 
 
 
