@@ -1337,6 +1337,19 @@ test('Nutrition journal entries display per-meal fiber and support 1-tap same-da
  assert.match(app.page(),/Фибри: 20,2 г/);
 });
 
+test('Progress history entries offer 1-tap repeat pre-fill for both workouts and exercise sets',()=>{
+ const app=boot('#progress',{'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[{id:'s-1',workoutId:'mob-daily',date:'2026-11-06',minutes:14}],sets:[{id:'st-1',exerciseId:'Pullups',date:'2026-11-07',kind:'reps',value:9}]})},new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="progress-repeat" data-type="set" data-id="Pullups"/);
+ app.click({dataset:{action:'progress-repeat',type:'set',id:'Pullups',kind:'reps',value:'9'}});
+ assert.match(app.page(),/<option value="Pullups" selected>/);
+ assert.equal(app.node('set-value').value,'9');
+
+ app.click({dataset:{action:'progress-repeat',type:'workout',id:'mob-daily',minutes:'14'}});
+ assert.match(app.page(),/<option value="mob-daily" selected>/);
+ assert.equal(app.node('log-workout-minutes').value,'14');
+});
+
+
 
 
 
