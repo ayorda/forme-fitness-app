@@ -207,6 +207,24 @@ test('mergeData non-destructively unions favorites, plans, saved meals, and jour
  assert.deepEqual(failing.data,snap);
 });
 
+test('summarizeArchive inspects valid archives without mutating storage and returns null on invalid payloads',()=>{
+ assert.equal(backup.summarizeArchive('not-json'),null);
+ assert.equal(backup.summarizeArchive('{"app":"FORME","version":1,"data":{"bad":"x"}}'),null);
+ const exported=backup.exportData(storage({
+  'forme-favorites':JSON.stringify({exercises:['Plank'],workouts:['cal-start'],foods:['oats']}),
+  'forme-saved-meals':JSON.stringify([{name:'Закуска',items:[{id:'oats',grams:'80'}]}]),
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-09',minutes:12}],sets:[{id:'st1',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:45},{id:'st2',exerciseId:'Pushups',date:'2026-11-09',kind:'reps',value:15}]}),
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[{id:'e1',date:'2026-11-09',name:'Закуска',items:[{id:'oats',grams:'80'}]}]})
+ }));
+ const summary=backup.summarizeArchive(exported);
+ assert.equal(summary.sessions,1);
+ assert.equal(summary.sets,2);
+ assert.equal(summary.nutritionEntries,1);
+ assert.equal(summary.savedMeals,1);
+ assert.equal(summary.favorites,3);
+ assert.equal(typeof summary.exportedAt,'string');
+});
+
 
 
 

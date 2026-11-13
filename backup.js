@@ -158,5 +158,22 @@ function clearData(storage){
  try{for(const k of dataKeys)prior[k]=storage.getItem(k);for(const k of dataKeys)storage.removeItem(k);return true;}
  catch{for(const k of dataKeys)try{if(prior[k]!==null&&prior[k]!==undefined)storage.setItem(k,prior[k]);}catch{}return false;}
 }
-root.FORME_BACKUP=Object.freeze({keys,exportData,importData,mergeData,clearData,validate});
+function summarizeArchive(text){
+ let parsed;try{parsed=JSON.parse(text);}catch{return null;}
+ if(!validate(parsed))return null;
+ const d=parsed.data||{},u=d['forme-user-v1']?JSON.parse(d['forme-user-v1']).records||{}:{};
+ const prog=d['forme-progress-v1']?JSON.parse(d['forme-progress-v1']):null;
+ const nutr=d['forme-nutrition-v1']?JSON.parse(d['forme-nutrition-v1']):null;
+ const savedRaw=d['forme-saved-meals']??u['saved-meals']??null,saved=savedRaw?JSON.parse(savedRaw):[];
+ const favRaw=d['forme-favorites']??u['favorites']??null,fav=favRaw?JSON.parse(favRaw):{exercises:[],workouts:[]};
+ return {
+  exportedAt:typeof parsed.exportedAt==='string'?parsed.exportedAt:null,
+  sessions:prog?prog.sessions.length:0,
+  sets:prog?prog.sets.length:0,
+  nutritionEntries:nutr?nutr.entries.length:0,
+  savedMeals:Array.isArray(saved)?saved.length:0,
+  favorites:(fav.exercises?.length||0)+(fav.workouts?.length||0)+(fav.foods?.length||0)
+ };
+}
+root.FORME_BACKUP=Object.freeze({keys,exportData,importData,mergeData,clearData,summarizeArchive,validate});
 })(typeof window!=='undefined'?window:globalThis);

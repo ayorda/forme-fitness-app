@@ -1760,6 +1760,20 @@ test('Month calendar displays planned and logged monthly minutes and copies a wo
  assert.equal(JSON.parse(app.storage['forme-date-plans'])['2026-11-10'],'cal-start');
 });
 
+test('Backup restore and merge toasts include validated archive record counts via summarizeArchive',async()=>{
+ const app=boot('#progress',{},new Date(2026,10,9,12));
+ const archive=JSON.stringify({
+  app:'FORME',version:1,exportedAt:'2026-11-09T12:00:00.000Z',
+  data:{
+   'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-09',minutes:12}],sets:[{id:'st1',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:45}]}),
+   'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[{id:'n1',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'150'}]}]})
+  }
+ });
+ app.change({id:'backup-merge-file',value:'archive.json',files:[{text:()=>Promise.resolve(archive)}]});
+ await Promise.resolve();
+ assert.match(app.toast(),/Архивът е обединен с текущите данни\. \(1 тренировки, 1 · Серии, 1 · Дневник\)/);
+});
+
 
 
 
