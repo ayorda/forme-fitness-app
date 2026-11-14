@@ -2652,3 +2652,22 @@ test('Exercise details link to the progress log filtered by that exercise (exerc
  assert.match(history,/2026-11-06/);
  assert.doesNotMatch(history,/2026-11-04/);
 });
+
+test('Workout cards log the session for today in one tap (quick-log-workout)',()=>{
+ const app=boot('#sessions',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.match(app.node('workout-results').innerHTML,/data-action="quick-log-workout" data-id="cal-start" aria-label="Запиши тренировка в дневника: Силна основа">\+ Дневник/);
+ app.click({dataset:{action:'quick-log-workout',id:'cal-start'}});
+ const saved=JSON.parse(app.storage['forme-progress-v1']);
+ assert.equal(saved.sessions.length,1);
+ assert.equal(saved.sessions[0].workoutId,'cal-start');
+ assert.equal(saved.sessions[0].date,'2026-11-09');
+ assert.equal(saved.sessions[0].minutes,12);
+ assert.match(app.toast(),/Тренировката е записана/);
+ const card=app.node('workout-results').innerHTML;
+ assert.match(card,/✓ 1×/);
+ assert.match(card,/Последно 11-09/);
+
+ app.click({dataset:{action:'quick-log-workout',id:'cal-start'}});
+ assert.equal(JSON.parse(app.storage['forme-progress-v1']).sessions.length,1);
+ assert.match(app.toast(),/вече е записана за днес/);
+});
