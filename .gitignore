@@ -1,2 +1,8 @@
 # User-provided images remain local and must not be committed.
 /private-media/
+
+.firebase/
+firestore-debug.log
+ui-debug.log
+database-debug.log
+pubsub-debug.log

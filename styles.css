@@ -569,3 +569,13 @@
 .account-local-note{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted)}
 [data-theme="light"] .account-panel .btn-primary{background:var(--lime-dark);color:#fff}
 @media(max-width:360px){.account-panel{padding:16px}.account-modes{gap:6px}.account-modes .btn{padding:10px}.topbar{column-gap:6px}.account-open{width:34px;height:34px}}
+
+/* Explicit cloud transfer uses the same account card and touch targets. */
+.sync-panel{margin-top:24px}
+.sync-consent{display:flex;align-items:flex-start;gap:12px;margin:22px 0;line-height:1.6}
+.sync-panel input[type="checkbox"]{display:inline-block;width:24px;min-height:24px;height:24px;flex:0 0 24px;margin-top:2px;accent-color:var(--lime-dark)}
+.sync-summary{width:100%;table-layout:fixed;border-collapse:collapse;margin:24px 0;font-size:.9rem}
+.sync-summary th,.sync-summary td{padding:12px 5px;text-align:left;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.sync-summary th:first-child{width:50%}
+
+.sync-panel .btn:disabled{cursor:not-allowed}

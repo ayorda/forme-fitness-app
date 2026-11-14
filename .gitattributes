@@ -1,0 +1,6 @@
+# Generated SDK template literals and upstream legal notices contain intentional spaces.
+vendor/firebase-auth-13.3.0.js whitespace=-blank-at-eol
+vendor/firebase-auth-13.3.0.js.LEGAL.txt whitespace=-blank-at-eol
+# Preserve upstream tslib CRLF and the original copyright notice's final blank line.
+vendor/LICENSE-TSLIB.txt whitespace=cr-at-eol
+vendor/COPYRIGHT-TSLIB.txt whitespace=cr-at-eol,-blank-at-eof
