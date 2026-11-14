@@ -3606,3 +3606,36 @@ test('The shortcuts dialog documents the T theme shortcut in all languages',()=>
  assert.match(modal,/T<\/kbd>|<kbd>T/);
  assert.match(modal,/Смяна на темата/);
 });
+
+test('A whole journal day can be halved or doubled in one tap (journal-scale-day)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+   {id:'a',date:'2026-11-09',name:'Закуска',items:[{id:'oats',grams:'80'}]},
+   {id:'b',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/data-action="journal-scale-day" data-factor="0\.5"/);
+ app.click({dataset:{action:'journal-scale-day',factor:'0.5'}});
+ const entries=JSON.parse(app.storage['forme-nutrition-v1']).entries;
+ assert.deepEqual(entries[0].items,[{id:'oats',grams:'40'}]);
+ assert.deepEqual(entries[1].items,[{id:'chicken',grams:'100'},{id:'rice',grams:'75'}]);
+ assert.equal(entries[0].name,'Закуска');
+ assert.match(app.toast(),/преизчислени/);
+});
+
+test('Day scaling requires at least two entries and ignores an unknown date',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+   {id:'a',date:'2026-11-09',name:'Закуска',items:[{id:'oats',grams:'80'}]}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.doesNotMatch(app.page(),/data-action="journal-scale-day"/);
+ app.click({dataset:{action:'journal-scale-day',factor:'2'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-nutrition-v1']).entries[0].items,[{id:'oats',grams:'80'}]);
+ app.click({dataset:{action:'journal-scale-day',factor:'0'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-nutrition-v1']).entries[0].items,[{id:'oats',grams:'80'}]);
+});
