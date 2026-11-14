@@ -3034,3 +3034,23 @@ test('Progress log clears its type, search and week filters in one tap (progress
  assert.match(history,/2026-11-04/);
  assert.match(history,/2026-11-10/);
 });
+
+test('Progress log re-logs a past workout for today in one tap (progress-relog)',()=>{
+ const app=boot('#progress',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[
+   {id:'a',workoutId:'cal-start',date:'2026-11-04',minutes:20}
+  ],sets:[]})
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="progress-relog" data-id="cal-start" data-minutes="20" aria-label="Запиши за днес: Силна основа">✓ Днес/);
+ app.click({dataset:{action:'progress-relog',id:'cal-start',minutes:'20'}});
+ const saved=JSON.parse(app.storage['forme-progress-v1']);
+ assert.equal(saved.sessions.length,2);
+ assert.equal(saved.sessions[1].date,'2026-11-09');
+ assert.equal(saved.sessions[1].workoutId,'cal-start');
+ assert.equal(saved.sessions[1].minutes,20);
+ assert.match(app.toast(),/Тренировката е записана/);
+ app.click({dataset:{action:'progress-relog',id:'cal-start',minutes:'20'}});
+ assert.equal(JSON.parse(app.storage['forme-progress-v1']).sessions.length,2);
+ assert.match(app.toast(),/вече е записана за днес/);
+});
