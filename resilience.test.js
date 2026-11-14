@@ -3791,3 +3791,36 @@ test('The progress CSV range inputs keep only valid dates and are marked in the 
  assert.match(app.page(),/id="csv-from" type="date" data-action="csv-from" value="2026-11-01"/);
  assert.match(app.page(),/id="csv-to" type="date" data-action="csv-to" value=""/);
 });
+
+test('Saved-meal tag chips show live counts and search matches the tag label',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-saved-meals':JSON.stringify([
+   {name:'А',tag:'train',items:[{id:'chicken',grams:'200'}]},
+   {name:'Б',tag:'train',items:[{id:'rice',grams:'150'}]},
+   {name:'В',tag:'light',items:[{id:'oats',grams:'80'}]}
+  ])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(app.page(),/data-action="saved-meal-tag-filter" data-tag="train" aria-pressed="false">след тренировка \(2\)</);
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ app.input({dataset:{action:'saved-meal-search'},value:'леко'});
+ const list=app.page().split('id="saved-meal-results"')[1]||'';
+ assert.match(list,/В/);
+ assert.doesNotMatch(list,/А</);
+});
+
+test('A stale tag filter resets itself when that tag no longer exists',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-saved-meals':JSON.stringify([
+   {name:'А',tag:'train',items:[{id:'chicken',grams:'200'}]},
+   {name:'Б',tag:'light',items:[{id:'oats',grams:'80'}]}
+  ])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ app.click({dataset:{action:'saved-meal-tag-filter',tag:'light'}});
+ assert.doesNotMatch((app.page().split('id="saved-meal-results"')[1]||''),/^[\s\S]*А</);
+ app.click({dataset:{action:'delete-saved-meal',index:'1'}});
+ assert.match(app.page(),/А/);
+});
