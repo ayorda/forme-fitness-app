@@ -2903,3 +2903,22 @@ test('Meal rows offer ±100 g steppers next to ±25 g in one tap (step-meal-gram
  app.click({dataset:{action:'step-meal-grams',index:'0',delta:'-100'}});
  assert.equal(JSON.parse(app.storage['forme-current-meal'])[0].grams,'100');
 });
+
+test('Food details and meal builder offer 300 g and 500 g one-tap portion presets',()=>{
+ const app=boot('#nutrition',{'forme-language':'bg'},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-detail',id:'chicken'}});
+ const modal=app.node('modal-root').innerHTML;
+ assert.match(modal,/data-action="detail-preset-grams" data-id="chicken" data-grams="300" aria-pressed="false">300 г/);
+ assert.match(modal,/data-action="detail-preset-grams" data-id="chicken" data-grams="500" aria-pressed="false">500 г/);
+ app.click({dataset:{action:'detail-preset-grams',id:'chicken',grams:'500'}});
+ assert.equal(app.node('detail-grams').value,'500');
+ assert.match(app.node('detail-table').innerHTML,/600 kcal/);
+});
+
+test('Meal builder portion presets include 300 g and 500 g',()=>{
+ const app=boot('#nutrition',{'forme-language':'bg'},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ const page=app.page();
+ assert.match(page,/data-action="meal-preset-grams" data-grams="300"/);
+ assert.match(page,/data-action="meal-preset-grams" data-grams="500"/);
+});
