@@ -3112,3 +3112,32 @@ test('Exercise cards without logged sets show no repeat button',()=>{
  const app=boot('#exercises',{'forme-language':'bg'},new Date(2026,10,9,12));
  assert.doesNotMatch(app.node('exercise-results').innerHTML,/data-action="card-repeat-set"/);
 });
+
+test('Saved meals can be loaded with a scaled portion in one tap (load-meal-scaled)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-saved-meals':JSON.stringify([{name:'След тренировка',items:[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ const list=app.page();
+ assert.match(list,/data-action="load-meal-scaled" data-index="0" data-factor="0\.5" aria-label="Мащабирай порцията ×0\.5: След тренировка"/);
+ assert.match(list,/data-action="load-meal-scaled" data-index="0" data-factor="2"/);
+ app.click({dataset:{action:'load-meal-scaled',index:'0',factor:'0.5'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'100'},{id:'rice',grams:'75'}]);
+ assert.equal(app.node('meal-name').value,'След тренировка');
+ assert.match(app.toast(),/мащабирани грамажи/);
+});
+
+test('Scaled saved-meal loading ignores unknown meals and invalid factors',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-saved-meals':JSON.stringify([{name:'След тренировка',items:[{id:'chicken',grams:'200'}]}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ app.click({dataset:{action:'load-meal-scaled',index:'4',factor:'2'}});
+ assert.equal(app.storage['forme-current-meal'],undefined);
+ app.click({dataset:{action:'load-meal-scaled',index:'0',factor:'0'}});
+ assert.equal(app.storage['forme-current-meal'],undefined);
+ app.click({dataset:{action:'load-meal-scaled',index:'0',factor:'2'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'400'}]);
+});
