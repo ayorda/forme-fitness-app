@@ -2630,3 +2630,25 @@ test('Workout details link the done-history line to the progress log filtered by
  assert.match(history,/2026-11-06/);
  assert.doesNotMatch(history,/2026-11-03/);
 });
+
+test('Exercise details link to the progress log filtered by that exercise (exercise-history-progress)',()=>{
+ const app=boot('#exercises',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[
+   {id:'x1',exerciseId:'Plank',date:'2026-11-06',kind:'seconds',value:55},
+   {id:'x2',exerciseId:'Pushups',date:'2026-11-04',kind:'reps',value:12}
+  ]})
+ },new Date(2026,10,9,12));
+ app.change({dataset:{filter:'exercises',key:'q'},value:'планк',nextElementSibling:{dataset:{action:'clear-search'},removeAttribute(){},setAttribute(){}}});
+ assert.match(app.node('exercise-results').innerHTML,/data-action="exercise-detail" data-id="Plank"/);
+ app.click({dataset:{action:'exercise-detail',id:'Plank'}});
+ const modal=app.node('modal-root').innerHTML;
+ assert.match(modal,/data-action="exercise-history-progress" data-id="Plank" aria-label="Виж в дневника на прогреса: Планк"/);
+ app.click({dataset:{action:'exercise-history-progress',id:'Plank'}});
+ const progress=app.page();
+ assert.match(progress,/id="progress-search"[^>]*value="Планк"/);
+ assert.match(progress,/data-action="progress-filter" data-view="set" aria-pressed="true"/);
+ const history=progress.slice(progress.indexOf('progress-history-results'));
+ assert.match(history,/2026-11-06/);
+ assert.doesNotMatch(history,/2026-11-04/);
+});
