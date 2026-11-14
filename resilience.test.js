@@ -2862,3 +2862,24 @@ test('Exercise details keep the chip history plain when fewer than two sets exis
  app.click({dataset:{action:'exercise-detail',id:'Plank'}});
  assert.doesNotMatch(app.node('modal-root').innerHTML,/data-action="repeat-set"/);
 });
+
+test('Home offers a 1-tap "same as yesterday" plan copy when today has no workout (plan-copy-yesterday)',()=>{
+ const app=boot('#home',{
+  'forme-language':'bg',
+  'forme-plan':JSON.stringify({sun:'yoga-reset'})
+ },new Date(2026,10,9,12));
+ const page=app.page();
+ assert.match(page,/data-action="plan-copy-yesterday" data-id="yoga-reset" aria-label="Като вчера: Спокойно възстановяване">↩ Като вчера: Спокойно възстановяване/);
+ app.click({dataset:{action:'plan-copy-yesterday',id:'yoga-reset'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{'2026-11-09':'yoga-reset'});
+ assert.match(app.toast(),/Вчерашната тренировка е планирана за днес/);
+ assert.match(app.page(),/today-plan-name">Спокойно възстановяване/);
+});
+
+test('Home does not offer "same as yesterday" when today already has a workout',()=>{
+ const app=boot('#home',{
+  'forme-language':'bg',
+  'forme-plan':JSON.stringify({sun:'yoga-reset',mon:'cal-start'})
+ },new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/data-action="plan-copy-yesterday"/);
+});
