@@ -2812,3 +2812,21 @@ test('goal-minus-minutes stops at zero minutes',()=>{
  assert.doesNotMatch(app.page(),/data-action="goal-minus-minutes"/);
  assert.match(app.page(),/data-action="goal-plus-minutes"/);
 });
+
+test('Journal entries can be duplicated in one tap (journal-duplicate button)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+   {id:'a',date:'2026-11-09',name:'Закуска',items:[{id:'oats',grams:'80'},{id:'egg',grams:'100'}]}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/data-action="journal-duplicate" data-id="a" aria-label="Копирай записа: Закуска" title="Копирай записа">⧉/);
+ app.click({dataset:{action:'journal-duplicate',id:'a'}});
+ const saved=JSON.parse(app.storage['forme-nutrition-v1']);
+ assert.equal(saved.entries.length,2);
+ assert.equal(saved.entries[1].date,'2026-11-09');
+ assert.equal(saved.entries[1].name,'Закуска');
+ assert.deepEqual(saved.entries[1].items.map(i=>i.id),['oats','egg']);
+ assert.match(app.toast(),/Записът е запазен/);
+});
