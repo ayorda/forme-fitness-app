@@ -2671,3 +2671,18 @@ test('Workout cards log the session for today in one tap (quick-log-workout)',()
  assert.equal(JSON.parse(app.storage['forme-progress-v1']).sessions.length,1);
  assert.match(app.toast(),/вече е записана за днес/);
 });
+
+test('Home today card marks today as a rest day in one tap (plan-rest-today)',()=>{
+ const app=boot('#home',{'forme-language':'bg','forme-plan':JSON.stringify({mon:'cal-start'})},new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="plan-rest-today" aria-label="Маркирай като почивен ден: Днес">Почивка днес/);
+ app.click({dataset:{action:'plan-rest-today'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{'2026-11-09':''});
+ assert.match(app.toast(),/Почивният ден е запазен/);
+ assert.doesNotMatch(app.page(),/data-action="plan-rest-today"/);
+ assert.match(app.page(),/today-next-up/);
+});
+
+test('Home today card hides the rest button when today is already a rest day',()=>{
+ const app=boot('#home',{'forme-language':'bg','forme-plan':JSON.stringify({tue:'cal-start'})},new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/data-action="plan-rest-today"/);
+});
