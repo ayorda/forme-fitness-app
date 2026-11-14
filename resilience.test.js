@@ -3089,3 +3089,26 @@ test('Personal-record board logs the current PR for today in one tap (progress-r
  assert.equal(sets[1].date,'2026-11-09');
  assert.equal(sets[1].value,55);
 });
+
+test('Exercise cards repeat the last set for today in one tap (card-repeat-set)',()=>{
+ const app=boot('#exercises',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[
+   {id:'s1',exerciseId:'Plank',date:'2026-11-05',kind:'seconds',value:55}
+  ]})
+ },new Date(2026,10,9,12));
+ app.change({dataset:{filter:'exercises',key:'q'},value:'планк',nextElementSibling:{dataset:{action:'clear-search'},removeAttribute(){},setAttribute(){}}});
+ const card=app.node('exercise-results').innerHTML;
+ assert.match(card,/data-action="card-repeat-set" data-id="Plank" data-kind="seconds" data-value="55" aria-label="Повтори последната серия: Планк 55"/);
+ app.click({dataset:{action:'card-repeat-set',id:'Plank',kind:'seconds',value:'55'}});
+ const sets=JSON.parse(app.storage['forme-progress-v1']).sets;
+ assert.equal(sets.length,2);
+ assert.equal(sets[1].date,'2026-11-09');
+ assert.equal(sets[1].value,55);
+ assert.match(app.toast(),/Серията е записана\. \(55\)/);
+});
+
+test('Exercise cards without logged sets show no repeat button',()=>{
+ const app=boot('#exercises',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.doesNotMatch(app.node('exercise-results').innerHTML,/data-action="card-repeat-set"/);
+});
