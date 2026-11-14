@@ -3767,3 +3767,27 @@ test('Undo shortcut ignores typing contexts and follows the most recent destruct
  app.keydown({key:'z',ctrlKey:true,metaKey:true,target:{tagName:'BODY'},preventDefault(){}});
  assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'200'},{id:'egg',grams:'100'}]);
 });
+
+test('CSV export honours an optional date range (exportActivityCsv from/to)',()=>{
+ const C=require('./core.js');
+ const csv=C.exportActivityCsv({
+  sessions:[{date:'2026-11-01',title:'A',minutes:10},{date:'2026-11-09',title:'B',minutes:20},{date:'2026-12-01',title:'C',minutes:30}],
+  from:'2026-11-05',to:'2026-11-30'
+ });
+ const rows=csv.replace('\uFEFF','').trim().split('\r\n');
+ assert.equal(rows.length,2);
+ assert.match(rows[1],/^2026-11-09,workout,B,minutes,20/);
+ assert.match(C.exportActivityCsv({sessions:[{date:'2026-11-09',title:'B',minutes:20}]}),/2026-11-09/);
+});
+
+test('The progress CSV range inputs keep only valid dates and are marked in the panel',()=>{
+ const app=boot('#progress',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.match(app.page(),/id="csv-from" type="date" data-action="csv-from"/);
+ assert.match(app.page(),/id="csv-to" type="date" data-action="csv-to"/);
+ assert.match(app.page(),/id="csv-from" type="date" data-action="csv-from" value=""/);
+ app.change({dataset:{action:'csv-from'},value:'2026-11-01'});
+ app.change({dataset:{action:'csv-to'},value:'not-a-date'});
+ app.click({dataset:{action:'progress-filter',view:'all'}});
+ assert.match(app.page(),/id="csv-from" type="date" data-action="csv-from" value="2026-11-01"/);
+ assert.match(app.page(),/id="csv-to" type="date" data-action="csv-to" value=""/);
+});

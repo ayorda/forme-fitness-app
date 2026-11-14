@@ -147,14 +147,15 @@ function relatedFoods(foods,currentId,limit=3){
  const curDens=cur.protein/Math.max(1,cur.kcal);
  return list.filter(f=>f&&f.id!==currentId&&f.cat===cur.cat).sort((a,b)=>Math.abs(a.protein/Math.max(1,a.kcal)-curDens)-Math.abs(b.protein/Math.max(1,b.kcal)-curDens)||Math.abs(a.kcal-cur.kcal)-Math.abs(b.kcal-cur.kcal)).slice(0,limit);
 }
-function exportActivityCsv({sessions=[],sets=[],nutritionEntries=[]}={}){
+function exportActivityCsv({sessions=[],sets=[],nutritionEntries=[],from='',to=''}={}){
+ const inRange=date=>{const d=String(date||'');if(from&&d<from)return false;if(to&&d>to)return false;return true;};
  const cell=val=>{if(val===null||val===undefined||val==='')return '';let s=String(val);if(/^[=+\-@\t\r]/.test(s))s="'"+s;return /[",\r\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s;};
  const round1=n=>Number.isFinite(Number(n))?Math.round(Number(n)*10)/10:'';
  const rows=[
   ...(Array.isArray(sessions)?sessions:[]).map(s=>({date:String(s?.date||''),cols:[s?.date,'workout',s?.title||s?.workoutId||'','minutes',round1(s?.minutes),'','','','','']})),
   ...(Array.isArray(sets)?sets:[]).map(s=>({date:String(s?.date||''),cols:[s?.date,'set',s?.title||s?.exerciseId||'',s?.kind||'reps',round1(s?.value),'','','','','']})),
   ...(Array.isArray(nutritionEntries)?nutritionEntries:[]).map(e=>({date:String(e?.date||''),cols:[e?.date,'nutrition',e?.title||'','meal',round1(e?.itemsCount),round1(e?.kcal),round1(e?.protein),round1(e?.carbs),round1(e?.fat),round1(e?.fiber)]}))
- ].sort((a,b)=>b.date.localeCompare(a.date));
+ ].filter(row=>inRange(row.date)).sort((a,b)=>b.date.localeCompare(a.date));
  const head='date,type,name,metric,value,kcal,protein_g,carbs_g,fat_g,fiber_g';
  return '\uFEFF'+[head,...rows.map(r=>r.cols.map(cell).join(','))].join('\r\n')+'\r\n';
 }

@@ -391,3 +391,8 @@
 .meal-tag{margin-left:6px;font-size:9px;letter-spacing:.06em;border:1px solid #3d5a31;border-radius:99px;padding:2px 7px;text-transform:none}
 .meal-tag-filter .btn[aria-pressed="true"]{border-color:var(--lime);color:var(--lime)}
 [data-theme="light"] .meal-tag{border-color:#c3d9ac;color:#3f6510}
+
+.csv-range{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.csv-range input{background:#161f1d;border:1px solid #35423b;border-radius:10px;color:var(--text);padding:8px 10px;min-height:38px;font-size:12px}
+[data-theme="light"] .csv-range input{background:#fff;border-color:#cdd9ce;color:var(--text)}
+@media(max-width:780px){.csv-range{width:100%}.csv-range input{flex:1 1 120px}}
