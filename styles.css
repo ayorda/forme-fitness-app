@@ -473,3 +473,42 @@
 [data-theme="light"] .language-picker select{background:var(--surface2);color:var(--text);border-color:var(--line)}
 [id^="skill-node-"]{scroll-margin-top:150px}
 @media(max-width:780px){.skill-tree{grid-template-columns:1fr}.skill-node[data-target="true"]{grid-column:auto}.skill-goals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.skill-goals .btn{white-space:normal;overflow-wrap:anywhere}.skill-node .card-action-group{display:flex;flex-direction:column;align-items:stretch}.skill-node .btn{white-space:normal;min-height:44px;text-align:left}}
+
+/* Recovery records stay separate from training readiness or a medical score. */
+.home-recovery{display:flex;justify-content:space-between;align-items:center;gap:18px;margin:22px 0}
+.home-recovery h2{font-size:24px;margin:9px 0}.home-recovery p{font-size:13px;margin:0}
+.recovery-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.recovery-stats .panel{display:flex;flex-direction:column;gap:10px;min-width:0}
+.recovery-stats small,.recovery-stats span{font-size:12px;color:var(--muted)}
+.recovery-stats strong{font-size:28px;letter-spacing:-.04em;color:var(--text)}
+.recovery-layout{align-items:start;margin-bottom:22px}
+.recovery-form .field{margin:14px 0;min-width:0}
+.recovery-form input,.recovery-form select,.recovery-guidance select{width:100%;min-width:0;min-height:44px}
+.recovery-times{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.recovery-form .btn{min-height:44px;margin-top:10px}
+.recovery-preview{font-size:13px;color:var(--text);line-height:1.6}
+.recovery-range{font-size:48px;font-weight:800;letter-spacing:-.05em;line-height:1.2;color:var(--text);margin:24px 0 12px}
+.recovery-tips{padding-left:20px;font-size:13px;color:var(--muted);line-height:1.65}
+.recovery-tips li+li{margin-top:10px}
+.recovery-layout .subtle,.recovery-week .subtle{color:var(--muted);line-height:1.6}
+.recovery-sources a{display:inline-flex;align-items:center;min-height:44px;text-decoration:underline}
+.recovery-bars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;margin-top:22px}
+.recovery-day{padding:4px;border:0;background:transparent;color:var(--text);min-width:0;display:flex;flex-direction:column;gap:9px;text-align:center}
+.recovery-day strong{font-size:12px;overflow-wrap:anywhere}.recovery-day small{font-size:11px;color:var(--muted)}
+.recovery-bar-track{width:100%;height:170px;display:flex;align-items:flex-end;justify-content:center;background:var(--surface2);border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.recovery-bar-track>span{display:block;width:100%;background:var(--lime);min-height:0}
+.recovery-day-empty .recovery-bar-track{border-style:dashed}
+.recovery-entry{display:flex;gap:15px;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
+.recovery-entry:last-child{border-bottom:0}.recovery-entry h3{font-size:17px}.recovery-entry p{font-size:12px;margin:0;overflow-wrap:anywhere}
+.recovery-entry .card-action-group{flex-shrink:0}.recovery-form .error{color:#fa9e92}
+[data-theme="light"] .recovery-form .error{color:#a3271d}
+[data-theme="light"] .home-recovery .tag,[data-theme="light"] .recovery-sources a{color:var(--lime-dark)}
+@media(max-width:780px){.home-recovery{align-items:stretch;flex-direction:column}.home-recovery .btn{min-height:44px}.recovery-stats{grid-template-columns:1fr;gap:10px}.recovery-stats .panel{gap:6px}.recovery-stats strong{font-size:26px}.recovery-times{grid-template-columns:1fr;gap:0}.recovery-bars{gap:4px}.recovery-day{padding:2px}.recovery-day strong{font-size:10px}.recovery-day small{font-size:10px}.recovery-bar-track{height:145px}.recovery-entry{align-items:flex-start;flex-direction:column}.recovery-entry .card-action-group{align-self:flex-end}}
+
+.recovery-page-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.recovery-page-actions .btn{min-height:44px}
+#recovery-form-title,#recovery-week-title{scroll-margin-top:150px}
+[data-theme="light"] .recovery-form .btn-primary{background:var(--lime-dark);border-color:var(--lime-dark);color:#fff}
+@media(max-width:780px){.recovery-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.recovery-stats>.panel:first-child{grid-column:1/-1}}
+.recovery-stats small,.recovery-stats span{overflow-wrap:anywhere;hyphens:auto}
+@media(max-width:350px){.recovery-stats{grid-template-columns:1fr}}

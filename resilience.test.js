@@ -1383,7 +1383,7 @@ test('Favorites page adds all non-duplicate favorite foods directly to Meal Buil
  assert.equal((app.page().match(/class="meal-row"/g)||[]).length,3);
 });
 
-test('Alt+1..Alt+7 keyboard shortcuts switch between main screens without intercepting Ctrl/Cmd or open modals',()=>{
+test('Alt+1..Alt+8 keyboard shortcuts switch between main screens without intercepting Ctrl/Cmd or open modals',()=>{
  const app=boot('#home',{},new Date(2026,10,9,12));
  let prevented=false;
  app.keydown({key:'6',altKey:true,ctrlKey:false,metaKey:false,preventDefault(){prevented=true;}});
@@ -1397,6 +1397,8 @@ test('Alt+1..Alt+7 keyboard shortcuts switch between main screens without interc
 
  app.keydown({key:'4',altKey:true,ctrlKey:false,metaKey:false,preventDefault(){}});
  assert.match(app.page(),/ХРАНИ СЕ ОСЪЗНАТО/);
+ app.keydown({key:'8',altKey:true,ctrlKey:false,metaKey:false,preventDefault(){}});
+ assert.match(app.page(),/Сън и възстановяване/);
 });
 
 test('Exercise catalog cards expose a 1-tap set-logging button that opens Progress with the movement pre-selected',()=>{
@@ -1625,7 +1627,7 @@ test('Keyboard shortcuts help modal opens via ? key or open-shortcuts button and
  const app=boot('#home',{'forme-language':'en'},new Date(2026,10,9,12),true);
  app.keydown({key:'?',target:{tagName:'BODY'},preventDefault(){}});
  assert.match(app.node('modal-root').innerHTML,/<h2>Keyboard shortcuts<\/h2>/);
- assert.match(app.node('modal-root').innerHTML,/Alt \+ 1…7/);
+ assert.match(app.node('modal-root').innerHTML,/Alt \+ 1…8/);
  app.keydown({key:'Escape',target:{tagName:'BUTTON'},preventDefault(){}});
  assert.equal(app.node('modal-root').innerHTML,'');
  app.click({dataset:{action:'open-shortcuts'}});

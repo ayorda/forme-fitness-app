@@ -1,7 +1,7 @@
 /* Explicit JSON export/import of FORME user data with a rollback on failed writes. */
 (function(root){
 'use strict';
-const keys=['forme-favorites','forme-plan','forme-date-plans','forme-completed-workouts','forme-current-meal','forme-saved-meals','forme-sound','forme-theme','forme-music','forme-language','forme-user-v1','forme-progress-v1','forme-nutrition-v1'];
+const keys=['forme-favorites','forme-plan','forme-date-plans','forme-completed-workouts','forme-current-meal','forme-saved-meals','forme-sound','forme-theme','forme-music','forme-language','forme-user-v1','forme-progress-v1','forme-nutrition-v1','forme-recovery-v1'];
 const recordNames=['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound','theme','music'];
 function validObject(value){return value&&typeof value==='object'&&!Array.isArray(value);}
 const date=value=>{if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))return false;const parsed=new Date(value+'T12:00:00');return !Number.isNaN(parsed.getTime())&&`${parsed.getFullYear()}-${String(parsed.getMonth()+1).padStart(2,'0')}-${String(parsed.getDate()).padStart(2,'0')}`===value;};
@@ -14,6 +14,13 @@ const hasUniqueIds=arr=>new Set(arr.map(x=>x.id)).size===arr.length;
 function validSetDetails(value){return (value.weightKg===undefined||(typeof value.weightKg==='number'&&Number.isFinite(value.weightKg)&&value.weightKg>=0&&value.weightKg<=500&&Math.abs(value.weightKg*100-Math.round(value.weightKg*100))<1e-6))&&(value.assistance===undefined||(typeof value.assistance==='string'&&value.assistance.length<=120));}
 function cleanSetDetails(value){const out={};if(typeof value.weightKg==='number'&&Number.isFinite(value.weightKg)&&value.weightKg>0&&value.weightKg<=500&&Math.abs(value.weightKg*100-Math.round(value.weightKg*100))<1e-6)out.weightKg=value.weightKg;if(typeof value.assistance==='string'&&value.assistance.length<=120){const text=value.assistance.trim().replace(/\s+/g,' ');if(text)out.assistance=text;}return out;}
 const setSignature=s=>`${s.date}|${s.exerciseId}|${s.kind}|${s.value}|${Number(s.weightKg)||0}|${String(s.assistance||'').trim().replace(/\s+/g,' ').toLocaleLowerCase()}`;
+function recoveryMinutes(entry){
+ if(!validObject(entry)||!date(entry.date)||typeof entry.bedtime!=='string'||typeof entry.wakeTime!=='string'||!/^([01]\d|2[0-3]):[0-5]\d$/.test(entry.bedtime)||!/^([01]\d|2[0-3]):[0-5]\d$/.test(entry.wakeTime)||entry.bedtime===entry.wakeTime||![entry.bedOffset,entry.wakeOffset].every(x=>Number.isInteger(x)&&x>=-840&&x<=840)||!Number.isInteger(entry.awakeMinutes)||entry.awakeMinutes<0)return null;
+ const clock=time=>Number(time.slice(0,2))*60+Number(time.slice(3)),bed=clock(entry.bedtime),wake=clock(entry.wakeTime),minutes=wake-bed+(bed>wake?1440:0)+entry.wakeOffset-entry.bedOffset;
+ return minutes>0&&minutes<=1440&&entry.awakeMinutes<minutes?minutes-entry.awakeMinutes:null;
+}
+function validRecoveryEntry(entry){return validObject(entry)&&id(entry.id)&&recoveryMinutes(entry)!==null&&Number.isInteger(entry.quality)&&entry.quality>=1&&entry.quality<=5&&Number.isInteger(entry.fatigue)&&entry.fatigue>=1&&entry.fatigue<=5;}
+function validRecovery(value){return validObject(value)&&value.version===1&&['unspecified','teen','adult','older'].includes(value.ageGroup)&&Array.isArray(value.entries)&&value.entries.length<=5000&&value.entries.every(validRecoveryEntry)&&hasUniqueIds(value.entries)&&new Set(value.entries.map(x=>x.date)).size===value.entries.length;}
 function exportValue(key,value){
  if(typeof value!=='string')return null;
  if(validate({app:'FORME',version:1,data:{[key]:value}}))return value;
@@ -52,6 +59,10 @@ function exportValue(key,value){
    const entries=Array.isArray(parsed.entries)?uniqueIds(parsed.entries.slice(0,5000).filter(x=>validObject(x)&&id(x.id)&&date(x.date)&&Array.isArray(x.items)).map(x=>({id:x.id,date:x.date,name:typeof x.name==='string'?x.name.slice(0,70):'',items:x.items.filter(i=>validObject(i)&&id(i.id)&&grams(i.grams)).map(i=>({id:i.id,grams:String(i.grams)}))})).filter(x=>journalItems(x.items))):[];
    return JSON.stringify({version:1,goal,entries});
   }
+  if(key==='forme-recovery-v1'&&parsed?.version===1&&validObject(parsed)){
+   const dates=new Set(),clean=uniqueIds((Array.isArray(parsed.entries)?parsed.entries:[]).slice(0,5000).filter(validRecoveryEntry)).filter(entry=>{if(dates.has(entry.date))return false;dates.add(entry.date);return true;});
+   return JSON.stringify({version:1,ageGroup:['unspecified','teen','adult','older'].includes(parsed.ageGroup)?parsed.ageGroup:'unspecified',entries:clean});
+  }
   if(key==='forme-user-v1'&&parsed?.version===1&&validObject(parsed.records)){
    const records={};
    for(const [name,raw] of Object.entries(parsed.records)){
@@ -73,6 +84,7 @@ function validate(payload){
   let parsed;try{parsed=JSON.parse(value);}catch{return false;}
   if(key==='forme-sound'){if(typeof parsed!=='boolean')return false;}
   else if(key==='forme-music'){if(!validObject(parsed)||typeof parsed.enabled!=='boolean'||!Number.isInteger(parsed.volume)||parsed.volume<0||parsed.volume>100||!['auto','calm','flow'].includes(parsed.mode))return false;}
+  else if(key==='forme-recovery-v1'){if(!validRecovery(parsed))return false;}
   else if(key==='forme-theme'){if(!['dark','light','auto'].includes(parsed))return false;}
   else if(key==='forme-favorites'){if(!validObject(parsed)||!Array.isArray(parsed.exercises)||!Array.isArray(parsed.workouts)||(parsed.foods!==undefined&&!Array.isArray(parsed.foods))||parsed.exercises.length>500||parsed.workouts.length>500||(parsed.foods?.length||0)>500||![...parsed.exercises,...parsed.workouts,...(parsed.foods||[])].every(x=>typeof x==='string'))return false;}
   else if(key==='forme-plan'||key==='forme-date-plans'){if(!validObject(parsed)||Object.keys(parsed).length>2000||!Object.values(parsed).every(x=>typeof x==='string'))return false;}
@@ -154,6 +166,11 @@ function mergeData(storage,text){
    nextWrites['forme-nutrition-v1']=JSON.stringify({version:1,goal:curNutr.goal,entries});
   }
  }
+ if(Object.hasOwn(parsed.data,'forme-recovery-v1')){
+  const currentRaw=exportValue('forme-recovery-v1',storage.getItem('forme-recovery-v1')),incoming=JSON.parse(parsed.data['forme-recovery-v1']);
+  if(!currentRaw)nextWrites['forme-recovery-v1']=parsed.data['forme-recovery-v1'];
+  else {const current=JSON.parse(currentRaw),merged=mergeByIdAndSig(current.entries,incoming.entries,entry=>entry.date,5000);nextWrites['forme-recovery-v1']=JSON.stringify({version:1,ageGroup:current.ageGroup,entries:merged});}
+ }
  if(Object.hasOwn(parsed.data,'forme-language')&&!storage.getItem('forme-language'))nextWrites['forme-language']=parsed.data['forme-language'];
  const writeKeys=Object.keys(nextWrites),prior={};
  try{for(const k of writeKeys)prior[k]=storage.getItem(k);for(const k of writeKeys)storage.setItem(k,nextWrites[k]);return true;}
@@ -173,6 +190,7 @@ function summarizeArchive(text){
  const savedRaw=d['forme-saved-meals']??u['saved-meals']??null,saved=savedRaw?JSON.parse(savedRaw):[];
  const favRaw=d['forme-favorites']??u['favorites']??null,fav=favRaw?JSON.parse(favRaw):{exercises:[],workouts:[]};
  return {
+  ...(d['forme-recovery-v1']?{recoveryEntries:JSON.parse(d['forme-recovery-v1']).entries.length}:{}),
   exportedAt:typeof parsed.exportedAt==='string'?parsed.exportedAt:null,
   sessions:prog?prog.sessions.length:0,
   sets:prog?prog.sets.length:0,
