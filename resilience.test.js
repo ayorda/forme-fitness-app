@@ -3501,3 +3501,56 @@ test('Progress undo can be dismissed and progress.restore rejects stale or inval
  assert.equal(journal.restore([{id:'z',kind:'session',workoutId:'cal-start',date:'2026-11-09',minutes:20}]),true);
  assert.equal(journal.get().sessions.length,1);
 });
+
+test('A saved meal keeps its tag and shows it as a chip (meal-tag-preset)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'200'}]),
+  'forme-saved-meals':JSON.stringify([{name:'След тренировка',tag:'train',items:[{id:'chicken',grams:'200'}]}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(app.page(),/class="tag meal-tag">след тренировка<\/span>/);
+ app.click({dataset:{action:'edit-saved-meal',index:'0'}});
+ assert.match(app.page(),/data-action="meal-tag-preset" data-tag="train" aria-pressed="true"/);
+ app.click({dataset:{action:'meal-tag-preset',tag:'light'}});
+ app.click({dataset:{action:'save-meal'}});
+ const saved=JSON.parse(app.storage['forme-saved-meals']);
+ assert.equal(saved[0].tag,'light');
+});
+
+test('Saved-meal tag filter narrows the list and can be cleared',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-saved-meals':JSON.stringify([
+   {name:'След тренировка',tag:'train',items:[{id:'chicken',grams:'200'}]},
+   {name:'Лека закуска',tag:'light',items:[{id:'oats',grams:'80'}]},
+   {name:'Без етикет',items:[{id:'rice',grams:'150'}]}
+  ])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(app.page(),/data-action="saved-meal-tag-filter" data-tag="train"/);
+ const results=()=>app.page().split('id="saved-meal-results"')[1]||'';
+ app.click({dataset:{action:'saved-meal-tag-filter',tag:'train'}});
+ let list=results();
+ assert.match(list,/След тренировка/);
+ assert.doesNotMatch(list,/Лека закуска|Без етикет/);
+ assert.match(app.page(),/data-action="saved-meal-tag-filter" data-tag="train" aria-pressed="true"/);
+ app.click({dataset:{action:'saved-meal-tag-filter',tag:'train'}});
+ list=results();
+ assert.match(list,/След тренировка/);
+ assert.match(list,/Лека закуска/);
+ assert.match(list,/Без етикет/);
+});
+
+test('Saved-meal tags are optional and sanitized on load',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-saved-meals':JSON.stringify([
+   {name:'А',tag:'<img onerror=1>',items:[{id:'rice',grams:'150'}]},
+   {name:'Б',items:[{id:'egg',grams:'100'}]}
+  ])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.doesNotMatch(app.page(),/onerror/);
+ assert.doesNotMatch(app.page(),/saved-meal-tag-filter/);
+});

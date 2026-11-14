@@ -88,7 +88,7 @@ function savedMeals(value,known){
   const trimmed=item.name.trim();
   if(!trimmed||trimmed.length>70)return false;
   return mealItems(item.items,known).length>0;
- }).map(item=>({name:item.name.trim(),items:mealItems(item.items,known)}));
+ }).map(item=>{const base={name:item.name.trim(),items:mealItems(item.items,known)};return typeof item.tag==='string'&&/^[a-z]{2,12}$/.test(item.tag)?{...base,tag:item.tag}:base;});
 }
 function sound(value){return value===false?false:true;}
 function create(known={}){
