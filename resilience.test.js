@@ -2994,3 +2994,22 @@ test('Month selection shows the week link next to the plan source note',()=>{
  app.click({dataset:{action:'plan-date',date:'20'}});
  assert.match(app.page(),/month-plan-source">По седмичния план · <button[^>]*data-action="month-open-week" data-date="2026-11-20"/);
 });
+
+test('Progress log filters the history to the current week in one tap (progress-period-week)',()=>{
+ const app=boot('#progress',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[
+   {id:'a',workoutId:'cal-start',date:'2026-11-04',minutes:20},
+   {id:'b',workoutId:'yoga-reset',date:'2026-11-10',minutes:15}
+  ],sets:[]})
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="progress-period-week" aria-pressed="false">Само тази седмица/);
+ app.click({dataset:{action:'progress-period-week'}});
+ assert.match(app.page(),/data-action="progress-period-week" aria-pressed="true">Само тази седмица/);
+ const history=app.page().slice(app.page().indexOf('progress-history-results'));
+ assert.match(history,/2026-11-10/);
+ assert.doesNotMatch(history,/2026-11-04/);
+ app.click({dataset:{action:'progress-period-week'}});
+ const all=app.page().slice(app.page().indexOf('progress-history-results'));
+ assert.match(all,/2026-11-04/);
+});
