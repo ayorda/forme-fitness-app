@@ -3735,3 +3735,35 @@ test('index.html declares a color-scheme meta next to theme-color',()=>{
  const html=fs.readFileSync('index.html','utf8');
  assert.match(html,/<meta name="theme-color" content="#0a0f0e"><meta name="color-scheme" content="dark light">/);
 });
+
+test('Ctrl+Z restores the last deletion from any screen (undo shortcut)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+   {id:'a',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'}]}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ app.keydown({key:'z',ctrlKey:true,target:{tagName:'BODY'},preventDefault(){}});
+ assert.equal(JSON.parse(app.storage['forme-nutrition-v1']).entries.length,1);
+ app.click({dataset:{action:'journal-remove',id:'a'}});
+ assert.equal(JSON.parse(app.storage['forme-nutrition-v1']).entries.length,0);
+ app.keydown({key:'z',ctrlKey:true,target:{tagName:'BODY'},preventDefault(){}});
+ assert.equal(JSON.parse(app.storage['forme-nutrition-v1']).entries.length,1);
+ app.keydown({key:'z',ctrlKey:true,target:{tagName:'BODY'},preventDefault(){}});
+ assert.equal(JSON.parse(app.storage['forme-nutrition-v1']).entries.length,1);
+});
+
+test('Undo shortcut ignores typing contexts and follows the most recent destructive action',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'200'},{id:'egg',grams:'100'}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ app.click({dataset:{action:'remove-meal',index:'0'}});
+ assert.equal(JSON.parse(app.storage['forme-current-meal']).length,1);
+ app.keydown({key:'z',ctrlKey:true,target:{tagName:'INPUT'},preventDefault(){}});
+ assert.equal(JSON.parse(app.storage['forme-current-meal']).length,1);
+ app.keydown({key:'z',ctrlKey:true,metaKey:true,target:{tagName:'BODY'},preventDefault(){}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'200'},{id:'egg',grams:'100'}]);
+});
