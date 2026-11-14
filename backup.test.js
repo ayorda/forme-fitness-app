@@ -5,6 +5,32 @@ const vm=require('node:vm');
 const context={window:{},Date,JSON};vm.createContext(context);vm.runInContext(fs.readFileSync('backup.js','utf8'),context);
 const backup=context.window.FORME_BACKUP;
 function storage(initial={},failKey){const data={...initial};return {data,getItem:key=>data[key]??null,setItem(key,value){if(key===failKey)throw Error('quota');data[key]=value;},removeItem:key=>{delete data[key];}};}
+test('first archive merge retains recovery nights independently of personalization and survives a second round trip',()=>{
+ const recovery=JSON.stringify({version:1,ageGroup:'adult',entries:[{id:'night-1',date:'2026-11-13',bedtime:'23:00',wakeTime:'07:00',bedOffset:-120,wakeOffset:-120,awakeMinutes:15,quality:4,fatigue:2}]});
+ const personal=JSON.stringify({version:1,profile:null,selection:{'oat-bowl':2}});
+ for(const withPersonal of [false,true]){
+  const incoming={'forme-recovery-v1':recovery,...(withPersonal?{'forme-personal-v1':personal}:{})};
+  const original={'forme-plan':'{"mon":"cal-start"}','forme-language':'de'};
+  const target=storage(original),text=backup.exportData(storage(incoming));
+  assert.equal(backup.mergeData(target,text),true);
+  assert.equal(target.data['forme-recovery-v1'],recovery);
+  assert.equal(target.data['forme-personal-v1'],withPersonal?personal:undefined);
+  for(const [key,value] of Object.entries(original))assert.equal(target.data[key],value);
+  const saved=backup.exportData(target),summary=backup.summarizeArchive(saved);
+  assert.equal(summary.recoveryEntries,1);
+  const restored=storage();assert.equal(backup.importData(restored,saved),true);
+  assert.equal(restored.data['forme-recovery-v1'],recovery);
+  assert.equal(backup.mergeData(target,text),true);
+  assert.equal(JSON.parse(target.data['forme-recovery-v1']).entries.length,1);
+ }
+});
+test('first recovery merge rolls back when a later personalization write fails',()=>{
+ const original={'forme-plan':'{"mon":"cal-start"}','forme-favorites':'{"exercises":["Plank"],"workouts":[]}'};
+ const incoming=storage({'forme-plan':'{"tue":"cal-start"}','forme-recovery-v1':JSON.stringify({version:1,ageGroup:'adult',entries:[{id:'night-1',date:'2026-11-13',bedtime:'23:00',wakeTime:'07:00',bedOffset:0,wakeOffset:0,awakeMinutes:0,quality:3,fatigue:3}]}),'forme-personal-v1':JSON.stringify({version:1,profile:null,selection:{}})});
+ const target=storage(original,'forme-personal-v1');
+ assert.equal(backup.mergeData(target,backup.exportData(incoming)),false);
+ assert.deepEqual(target.data,original);
+});
 test('JSON backup restores legacy keys and new journals',()=>{
  const source=storage({'forme-favorites':'{"exercises":[],"workouts":[]}','forme-language':'de','forme-progress-v1':'{"version":1,"sessions":[],"sets":[],"goal":{"workoutsPerWeek":3,"minutesPerWeek":90}}','forme-nutrition-v1':'{"version":1,"entries":[],"goal":{"kcal":2000,"protein":100}}'});
  const text=backup.exportData(source),target=storage({'forme-plan':'{"mon":"cal-start"}'});

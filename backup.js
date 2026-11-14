@@ -176,7 +176,7 @@ function mergeData(storage,text){
  }
  if(Object.hasOwn(parsed.data,'forme-recovery-v1')){
   const currentRaw=exportValue('forme-recovery-v1',storage.getItem('forme-recovery-v1')),incoming=JSON.parse(parsed.data['forme-recovery-v1']);
-  if(!currentRaw)nextWrites['forme-recovery-v1']=parsed.data['forme-recovery-v1','forme-personal-v1'];
+  if(!currentRaw)nextWrites['forme-recovery-v1']=parsed.data['forme-recovery-v1'];
   else {const current=JSON.parse(currentRaw),merged=mergeByIdAndSig(current.entries,incoming.entries,entry=>entry.date,5000);nextWrites['forme-recovery-v1']=JSON.stringify({version:1,ageGroup:current.ageGroup,entries:merged});}
  }
  if(Object.hasOwn(parsed.data,'forme-personal-v1')){const current=exportValue('forme-personal-v1',storage.getItem('forme-personal-v1'));if(!current)nextWrites['forme-personal-v1']=parsed.data['forme-personal-v1'];else{const cur=JSON.parse(current),inc=JSON.parse(parsed.data['forme-personal-v1']);nextWrites['forme-personal-v1']=JSON.stringify({version:1,profile:cur.profile??inc.profile,selection:{...inc.selection,...cur.selection}});}}
