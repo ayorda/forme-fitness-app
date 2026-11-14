@@ -3586,3 +3586,23 @@ test('Plate undo can be dismissed and clearing an empty plate creates no undo',(
  assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[]);
  assert.doesNotMatch(app.page(),/data-action="meal-undo-clear"/);
 });
+
+test('Pressing T cycles the theme without touching inputs (shortcut)',()=>{
+ const app=boot('#home',{'forme-language':'bg'},new Date(2026,10,9,12));
+ app.keydown({key:'t',target:{tagName:'BODY'},preventDefault(){}});
+ assert.equal(JSON.parse(app.storage['forme-theme']),'dark');
+ assert.equal(app.document.documentElement.getAttribute('data-theme-choice'),'dark');
+ app.keydown({key:'T',target:{tagName:'BODY'},preventDefault(){}});
+ assert.equal(JSON.parse(app.storage['forme-theme']),'light');
+ assert.equal(app.document.documentElement.getAttribute('data-theme'),'light');
+ app.keydown({key:'t',target:{tagName:'INPUT'},preventDefault(){}});
+ assert.equal(JSON.parse(app.storage['forme-theme']),'light');
+});
+
+test('The shortcuts dialog documents the T theme shortcut in all languages',()=>{
+ const app=boot('#home',{'forme-language':'bg'},new Date(2026,10,9,12));
+ app.keydown({key:'?',target:{tagName:'BODY'},preventDefault(){}});
+ const modal=app.node('modal-root').innerHTML;
+ assert.match(modal,/T<\/kbd>|<kbd>T/);
+ assert.match(modal,/Смяна на темата/);
+});
