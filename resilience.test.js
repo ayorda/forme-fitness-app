@@ -3141,3 +3141,38 @@ test('Scaled saved-meal loading ignores unknown meals and invalid factors',()=>{
  app.click({dataset:{action:'load-meal-scaled',index:'0',factor:'2'}});
  assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'400'}]);
 });
+
+test('Clearing a single plan day shows a one-tap undo that restores it (plan-undo-clear)',()=>{
+ const app=boot('#plan',{
+  'forme-language':'bg',
+  'forme-plan':JSON.stringify({mon:'cal-start',wed:'yoga-reset'})
+ },new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/data-action="plan-undo-clear"/);
+ app.click({dataset:{action:'clear-plan-day',day:'mon'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-plan']),{wed:'yoga-reset'});
+ assert.match(app.page(),/data-action="plan-undo-clear"/);
+ app.click({dataset:{action:'plan-undo-clear'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-plan']),{mon:'cal-start',wed:'yoga-reset'});
+ assert.doesNotMatch(app.page(),/data-action="plan-undo-clear"/);
+ assert.match(app.toast(),/Изчистването е върнато/);
+});
+
+test('Clearing the whole weekly plan can be undone in one tap',()=>{
+ const app=boot('#plan',{
+  'forme-language':'bg',
+  'forme-plan':JSON.stringify({mon:'cal-start',tue:'mob-daily',wed:'yoga-reset'})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'clear-plan'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-plan']),{});
+ assert.match(app.page(),/data-action="plan-undo-clear"/);
+ app.click({dataset:{action:'plan-undo-clear'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-plan']),{mon:'cal-start',tue:'mob-daily',wed:'yoga-reset'});
+});
+
+test('Undo stays hidden when there is nothing to undo and ignores empty plans',()=>{
+ const app=boot('#plan',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/data-action="plan-undo-clear"/);
+ app.click({dataset:{action:'clear-plan'}});
+ assert.equal(app.storage['forme-plan'],undefined);
+ assert.doesNotMatch(app.page(),/data-action="plan-undo-clear"/);
+});
