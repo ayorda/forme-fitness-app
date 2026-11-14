@@ -6,7 +6,7 @@ const context={window:{}};vm.runInNewContext(fs.readFileSync('interface-translat
 const api=context.window.FORME_INTERFACE_TRANSLATIONS;
 test('prepared interface messages exist for all three languages with matching variables',()=>{
  assert.ok(api.keys.length>=100);
- const names=['exercises','workouts','foods','minutes','rounds','found','total','food','count','workout','exercise','month','index','day'];
+ const names=['exercises','workouts','foods','minutes','rounds','found','total','food','count','workout','exercise','month','index','day','goal','recorded'];
  const values=Object.fromEntries(names.map(name=>[name,`§${name}§`]));
  for(const key of api.keys){let expected;
   for(const language of ['bg','en','de']){
