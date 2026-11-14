@@ -328,3 +328,62 @@
 .goal-steppers .btn{min-width:34px;min-height:30px;padding:2px 6px;line-height:1}
 .chip-action{background:none;border:1px solid var(--line);cursor:pointer;font:inherit;color:inherit;min-height:30px}
 .chip-action:hover{border-color:var(--lime);color:var(--lime)}
+
+/* Тема: „auto“ следва системата, „light“ е ръчен избор */
+:root{color-scheme:dark}
+[data-theme="light"]{color-scheme:light;--bg:#f4f7f4;--surface:#ffffff;--surface2:#eef3ee;--surface3:#e3ebe3;--line:#d2ddd3;--text:#101a14;--muted:#4d5c53;--dim:#66756b;--lime:#5f8f16;--lime-dark:#4a7310}
+[data-theme="light"] body{background:var(--bg);color:var(--text)}
+[data-theme="light"] .sidebar{background:#eaf0ea;border-right-color:#d6e0d7}
+[data-theme="light"] .topbar{background:rgba(244,247,244,.98);border-bottom-color:#dde6de}
+[data-theme="light"] .mobile-nav{background:#f4f7f4f2;border-top-color:#d6e0d7}
+[data-theme="light"] .nav-item{color:#46554c}
+[data-theme="light"] .nav-item:hover{background:#e2eae2;color:#0c140f}
+[data-theme="light"] .nav-item.active{background:#e2f0d2;border-color:#bcd79b;color:#3f6510}
+[data-theme="light"] .side-bottom{background:linear-gradient(145deg,#e6efdf,#f5f8f2);border-color:#cfdcc6}
+[data-theme="light"] .side-bottom p{color:#2b3a30}
+[data-theme="light"] .top-pill{border-color:#cad7cb;color:#3c4f42}
+[data-theme="light"] .avatar{background:#fff;color:#4a7310;border-color:#d3ded4}
+[data-theme="light"] .theme-toggle{background:#fff;color:#3f6510;border-color:#d3ded4}
+[data-theme="light"] .card,[data-theme="light"] .stat,[data-theme="light"] .empty,[data-theme="light"] .day-card{background:var(--surface);border-color:var(--line)}
+[data-theme="light"] .card:hover{border-color:#a9c081}
+[data-theme="light"] .chip{background:#e7efe4;color:#33463a}
+[data-theme="light"] .field input,[data-theme="light"] .field select,[data-theme="light"] .field textarea{background:#fff;border-color:#cdd9ce;color:var(--text)}
+[data-theme="light"] .field input::placeholder{color:#94a398}
+[data-theme="light"] .field option{background:#fff;color:var(--text)}
+[data-theme="light"] .field label{color:#465448}
+[data-theme="light"] .btn{background:#e8efe6;border-color:#cdd9ce;color:#1c2a21}
+[data-theme="light"] .btn:hover{background:#dbe7d8}
+[data-theme="light"] .btn-primary{background:#5f8f16;border-color:#5f8f16;color:#fff}
+[data-theme="light"] .btn-primary:hover{background:#6fa01d}
+[data-theme="light"] .btn-ghost{background:rgba(0,0,0,.04);border-color:#bccdbd;color:#1c2a21}
+[data-theme="light"] .btn-danger{background:#fdeaea;border-color:#f0c4c4;color:#8a2020}
+[data-theme="light"] .chip-action{color:#33463a}
+[data-theme="light"] .note{background:#eef4ec;border-color:#ccdcc9;color:#33463a}
+[data-theme="light"] .hero{background:radial-gradient(circle at 82% 52%,rgba(95,143,22,.14),transparent 31%),linear-gradient(125deg,#eef4e6,#f6f9f2 48%,#e3eeda);border-color:#cddec3}
+[data-theme="light"] .hero p{color:#3f4f44}
+[data-theme="light"] .category-card{background:linear-gradient(135deg,#eaf1e8,#f7faf5);border-color:var(--line);color:var(--text)}
+[data-theme="light"] .workout-visual{background:radial-gradient(circle at 80% 50%,rgba(95,143,22,.18),transparent 45%),linear-gradient(135deg,#e9f0e4,#dfe9da)}
+[data-theme="light"] .visual{background:linear-gradient(125deg,#e3ece0,#eaf1e6 55%,#f6f9f4)}
+[data-theme="light"] .food-visual{background:radial-gradient(circle at 50% 70%,rgba(0,0,0,.06),transparent 38%),linear-gradient(140deg,#e8f0e5,#f4f8f2)}
+[data-theme="light"] .total{background:linear-gradient(140deg,#e8f4dd,#f2f8ec);border-color:#c3d9ac}
+[data-theme="light"] .macro{background:#eff6e9;border-color:#cfe0bd}
+[data-theme="light"] .macro span{color:#4d5c53}
+[data-theme="light"] .modal{background:#fff;border-color:#cdd9ce;box-shadow:0 35px 110px rgba(16,26,20,.18)}
+[data-theme="light"] .modal-overlay{background:rgba(220,228,220,.72)}
+[data-theme="light"] .modal-close{background:#fff;border-color:#cdd9ce;color:#101a14}
+[data-theme="light"] .player-art{background:#e8f0e4}
+[data-theme="light"] .player-time{color:#101a14}
+[data-theme="light"] .progress{background:#dbe5da}
+[data-theme="light"] .nutri-table th,[data-theme="light"] .nutri-table td{border-bottom-color:#e0e8e0}
+[data-theme="light"] .nutri-table th{color:#4d5c53}
+[data-theme="light"] .saved-item{border-bottom-color:var(--line)}
+[data-theme="light"] .kbd{background:#e6eee4;color:#2b3a30}
+[data-theme="light"] .toast{background:#5f8f16;color:#fff}
+[data-theme="light"] .fav{border-color:#cdd9ce;color:#46554c}
+[data-theme="light"] .fav.active{background:#e2f0d2;border-color:#a9c07f;color:#3f6510}
+[data-theme="light"] .quick-action{background:#fff;border-color:var(--line);color:var(--text)}
+[data-theme="light"] .quick-action:hover,[data-theme="light"] .quick-action:focus-visible{background:#f2f7ee;border-color:#9fbc74}
+[data-theme="light"] .quick-icon{background:#e9f2df;border-color:#c2d7a8;color:#3f6510}
+[data-theme="light"] .theme-toggle{box-shadow:none}
+.theme-toggle{min-width:42px;font-size:16px;line-height:1}
+@media(max-width:780px){.theme-toggle{margin-left:auto;min-width:38px;padding:6px 8px}.theme-toggle+.avatar{margin-left:8px}}

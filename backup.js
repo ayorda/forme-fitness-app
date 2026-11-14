@@ -1,8 +1,8 @@
 /* Explicit JSON export/import of FORME user data with a rollback on failed writes. */
 (function(root){
 'use strict';
-const keys=['forme-favorites','forme-plan','forme-date-plans','forme-completed-workouts','forme-current-meal','forme-saved-meals','forme-sound','forme-language','forme-user-v1','forme-progress-v1','forme-nutrition-v1'];
-const recordNames=['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound'];
+const keys=['forme-favorites','forme-plan','forme-date-plans','forme-completed-workouts','forme-current-meal','forme-saved-meals','forme-sound','forme-theme','forme-language','forme-user-v1','forme-progress-v1','forme-nutrition-v1'];
+const recordNames=['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound','theme'];
 function validObject(value){return value&&typeof value==='object'&&!Array.isArray(value);}
 const date=value=>{if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))return false;const parsed=new Date(value+'T12:00:00');return !Number.isNaN(parsed.getTime())&&`${parsed.getFullYear()}-${String(parsed.getMonth()+1).padStart(2,'0')}-${String(parsed.getDate()).padStart(2,'0')}`===value;};
 const id=value=>typeof value==='string'&&/^[A-Za-z0-9_-]+$/.test(value)&&value.length<=60;
@@ -16,6 +16,7 @@ function exportValue(key,value){
  if(validate({app:'FORME',version:1,data:{[key]:value}}))return value;
  try{
   const parsed=JSON.parse(value);
+  if(key==='forme-theme'&&['dark','light','auto'].includes(parsed))return JSON.stringify(parsed);
   if(key==='forme-favorites'&&validObject(parsed)){
    const ex=Array.isArray(parsed.exercises)?parsed.exercises.filter(x=>typeof x==='string').slice(0,500):[];
    const wk=Array.isArray(parsed.workouts)?parsed.workouts.filter(x=>typeof x==='string').slice(0,500):[];
@@ -68,10 +69,11 @@ function validate(payload){
   if(key==='forme-language'){if(!['bg','en','de'].includes(value))return false;continue;}
   let parsed;try{parsed=JSON.parse(value);}catch{return false;}
   if(key==='forme-sound'){if(typeof parsed!=='boolean')return false;}
+  else if(key==='forme-theme'){if(!['dark','light','auto'].includes(parsed))return false;}
   else if(key==='forme-favorites'){if(!validObject(parsed)||!Array.isArray(parsed.exercises)||!Array.isArray(parsed.workouts)||(parsed.foods!==undefined&&!Array.isArray(parsed.foods))||parsed.exercises.length>500||parsed.workouts.length>500||(parsed.foods?.length||0)>500||![...parsed.exercises,...parsed.workouts,...(parsed.foods||[])].every(x=>typeof x==='string'))return false;}
   else if(key==='forme-plan'||key==='forme-date-plans'){if(!validObject(parsed)||Object.keys(parsed).length>2000||!Object.values(parsed).every(x=>typeof x==='string'))return false;}
   else if(key==='forme-completed-workouts'){if(!validObject(parsed)||Object.keys(parsed).length>2000||!Object.entries(parsed).every(([d,x])=>date(d)&&validObject(x)&&id(x.id)&&typeof x.name==='string'&&x.name.trim()!==''&&x.name.length<=120))return false;}
-  else if(key==='forme-user-v1'){if(parsed?.version!==1||!validObject(parsed.records)||Object.entries(parsed.records).some(([name,raw])=>!['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound'].includes(name)||!validate({app:'FORME',version:1,data:{['forme-'+name]:raw}})))return false;}
+  else if(key==='forme-user-v1'){if(parsed?.version!==1||!validObject(parsed.records)||Object.entries(parsed.records).some(([name,raw])=>!recordNames.includes(name)||!validate({app:'FORME',version:1,data:{['forme-'+name]:raw}})))return false;}
   else if(key==='forme-current-meal'){if(!items(parsed)||parsed.length>100)return false;}
   else if(key==='forme-saved-meals'){if(!Array.isArray(parsed)||parsed.length>200||!parsed.every(x=>validObject(x)&&typeof x.name==='string'&&x.name.trim()!==''&&x.name.length<=70&&journalItems(x.items)))return false;}
   else if(key==='forme-progress-v1'){if(parsed?.version!==1||!Array.isArray(parsed.sessions)||!Array.isArray(parsed.sets)||parsed.sessions.length>5000||parsed.sets.length>5000||!Number.isInteger(parsed.goal?.workoutsPerWeek)||parsed.goal.workoutsPerWeek<1||parsed.goal.workoutsPerWeek>7||!Number.isInteger(parsed.goal?.minutesPerWeek)||parsed.goal.minutesPerWeek<0||parsed.goal.minutesPerWeek>2000||!parsed.sessions.every(x=>validObject(x)&&id(x.id)&&id(x.workoutId)&&date(x.date)&&Number.isFinite(x.minutes)&&x.minutes>=0&&x.minutes<=600)||!parsed.sets.every(x=>validObject(x)&&id(x.id)&&id(x.exerciseId)&&date(x.date)&&['reps','seconds'].includes(x.kind)&&Number.isInteger(x.value)&&x.value>=1&&x.value<=3600)||!hasUniqueIds(parsed.sessions)||!hasUniqueIds(parsed.sets))return false;}

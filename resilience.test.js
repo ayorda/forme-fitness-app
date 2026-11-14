@@ -8,8 +8,8 @@ function boot(hash,storage={},startNow=null,withI18n=false){
  let now=startNow;
  class Clock extends Date{constructor(...args){super(...(args.length?args:now?[now]:[]));}}
  const element=()=>({innerHTML:'',textContent:'',value:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},focus(){},querySelector(){return element();}});
- const document={body:{style:{}},hidden:false,activeElement:{isConnected:true,focus(){}},getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
- const window={addEventListener(){},scrollTo(){}};
+ const document={body:{style:{}},hidden:false,activeElement:{isConnected:true,focus(){}},getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;},documentElement:{attrs:{},setAttribute(k,v){this.attrs[k]=String(v);},removeAttribute(k){delete this.attrs[k];},getAttribute(k){return this.attrs[k]??null;}}};
+ const window={addEventListener(){},scrollTo(){},matchMedia:query=>({media:query,matches:false,addEventListener(){},removeEventListener(){}})};
  const localStorage={getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;},removeItem:key=>{delete storage[key];}};
  const context={window,document,localStorage,location:{hash},Date:startNow?Clock:Date,setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(context);
@@ -21,6 +21,7 @@ function boot(hash,storage={},startNow=null,withI18n=false){
  const page=()=>nodes.app.innerHTML;
  return {
   page,
+  document,
   window,
   node:id=>document.getElementById(id),
   toast:()=>nodes.toast.textContent,
@@ -3259,4 +3260,40 @@ test('journal.restore validates every entry and never duplicates an id',()=>{
  assert.equal(journal.restore([{id:'x',date:'2026-11-09',name:'Обяд',items:[{id:'rice',grams:'100'}]}]),true);
  assert.equal(journal.restore([{id:'x',date:'2026-11-09',name:'Обяд',items:[{id:'rice',grams:'100'}]}]),true);
  assert.equal(journal.entries().length,1);
+});
+
+test('Theme toggle cycles auto → dark → light and persists the choice (theme-cycle)',()=>{
+ const app=boot('#home',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.equal(app.document.documentElement.getAttribute('data-theme'),'dark');
+ assert.equal(app.document.documentElement.getAttribute('data-theme-choice'),'auto');
+ app.click({dataset:{action:'theme-cycle'}});
+ assert.equal(JSON.parse(app.storage['forme-theme']),'dark');
+ assert.equal(app.document.documentElement.getAttribute('data-theme'),'dark');
+ assert.equal(app.document.documentElement.getAttribute('data-theme-choice'),'dark');
+ assert.match(app.toast(),/Тема: тъмна/);
+ app.click({dataset:{action:'theme-cycle'}});
+ assert.equal(JSON.parse(app.storage['forme-theme']),'light');
+ assert.equal(app.document.documentElement.getAttribute('data-theme'),'light');
+ assert.equal(app.document.documentElement.getAttribute('data-theme-choice'),'light');
+ assert.match(app.toast(),/Тема: светла/);
+ app.click({dataset:{action:'theme-cycle'}});
+ assert.equal(JSON.parse(app.storage['forme-theme']),'auto');
+ assert.equal(app.document.documentElement.getAttribute('data-theme-choice'),'auto');
+});
+
+test('A stored light theme is applied on boot and survives corrupted values',()=>{
+ const light=boot('#home',{'forme-language':'bg','forme-theme':JSON.stringify('light')},new Date(2026,10,9,12));
+ assert.equal(light.document.documentElement.getAttribute('data-theme'),'light');
+ const junk=boot('#home',{'forme-language':'bg','forme-theme':JSON.stringify('neon')},new Date(2026,10,9,12));
+ assert.equal(junk.document.documentElement.getAttribute('data-theme-choice'),'auto');
+ assert.equal(junk.document.documentElement.getAttribute('data-theme'),'dark');
+});
+
+test('Light theme stylesheet keeps a complete palette and the toggle button is marked in the shell',()=>{
+ const css=fs.readFileSync('styles.css','utf8'),html=fs.readFileSync('index.html','utf8');
+ assert.match(css,/:root\{color-scheme:dark\}/);
+ assert.match(css,/\[data-theme="light"\]\{color-scheme:light;--bg:#f4f7f4;--surface:#ffffff/);
+ for(const token of ['--text','--muted','--line','--lime'])assert.match(css,new RegExp('\\[data-theme="light"\\]\\{[^}]*'+token));
+ assert.match(html,/id="theme-toggle" type="button" data-action="theme-cycle"/);
+ assert.match(html,/data-i18n-aria-label="theme.label"/);
 });
