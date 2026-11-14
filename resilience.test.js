@@ -3297,3 +3297,37 @@ test('Light theme stylesheet keeps a complete palette and the toggle button is m
  assert.match(html,/id="theme-toggle" type="button" data-action="theme-cycle"/);
  assert.match(html,/data-i18n-aria-label="theme.label"/);
 });
+
+test('Deleting a saved meal offers a one-tap restore at the original position (saved-meal-undo)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-saved-meals':JSON.stringify([
+   {name:'Закуска',items:[{id:'oats',grams:'80'}]},
+   {name:'Обяд',items:[{id:'rice',grams:'150'}]},
+   {name:'Вечеря',items:[{id:'egg',grams:'100'}]}
+  ])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.doesNotMatch(app.page(),/data-action="saved-meal-undo"/);
+ app.click({dataset:{action:'delete-saved-meal',index:'1'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-saved-meals']).map(x=>x.name),['Закуска','Вечеря']);
+ assert.match(app.page(),/data-action="saved-meal-undo"/);
+ app.click({dataset:{action:'saved-meal-undo'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-saved-meals']).map(x=>x.name),['Закуска','Обяд','Вечеря']);
+ assert.match(app.toast(),/възстановено/);
+ assert.doesNotMatch(app.page(),/data-action="saved-meal-undo"/);
+});
+
+test('Saved-meal undo can be dismissed and does nothing without a snapshot',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-saved-meals':JSON.stringify([{name:'Закуска',items:[{id:'oats',grams:'80'}]}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ app.click({dataset:{action:'saved-meal-undo'}});
+ assert.equal(app.storage['forme-saved-meals'],JSON.stringify([{name:'Закуска',items:[{id:'oats',grams:'80'}]}]));
+ app.click({dataset:{action:'delete-saved-meal',index:'0'}});
+ app.click({dataset:{action:'saved-meal-undo-dismiss'}});
+ assert.equal(JSON.parse(app.storage['forme-saved-meals']).length,0);
+ assert.doesNotMatch(app.page(),/data-action="saved-meal-undo"/);
+});
