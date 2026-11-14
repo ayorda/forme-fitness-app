@@ -2945,3 +2945,12 @@ test('save-plate is hidden on an empty plate',()=>{
  assert.doesNotMatch(app.page(),/data-action="save-plate"/);
 	assert.match(app.page(),/Празна чиния/);
 });
+
+test('Workout cards plan the workout for tomorrow in one tap (workout-plan-tomorrow)',()=>{
+ const app=boot('#sessions',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.match(app.node('workout-results').innerHTML,/data-action="workout-plan-tomorrow" data-id="cal-start" aria-label="Утре · Моят план: Силна основа">\+ Утре/);
+ app.click({dataset:{action:'workout-plan-tomorrow',id:'cal-start'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{'2026-11-10':'cal-start'});
+ assert.match(app.toast(),/Планът за тази дата е запазен/);
+ assert.doesNotMatch(app.node('workout-results').innerHTML,/data-action="workout-plan-tomorrow" data-id="cal-start"/);
+});
