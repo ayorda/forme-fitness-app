@@ -2612,3 +2612,21 @@ test('Weekly plan hides the day-clear × for empty days',()=>{
  const app=boot('#plan',{'forme-language':'bg','forme-plan':JSON.stringify({})},new Date(2026,10,9,12));
  assert.doesNotMatch(app.page(),/data-action="clear-plan-day"/);
 });
+
+test('Workout details link the done-history line to the progress log filtered by this workout (workout-history-progress)',()=>{
+ const app=boot('#sessions',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[{id:'s1',workoutId:'cal-start',date:'2026-11-06',minutes:42},{id:'s2',workoutId:'yoga-reset',date:'2026-11-03',minutes:20}],sets:[]})
+ },new Date(2026,10,9,12));
+ assert.match(app.node('workout-results').innerHTML,/data-action="workout-detail" data-id="cal-start"/);
+ app.click({dataset:{action:'workout-detail',id:'cal-start'}});
+ const modal=app.node('modal-root').innerHTML;
+ assert.match(modal,/completion-status[^>]*>✓ 1 тренировки · 2026-11-06 · 42 мин · <button[^>]*data-action="workout-history-progress" data-id="cal-start"/);
+ app.click({dataset:{action:'workout-history-progress',id:'cal-start'}});
+ const progress=app.page();
+ assert.match(progress,/id="progress-search"[^>]*value="Силна основа"/);
+ assert.match(progress,/data-action="progress-filter" data-view="workout" aria-pressed="true"/);
+ const history=app.page().slice(app.page().indexOf('progress-history-results'));
+ assert.match(history,/2026-11-06/);
+ assert.doesNotMatch(history,/2026-11-03/);
+});
