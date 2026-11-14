@@ -2710,3 +2710,19 @@ test('Journal copy-to-tomorrow is not offered for an empty day',()=>{
  app.click({dataset:{action:'food-tab',tab:'journal'}});
  assert.doesNotMatch(app.page(),/data-action="journal-copy-next-day"/);
 });
+
+test('Saved meals can be logged to yesterday in one tap (log-saved-meal-prev)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-saved-meals':JSON.stringify([{name:'След тренировка',items:[{id:'chicken',grams:'200'}]}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ assert.match(app.page(),/data-action="log-saved-meal-prev" data-index="0" aria-label="Запиши за вчера: След тренировка" title="Запиши за вчера">↩ вчера/);
+ app.click({dataset:{action:'log-saved-meal-prev',index:'0'}});
+ const saved=JSON.parse(app.storage['forme-nutrition-v1']);
+ assert.equal(saved.entries.length,1);
+ assert.equal(saved.entries[0].date,'2026-11-08');
+ assert.match(app.toast(),/записано за вчера/);
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/id="journal-date" type="date" value="2026-11-08"/);
+});
