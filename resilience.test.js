@@ -2791,3 +2791,24 @@ test('goal-minus-workout stops at the minimum of 1 workout per week',()=>{
  assert.doesNotMatch(app.page(),/data-action="goal-minus-workout"/);
  assert.match(app.page(),/data-action="goal-plus-workout"/);
 });
+
+test('Progress weekly minute goal steps by 15 in one tap (goal-plus-minutes / goal-minus-minutes)',()=>{
+ const app=boot('#progress',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="goal-plus-minutes" aria-label="Увеличи седмичната цел с 15 минути"[^>]*>\+15</);
+ app.click({dataset:{action:'goal-plus-minutes'}});
+ assert.equal(JSON.parse(app.storage['forme-progress-v1']).goal.minutesPerWeek,105);
+ assert.equal(JSON.parse(app.storage['forme-progress-v1']).goal.workoutsPerWeek,3);
+ assert.match(app.toast(),/увеличена\. \(105 мин\)/);
+ app.click({dataset:{action:'goal-minus-minutes'}});
+ assert.equal(JSON.parse(app.storage['forme-progress-v1']).goal.minutesPerWeek,90);
+ assert.match(app.toast(),/намалена\. \(90 мин\)/);
+});
+
+test('goal-minus-minutes stops at zero minutes',()=>{
+ const app=boot('#progress',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:0},sessions:[],sets:[]})
+ },new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/data-action="goal-minus-minutes"/);
+ assert.match(app.page(),/data-action="goal-plus-minutes"/);
+});
