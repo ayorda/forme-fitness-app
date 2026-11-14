@@ -3054,3 +3054,23 @@ test('Progress log re-logs a past workout for today in one tap (progress-relog)'
  assert.equal(JSON.parse(app.storage['forme-progress-v1']).sessions.length,2);
  assert.match(app.toast(),/вече е записана за днес/);
 });
+
+test('Progress log re-logs a past set for today in one tap (progress-relog-set)',()=>{
+ const app=boot('#progress',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[
+   {id:'s1',exerciseId:'Plank',date:'2026-11-05',kind:'seconds',value:55}
+  ]})
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="progress-relog-set" data-id="Plank" data-kind="seconds" data-value="55"/);
+ app.click({dataset:{action:'progress-relog-set',id:'Plank',kind:'seconds',value:'55'}});
+ const saved=JSON.parse(app.storage['forme-progress-v1']);
+ assert.equal(saved.sets.length,2);
+ assert.equal(saved.sets[1].date,'2026-11-09');
+ assert.equal(saved.sets[1].value,55);
+ assert.equal(saved.sets[1].kind,'seconds');
+ assert.match(app.toast(),/Серията е записана/);
+ app.click({dataset:{action:'progress-relog-set',id:'Plank',kind:'seconds',value:'55'}});
+ assert.equal(JSON.parse(app.storage['forme-progress-v1']).sets.length,2);
+ assert.match(app.toast(),/вече е записана за днес/);
+});
