@@ -3412,3 +3412,35 @@ test('Date undo restores an explicit rest day as an empty-string override',()=>{
  app.click({dataset:{action:'plan-undo-clear'}});
  assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{'2026-11-12':''});
 });
+
+test('Clearing all favorites offers a one-tap restore (favorites-undo-clear)',()=>{
+ const app=boot('#favorites',{
+  'forme-language':'bg',
+  'forme-favorites':JSON.stringify({exercises:['Plank','Pushups'],workouts:['cal-start'],foods:['chicken']})
+ },new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/data-action="favorites-undo-clear"/);
+ app.click({dataset:{action:'clear-favorites'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-favorites']),{exercises:[],workouts:[]});
+ assert.match(app.page(),/data-action="favorites-undo-clear"/);
+ app.click({dataset:{action:'favorites-undo-clear'}});
+ const restored=JSON.parse(app.storage['forme-favorites']);
+ assert.deepEqual(restored.exercises,['Plank','Pushups']);
+ assert.deepEqual(restored.workouts,['cal-start']);
+ assert.deepEqual(restored.foods,['chicken']);
+ assert.match(app.toast(),/възстановени/);
+ assert.doesNotMatch(app.page(),/data-action="favorites-undo-clear"/);
+});
+
+test('Clearing an empty favorites list creates no undo and dismiss hides the offer',()=>{
+ const app=boot('#favorites',{'forme-language':'bg'},new Date(2026,10,9,12));
+ app.click({dataset:{action:'clear-favorites'}});
+ assert.equal(app.storage['forme-favorites'],undefined);
+ const second=boot('#favorites',{
+  'forme-language':'bg',
+  'forme-favorites':JSON.stringify({exercises:['Plank'],workouts:[]})
+ },new Date(2026,10,9,12));
+ second.click({dataset:{action:'clear-favorites'}});
+ second.click({dataset:{action:'favorites-undo-dismiss'}});
+ assert.doesNotMatch(second.page(),/data-action="favorites-undo-clear"/);
+ assert.deepEqual(JSON.parse(second.storage['forme-favorites']),{exercises:[],workouts:[]});
+});
