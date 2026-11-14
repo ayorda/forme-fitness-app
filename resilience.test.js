@@ -2973,3 +2973,24 @@ test('day-open-month opens the correct date for the first day of the week',()=>{
  app.click({dataset:{action:'day-open-month',day:'mon'}});
  assert.match(app.page(),/data-action="plan-date" data-date="9" aria-pressed="true"/);
 });
+
+test('Month selection can jump back to the same day in the week plan (month-open-week)',()=>{
+ const app=boot('#plan',{
+  'forme-language':'bg',
+  'forme-plan':JSON.stringify({wed:'yoga-reset'})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'plan-view',view:'month'}});
+ app.click({dataset:{action:'plan-date',date:'11'}});
+ assert.match(app.page(),/data-action="month-open-week" data-date="2026-11-11" aria-label="Виж в седмицата: 2026-11-11">Седмица →/);
+ app.click({dataset:{action:'month-open-week',date:'2026-11-11'}});
+ assert.match(app.page(),/data-action="plan-view" data-view="week" aria-pressed="true"/);
+ assert.match(app.page(),/id="day-wed"/);
+ assert.match(app.page(),/day-card /);
+});
+
+test('Month selection shows the week link next to the plan source note',()=>{
+ const app=boot('#plan',{'forme-language':'bg'},new Date(2026,10,9,12));
+ app.click({dataset:{action:'plan-view',view:'month'}});
+ app.click({dataset:{action:'plan-date',date:'20'}});
+ assert.match(app.page(),/month-plan-source">По седмичния план · <button[^>]*data-action="month-open-week" data-date="2026-11-20"/);
+});
