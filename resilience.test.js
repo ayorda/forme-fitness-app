@@ -2686,3 +2686,27 @@ test('Home today card hides the rest button when today is already a rest day',()
  const app=boot('#home',{'forme-language':'bg','forme-plan':JSON.stringify({tue:'cal-start'})},new Date(2026,10,9,12));
  assert.doesNotMatch(app.page(),/data-action="plan-rest-today"/);
 });
+
+test('Journal day header copies the whole day to tomorrow in one tap (journal-copy-next-day)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+   {id:'a',date:'2026-11-09',name:'Сутрин',items:[{id:'egg',grams:'100'},{id:'oats',grams:'80'}]}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.match(app.page(),/data-action="journal-copy-next-day" aria-label="Копирай за утре">Копирай за утре →/);
+ app.click({dataset:{action:'journal-copy-next-day'}});
+ const saved=JSON.parse(app.storage['forme-nutrition-v1']);
+ const next=saved.entries.filter(e=>e.date==='2026-11-10');
+ assert.equal(next.length,1);
+ assert.deepEqual(next[0].items.map(i=>i.id).sort(),['egg','oats']);
+ assert.match(app.toast(),/копирани за утре/);
+ assert.match(app.page(),/id="journal-date" type="date" value="2026-11-10"/);
+});
+
+test('Journal copy-to-tomorrow is not offered for an empty day',()=>{
+ const app=boot('#nutrition',{'forme-language':'bg'},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ assert.doesNotMatch(app.page(),/data-action="journal-copy-next-day"/);
+});

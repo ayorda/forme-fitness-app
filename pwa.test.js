@@ -34,7 +34,7 @@ test('every app module stays cached offline and viewed media is saved for reuse'
  const artPos=html.indexOf('<script src="exercise-art.js"></script>');
  const dataPos=html.indexOf('<script src="data.js"></script>');
  assert.ok(artPos>=0&&artPos<dataPos);
-  assert.ok(sw.includes('forme-mobile-v03148-plan18'));
+  assert.ok(sw.includes('forme-mobile-v03149-jrnl5'));
  assert.ok(sw.includes('exercise-art.js'));
  assert.ok(sw.includes('progress.js'));
  assert.ok(sw.includes('programs.js'));
