@@ -3554,3 +3554,35 @@ test('Saved-meal tags are optional and sanitized on load',()=>{
  assert.doesNotMatch(app.page(),/onerror/);
  assert.doesNotMatch(app.page(),/saved-meal-tag-filter/);
 });
+
+test('Clearing the plate keeps a one-tap restore with grams, name and tag (meal-undo-clear)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'200'},{id:'rice',grams:'150'}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ app.click({dataset:{action:'clear-meal'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[]);
+ assert.match(app.page(),/data-action="meal-undo-clear"/);
+ app.click({dataset:{action:'meal-undo-clear'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'200'},{id:'rice',grams:'150'}]);
+ assert.match(app.toast(),/възстановено/);
+ assert.doesNotMatch(app.page(),/data-action="meal-undo-clear"/);
+});
+
+test('Plate undo can be dismissed and clearing an empty plate creates no undo',()=>{
+ const empty=boot('#nutrition',{'forme-language':'bg'},new Date(2026,10,9,12));
+ empty.click({dataset:{action:'food-tab',tab:'meal'}});
+ empty.click({dataset:{action:'clear-meal'}});
+ assert.equal(empty.storage['forme-current-meal'],undefined);
+ 
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-current-meal':JSON.stringify([{id:'egg',grams:'100'}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ app.click({dataset:{action:'clear-meal'}});
+ app.click({dataset:{action:'meal-undo-dismiss'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[]);
+ assert.doesNotMatch(app.page(),/data-action="meal-undo-clear"/);
+});
