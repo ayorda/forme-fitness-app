@@ -3444,3 +3444,60 @@ test('Clearing an empty favorites list creates no undo and dismiss hides the off
  assert.doesNotMatch(second.page(),/data-action="favorites-undo-clear"/);
  assert.deepEqual(JSON.parse(second.storage['forme-favorites']),{exercises:[],workouts:[]});
 });
+
+test('Removing a workout record in Progress can be undone with the same id (progress-undo-remove)',()=>{
+ const app=boot('#progress',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[
+   {id:'a',workoutId:'cal-start',date:'2026-11-04',minutes:20}
+  ],sets:[]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'progress-remove',id:'a'}});
+ assert.equal(JSON.parse(app.storage['forme-progress-v1']).sessions.length,0);
+ assert.match(app.page(),/data-action="progress-undo-remove"/);
+ app.click({dataset:{action:'progress-undo-remove'}});
+ const sessions=JSON.parse(app.storage['forme-progress-v1']).sessions;
+ assert.equal(sessions.length,1);
+ assert.equal(sessions[0].id,'a');
+ assert.equal(sessions[0].date,'2026-11-04');
+ assert.match(app.toast(),/възстановен/);
+ assert.doesNotMatch(app.page(),/data-action="progress-undo-remove"/);
+});
+
+test('Removing a set record in Progress restores the same exercise value and date',()=>{
+ const app=boot('#progress',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[
+   {id:'s1',exerciseId:'Plank',date:'2026-11-05',kind:'seconds',value:55}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'progress-remove',id:'s1'}});
+ assert.equal(JSON.parse(app.storage['forme-progress-v1']).sets.length,0);
+ app.click({dataset:{action:'progress-undo-remove'}});
+ const sets=JSON.parse(app.storage['forme-progress-v1']).sets;
+ assert.deepEqual(sets,[{id:'s1',exerciseId:'Plank',date:'2026-11-05',kind:'seconds',value:55}]);
+});
+
+test('Progress undo can be dismissed and progress.restore rejects stale or invalid entries',()=>{
+ const app=boot('#progress',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[
+   {id:'a',workoutId:'cal-start',date:'2026-11-04',minutes:20}
+  ],sets:[]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'progress-undo-dismiss'}});
+ assert.equal(JSON.parse(app.storage['forme-progress-v1']).sessions.length,1);
+ app.click({dataset:{action:'progress-remove',id:'a'}});
+ app.click({dataset:{action:'progress-undo-dismiss'}});
+ assert.doesNotMatch(app.page(),/data-action="progress-undo-remove"/);
+ app.click({dataset:{action:'progress-undo-remove'}});
+ assert.equal(JSON.parse(app.storage['forme-progress-v1']).sessions.length,0);
+ const api=app.window.FORME_PROGRESS,storage={},store={getItem:k=>storage[k]??null,setItem:(k,v)=>{storage[k]=v;}};
+ const journal=api.create(store);
+ assert.equal(journal.restore([]),false);
+ assert.equal(journal.restore([{id:'z',kind:'session',workoutId:'cal-start',date:'2026-02-30',minutes:20}]),false);
+ assert.equal(journal.restore([{id:'z',kind:'set',exerciseId:'Plank',date:'2026-11-09',kind:'seconds',value:0}]),false);
+ assert.equal(journal.restore([{id:'z',kind:'session',workoutId:'cal-start',date:'2026-11-09',minutes:20}]),true);
+ assert.equal(journal.restore([{id:'z',kind:'session',workoutId:'cal-start',date:'2026-11-09',minutes:20}]),true);
+ assert.equal(journal.get().sessions.length,1);
+});

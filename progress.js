@@ -59,11 +59,27 @@ function create(storage){
   const next=copy();next.sets.push({id:unique(),exerciseId,kind,value,date});return persist(next);
  }
  function removeRecord(id){if(!validId(id))return false;const next=copy();next.sessions=next.sessions.filter(x=>x.id!==id);next.sets=next.sets.filter(x=>x.id!==id);if(next.sessions.length===state.sessions.length&&next.sets.length===state.sets.length)return false;return persist(next);}
+ function restore(entries){
+  if(!Array.isArray(entries)||!entries.length||entries.length>100)return false;
+  const next=copy(),seenIds=new Set([...next.sessions,...next.sets].map(x=>x.id));
+  for(const entry of entries){
+   if(!plain(entry)||!validId(entry.id)||seenIds.has(entry.id))continue;
+   if(entry.kind==='session'||(!entry.kind&&entry.workoutId)){
+    if(!validId(entry.workoutId)||!validDate(entry.date)||!Number.isFinite(entry.minutes)||entry.minutes<0||entry.minutes>600)return false;
+    next.sessions.push({id:entry.id,workoutId:entry.workoutId,date:entry.date,minutes:Math.round(entry.minutes)});seenIds.add(entry.id);
+   }else{
+    if(!validId(entry.exerciseId)||!['reps','seconds'].includes(entry.kind)||!Number.isInteger(entry.value)||entry.value<1||entry.value>3600||!validDate(entry.date))return false;
+    next.sets.push({id:entry.id,exerciseId:entry.exerciseId,kind:entry.kind,value:entry.value,date:entry.date});seenIds.add(entry.id);
+   }
+  }
+  if(next.sessions.length>5000||next.sets.length>5000)return false;
+  return persist(next);
+ }
  function setGoal(workoutsPerWeek,minutesPerWeek){if(!Number.isInteger(workoutsPerWeek)||workoutsPerWeek<1||workoutsPerWeek>7||!Number.isInteger(minutesPerWeek)||minutesPerWeek<0||minutesPerWeek>2000)return false;const next=copy();next.goal={workoutsPerWeek,minutesPerWeek};return persist(next);}
  function legacyCompletions(){try{const items=JSON.parse(storage.getItem('forme-completed-workouts'));if(!plain(items))return [];return Object.entries(items).filter(([date,item])=>validDate(date)&&plain(item)&&validId(item.id)).map(([date,item])=>({id:'legacy-'+date,workoutId:item.id,date,minutes:0,legacy:true}));}catch{return [];}}
  function sessions(){const current=[...state.sessions].reverse().filter(x=>validDate(x.date)&&validId(x.workoutId));const seen=new Set(current.map(x=>x.date+'|'+x.workoutId));return [...current,...legacyCompletions().filter(x=>!seen.has(x.date+'|'+x.workoutId))].sort((a,b)=>b.date.localeCompare(a.date));}
  function weekSummary(at=new Date()){const monday=new Date(at.getFullYear(),at.getMonth(),at.getDate());monday.setDate(monday.getDate()-(monday.getDay()+6)%7);const start=dateKey(monday);const end=new Date(monday);end.setDate(end.getDate()+6);const finish=dateKey(end);const matching=sessions().filter(x=>x.date>=start&&x.date<=finish);return {start,finish,workouts:matching.length,minutes:matching.reduce((sum,x)=>sum+x.minutes,0),sets:state.sets.filter(x=>x.date>=start&&x.date<=finish).length,goal:{...state.goal}};}
- return Object.freeze({get:copy,sessions,weekSummary,recordWorkout,recordSet,removeRecord,setGoal,key});
+ return Object.freeze({get:copy,sessions,weekSummary,recordWorkout,recordSet,removeRecord,restore,setGoal,key});
 }
 root.FORME_PROGRESS=Object.freeze({create,key,dateKey});
 })(typeof window!=='undefined'?window:globalThis);
