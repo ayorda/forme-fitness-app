@@ -2753,3 +2753,23 @@ test('Favorites search also triggers the one-tap filter reset',()=>{
  app.click({dataset:{action:'reset-favorites-filters'}});
  assert.match(app.page(),/data-action="favorites-search" value=""/);
 });
+
+test('Progress weekly goal can be raised by one workout in a tap (goal-plus-workout)',()=>{
+ const app=boot('#progress',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="goal-plus-workout" aria-label="Увеличи седмичната цел с 1 тренировка"[^>]*>\+1</);
+ app.click({dataset:{action:'goal-plus-workout'}});
+ assert.equal(journalGoal(app).workoutsPerWeek,4);
+ assert.equal(journalGoal(app).minutesPerWeek,90);
+ assert.match(app.toast(),/увеличена\. \(4×\)/);
+ assert.match(app.page(),/<strong>0 \/ 4<\/strong>/);
+});
+
+test('goal-plus-workout stops at the maximum of 7 workouts per week',()=>{
+ const app=boot('#progress',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:7,minutesPerWeek:150},sessions:[],sets:[]})
+ },new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/data-action="goal-plus-workout"/);
+});
+
+function journalGoal(app){return JSON.parse(app.storage['forme-progress-v1']).goal;}
