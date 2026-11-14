@@ -3675,3 +3675,13 @@ test('Duplicating a saved meal keeps its tag',()=>{
  assert.equal(saved[1].tag,'train');
  assert.match(saved[1].name,/\(2\)/);
 });
+
+test('Home shows the rest-day undo right in the today card',()=>{
+ const app=boot('#home',{'forme-language':'bg','forme-plan':JSON.stringify({mon:'cal-start'})},new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/class="note today-undo"/);
+ app.click({dataset:{action:'plan-rest-today'}});
+ assert.match(app.page(),/class="note today-undo"[\s\S]*?data-action="plan-undo-clear"/);
+ app.click({dataset:{action:'plan-undo-clear'}});
+ assert.doesNotMatch(app.page(),/class="note today-undo"/);
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{});
+});

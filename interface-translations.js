@@ -123,7 +123,7 @@ const rows={
  'shell.space':['ТВОЕТО ПРОСТРАНСТВО','YOUR SPACE','DEIN BEREICH'],
  'shell.progress':['СЪЗДАДЕНО ЗА ПРОГРЕС','BUILT FOR PROGRESS','FÜR FORTSCHRITT GEMACHT'],
  'shell.nextStep':['Няма перфектен момент. Има следваща стъпка.','There is no perfect moment. Take the next step.','Es gibt keinen perfekten Moment. Geh den nächsten Schritt.'],
- 'shell.version':['v0.3.185 · Български · 0 €','v0.3.185 · English · €0','v0.3.185 · Deutsch · 0 €'],
+ 'shell.version':['v0.3.186 · Български · 0 €','v0.3.186 · English · €0','v0.3.186 · Deutsch · 0 €'],
  'theme.label':['Тема','Theme','Design'],
  'theme.changed.auto':['Тема: според системата','Theme: follow the system','Design: System folgen'],
  'theme.changed.dark':['Тема: тъмна','Theme: dark','Design: dunkel'],
