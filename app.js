@@ -104,11 +104,11 @@ function monthPlan(){
  const slots=Array.from({length:first},()=>'<div class="month-empty" aria-hidden="true"></div>');
  let monthPlanned=0,monthPlannedMin=0,monthDone=0;
  for(let date=1;date<=total;date++){
-  const day=new Date(year,monthIndex,date),workout=planForDay(day);
+  const day=new Date(year,monthIndex,date),workout=planForDay(day),dayKey=localDateKey(day),restOverride=Object.prototype.hasOwnProperty.call(state.datePlans||{},dayKey)&&state.datePlans[dayKey]==='';
   const today=year===now.getFullYear()&&monthIndex===now.getMonth()&&date===now.getDate();
   const label=workout?textFor('category.'+workout.cat,cats[workout.cat]):textFor('plan.rest','Почивка'),name=workout?contentFor('workout',workout).name:textFor('plan.noWorkout','Няма планирана тренировка'),completed=completedOn(day);
   if(workout){monthPlanned++;monthPlannedMin+=(workout.duration||0);}if(completed)monthDone++;
-  slots.push(`<button id="month-date-${date}" class="month-day ${today?'month-day-today':''} ${state.planSelected===date?'month-day-selected':''}" data-action="plan-date" data-date="${date}" aria-pressed="${state.planSelected===date}" aria-label="${date} ${esc(label)} · ${esc(title)}: ${esc(name)}${today?textFor('plan.todaySuffix',', днес'):''}${completed?textFor('plan.completedSuffix',', отбелязана изпълнена тренировка'):''}"><strong>${date}${completed?' <span class="month-completed" aria-hidden="true">✓</span>':''}</strong> <span class="month-type ${workout?'month-type-'+esc(workout.cat):'month-type-rest'}">${esc(label)}</span></button>`);
+  slots.push(`<button id="month-date-${date}" class="month-day ${today?'month-day-today':''} ${state.planSelected===date?'month-day-selected':''}" data-action="plan-date" data-date="${date}" aria-pressed="${state.planSelected===date}" aria-label="${date} ${esc(label)} · ${esc(title)}: ${esc(name)}${today?textFor('plan.todaySuffix',', днес'):''}${restOverride?textFor('plan.restSuffix',', почивен ден'):''}${completed?textFor('plan.completedSuffix',', отбелязана изпълнена тренировка'):''}"><strong>${date}${restOverride?' <span class="month-rest" aria-hidden="true">⛱</span>':''}${completed?' <span class="month-completed" aria-hidden="true">✓</span>':''}</strong> <span class="month-type ${workout?'month-type-'+esc(workout.cat):'month-type-rest'}">${esc(label)}</span></button>`);
  }
  const monthPrefix=`${year}-${String(monthIndex+1).padStart(2,'0')}-`,monthLoggedMin=typeof journal!=='undefined'&&journal?Math.round((journal.sessions?.()||[]).filter(s=>String(s?.date||'').startsWith(monthPrefix)).reduce((sum,s)=>sum+(Number(s.minutes)||0),0)*10)/10:0;
  const customCount=Object.keys(state.datePlans||{}).length;

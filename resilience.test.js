@@ -3176,3 +3176,18 @@ test('Undo stays hidden when there is nothing to undo and ignores empty plans',(
  assert.equal(app.storage['forme-plan'],undefined);
  assert.doesNotMatch(app.page(),/data-action="plan-undo-clear"/);
 });
+
+test('Month calendar marks a one-off rest day with a beach umbrella and rest suffix (⛱)',()=>{
+ const app=boot('#plan',{'forme-language':'bg','forme-date-plans':JSON.stringify({'2026-11-11':''})},new Date(2026,10,9,12));
+ app.click({dataset:{action:'plan-view',view:'month'}});
+ const page=app.page();
+ assert.match(page,/id="month-date-11"[^>]*aria-label="11 [^"]*, почивен ден"/);
+ assert.match(page,/id="month-date-11"[\s\S]*?<span class="month-rest" aria-hidden="true">⛱<\/span>/);
+ assert.doesNotMatch(page,/id="month-date-12"[\s\S]{0,80}month-rest/);
+});
+
+test('Month calendar shows no rest umbrella without an explicit rest override',()=>{
+ const app=boot('#plan',{'forme-language':'bg','forme-plan':JSON.stringify({wed:'yoga-reset'})},new Date(2026,10,9,12));
+ app.click({dataset:{action:'plan-view',view:'month'}});
+ assert.doesNotMatch(app.page(),/month-rest/);
+});
