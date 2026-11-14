@@ -3013,3 +3013,24 @@ test('Progress log filters the history to the current week in one tap (progress-
  const all=app.page().slice(app.page().indexOf('progress-history-results'));
  assert.match(all,/2026-11-04/);
 });
+
+test('Progress log clears its type, search and week filters in one tap (progress-log-reset)',()=>{
+ const app=boot('#progress',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[
+   {id:'a',workoutId:'cal-start',date:'2026-11-04',minutes:20},
+   {id:'b',workoutId:'yoga-reset',date:'2026-11-10',minutes:15}
+  ],sets:[]})
+ },new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/data-action="progress-log-reset"/);
+ app.click({dataset:{action:'progress-period-week'}});
+ assert.match(app.page(),/data-action="progress-log-reset">Изчисти филтрите/);
+ app.click({dataset:{action:'progress-log-reset'}});
+ assert.match(app.toast(),/Филтрите на дневника са изчистени/);
+ assert.match(app.page(),/data-action="progress-filter" data-view="all" aria-pressed="true"/);
+ assert.match(app.page(),/data-action="progress-period-week" aria-pressed="false"/);
+ assert.doesNotMatch(app.page(),/data-action="progress-log-reset"/);
+ const history=app.page().slice(app.page().indexOf('progress-history-results'));
+ assert.match(history,/2026-11-04/);
+ assert.match(history,/2026-11-10/);
+});
