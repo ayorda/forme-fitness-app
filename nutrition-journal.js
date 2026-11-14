@@ -45,12 +45,24 @@ function create(storage,foods,core){
  }
  function remove(id){const next=copy();next.entries=next.entries.filter(x=>x.id!==id);return next.entries.length!==state.entries.length&&persist(next);}
  function clearDay(date){if(!validDate(date))return false;const next=copy();next.entries=next.entries.filter(x=>x.date!==date);return next.entries.length!==state.entries.length&&persist(next);}
+ function restore(entries){
+  if(!Array.isArray(entries)||!entries.length||entries.length>100)return false;
+  const clean=[];
+  for(const x of entries){
+   if(!plain(x)||!validId(x.id)||!validDate(x.date)||!validItems(x.items)||typeof x.name!=='string'||x.name.length>70)return false;
+   clean.push({id:x.id,date:x.date,name:x.name,items:x.items.map(i=>({id:i.id,grams:String(i.grams)}))});
+  }
+  const next=copy(),present=new Set(next.entries.map(x=>x.id));
+  next.entries=next.entries.concat(clean.filter(x=>!present.has(x.id)));
+  if(next.entries.length>5000)return false;
+  return persist(next);
+ }
  function setGoal(kcal,protein){if(!Number.isInteger(kcal)||kcal<1||kcal>10000||!Number.isInteger(protein)||protein<0||protein>1000)return false;const next=copy();next.goal={kcal,protein};return persist(next);}
  /* A date selector can be cleared by the user; an empty value must never mean "every date". */
  function entries(date){const matches=state.entries.filter(x=>(date===undefined||(validDate(date)&&x.date===date))&&validItems(x.items));return matches.sort((a,b)=>b.date.localeCompare(a.date));}
  function day(date){const matches=entries(date),sum=matches.reduce((acc,x)=>{const value=total(x.items);for(const field of ['kcal','protein','carbs','fat','fiber'])acc[field]+=value[field];return acc;},{kcal:0,protein:0,carbs:0,fat:0,fiber:0});return {...sum,count:matches.length,date:validDate(date)?date:null,validDate:validDate(date),goal:{...state.goal}};}
  function week(endDate){const last=validDate(endDate)?endDate:dateKey(new Date());const days=[];for(let offset=6;offset>=0;offset--){const date=new Date(last+'T12:00:00');date.setDate(date.getDate()-offset);const key=dateKey(date),d=day(key);days.push({date:key,kcal:d.kcal,protein:d.protein});}return days;}
- return Object.freeze({get:copy,entries,day,week,add,update,remove,clearDay,setGoal,total,key});
+ return Object.freeze({get:copy,entries,day,week,add,update,remove,clearDay,restore,setGoal,total,key});
 }
 root.FORME_NUTRITION_JOURNAL=Object.freeze({create,key,dateKey});
 })(typeof window!=='undefined'?window:globalThis);

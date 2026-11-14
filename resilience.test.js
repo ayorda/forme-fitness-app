@@ -3191,3 +3191,72 @@ test('Month calendar shows no rest umbrella without an explicit rest override',(
  app.click({dataset:{action:'plan-view',view:'month'}});
  assert.doesNotMatch(app.page(),/month-rest/);
 });
+
+test('Deleting a journal entry offers a one-tap restore (journal-undo-remove)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+   {id:'a',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'}]}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ app.click({dataset:{action:'journal-remove',id:'a'}});
+ assert.equal(JSON.parse(app.storage['forme-nutrition-v1']).entries.length,0);
+ assert.match(app.page(),/class="note journal-undo"[\s\S]*?data-action="journal-undo-remove"/);
+ app.click({dataset:{action:'journal-undo-remove'}});
+ const entries=JSON.parse(app.storage['forme-nutrition-v1']).entries;
+ assert.equal(entries.length,1);
+ assert.equal(entries[0].id,'a');
+ assert.equal(entries[0].date,'2026-11-09');
+ assert.match(app.toast(),/възстановен/);
+ assert.doesNotMatch(app.page(),/journal-undo-remove/);
+});
+
+test('Clearing a whole journal day can be restored with the same entry ids',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+   {id:'a',date:'2026-11-09',name:'Закуска',items:[{id:'oats',grams:'80'}]},
+   {id:'b',date:'2026-11-09',name:'Обяд',items:[{id:'rice',grams:'150'}]},
+   {id:'c',date:'2026-11-08',name:'Вчера',items:[{id:'egg',grams:'100'}]}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ app.click({dataset:{action:'journal-clear-day-ask'}});
+ app.click({dataset:{action:'journal-clear-day-confirm'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-nutrition-v1']).entries.map(x=>x.id),['c']);
+ app.click({dataset:{action:'journal-undo-remove'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-nutrition-v1']).entries.map(x=>x.id).sort(),['a','b','c']);
+});
+
+test('Journal undo can be dismissed without restoring and ignores a missing snapshot',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+   {id:'a',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'}]}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'journal'}});
+ app.click({dataset:{action:'journal-undo-dismiss'}});
+ assert.equal(JSON.parse(app.storage['forme-nutrition-v1']).entries.length,1);
+ app.click({dataset:{action:'journal-remove',id:'a'}});
+ app.click({dataset:{action:'journal-undo-dismiss'}});
+ assert.doesNotMatch(app.page(),/journal-undo-remove/);
+ app.click({dataset:{action:'journal-undo-remove'}});
+ assert.equal(JSON.parse(app.storage['forme-nutrition-v1']).entries.length,0);
+});
+
+test('journal.restore validates every entry and never duplicates an id',()=>{
+ const app=boot('#nutrition',{'forme-language':'bg'},new Date(2026,10,9,12));
+ const api=app.window.FORME_NUTRITION_JOURNAL,storage={};
+ const store={getItem:k=>storage[k]??null,setItem:(k,v)=>{storage[k]=v;}};
+ const journal=api.create(store,[{id:'rice'},{id:'egg'}],{validateGrams:value=>/^\d+$/.test(String(value))&&Number(value)>0?{ok:true,grams:Number(value)}:{ok:false}});
+ assert.equal(journal.restore([]),false);
+ assert.equal(journal.restore([{id:'x',date:'2026-11-09',name:'',items:[{id:'unknown-food',grams:'100'}]}]),false);
+ assert.equal(journal.restore([{id:'x',date:'2026-13-40',name:'',items:[{id:'rice',grams:'100'}]}]),false);
+ assert.equal(journal.restore([{id:'x',date:'2026-11-09',name:'',items:[{id:'rice',grams:'0'}]}]),false);
+ assert.equal(journal.entries().length,0);
+ assert.equal(journal.restore([{id:'x',date:'2026-11-09',name:'Обяд',items:[{id:'rice',grams:'100'}]}]),true);
+ assert.equal(journal.restore([{id:'x',date:'2026-11-09',name:'Обяд',items:[{id:'rice',grams:'100'}]}]),true);
+ assert.equal(journal.entries().length,1);
+});
