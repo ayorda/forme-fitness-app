@@ -2569,3 +2569,25 @@ test('Weekly plan view hides the rest quick-picker when no date override exists'
  const app=boot('#plan',{'forme-language':'bg','forme-plan':JSON.stringify({mon:'cal-start'})},new Date(2026,10,9,12));
  assert.doesNotMatch(app.page(),/plan-rest-quick|week-mark-rest/);
 });
+
+test('Catalog searches (workouts / exercises / foods) get the same 1-tap × clear button',()=>{
+ const workouts=boot('#sessions',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.match(workouts.page(),/data-action="clear-search" data-target="workouts" aria-label="Изчисти търсенето"[^>]*hidden>×/);
+ workouts.change({dataset:{filter:'workouts',key:'q'},value:'йога',nextElementSibling:{dataset:{action:'clear-search'},removeAttribute(){},setAttribute(){}}});
+ assert.match(workouts.node('workout-results').innerHTML,/Намерени \d+ от \d+ тренировки/);
+ workouts.click({dataset:{action:'clear-search',target:'workouts'}});
+ assert.equal(workouts.node('workout-search').value,'');
+ assert.match(workouts.node('workout-results').innerHTML,/Намерени 6 от 6 тренировки/);
+
+ const exercises=boot('#exercises',{'forme-language':'bg'},new Date(2026,10,9,12));
+ exercises.change({dataset:{filter:'exercises',key:'q'},value:'планк',nextElementSibling:{dataset:{action:'clear-search'},removeAttribute(){},setAttribute(){}}});
+ exercises.click({dataset:{action:'clear-search',target:'exercises'}});
+ assert.equal(exercises.node('ex-search').value,'');
+ assert.match(exercises.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
+
+ const foods=boot('#nutrition',{'forme-language':'bg'},new Date(2026,10,9,12));
+ foods.change({dataset:{filter:'foods',key:'q'},value:'ориз',nextElementSibling:{dataset:{action:'clear-search'},removeAttribute(){},setAttribute(){}}});
+ foods.click({dataset:{action:'clear-search',target:'foods'}});
+ assert.equal(foods.node('food-search').value,'');
+ assert.match(foods.node('food-results').innerHTML,/Намерени 30 от 30 храни/);
+});
