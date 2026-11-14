@@ -25,7 +25,7 @@ test('every test file is registered in the CI workflow and still exists',()=>{
 test('the CI workflow parses every production JavaScript file',()=>{
  const {checked}=workflowLists();
  const files=fs.readdirSync('.')
-  .filter(name=>name.endsWith('.js')&&!isTestFile(name)).sort();
+  .filter(name=>name.endsWith('.js')&&!isTestFile(name)).concat(fs.readdirSync('vendor').filter(name=>name.endsWith('.js')).map(name=>'vendor/'+name)).sort();
  assert.ok(files.length>=15,'sanity: the repository keeps a production script set');
  assert.deepEqual([...checked].sort(),files,
   'the node --check list in final-check.yml must exactly match the production .js files on disk');

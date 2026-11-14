@@ -10,7 +10,7 @@ function boot(page,language){
  const storage=language==='bg'?{}:{'forme-language':language};
  const c={window:{addEventListener(){},scrollTo(){}},document,localStorage:{getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;}},location:{hash:page},setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(c);
- for(const f of ['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js','i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js','state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','recovery.js','personalization.js','backup.js','app.js'])
+ for(const f of ['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js','i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js','state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','recovery.js','personalization.js','backup.js','auth-config.js','auth.js','app.js'])
   vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
  return {nodes};
 }
@@ -31,7 +31,8 @@ const screens=[
  ['#plan','plan.eyebrow'],
  ['#progress','progress.eyebrow'],
  ['#favorites','favorites.eyebrow'],
- ['#recovery','recovery.heading']
+ ['#recovery','recovery.heading'],
+ ['#account','account.title']
 ];
 
 function checkScreen(page,eyebrowKey,language){

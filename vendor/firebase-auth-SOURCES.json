@@ -1,0 +1,73 @@
+{
+  "firebase": "13.3.0",
+  "builder": "esbuild@0.28.2",
+  "date": "2026-11-14",
+  "entry": "export {initializeApp} from 'firebase/app';\nexport {initializeAuth,browserSessionPersistence,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendEmailVerification,sendPasswordResetEmail,signOut,reload,connectAuthEmulator} from 'firebase/auth';\n",
+  "arguments": "--bundle --format=esm --target=es2020 --minify --legal-comments=external",
+  "packages": [
+    {
+      "name": "@firebase/util",
+      "version": "1.15.3",
+      "license": "Apache-2.0",
+      "source": "https://www.npmjs.com/package/@firebase/util/v/1.15.3"
+    },
+    {
+      "name": "@firebase/component",
+      "version": "0.7.5",
+      "license": "Apache-2.0",
+      "source": "https://www.npmjs.com/package/@firebase/component/v/0.7.5"
+    },
+    {
+      "name": "@firebase/logger",
+      "version": "0.5.2",
+      "license": "Apache-2.0",
+      "source": "https://www.npmjs.com/package/@firebase/logger/v/0.5.2"
+    },
+    {
+      "name": "idb",
+      "version": "7.1.1",
+      "license": "ISC",
+      "source": "https://www.npmjs.com/package/idb/v/7.1.1"
+    },
+    {
+      "name": "@firebase/app",
+      "version": "0.16.6",
+      "license": "Apache-2.0",
+      "source": "https://www.npmjs.com/package/@firebase/app/v/0.16.6"
+    },
+    {
+      "name": "firebase",
+      "version": "13.3.0",
+      "license": "Apache-2.0",
+      "source": "https://www.npmjs.com/package/firebase/v/13.3.0"
+    },
+    {
+      "name": "@firebase/auth",
+      "version": "1.13.10",
+      "license": "Apache-2.0",
+      "source": "https://www.npmjs.com/package/@firebase/auth/v/1.13.10"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "vendor/firebase-auth-13.3.0.js",
+      "bytes": 107818,
+      "sha256": "1e901ba145c14461e7f179a3dc36cc0471a4a47888ee37b78fb257a61812799f"
+    },
+    {
+      "path": "vendor/firebase-auth-13.3.0.js.LEGAL.txt",
+      "bytes": 21097,
+      "sha256": "1496d8296076ecfb5fb5c15c1629198e473b7712edda383331a9a70515d5fc8b"
+    },
+    {
+      "path": "vendor/LICENSE-APACHE-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "vendor/LICENSE-IDB.txt",
+      "bytes": 776,
+      "sha256": "873a2f333fda393ec3464f4579209b019d98e97c3bf498b10e85f630162fd708"
+    }
+  ]
+}

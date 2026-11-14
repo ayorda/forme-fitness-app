@@ -551,3 +551,21 @@
 .personal-week-tasks ul{list-style:none;padding:0;margin:0}
 .personal-week-tasks li{padding:12px 0;border-top:1px solid var(--line);line-height:1.8;overflow-wrap:anywhere}
 .personal-week-tasks .btn{display:block;margin-top:8px}
+
+/* Account access stays optional; six primary mobile destinations are retained. */
+.account-open{display:grid;place-items:center;flex-shrink:0}
+.account-panel{max-width:680px;margin:0 auto}
+.account-panel h3{margin-top:0}
+.account-panel p{line-height:1.65;overflow-wrap:anywhere}
+.account-modes,.account-actions{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}
+.account-modes .btn[aria-pressed="true"]{border-color:var(--lime);box-shadow:inset 0 0 0 1px var(--lime)}
+.account-panel input{display:block;width:100%;min-height:48px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);font:inherit}
+.account-panel .field{margin:18px 0}
+.account-panel .btn{min-height:44px;white-space:normal}
+.account-panel .btn:disabled{opacity:.6;cursor:wait}
+.account-message{border-left:3px solid var(--lime);padding:12px;background:var(--surface2);border-radius:0 10px 10px 0}
+.account-error{border-left-color:#db7967}
+.account-email{font-weight:700;font-size:1.2rem}
+.account-local-note{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted)}
+[data-theme="light"] .account-panel .btn-primary{background:var(--lime-dark);color:#fff}
+@media(max-width:360px){.account-panel{padding:16px}.account-modes{gap:6px}.account-modes .btn{padding:10px}.topbar{column-gap:6px}.account-open{width:34px;height:34px}}
