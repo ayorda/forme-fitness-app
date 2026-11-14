@@ -3389,3 +3389,26 @@ test('Home hides the quick saved-meal button for a meal already logged today',()
  },new Date(2026,10,9,12));
  assert.doesNotMatch(app.page(),/data-action="log-saved-meal"/);
 });
+
+test('Following the weekly plan again on a date can be undone (plan-undo-clear with a date)',()=>{
+ const app=boot('#plan',{
+  'forme-language':'bg',
+  'forme-date-plans':JSON.stringify({'2026-11-11':'cal-start'})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'week-reset-date-plan',date:'2026-11-11'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{});
+ assert.match(app.page(),/data-action="plan-undo-clear"/);
+ app.click({dataset:{action:'plan-undo-clear'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{'2026-11-11':'cal-start'});
+});
+
+test('Date undo restores an explicit rest day as an empty-string override',()=>{
+ const app=boot('#plan',{
+  'forme-language':'bg',
+  'forme-date-plans':JSON.stringify({'2026-11-12':''})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'week-reset-date-plan',date:'2026-11-12'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{});
+ app.click({dataset:{action:'plan-undo-clear'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{'2026-11-12':''});
+});
