@@ -2726,3 +2726,30 @@ test('Saved meals can be logged to yesterday in one tap (log-saved-meal-prev)',(
  app.click({dataset:{action:'food-tab',tab:'journal'}});
  assert.match(app.page(),/id="journal-date" type="date" value="2026-11-08"/);
 });
+
+test('Favorites page clears an active section filter and search in one tap (reset-favorites-filters)',()=>{
+ const app=boot('#favorites',{
+  'forme-language':'bg',
+  'forme-favorites':JSON.stringify({workouts:['cal-start'],exercises:['Plank'],foods:['rice']})
+ },new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/data-action="reset-favorites-filters"/);
+ app.click({dataset:{action:'favorites-filter',view:'exercises'}});
+ assert.match(app.page(),/data-action="reset-favorites-filters">Изчисти филтрите/);
+ assert.match(app.page(),/data-action="favorites-filter" data-view="exercises" aria-pressed="true"\>Упражнения \(1\)/);
+ app.click({dataset:{action:'reset-favorites-filters'}});
+ assert.match(app.toast(),/Филтрите са изчистени/);
+ assert.match(app.page(),/data-action="favorites-filter" data-view="all" aria-pressed="true"\>Всички \(3\)/);
+ assert.doesNotMatch(app.page(),/data-action="reset-favorites-filters"/);
+});
+
+test('Favorites search also triggers the one-tap filter reset',()=>{
+ const app=boot('#favorites',{
+  'forme-language':'bg',
+  'forme-favorites':JSON.stringify({workouts:['cal-start'],exercises:['Plank'],foods:['rice']})
+ },new Date(2026,10,9,12));
+ assert.equal(app.node('favorites-reset-slot').innerHTML,'');
+ app.input({dataset:{action:'favorites-search'},value:'планк',nextElementSibling:{dataset:{action:'clear-search'},removeAttribute(){},setAttribute(){}}});
+ assert.match(app.node('favorites-reset-slot').innerHTML,/data-action="reset-favorites-filters"/);
+ app.click({dataset:{action:'reset-favorites-filters'}});
+ assert.match(app.page(),/data-action="favorites-search" value=""/);
+});
