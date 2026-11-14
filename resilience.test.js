@@ -8,7 +8,9 @@ function boot(hash,storage={},startNow=null,withI18n=false){
  let now=startNow;
  class Clock extends Date{constructor(...args){super(...(args.length?args:now?[now]:[]));}}
  const element=()=>({innerHTML:'',textContent:'',value:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},focus(){},querySelector(){return element();}});
- const document={body:{style:{}},hidden:false,activeElement:{isConnected:true,focus(){}},getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;},documentElement:{attrs:{},setAttribute(k,v){this.attrs[k]=String(v);},removeAttribute(k){delete this.attrs[k];},getAttribute(k){return this.attrs[k]??null;}}};
+ const metaNodes={};
+ const metaFor=selector=>{if(metaNodes[selector])return metaNodes[selector];const attrs={};return (metaNodes[selector]={attrs,setAttribute(k,v){attrs[k]=String(v);},getAttribute(k){return attrs[k]??null;}});};
+ const document={body:{style:{}},hidden:false,activeElement:{isConnected:true,focus(){}},getElementById(id){return nodes[id]||(nodes[id]=element());},querySelector(selector){return selector.includes('meta')?metaFor(selector):null;},addEventListener(type,fn){handlers[type]=fn;},documentElement:{attrs:{},setAttribute(k,v){this.attrs[k]=String(v);},removeAttribute(k){delete this.attrs[k];},getAttribute(k){return this.attrs[k]??null;}}};
  const window={addEventListener(){},scrollTo(){},matchMedia:query=>({media:query,matches:false,addEventListener(){},removeEventListener(){}})};
  const localStorage={getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;},removeItem:key=>{delete storage[key];}};
  const context={window,document,localStorage,location:{hash},Date:startNow?Clock:Date,setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
@@ -22,6 +24,7 @@ function boot(hash,storage={},startNow=null,withI18n=false){
  return {
   page,
   document,
+  meta:selector=>metaFor(selector),
   window,
   node:id=>document.getElementById(id),
   toast:()=>nodes.toast.textContent,
@@ -3714,4 +3717,21 @@ test('Row undo ignores stale snapshots and removing the last row keeps the plate
  assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[]);
  app.click({dataset:{action:'meal-row-undo'}});
  assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'egg',grams:'100'}]);
+});
+
+test('Switching the theme also updates the browser theme-color and color-scheme metas',()=>{
+ const app=boot('#home',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.equal(app.meta('meta[name="theme-color"]').getAttribute('content'),'#0a0f0e');
+ app.click({dataset:{action:'theme-cycle'}});
+ assert.equal(app.meta('meta[name="theme-color"]').getAttribute('content'),'#0a0f0e');
+ app.click({dataset:{action:'theme-cycle'}});
+ assert.equal(app.meta('meta[name="theme-color"]').getAttribute('content'),'#f4f7f4');
+ assert.equal(app.meta('meta[name="color-scheme"]').getAttribute('content'),'light');
+ app.click({dataset:{action:'theme-cycle'}});
+ assert.equal(app.meta('meta[name="theme-color"]').getAttribute('content'),'#0a0f0e');
+});
+
+test('index.html declares a color-scheme meta next to theme-color',()=>{
+ const html=fs.readFileSync('index.html','utf8');
+ assert.match(html,/<meta name="theme-color" content="#0a0f0e"><meta name="color-scheme" content="dark light">/);
 });

@@ -39,7 +39,7 @@ const repair=(key,value,fallback)=>{if(!normalize)return value??fallback;const f
 const themeOptions=['auto','dark','light'];
 const loadTheme=()=>{const raw=load('theme','auto');return themeOptions.includes(raw)?raw:'auto';};
 const resolvedTheme=value=>{if(value!=='auto')return value;try{return window.matchMedia?.('(prefers-color-scheme: light)')?.matches?'light':'dark';}catch{return 'dark';}};
-const applyTheme=value=>{const root=document.documentElement,resolved=resolvedTheme(value);if(!root?.setAttribute)return;root.setAttribute('data-theme',resolved);root.setAttribute('data-theme-choice',value);const meta=document.querySelector?.('meta[name="theme-color"]');meta?.setAttribute?.('content',resolved==='light'?'#f4f7f4':'#0a0f0e');};
+const applyTheme=value=>{const root=document.documentElement,resolved=resolvedTheme(value);if(!root?.setAttribute)return;root.setAttribute('data-theme',resolved);root.setAttribute('data-theme-choice',value);const meta=document.querySelector?.('meta[name="theme-color"]');meta?.setAttribute?.('content',resolved==='light'?'#f4f7f4':'#0a0f0e');const schemeNote=document.querySelector?.('meta[name="color-scheme"]');schemeNote?.setAttribute?.('content',resolved);try{document.body?.dataset?.theme!==undefined&&(document.body.dataset.theme=resolved);}catch{}};
 if(window.matchMedia&&typeof window.matchMedia==='function'){const query=window.matchMedia('(prefers-color-scheme: light)');query?.addEventListener?.('change',()=>{if(state.theme==='auto')applyTheme('auto');});}
 applyTheme(loadTheme());
 const themeIcon={auto:'◐',dark:'☾',light:'☀'},themeTitle={auto:'Тема: според системата',dark:'Тема: тъмна',light:'Тема: светла'};
