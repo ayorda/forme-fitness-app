@@ -116,8 +116,34 @@ function compareWeeks(currentWeek={},previousWeek={}){
   setsDelta:(Number(currentWeek?.sets)||0)-(Number(previousWeek?.sets)||0)
  };
 }
-function exerciseProgressDelta(sets,exerciseId,kind){
- const list=(Array.isArray(sets)?sets:[]).filter(s=>s?.exerciseId===exerciseId&&s?.kind===kind&&Number.isFinite(Number(s?.value)));
+function setContextKey(value={}){
+ const weight=typeof value?.weightKg==='number'&&Number.isFinite(value.weightKg)?value.weightKg:0;
+ return JSON.stringify([weight,String(value?.assistance||'').trim().replace(/\s+/g,' ').toLocaleLowerCase()]);
+}
+function sameSetContext(a,b){return setContextKey(a)===setContextKey(b);}
+function exerciseTrend(sets,exerciseId,kind,details={},limit=12){
+ const days=new Map();
+ for(const entry of Array.isArray(sets)?sets:[]){
+  if(entry?.exerciseId!==exerciseId||entry.kind!==kind||!sameSetContext(entry,details)||!Number.isInteger(entry.value)||entry.value<1||entry.value>3600||typeof entry.date!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(entry.date))continue;
+  const date=new Date(entry.date+'T12:00:00');
+  if(Number.isNaN(date.getTime())||`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`!==entry.date)continue;
+  const current=days.get(entry.date);
+  if(current){current.value=Math.max(current.value,entry.value);current.count++;}
+  else days.set(entry.date,{date:entry.date,value:entry.value,count:1});
+ }
+ return [...days.values()].sort((a,b)=>a.date.localeCompare(b.date)).slice(-Math.max(1,Math.min(52,Number.isInteger(limit)?limit:12)));
+}
+function bestExerciseSets(sets,exerciseId){
+ const groups=new Map();
+ for(const entry of Array.isArray(sets)?sets:[]){
+  if(entry?.exerciseId!==exerciseId||!['reps','seconds'].includes(entry.kind)||!Number.isFinite(entry.value))continue;
+  const key=entry.kind+'|'+setContextKey(entry),best=groups.get(key);
+  if(!best||entry.value>best.value)groups.set(key,entry);
+ }
+ return [...groups.values()];
+}
+function exerciseProgressDelta(sets,exerciseId,kind,details={}){
+ const list=(Array.isArray(sets)?sets:[]).filter(s=>s?.exerciseId===exerciseId&&s?.kind===kind&&sameSetContext(s,details)&&Number.isFinite(Number(s?.value)));
  if(list.length<2)return null;
  const chrono=[...list].sort((a,b)=>String(a.date||'').localeCompare(String(b.date||'')));
  const first=Number(chrono[0].value),best=chrono.reduce((m,s)=>Math.max(m,Number(s.value)),0);
@@ -148,15 +174,17 @@ function relatedFoods(foods,currentId,limit=3){
  return list.filter(f=>f&&f.id!==currentId&&f.cat===cur.cat).sort((a,b)=>Math.abs(a.protein/Math.max(1,a.kcal)-curDens)-Math.abs(b.protein/Math.max(1,b.kcal)-curDens)||Math.abs(a.kcal-cur.kcal)-Math.abs(b.kcal-cur.kcal)).slice(0,limit);
 }
 function exportActivityCsv({sessions=[],sets=[],nutritionEntries=[],from='',to=''}={}){
+ const withDetails=(Array.isArray(sets)?sets:[]).some(s=>(Number(s?.weightKg)||0)>0||String(s?.assistance||'').trim());
  const inRange=date=>{const d=String(date||'');if(from&&d<from)return false;if(to&&d>to)return false;return true;};
  const cell=val=>{if(val===null||val===undefined||val==='')return '';let s=String(val);if(/^[=+\-@\t\r]/.test(s))s="'"+s;return /[",\r\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s;};
  const round1=n=>Number.isFinite(Number(n))?Math.round(Number(n)*10)/10:'';
  const rows=[
   ...(Array.isArray(sessions)?sessions:[]).map(s=>({date:String(s?.date||''),cols:[s?.date,'workout',s?.title||s?.workoutId||'','minutes',round1(s?.minutes),'','','','','']})),
-  ...(Array.isArray(sets)?sets:[]).map(s=>({date:String(s?.date||''),cols:[s?.date,'set',s?.title||s?.exerciseId||'',s?.kind||'reps',round1(s?.value),'','','','','']})),
+  ...(Array.isArray(sets)?sets:[]).map(s=>({date:String(s?.date||''),cols:[s?.date,'set',s?.title||s?.exerciseId||'',s?.kind||'reps',round1(s?.value),'','','','','',...(withDetails?[Number(s?.weightKg)||0,s?.assistance||'']:[])]})),
   ...(Array.isArray(nutritionEntries)?nutritionEntries:[]).map(e=>({date:String(e?.date||''),cols:[e?.date,'nutrition',e?.title||'','meal',round1(e?.itemsCount),round1(e?.kcal),round1(e?.protein),round1(e?.carbs),round1(e?.fat),round1(e?.fiber)]}))
  ].filter(row=>inRange(row.date)).sort((a,b)=>b.date.localeCompare(a.date));
- const head='date,type,name,metric,value,kcal,protein_g,carbs_g,fat_g,fiber_g';
+ const head='date,type,name,metric,value,kcal,protein_g,carbs_g,fat_g,fiber_g'+(withDetails?',weight_kg,assistance':'');
+ if(withDetails)for(const row of rows)while(row.cols.length<12)row.cols.push('');
  return '\uFEFF'+[head,...rows.map(r=>r.cols.map(cell).join(','))].join('\r\n')+'\r\n';
 }
 function shiftWeeklyPlan(plan={},dayKeys=['mon','tue','wed','thu','fri','sat','sun'],delta=1){
@@ -183,7 +211,7 @@ function topLoggedFoods(entries=[],limit=4){
  }
  return [...map.values()].sort((a,b)=>b.count-a.count||a.id.localeCompare(b.id)).slice(0,Math.max(1,Number(limit)||4));
 }
-const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,compareWeeks,exerciseProgressDelta,relatedExercises,relatedFoods,exportActivityCsv,shiftWeeklyPlan,planFromWorkouts,topLoggedFoods,weekdayActivity,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak,longestWorkoutStreak};
+const core={validateGrams,calculateForGrams,gramsForTargetProtein,macroCalorieShares,sumMeal,mergeMealItems,scaleMealItems,summarizeNutritionWeek,summarizeAllTimeProgress,compareWeeks,exerciseProgressDelta,setContextKey,sameSetContext,exerciseTrend,bestExerciseSets,relatedExercises,relatedFoods,exportActivityCsv,shiftWeeklyPlan,planFromWorkouts,topLoggedFoods,weekdayActivity,sortWorkouts,filterWorkouts,sortExercises,filterExercises,sortFoods,filterFoods,formatClock,workoutStreak,longestWorkoutStreak};
 if(typeof module!=='undefined'&&module.exports)module.exports=core;
 root.FORME_CORE=core;
 })(typeof window!=='undefined'?window:globalThis);

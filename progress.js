@@ -7,6 +7,19 @@ const dateKey=date=>`${date.getFullYear()}-${String(date.getMonth()+1).padStart(
 const validDate=value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)&&dateKey(new Date(value+'T12:00:00'))===value;
 const validId=value=>typeof value==='string'&&/^[A-Za-z0-9_-]+$/.test(value)&&value.length<=60;
 const plain=value=>!!value&&typeof value==='object'&&!Array.isArray(value);
+function setDetails(value={},strict=false){
+ if(!plain(value))return strict?null:{};
+ const result={};
+ if(value.weightKg!==undefined){
+  const weight=value.weightKg,valid=typeof weight==='number'&&Number.isFinite(weight)&&weight>=0&&weight<=500&&Math.abs(weight*100-Math.round(weight*100))<1e-6;
+  if(!valid){if(strict)return null;}else if(weight>0)result.weightKg=weight;
+ }
+ if(value.assistance!==undefined){
+  if(typeof value.assistance!=='string'||value.assistance.length>120){if(strict)return null;}
+  else {const assistance=value.assistance.trim().replace(/\s+/g,' ');if(assistance)result.assistance=assistance;}
+ }
+ return result;
+}
 function normalizeSessions(list){
  if(!Array.isArray(list))return [];
  const seen=new Set(),result=[];
@@ -23,7 +36,7 @@ function normalizeSets(list){
  for(const x of list.slice(0,5000)){
   if(!plain(x)||!validId(x.id)||seen.has(x.id)||!validId(x.exerciseId)||!validDate(x.date))continue;
   if(!['reps','seconds'].includes(x.kind)||!Number.isInteger(x.value)||x.value<1||x.value>3600)continue;
-  seen.add(x.id);result.push({id:x.id,exerciseId:x.exerciseId,date:x.date,kind:x.kind,value:x.value});
+  seen.add(x.id);result.push({id:x.id,exerciseId:x.exerciseId,date:x.date,kind:x.kind,value:x.value,...setDetails(x)});
  }
  return result;
 }
@@ -54,9 +67,10 @@ function create(storage){
   if(!validId(workoutId)||!validDate(date)||typeof minutes!=='number'||!Number.isFinite(minutes)||minutes<0||minutes>600)return false;
   const next=copy();next.sessions.push({id:unique(),workoutId,date,minutes:Math.round(minutes)});return persist(next);
  }
- function recordSet(exerciseId,kind,value,date=dateKey(new Date())){
-  if(!validId(exerciseId)||!['reps','seconds'].includes(kind)||!Number.isInteger(value)||value<1||value>3600||!validDate(date))return false;
-  const next=copy();next.sets.push({id:unique(),exerciseId,kind,value,date});return persist(next);
+ function recordSet(exerciseId,kind,value,date=dateKey(new Date()),details={}){
+  const extra=setDetails(details,true);
+  if(!validId(exerciseId)||!['reps','seconds'].includes(kind)||!Number.isInteger(value)||value<1||value>3600||!validDate(date)||!extra||state.sets.length>=5000)return false;
+  const next=copy();next.sets.push({id:unique(),exerciseId,kind,value,date,...extra});return persist(next);
  }
  function removeRecord(id){if(!validId(id))return false;const next=copy();next.sessions=next.sessions.filter(x=>x.id!==id);next.sets=next.sets.filter(x=>x.id!==id);if(next.sessions.length===state.sessions.length&&next.sets.length===state.sets.length)return false;return persist(next);}
  function restore(entries){
@@ -69,7 +83,8 @@ function create(storage){
     next.sessions.push({id:entry.id,workoutId:entry.workoutId,date:entry.date,minutes:Math.round(entry.minutes)});seenIds.add(entry.id);
    }else{
     if(!validId(entry.exerciseId)||!['reps','seconds'].includes(entry.kind)||!Number.isInteger(entry.value)||entry.value<1||entry.value>3600||!validDate(entry.date))return false;
-    next.sets.push({id:entry.id,exerciseId:entry.exerciseId,kind:entry.kind,value:entry.value,date:entry.date});seenIds.add(entry.id);
+    const extra=setDetails(entry,true);if(!extra)return false;
+    next.sets.push({id:entry.id,exerciseId:entry.exerciseId,kind:entry.kind,value:entry.value,date:entry.date,...extra});seenIds.add(entry.id);
    }
   }
   if(next.sessions.length>5000||next.sets.length>5000)return false;
@@ -81,5 +96,5 @@ function create(storage){
  function weekSummary(at=new Date()){const monday=new Date(at.getFullYear(),at.getMonth(),at.getDate());monday.setDate(monday.getDate()-(monday.getDay()+6)%7);const start=dateKey(monday);const end=new Date(monday);end.setDate(end.getDate()+6);const finish=dateKey(end);const matching=sessions().filter(x=>x.date>=start&&x.date<=finish);return {start,finish,workouts:matching.length,minutes:matching.reduce((sum,x)=>sum+x.minutes,0),sets:state.sets.filter(x=>x.date>=start&&x.date<=finish).length,goal:{...state.goal}};}
  return Object.freeze({get:copy,sessions,weekSummary,recordWorkout,recordSet,removeRecord,restore,setGoal,key});
 }
-root.FORME_PROGRESS=Object.freeze({create,key,dateKey});
+root.FORME_PROGRESS=Object.freeze({create,key,dateKey,setDetails});
 })(typeof window!=='undefined'?window:globalThis);

@@ -11,6 +11,9 @@ const items=value=>Array.isArray(value)&&value.every(x=>validObject(x)&&id(x.id)
 const journalItems=value=>items(value)&&value.length>0&&value.length<=100;
 const uniqueIds=arr=>{const seen=new Set();return arr.filter(x=>{if(seen.has(x.id))return false;seen.add(x.id);return true;});};
 const hasUniqueIds=arr=>new Set(arr.map(x=>x.id)).size===arr.length;
+function validSetDetails(value){return (value.weightKg===undefined||(typeof value.weightKg==='number'&&Number.isFinite(value.weightKg)&&value.weightKg>=0&&value.weightKg<=500&&Math.abs(value.weightKg*100-Math.round(value.weightKg*100))<1e-6))&&(value.assistance===undefined||(typeof value.assistance==='string'&&value.assistance.length<=120));}
+function cleanSetDetails(value){const out={};if(typeof value.weightKg==='number'&&Number.isFinite(value.weightKg)&&value.weightKg>0&&value.weightKg<=500&&Math.abs(value.weightKg*100-Math.round(value.weightKg*100))<1e-6)out.weightKg=value.weightKg;if(typeof value.assistance==='string'&&value.assistance.length<=120){const text=value.assistance.trim().replace(/\s+/g,' ');if(text)out.assistance=text;}return out;}
+const setSignature=s=>`${s.date}|${s.exerciseId}|${s.kind}|${s.value}|${Number(s.weightKg)||0}|${String(s.assistance||'').trim().replace(/\s+/g,' ').toLocaleLowerCase()}`;
 function exportValue(key,value){
  if(typeof value!=='string')return null;
  if(validate({app:'FORME',version:1,data:{[key]:value}}))return value;
@@ -40,7 +43,7 @@ function exportValue(key,value){
    const g=validObject(parsed.goal)?parsed.goal:{};
    const goal={workoutsPerWeek:Number.isInteger(g.workoutsPerWeek)&&g.workoutsPerWeek>=1&&g.workoutsPerWeek<=7?g.workoutsPerWeek:3,minutesPerWeek:Number.isInteger(g.minutesPerWeek)&&g.minutesPerWeek>=0&&g.minutesPerWeek<=2000?g.minutesPerWeek:90};
    const sessions=Array.isArray(parsed.sessions)?uniqueIds(parsed.sessions.slice(0,5000).filter(x=>validObject(x)&&id(x.id)&&id(x.workoutId)&&date(x.date)&&typeof x.minutes==='number'&&Number.isFinite(x.minutes)&&x.minutes>=0&&x.minutes<=600).map(x=>({id:x.id,workoutId:x.workoutId,date:x.date,minutes:Math.round(x.minutes)}))):[];
-   const sets=Array.isArray(parsed.sets)?uniqueIds(parsed.sets.slice(0,5000).filter(x=>validObject(x)&&id(x.id)&&id(x.exerciseId)&&date(x.date)&&['reps','seconds'].includes(x.kind)&&Number.isInteger(x.value)&&x.value>=1&&x.value<=3600).map(x=>({id:x.id,exerciseId:x.exerciseId,date:x.date,kind:x.kind,value:x.value}))):[];
+   const sets=Array.isArray(parsed.sets)?uniqueIds(parsed.sets.slice(0,5000).filter(x=>validObject(x)&&id(x.id)&&id(x.exerciseId)&&date(x.date)&&['reps','seconds'].includes(x.kind)&&Number.isInteger(x.value)&&x.value>=1&&x.value<=3600).map(x=>({id:x.id,exerciseId:x.exerciseId,date:x.date,kind:x.kind,value:x.value,...cleanSetDetails(x)}))):[];
    return JSON.stringify({version:1,goal,sessions,sets});
   }
   if(key==='forme-nutrition-v1'&&parsed?.version===1&&validObject(parsed)){
@@ -77,7 +80,7 @@ function validate(payload){
   else if(key==='forme-user-v1'){if(parsed?.version!==1||!validObject(parsed.records)||Object.entries(parsed.records).some(([name,raw])=>!recordNames.includes(name)||!validate({app:'FORME',version:1,data:{['forme-'+name]:raw}})))return false;}
   else if(key==='forme-current-meal'){if(!items(parsed)||parsed.length>100)return false;}
   else if(key==='forme-saved-meals'){if(!Array.isArray(parsed)||parsed.length>200||!parsed.every(x=>validObject(x)&&typeof x.name==='string'&&x.name.trim()!==''&&x.name.length<=70&&journalItems(x.items)))return false;}
-  else if(key==='forme-progress-v1'){if(parsed?.version!==1||!Array.isArray(parsed.sessions)||!Array.isArray(parsed.sets)||parsed.sessions.length>5000||parsed.sets.length>5000||!Number.isInteger(parsed.goal?.workoutsPerWeek)||parsed.goal.workoutsPerWeek<1||parsed.goal.workoutsPerWeek>7||!Number.isInteger(parsed.goal?.minutesPerWeek)||parsed.goal.minutesPerWeek<0||parsed.goal.minutesPerWeek>2000||!parsed.sessions.every(x=>validObject(x)&&id(x.id)&&id(x.workoutId)&&date(x.date)&&Number.isFinite(x.minutes)&&x.minutes>=0&&x.minutes<=600)||!parsed.sets.every(x=>validObject(x)&&id(x.id)&&id(x.exerciseId)&&date(x.date)&&['reps','seconds'].includes(x.kind)&&Number.isInteger(x.value)&&x.value>=1&&x.value<=3600)||!hasUniqueIds(parsed.sessions)||!hasUniqueIds(parsed.sets))return false;}
+  else if(key==='forme-progress-v1'){if(parsed?.version!==1||!Array.isArray(parsed.sessions)||!Array.isArray(parsed.sets)||parsed.sessions.length>5000||parsed.sets.length>5000||!Number.isInteger(parsed.goal?.workoutsPerWeek)||parsed.goal.workoutsPerWeek<1||parsed.goal.workoutsPerWeek>7||!Number.isInteger(parsed.goal?.minutesPerWeek)||parsed.goal.minutesPerWeek<0||parsed.goal.minutesPerWeek>2000||!parsed.sessions.every(x=>validObject(x)&&id(x.id)&&id(x.workoutId)&&date(x.date)&&Number.isFinite(x.minutes)&&x.minutes>=0&&x.minutes<=600)||!parsed.sets.every(x=>validObject(x)&&id(x.id)&&id(x.exerciseId)&&date(x.date)&&['reps','seconds'].includes(x.kind)&&Number.isInteger(x.value)&&x.value>=1&&x.value<=3600&&validSetDetails(x))||!hasUniqueIds(parsed.sessions)||!hasUniqueIds(parsed.sets))return false;}
   else if(key==='forme-nutrition-v1'){if(parsed?.version!==1||!Array.isArray(parsed.entries)||parsed.entries.length>5000||!Number.isInteger(parsed.goal?.kcal)||parsed.goal.kcal<1||parsed.goal.kcal>10000||!Number.isInteger(parsed.goal?.protein)||parsed.goal.protein<0||parsed.goal.protein>1000||!parsed.entries.every(x=>validObject(x)&&id(x.id)&&date(x.date)&&typeof x.name==='string'&&x.name.length<=70&&journalItems(x.items))||!hasUniqueIds(parsed.entries))return false;}
   else if(!validObject(parsed))return false;
  }
@@ -138,7 +141,7 @@ function mergeData(storage,text){
   else{
    const curProg=JSON.parse(curProgRaw),incProg=JSON.parse(parsed.data['forme-progress-v1']);
    const sessions=mergeByIdAndSig(curProg.sessions,incProg.sessions,s=>`${s.date}|${s.workoutId}|${s.minutes}`,5000);
-   const sets=mergeByIdAndSig(curProg.sets,incProg.sets,s=>`${s.date}|${s.exerciseId}|${s.kind}|${s.value}`,5000);
+   const sets=mergeByIdAndSig(curProg.sets,incProg.sets,setSignature,5000);
    nextWrites['forme-progress-v1']=JSON.stringify({version:1,goal:curProg.goal,sessions,sets});
   }
  }
