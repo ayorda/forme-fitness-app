@@ -2883,3 +2883,23 @@ test('Home does not offer "same as yesterday" when today already has a workout',
  },new Date(2026,10,9,12));
  assert.doesNotMatch(app.page(),/data-action="plan-copy-yesterday"/);
 });
+
+test('Meal rows offer ±100 g steppers next to ±25 g in one tap (step-meal-grams)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'200'}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ const rows=app.page();
+ assert.match(rows,/data-action="step-meal-grams" data-index="0" data-delta="-100" aria-label="Грамаж за Пилешки гърди -100">-100/);
+ assert.match(rows,/data-action="step-meal-grams" data-index="0" data-delta="100" aria-label="Грамаж за Пилешки гърди \+100">\+100/);
+ assert.match(rows,/data-action="step-meal-grams" data-index="0" data-delta="-25"/);
+ assert.match(rows,/data-action="step-meal-grams" data-index="0" data-delta="25"/);
+
+ app.click({dataset:{action:'step-meal-grams',index:'0',delta:'100'}});
+ assert.equal(JSON.parse(app.storage['forme-current-meal'])[0].grams,'300');
+ app.click({dataset:{action:'step-meal-grams',index:'0',delta:'-100'}});
+ assert.equal(JSON.parse(app.storage['forme-current-meal'])[0].grams,'200');
+ app.click({dataset:{action:'step-meal-grams',index:'0',delta:'-100'}});
+ assert.equal(JSON.parse(app.storage['forme-current-meal'])[0].grams,'100');
+});
