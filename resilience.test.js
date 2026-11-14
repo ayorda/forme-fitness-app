@@ -3331,3 +3331,32 @@ test('Saved-meal undo can be dismissed and does nothing without a snapshot',()=>
  assert.equal(JSON.parse(app.storage['forme-saved-meals']).length,0);
  assert.doesNotMatch(app.page(),/data-action="saved-meal-undo"/);
 });
+
+test('Each meal row can be halved or doubled in one tap (scale-meal-row)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'200'},{id:'rice',grams:'150'}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/data-action="scale-meal-row" data-index="0" data-factor="0\.5" aria-label="Половин порция: Пилешки гърди"/);
+ app.click({dataset:{action:'scale-meal-row',index:'0',factor:'0.5'}});
+ let meal=JSON.parse(app.storage['forme-current-meal']);
+ assert.deepEqual(meal,[{id:'chicken',grams:'100'},{id:'rice',grams:'150'}]);
+ app.click({dataset:{action:'scale-meal-row',index:'1',factor:'2'}});
+ meal=JSON.parse(app.storage['forme-current-meal']);
+ assert.deepEqual(meal,[{id:'chicken',grams:'100'},{id:'rice',grams:'300'}]);
+});
+
+test('Row scaling respects the 5 g floor and 2500 g ceiling and ignores bad targets',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'8'},{id:'rice',grams:'1600'}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ app.click({dataset:{action:'scale-meal-row',index:'0',factor:'0.5'}});
+ app.click({dataset:{action:'scale-meal-row',index:'1',factor:'2'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'5'},{id:'rice',grams:'2500'}]);
+ app.click({dataset:{action:'scale-meal-row',index:'9',factor:'2'}});
+ app.click({dataset:{action:'scale-meal-row',index:'0',factor:'0'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{"id":"chicken","grams":"5"},{"id":"rice","grams":"2500"}]);
+});
