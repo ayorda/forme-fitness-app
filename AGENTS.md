@@ -3,7 +3,7 @@
 - Explain work to the owner in clear Bulgarian.
 - Report the current phase and numbered step, completed work, remaining work, and the completion estimate or concrete dependencies preventing an estimate. Use [ROADMAP.md](./ROADMAP.md), not commit/version/test counts, for product progress.
 - The product plan has phases 0–3 and 20 major items in phases 1–3. Preserve the distinction between ready/tested, developed/unverified, partial, blocked and planned work.
-- Latest owner instruction for the Firebase Authentication integration (2026-11-14): work on a separate branch and prepare a Pull Request. Do not merge into `main` or publish changes without the owner's approval. This supersedes the earlier direct-to-main workflow for this task.
+- Latest owner instruction: publish tested changes directly to `main`, without creating new Pull Requests. The owner explicitly approved merging/publishing PR #50. This supersedes the earlier branch/PR/no-publication instruction. GitHub Pages publishes from main.
 - Budget remains 0 EUR. Do not activate paid services, subscriptions or live payments without separate authorization.
 - The specific female model must come from the owner's four original references. Do not substitute another person or publish private originals without the required permission and rights checks. Their absence is a blocker for the requested Cinematic Hero, not a completed feature.
 - Personal Coaching means a real human trainer. Initial personalization uses transparent rules; a paid AI service is not required.
