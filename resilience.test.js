@@ -3360,3 +3360,32 @@ test('Row scaling respects the 5 g floor and 2500 g ceiling and ignores bad targ
  app.click({dataset:{action:'scale-meal-row',index:'0',factor:'0'}});
  assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{"id":"chicken","grams":"5"},{"id":"rice","grams":"2500"}]);
 });
+
+test('Home offers one-tap saved-meal logging even after meals are already logged today',()=>{
+ const meals=[{name:'Закуска',items:[{id:'oats',grams:'80'}]},{name:'Обяд',items:[{id:'chicken',grams:'200'}]},{name:'Вечеря',items:[{id:'egg',grams:'100'}]}];
+ const app=boot('#home',{
+  'forme-language':'bg',
+  'forme-saved-meals':JSON.stringify(meals),
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+   {id:'a',date:'2026-11-09',name:'Закуска',items:[{id:'oats',grams:'80'}]}
+  ]})
+ },new Date(2026,10,9,12));
+ const page=app.page();
+ assert.doesNotMatch(page,/data-action="log-saved-meal" data-index="0"/);
+ assert.match(page,/data-action="log-saved-meal" data-index="1"/);
+ assert.match(page,/data-action="log-saved-meal" data-index="2"/);
+ assert.doesNotMatch(page,/data-action="log-saved-meal" data-index="3"/);
+ app.click({dataset:{action:'log-saved-meal',index:'1'}});
+ assert.equal(JSON.parse(app.storage['forme-nutrition-v1']).entries.length,2);
+});
+
+test('Home hides the quick saved-meal button for a meal already logged today',()=>{
+ const app=boot('#home',{
+  'forme-language':'bg',
+  'forme-saved-meals':JSON.stringify([{name:'Закуска',items:[{id:'oats',grams:'80'}]}]),
+  'forme-nutrition-v1':JSON.stringify({version:1,goal:{kcal:2000,protein:100},entries:[
+   {id:'a',date:'2026-11-09',name:'Закуска',items:[{id:'oats',grams:'80'}]}
+  ]})
+ },new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/data-action="log-saved-meal"/);
+});
