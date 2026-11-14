@@ -3639,3 +3639,39 @@ test('Day scaling requires at least two entries and ignores an unknown date',()=
  app.click({dataset:{action:'journal-scale-day',factor:'0'}});
  assert.deepEqual(JSON.parse(app.storage['forme-nutrition-v1']).entries[0].items,[{id:'oats',grams:'80'}]);
 });
+
+test('Marking today as a rest day can be undone, and a previous plan for today comes back (plan-undo-clear)',()=>{
+ const app=boot('#home',{
+  'forme-language':'bg',
+  'forme-plan':JSON.stringify({mon:'cal-start'})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'plan-rest-today'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{'2026-11-09':''});
+ app.click({dataset:{action:'plan-undo-clear'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{});
+});
+
+test('A rest day that replaced a planned workout is fully restored by undo',()=>{
+ const app=boot('#plan',{
+  'forme-language':'bg',
+  'forme-plan':JSON.stringify({wed:'yoga-reset'}),
+  'forme-date-plans':JSON.stringify({'2026-11-11':'cal-start'})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'week-mark-rest',date:'2026-11-11'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{'2026-11-11':''});
+ app.click({dataset:{action:'plan-undo-clear'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{'2026-11-11':'cal-start'});
+});
+
+test('Duplicating a saved meal keeps its tag',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-saved-meals':JSON.stringify([{name:'След тренировка',tag:'train',items:[{id:'chicken',grams:'200'}]}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'saved'}});
+ app.click({dataset:{action:'duplicate-saved-meal',index:'0'}});
+ const saved=JSON.parse(app.storage['forme-saved-meals']);
+ assert.equal(saved.length,2);
+ assert.equal(saved[1].tag,'train');
+ assert.match(saved[1].name,/\(2\)/);
+});
