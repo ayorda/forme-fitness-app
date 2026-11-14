@@ -3685,3 +3685,33 @@ test('Home shows the rest-day undo right in the today card',()=>{
  assert.doesNotMatch(app.page(),/class="note today-undo"/);
  assert.deepEqual(JSON.parse(app.storage['forme-date-plans']),{});
 });
+
+test('A removed meal row can be restored at its original position (meal-row-undo)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'200'},{id:'rice',grams:'150'},{id:'egg',grams:'100'}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.doesNotMatch(app.page(),/data-action="meal-row-undo"/);
+ app.click({dataset:{action:'remove-meal',index:'1'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'200'},{id:'egg',grams:'100'}]);
+ assert.match(app.page(),/data-action="meal-row-undo"/);
+ app.click({dataset:{action:'meal-row-undo'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'chicken',grams:'200'},{id:'rice',grams:'150'},{id:'egg',grams:'100'}]);
+ assert.match(app.toast(),/върнат в чинията/);
+ assert.doesNotMatch(app.page(),/data-action="meal-row-undo"/);
+});
+
+test('Row undo ignores stale snapshots and removing the last row keeps the plate empty',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-current-meal':JSON.stringify([{id:'egg',grams:'100'}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ app.click({dataset:{action:'meal-row-undo'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'egg',grams:'100'}]);
+ app.click({dataset:{action:'remove-meal',index:'0'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[]);
+ app.click({dataset:{action:'meal-row-undo'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[{id:'egg',grams:'100'}]);
+});
