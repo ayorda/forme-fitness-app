@@ -2773,3 +2773,21 @@ test('goal-plus-workout stops at the maximum of 7 workouts per week',()=>{
 });
 
 function journalGoal(app){return JSON.parse(app.storage['forme-progress-v1']).goal;}
+
+test('Progress weekly goal can be lowered by one workout in a tap (goal-minus-workout)',()=>{
+ const app=boot('#progress',{'forme-language':'bg'},new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="goal-minus-workout" aria-label="Намали седмичната цел с 1 тренировка"[^>]*>−1</);
+ app.click({dataset:{action:'goal-minus-workout'}});
+ assert.equal(JSON.parse(app.storage['forme-progress-v1']).goal.workoutsPerWeek,2);
+ assert.equal(JSON.parse(app.storage['forme-progress-v1']).goal.minutesPerWeek,90);
+ assert.match(app.toast(),/намалена\. \(2×\)/);
+});
+
+test('goal-minus-workout stops at the minimum of 1 workout per week',()=>{
+ const app=boot('#progress',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:1,minutesPerWeek:30},sessions:[],sets:[]})
+ },new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/data-action="goal-minus-workout"/);
+ assert.match(app.page(),/data-action="goal-plus-workout"/);
+});
