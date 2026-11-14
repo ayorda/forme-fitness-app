@@ -2922,3 +2922,26 @@ test('Meal builder portion presets include 300 g and 500 g',()=>{
  assert.match(page,/data-action="meal-preset-grams" data-grams="300"/);
  assert.match(page,/data-action="meal-preset-grams" data-grams="500"/);
 });
+
+test('Meal totals offer a 1-tap "save the plate" button that writes the journal and clears the plate (save-plate)',()=>{
+ const app=boot('#nutrition',{
+  'forme-language':'bg',
+  'forme-current-meal':JSON.stringify([{id:'chicken',grams:'200'},{id:'rice',grams:'150'}])
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.match(app.page(),/data-action="save-plate" aria-label="Запиши чинията в дневника"[^>]*>▸ Запиши чинията в дневника/);
+ app.click({dataset:{action:'save-plate'}});
+ const saved=JSON.parse(app.storage['forme-nutrition-v1']);
+ assert.equal(saved.entries.length,1);
+ assert.equal(saved.entries[0].date,'2026-11-09');
+ assert.deepEqual(saved.entries[0].items.map(i=>i.id),['chicken','rice']);
+ assert.deepEqual(JSON.parse(app.storage['forme-current-meal']),[]);
+ assert.match(app.toast(),/Записът е запазен/);
+});
+
+test('save-plate is hidden on an empty plate',()=>{
+ const app=boot('#nutrition',{'forme-language':'bg'},new Date(2026,10,9,12));
+ app.click({dataset:{action:'food-tab',tab:'meal'}});
+ assert.doesNotMatch(app.page(),/data-action="save-plate"/);
+	assert.match(app.page(),/Празна чиния/);
+});
