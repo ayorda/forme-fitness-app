@@ -1,8 +1,8 @@
 /* Explicit JSON export/import of FORME user data with a rollback on failed writes. */
 (function(root){
 'use strict';
-const keys=['forme-favorites','forme-plan','forme-date-plans','forme-completed-workouts','forme-current-meal','forme-saved-meals','forme-sound','forme-theme','forme-language','forme-user-v1','forme-progress-v1','forme-nutrition-v1'];
-const recordNames=['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound','theme'];
+const keys=['forme-favorites','forme-plan','forme-date-plans','forme-completed-workouts','forme-current-meal','forme-saved-meals','forme-sound','forme-theme','forme-music','forme-language','forme-user-v1','forme-progress-v1','forme-nutrition-v1'];
+const recordNames=['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound','theme','music'];
 function validObject(value){return value&&typeof value==='object'&&!Array.isArray(value);}
 const date=value=>{if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))return false;const parsed=new Date(value+'T12:00:00');return !Number.isNaN(parsed.getTime())&&`${parsed.getFullYear()}-${String(parsed.getMonth()+1).padStart(2,'0')}-${String(parsed.getDate()).padStart(2,'0')}`===value;};
 const id=value=>typeof value==='string'&&/^[A-Za-z0-9_-]+$/.test(value)&&value.length<=60;
@@ -69,6 +69,7 @@ function validate(payload){
   if(key==='forme-language'){if(!['bg','en','de'].includes(value))return false;continue;}
   let parsed;try{parsed=JSON.parse(value);}catch{return false;}
   if(key==='forme-sound'){if(typeof parsed!=='boolean')return false;}
+  else if(key==='forme-music'){if(!validObject(parsed)||typeof parsed.enabled!=='boolean'||!Number.isInteger(parsed.volume)||parsed.volume<0||parsed.volume>100||!['auto','calm','flow'].includes(parsed.mode))return false;}
   else if(key==='forme-theme'){if(!['dark','light','auto'].includes(parsed))return false;}
   else if(key==='forme-favorites'){if(!validObject(parsed)||!Array.isArray(parsed.exercises)||!Array.isArray(parsed.workouts)||(parsed.foods!==undefined&&!Array.isArray(parsed.foods))||parsed.exercises.length>500||parsed.workouts.length>500||(parsed.foods?.length||0)>500||![...parsed.exercises,...parsed.workouts,...(parsed.foods||[])].every(x=>typeof x==='string'))return false;}
   else if(key==='forme-plan'||key==='forme-date-plans'){if(!validObject(parsed)||Object.keys(parsed).length>2000||!Object.values(parsed).every(x=>typeof x==='string'))return false;}

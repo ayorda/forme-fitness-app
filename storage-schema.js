@@ -2,7 +2,7 @@
 (function(root){
 'use strict';
 const key='forme-user-v1';
-const names=['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound','theme'];
+const names=['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound','theme','music'];
 const allowed=new Set(names);
 const legacy=name=>'forme-'+name;
 function create(storage){

@@ -6,6 +6,19 @@
 @media(max-width:400px){.grid-3{grid-template-columns:1fr 1fr}.hero h1{font-size:37px}.hero-actions .btn{font-size:12px}.food-card .card-body{padding:12px}.food-card h3{font-size:14px}.card-meta{gap:5px}.card-actions .btn{font-size:11px;padding:7px 8px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
 
+/* Yoga audio controls: clear labels, accessible touch targets and no autoplay. */
+.player-music{margin-top:20px;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--surface2);color:var(--text)}
+.player-music h3{margin:0;font-size:17px}
+.player-music p{margin:10px 0 0;font-size:12px;line-height:1.5}
+.player-music .subtle{color:var(--muted)}
+.music-switch{display:flex;align-items:center;gap:9px;min-height:44px;font-size:13px;cursor:pointer}
+.music-switch input{width:20px;height:20px;accent-color:var(--lime)}
+.music-settings{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:14px}
+.music-settings .field{min-width:0}
+.music-settings input[type=range]{width:100%;min-height:44px;accent-color:var(--lime);padding:0}
+.music-settings output{font-variant-numeric:tabular-nums;float:right}
+.music-status{min-height:2.8em}
+@media(max-width:400px){.music-settings{grid-template-columns:1fr}.player-music{padding:14px}}
 /* FORME 0.2 — интерфейс с приоритет върху телефона */
 .top-brand-text{display:flex;flex-direction:column;gap:1px}
 .top-brand-text small{font-size:10px;letter-spacing:.015em;color:var(--muted);font-weight:600}

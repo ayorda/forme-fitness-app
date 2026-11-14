@@ -15,6 +15,7 @@
 | `exercise-photos.js`, `food-photos.js`, `media/` | Връзки към локалните WebP файлове; `media/manifest.json` пази произход, размери и SHA-256 |
 | `state-normalizer.js`, `storage-schema.js` | Поправка и схема на повредени локални данни при стартиране |
 | `progress.js`, `nutrition-journal.js`, `programs.js`, `backup.js` | Дневници, програми и JSON архив |
+| `workout-audio.js` | Незадължителен оригинален ambient фон за йога; един Web Audio контекст, безопасен жизнен цикъл и настройки в схемата/архивите |
 | `service-worker.js` | Офлайн кеш (`ASSETS` списъкът е пълната обвивка) |
 | `*.test.js` | Автоматични тестове — виж „Тестове“ по-долу |
 | `DEMO.md`, `QA-*.md`, `CONTENT-AUDIT.md`, `MEDIA-DELIVERY-CHECKLIST.md` | Сценарий за защита и документирани проверки |
@@ -24,6 +25,8 @@
 ```bash
 node --test test.js *.test.js
 ```
+
+CI се изпълнява при push в `main`, при Pull Request и ръчно. Работният процес по последното указание на собственика е проверка → директен commit в `main` → автоматично публикуване, без задължителен PR.
 
 CI (`.github/workflows/final-check.yml`) изброява тестовите файлове **явно** — нов тест се добавя там, иначе няма да се изпълнява в GitHub. `ci-workflow.test.js` пази и трите списъка — тестовете в `node --test`, производствените файлове в `node --check` и броят тестове в README; `code-hygiene.test.js` — че в продуктовия код няма `console.log`/`debugger` и блокиращи `alert`/`confirm`/`prompt`.
 
@@ -52,7 +55,7 @@ CI (`.github/workflows/final-check.yml`) изброява тестовите ф�
 3. Броят тестове в README е актуален (иначе `ci-workflow.test.js` пада).
 4. Променяне на файл от `ASSETS` (напр. `app.js`, `core.js`, `interface-translations.js`)? → **ново име на кеша** в `service-worker.js` + съответната проверка в `pwa.test.js`, за да получат инсталираните PWA файловете.
 5. Смяна на версията? → `index.html` (`shell.version`) и `interface-translations.js` (`shell.version`), плюс „Публична версия“ в README и „Версия“ в DEMO.md; сегментът на версията се появява и в името на кеша. `version-consistency.test.js` държи всичко това в синхрон.
-6. Документацията (README/QA/DEMO) отразява промяната; после PR → CI зелено → сливане в `main`; GitHub Pages публикува автоматично.
+6. Документацията (README/QA/DEMO) отразява промяната; после проверен commit директно в `main`; GitHub Actions проверява промяната, а GitHub Pages публикува автоматично.
 
 ## Бележки за защитата
 
