@@ -2830,3 +2830,35 @@ test('Journal entries can be duplicated in one tap (journal-duplicate button)',(
  assert.deepEqual(saved.entries[1].items.map(i=>i.id),['oats','egg']);
  assert.match(app.toast(),/Записът е запазен/);
 });
+
+test('Exercise details repeat a past set in one tap (repeat-set chip buttons)',()=>{
+ const app=boot('#exercises',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[
+   {id:'x1',exerciseId:'Plank',date:'2026-11-02',kind:'seconds',value:45},
+   {id:'x2',exerciseId:'Plank',date:'2026-11-05',kind:'seconds',value:55}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'exercise-detail',id:'Plank'}});
+ const modal=app.node('modal-root').innerHTML;
+ assert.match(modal,/data-action="repeat-set" data-id="Plank" data-kind="seconds" data-value="55" aria-label="Повтори серията: 55 секунди, 2026-11-05" title="Повтори серията">↻ 2026-11-05: 55 секунди/);
+ app.click({dataset:{action:'repeat-set',id:'Plank',kind:'seconds',value:'55'}});
+ const sets=JSON.parse(app.storage['forme-progress-v1']).sets;
+ assert.equal(sets.length,3);
+ assert.equal(sets[2].exerciseId,'Plank');
+ assert.equal(sets[2].value,55);
+ assert.equal(sets[2].kind,'seconds');
+ assert.equal(sets[2].date,'2026-11-09');
+ assert.match(app.toast(),/Серията е записана\. \(55\)/);
+});
+
+test('Exercise details keep the chip history plain when fewer than two sets exist',()=>{
+ const app=boot('#exercises',{
+  'forme-language':'bg',
+  'forme-progress-v1':JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[
+   {id:'x1',exerciseId:'Plank',date:'2026-11-05',kind:'seconds',value:55}
+  ]})
+ },new Date(2026,10,9,12));
+ app.click({dataset:{action:'exercise-detail',id:'Plank'}});
+ assert.doesNotMatch(app.node('modal-root').innerHTML,/data-action="repeat-set"/);
+});
