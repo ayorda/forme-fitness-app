@@ -2591,3 +2591,24 @@ test('Catalog searches (workouts / exercises / foods) get the same 1-tap × clea
  assert.equal(foods.node('food-search').value,'');
  assert.match(foods.node('food-results').innerHTML,/Намерени 30 от 30 храни/);
 });
+
+test('Weekly plan day cards clear a single planned day in one tap (clear-plan-day)',()=>{
+ const app=boot('#plan',{
+  'forme-language':'bg',
+  'forme-plan':JSON.stringify({mon:'cal-start',wed:'yoga-reset'})
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/class="btn btn-small plan-day-clear" data-action="clear-plan-day" data-day="mon" aria-label="Изчисти деня от плана: ПОН" title="Изчисти деня от плана">×/);
+ assert.equal((app.page().match(/data-action="clear-plan-day"/g)||[]).length,2);
+
+ app.click({dataset:{action:'clear-plan-day',day:'mon'}});
+ assert.deepEqual(JSON.parse(app.storage['forme-plan']),{wed:'yoga-reset'});
+ assert.match(app.toast(),/Денят е изчистен от седмичния план/);
+ assert.equal((app.page().match(/data-action="clear-plan-day"/g)||[]).length,1);
+ assert.match(app.page(),/1 от 7 дни/);
+ assert.doesNotMatch(app.page(),/data-action="clear-plan-day" data-day="mon"/);
+});
+
+test('Weekly plan hides the day-clear × for empty days',()=>{
+ const app=boot('#plan',{'forme-language':'bg','forme-plan':JSON.stringify({})},new Date(2026,10,9,12));
+ assert.doesNotMatch(app.page(),/data-action="clear-plan-day"/);
+});
