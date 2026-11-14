@@ -10,7 +10,7 @@ function boot(page,language='bg',extraStorage={}){
  const storage={...(language==='bg'?{}:{'forme-language':language}),...extraStorage};
  const c={window:{addEventListener(){},scrollTo(){}},document,localStorage:{getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;}},location:{hash:page},setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(c);
- for(const f of ['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js','i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js','state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','recovery.js','backup.js','skill-trees.js','app.js'])
+ for(const f of ['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js','i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js','state-normalizer.js','storage-schema.js','progress.js','programs.js','nutrition-journal.js','recovery.js','personalization.js','backup.js','skill-trees.js','app.js'])
   vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
  return {nodes,handlers};
 }

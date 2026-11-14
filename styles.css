@@ -512,3 +512,42 @@
 @media(max-width:780px){.recovery-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.recovery-stats>.panel:first-child{grid-column:1/-1}}
 .recovery-stats small,.recovery-stats span{overflow-wrap:anywhere;hyphens:auto}
 @media(max-width:350px){.recovery-stats{grid-template-columns:1fr}}
+
+/* Personal preferences, bounded plans and ingredient lists. */
+.personal-section{margin:34px 0;scroll-margin-top:90px}
+.personal-settings summary{cursor:pointer;font-weight:700;font-size:1.1rem;min-height:44px;padding:10px 0}
+.personal-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.personal-fields input,.personal-fields select,.personal-recipes select{width:100%;min-height:44px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--surface);color:var(--text);font:inherit}
+.personal-checks{border:1px solid var(--line);border-radius:12px;margin:18px 0;padding:12px;display:flex;flex-wrap:wrap;gap:6px 16px}
+.personal-checks legend{max-width:100%;font-weight:600;padding:0 6px}
+.personal-checks label{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer}
+.personal-checks input{accent-color:var(--lime);width:20px;height:20px;flex-shrink:0}
+.personal-actions{display:flex;flex-wrap:wrap;gap:10px}
+.personal-month,.personal-shopping{margin-top:20px}
+.personal-month h3,.personal-recipes h3,.personal-shopping h3{margin:0 0 12px}
+.personal-weeks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:20px 0}
+.personal-weeks section{border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.personal-weeks h4,.personal-recipes h4{margin:0 0 12px;font-size:1rem}
+.personal-weeks ul,.personal-recipes ul,.personal-shopping ul{list-style:none;margin:0;padding:0}
+.personal-weeks li{display:grid;grid-template-columns:65px minmax(0,1fr);gap:6px 12px;padding:10px 0;border-top:1px solid var(--line)}
+.personal-weeks time{font-variant-numeric:tabular-nums;color:var(--muted)}
+.personal-weeks .link-btn{text-align:start;white-space:normal;overflow-wrap:anywhere;min-height:44px}
+.personal-weeks small{grid-column:2;color:var(--muted)}
+.personal-recipes{margin-top:28px}
+.personal-recipe-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.personal-recipe-grid article{min-width:0;display:flex;flex-direction:column;align-items:stretch}
+.personal-recipe-grid p{line-height:1.6}
+.personal-recipe-grid li,.personal-shopping li{border-top:1px solid var(--line);padding:10px 0}
+.personal-recipe-grid small,.personal-shopping small{display:block;color:var(--muted)}
+.personal-macros{font-size:.86rem;overflow-wrap:anywhere}
+.personal-section p,.personal-section legend,.personal-section label{overflow-wrap:anywhere}
+.personal-section .btn{white-space:normal;min-height:44px}
+.personal-section #personal-error{color:var(--text);border-left:3px solid var(--lime);padding:12px}
+[data-theme="light"] .personal-section .btn-primary{background:var(--lime-dark);color:white}
+[data-theme="light"] .personal-section .link-btn{color:var(--lime-dark)}
+@media(max-width:1000px){.personal-recipe-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.personal-fields,.personal-weeks{grid-template-columns:1fr}.personal-weeks section{padding:12px}.personal-checks{padding:10px}.personal-actions .btn{width:100%}}
+.personal-week-tasks{margin-top:20px}
+.personal-week-tasks ul{list-style:none;padding:0;margin:0}
+.personal-week-tasks li{padding:12px 0;border-top:1px solid var(--line);line-height:1.8;overflow-wrap:anywhere}
+.personal-week-tasks .btn{display:block;margin-top:8px}

@@ -1,7 +1,7 @@
 /* Explicit JSON export/import of FORME user data with a rollback on failed writes. */
 (function(root){
 'use strict';
-const keys=['forme-favorites','forme-plan','forme-date-plans','forme-completed-workouts','forme-current-meal','forme-saved-meals','forme-sound','forme-theme','forme-music','forme-language','forme-user-v1','forme-progress-v1','forme-nutrition-v1','forme-recovery-v1'];
+const keys=['forme-favorites','forme-plan','forme-date-plans','forme-completed-workouts','forme-current-meal','forme-saved-meals','forme-sound','forme-theme','forme-music','forme-language','forme-user-v1','forme-progress-v1','forme-nutrition-v1','forme-recovery-v1','forme-personal-v1'];
 const recordNames=['favorites','plan','date-plans','completed-workouts','current-meal','saved-meals','sound','theme','music'];
 function validObject(value){return value&&typeof value==='object'&&!Array.isArray(value);}
 const date=value=>{if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))return false;const parsed=new Date(value+'T12:00:00');return !Number.isNaN(parsed.getTime())&&`${parsed.getFullYear()}-${String(parsed.getMonth()+1).padStart(2,'0')}-${String(parsed.getDate()).padStart(2,'0')}`===value;};
@@ -21,6 +21,13 @@ function recoveryMinutes(entry){
 }
 function validRecoveryEntry(entry){return validObject(entry)&&id(entry.id)&&recoveryMinutes(entry)!==null&&Number.isInteger(entry.quality)&&entry.quality>=1&&entry.quality<=5&&Number.isInteger(entry.fatigue)&&entry.fatigue>=1&&entry.fatigue<=5;}
 function validRecovery(value){return validObject(value)&&value.version===1&&['unspecified','teen','adult','older'].includes(value.ageGroup)&&Array.isArray(value.entries)&&value.entries.length<=5000&&value.entries.every(validRecoveryEntry)&&hasUniqueIds(value.entries)&&new Set(value.entries.map(x=>x.date)).size===value.entries.length;}
+// Independent of optional UI scripts: archives must retain preferences even offline.
+function validPersonal(value){
+ const subset=(v,allowed,min=0)=>Array.isArray(v)&&v.length>=min&&v.length<=allowed.length&&new Set(v).size===v.length&&v.every(x=>allowed.includes(x));
+ const p=value?.profile,selection=value?.selection===undefined?{}:value.selection;
+ const profile=p===null||(validObject(p)&&['balanced','strength','mobility'].includes(p.goal)&&['beginner','intermediate'].includes(p.level)&&subset(p.equipment,['bar','mat','wall'])&&Number.isInteger(p.days)&&p.days>=1&&p.days<=6&&Number.isInteger(p.minutes)&&p.minutes>=10&&p.minutes<=60&&subset(p.activities,['cal','yoga','mobility'],1)&&subset(p.skills,['pullups','chinups','dips','muscleup','handstand']));
+ return validObject(value)&&value.version===1&&profile&&validObject(selection)&&Object.keys(selection).length<=3&&Object.entries(selection).every(([id,n])=>['oat-bowl','lentil-bowl','tuna-toast'].includes(id)&&Number.isInteger(n)&&n>=1&&n<=8);
+}
 function exportValue(key,value){
  if(typeof value!=='string')return null;
  if(validate({app:'FORME',version:1,data:{[key]:value}}))return value;
@@ -84,6 +91,7 @@ function validate(payload){
   let parsed;try{parsed=JSON.parse(value);}catch{return false;}
   if(key==='forme-sound'){if(typeof parsed!=='boolean')return false;}
   else if(key==='forme-music'){if(!validObject(parsed)||typeof parsed.enabled!=='boolean'||!Number.isInteger(parsed.volume)||parsed.volume<0||parsed.volume>100||!['auto','calm','flow'].includes(parsed.mode))return false;}
+  else if(key==='forme-personal-v1'){if(!validPersonal(parsed))return false;}
   else if(key==='forme-recovery-v1'){if(!validRecovery(parsed))return false;}
   else if(key==='forme-theme'){if(!['dark','light','auto'].includes(parsed))return false;}
   else if(key==='forme-favorites'){if(!validObject(parsed)||!Array.isArray(parsed.exercises)||!Array.isArray(parsed.workouts)||(parsed.foods!==undefined&&!Array.isArray(parsed.foods))||parsed.exercises.length>500||parsed.workouts.length>500||(parsed.foods?.length||0)>500||![...parsed.exercises,...parsed.workouts,...(parsed.foods||[])].every(x=>typeof x==='string'))return false;}
@@ -168,9 +176,10 @@ function mergeData(storage,text){
  }
  if(Object.hasOwn(parsed.data,'forme-recovery-v1')){
   const currentRaw=exportValue('forme-recovery-v1',storage.getItem('forme-recovery-v1')),incoming=JSON.parse(parsed.data['forme-recovery-v1']);
-  if(!currentRaw)nextWrites['forme-recovery-v1']=parsed.data['forme-recovery-v1'];
+  if(!currentRaw)nextWrites['forme-recovery-v1']=parsed.data['forme-recovery-v1','forme-personal-v1'];
   else {const current=JSON.parse(currentRaw),merged=mergeByIdAndSig(current.entries,incoming.entries,entry=>entry.date,5000);nextWrites['forme-recovery-v1']=JSON.stringify({version:1,ageGroup:current.ageGroup,entries:merged});}
  }
+ if(Object.hasOwn(parsed.data,'forme-personal-v1')){const current=exportValue('forme-personal-v1',storage.getItem('forme-personal-v1'));if(!current)nextWrites['forme-personal-v1']=parsed.data['forme-personal-v1'];else{const cur=JSON.parse(current),inc=JSON.parse(parsed.data['forme-personal-v1']);nextWrites['forme-personal-v1']=JSON.stringify({version:1,profile:cur.profile??inc.profile,selection:{...inc.selection,...cur.selection}});}}
  if(Object.hasOwn(parsed.data,'forme-language')&&!storage.getItem('forme-language'))nextWrites['forme-language']=parsed.data['forme-language'];
  const writeKeys=Object.keys(nextWrites),prior={};
  try{for(const k of writeKeys)prior[k]=storage.getItem(k);for(const k of writeKeys)storage.setItem(k,nextWrites[k]);return true;}
