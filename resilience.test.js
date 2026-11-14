@@ -2954,3 +2954,22 @@ test('Workout cards plan the workout for tomorrow in one tap (workout-plan-tomor
  assert.match(app.toast(),/Планът за тази дата е запазен/);
  assert.doesNotMatch(app.node('workout-results').innerHTML,/data-action="workout-plan-tomorrow" data-id="cal-start"/);
 });
+
+test('Each week-plan day card jumps to that same date in the month view (day-open-month)',()=>{
+ const app=boot('#plan',{
+  'forme-language':'bg',
+  'forme-plan':JSON.stringify({wed:'yoga-reset'})
+ },new Date(2026,10,9,12));
+ assert.match(app.page(),/data-action="day-open-month" data-day="wed" aria-label="Виж в месеца: СРЯ">Месец →/);
+ app.click({dataset:{action:'day-open-month',day:'wed'}});
+ const page=app.page();
+ assert.match(page,/data-action="plan-view" data-view="month" aria-pressed="true"/);
+ assert.match(page,/class="month-day  month-day-selected" data-action="plan-date" data-date="11" aria-pressed="true"/);
+ assert.match(page,/month-selection[\s\S]*Спокойно възстановяване/);
+});
+
+test('day-open-month opens the correct date for the first day of the week',()=>{
+ const app=boot('#plan',{'forme-language':'bg'},new Date(2026,10,9,12));
+ app.click({dataset:{action:'day-open-month',day:'mon'}});
+ assert.match(app.page(),/data-action="plan-date" data-date="9" aria-pressed="true"/);
+});
