@@ -438,7 +438,7 @@ const rows={
  'shell.space':['ТВОЕТО ПРОСТРАНСТВО','YOUR SPACE','DEIN BEREICH'],
  'shell.progress':['СЪЗДАДЕНО ЗА ПРОГРЕС','BUILT FOR PROGRESS','FÜR FORTSCHRITT GEMACHT'],
  'shell.nextStep':['Няма перфектен момент. Има следваща стъпка.','There is no perfect moment. Take the next step.','Es gibt keinen perfekten Moment. Geh den nächsten Schritt.'],
- 'shell.version':['v0.9.1 · Български · 0 €','v0.9.1 · English · €0','v0.9.1 · Deutsch · 0 €'],
+ 'shell.version':['v0.9.2 · Български · 0 €','v0.9.2 · English · €0','v0.9.2 · Deutsch · 0 €'],
  'theme.label':['Тема','Theme','Design'],
  'theme.changed.auto':['Тема: според системата','Theme: follow the system','Design: System folgen'],
  'theme.changed.dark':['Тема: тъмна','Theme: dark','Design: dunkel'],

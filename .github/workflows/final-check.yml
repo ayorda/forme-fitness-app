@@ -82,3 +82,17 @@ jobs:
           java-version: "21"
       - name: Private snapshot security rules against local demo emulator
         run: npx -y firebase-tools@15.36.0 emulators:exec --only firestore --project demo-forme-sync "node qa/firestore-rules.mjs"
+
+  deletion-maintenance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Operator cleanup against local Auth and Firestore only
+        run: npx -y firebase-tools@15.36.0 emulators:exec --only auth,firestore --project demo-forme-sync "node qa/deletion-maintenance.mjs"

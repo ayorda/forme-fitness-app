@@ -117,3 +117,9 @@ JSON архивът има независима проверка на струк
 `auth.js` създава една именувана App/Auth инстанция с `browserLocalPersistence`, изчаква `authStateReady()` и `setPersistence()` и излага `ready` едва след това. `app.js` стартира възстановяването при boot на всеки екран; профилът не показва форма за вход, докато готовността не е установена. Transient observer/network грешка не занулява текущия потребител; истински SDK null/signOut обновява UI и чисти cloud кеша. Гост режимът не зависи от успешен Auth restore.
 
 Официалният SDK управлява refresh token/локалното Auth състояние. Няма ръчно записани credentials или собствен таймер за изтичане. SESSION→LOCAL миграция не се прави; след версията с SESSION е нужен еднократен вход. Точните доказателства и оставащите реални iPhone/многодневни проверки са в [QA-PERSISTENT-LOGIN.md](./QA-PERSISTENT-LOGIN.md). Firestore rules/schema не се променят.
+
+## Операторско почистване (v0.9.2)
+
+`maintenance/purge-deletion-marker.cjs` вече използва `createBackend` с официалния CLI транспорт, точен `batchGet` и сървърно `readTime`. Срокът е с наносекундна точност, без локален Date.now/параметър за подмяна. Auth lookup приема само еднозначно отсъствие; apply отново го проверява и прави един условен commit/delete с точен updateTime. Крайният production CLI е фиксиран към текущия проект; demo контекстът е само за изолирания QA сценарий. Инструментът не се импортира от приложението и няма автоматична задача.
+
+CI `deletion-maintenance` стартира само локални Auth/Firestore емулатори и изпълнява `qa/deletion-maintenance.mjs`; 20 функционални теста са в `privacy.test.js`. Ползвай [QA-MAINTENANCE.md](./QA-MAINTENANCE.md) за доказателствата и [MAINTENANCE.md](./MAINTENANCE.md) за production dry-run. Не стартирай разрушителни production тестове вместо собственика.
