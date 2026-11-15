@@ -12,24 +12,28 @@ function configStatus(config,environment={}){
  else if(environment.protocol!=='https:')return 'configuration';
  return 'configured';
 }
-function errorCode(error){const code=error?.code;return ['auth/invalid-credential','auth/user-not-found','auth/wrong-password','auth/user-disabled'].includes(code)?'credentials':code==='auth/too-many-requests'?'rate':code==='auth/network-request-failed'?'offline':code==='auth/weak-password'?'password':code==='auth/invalid-email'?'email':['auth/operation-not-allowed','auth/invalid-api-key','auth/unauthorized-domain','auth/app-not-authorized'].includes(code)?'configuration':'request';}
+function errorCode(error){const code=error?.code;return ['auth/invalid-credential','auth/user-not-found','auth/wrong-password','auth/user-disabled'].includes(code)?'credentials':code==='auth/too-many-requests'?'rate':code==='auth/network-request-failed'?'offline':code==='auth/web-storage-unsupported'||['SecurityError','QuotaExceededError'].includes(error?.name)?'persistence':code==='auth/weak-password'?'password':code==='auth/invalid-email'?'email':['auth/operation-not-allowed','auth/invalid-api-key','auth/unauthorized-domain','auth/app-not-authorized'].includes(code)?'configuration':'request';}
 function create(config={},options={}){
  const environment=options.environment||{hostname:root.location?.hostname,protocol:root.location?.protocol};
  const configured=configStatus(config,environment),isOnline=options.isOnline||(()=>root.navigator?.onLine!==false),loadSdk=options.loadSdk||(()=>import(sdkPath));
  let sdk=null,auth=null,initialization=null,busy=false,user=null,started=false,problem=configured==='configuration'?'configuration':null;
  const listeners=new Set();
- const snapshot=()=>({configured:configured==='configured',status:configured!=='configured'?configured:busy?'loading':!started?(problem?'error':'idle'):user?'authenticated':'guest',busy,user:user?{uid:user.uid,email:typeof user.email==='string'?user.email:'',emailVerified:user.emailVerified===true}:null,problem});
+ const snapshot=()=>({configured:configured==='configured',ready:started,status:configured!=='configured'?configured:busy?'loading':!started?(problem?'error':'idle'):user?'authenticated':'guest',busy,user:user?{uid:user.uid,email:typeof user.email==='string'?user.email:'',emailVerified:user.emailVerified===true}:null,problem});
  const emit=()=>{for(const listener of listeners)try{listener(snapshot());}catch{}};
  async function ensure(){
   if(auth&&started)return;
   if(initialization)return initialization;
   initialization=(async()=>{
    sdk=await loadSdk();
-   if(!auth){const app=sdk.initializeApp({apiKey:config.apiKey,authDomain:config.authDomain,projectId:config.projectId,appId:config.appId},'forme-account');auth=sdk.initializeAuth(app,{persistence:sdk.browserSessionPersistence});
+   if(!auth){const app=sdk.initializeApp({apiKey:config.apiKey,authDomain:config.authDomain,projectId:config.projectId,appId:config.appId},'forme-account');
+    // One local strategy also keeps SDK cross-tab account/sign-out listeners consistent.
+    auth=sdk.initializeAuth(app,{persistence:sdk.browserLocalPersistence});
     if(config.emulatorUrl)sdk.connectAuthEmulator(auth,config.emulatorUrl,{disableWarnings:true});
-    sdk.onAuthStateChanged(auth,next=>{user=next;emit();},()=>{user=null;problem='request';emit();});
+    sdk.onAuthStateChanged(auth,next=>{user=next;emit();},error=>{problem=errorCode(error);emit();});
    }
-   await auth.authStateReady();user=auth.currentUser;started=true;
+   await auth.authStateReady();
+   await sdk.setPersistence(auth,sdk.browserLocalPersistence);
+   user=auth.currentUser;started=true;
   })();
   try{await initialization;}finally{initialization=null;}
  }

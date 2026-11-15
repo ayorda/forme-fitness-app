@@ -2,7 +2,7 @@
   "firebase": "13.3.0",
   "builder": "esbuild@0.28.2",
   "date": "2026-11-15",
-  "entry": "export {initializeApp} from 'firebase/app';\nexport {initializeAuth,browserSessionPersistence,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendEmailVerification,sendPasswordResetEmail,signOut,reload,connectAuthEmulator,EmailAuthProvider,reauthenticateWithCredential,deleteUser} from 'firebase/auth';\nexport {initializeFirestore,memoryLocalCache,doc,getDocFromServer,runTransaction,serverTimestamp,connectFirestoreEmulator} from 'firebase/firestore';\n",
+  "entry": "export {initializeApp} from 'firebase/app';\nexport {initializeAuth,browserLocalPersistence,setPersistence,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendEmailVerification,sendPasswordResetEmail,signOut,reload,connectAuthEmulator,EmailAuthProvider,reauthenticateWithCredential,deleteUser} from 'firebase/auth';\nexport {initializeFirestore,memoryLocalCache,doc,getDocFromServer,runTransaction,serverTimestamp,connectFirestoreEmulator} from 'firebase/firestore';\n",
   "arguments": "--bundle --format=esm --target=es2020 --minify --legal-comments=external",
   "packages": [
     {
@@ -69,13 +69,13 @@
   "artifacts": [
     {
       "path": "vendor/firebase-auth-13.3.0.js",
-      "bytes": 572556,
-      "sha256": "fba955686b027a7aa630935c26f522c07cda6a369f113aec3a9a62c729acba97"
+      "bytes": 572623,
+      "sha256": "7a41ddbcf5449657b4aa113de572d037944d5bc91beffa0e754d5b1dce21acc1"
     },
     {
       "path": "vendor/firebase-auth-13.3.0.js.LEGAL.txt",
-      "bytes": 62162,
-      "sha256": "6e75e6caed684cbc57b56333d76231e8c2124c90b64ef5c490c018d7656b97b0"
+      "bytes": 64074,
+      "sha256": "3007a21bfd9570b2d4498493cdeeae9a85aa7d67c973bdf7c04d5357fc23e225"
     },
     {
       "path": "vendor/LICENSE-APACHE-2.0.txt",
