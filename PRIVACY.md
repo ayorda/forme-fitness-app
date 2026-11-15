@@ -50,3 +50,5 @@
 - [Google Fonts и поверителност](https://developers.google.com/fonts/faq/privacy).
 - [GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 - [Облачна архитектура](./CLOUD-ARCHITECTURE.md), [проверки и ограничения](./QA-PRIVACY.md), [оставащ продуктов обхват](./ROADMAP.md).
+
+Подготовката 3.5 е описана в [SERVICES-ARCHITECTURE.md](./SERVICES-ARCHITECTURE.md): отделни Programs и човешки Coaching права, без production grants/назначения, покупки или лични uploads. Преди първи реален service запис се разширяват износът/изтриването/retention; текущият account deletion обхваща сегашния архив и Auth.

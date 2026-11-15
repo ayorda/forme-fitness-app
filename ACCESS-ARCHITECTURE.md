@@ -65,3 +65,5 @@ Firebase Authentication може да издава custom claims само чре
 [QA-ACCESS.md](./QA-ACCESS.md) отделя unit, действителните локални SDK/Emulator тестове, production негативните проверки и оставащото приемане. Правилата са тестван прототип; преди голяма аудитория трябва общ преглед и допълнително укрепване.
 
 Официални източници: [Firebase custom claims](https://firebase.google.com/docs/auth/admin/custom-claims), [Security Rules и Auth](https://firebase.google.com/docs/rules/rules-and-auth), [постоянни сесии](https://firebase.google.com/docs/auth/web/auth-state-persistence). Базата е съществуващата Standard/default/europe-west3 със `freeTier:true`; платени услуги не са активирани.
+
+Подготовката 3.5 е описана в [SERVICES-ARCHITECTURE.md](./SERVICES-ARCHITECTURE.md): отделни Programs и човешки Coaching права, без production grants/назначения, покупки или лични uploads. Преди първи реален service запис се разширяват износът/изтриването/retention; текущият account deletion обхваща сегашния архив и Auth.

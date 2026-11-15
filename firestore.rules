@@ -8,7 +8,8 @@ rules_version = '2';
 // Only operator maintenance may purge it after Auth deletion + >=2h token expiry.
 // Auth-only custom claim formeAccess:{schema:1,proUntil:UTC epoch seconds}
 // gates a reserved, owner-only pro/access permission-check path. No client writes.
-// There are no purchases, paid content, or new Firestore grant documents.
+// Future services contracts below are read-only prototypes. No production grants,
+// programs, trainer assignments or notes are created by the current application.
 service cloud.firestore {
   match /databases/{database}/documents {
     function isAuthenticated() { return request.auth != null; }
@@ -52,6 +53,73 @@ service cloud.firestore {
         && data.format is int && data.format == 2 && data.state == 'deleting'
         && data.deletedAt is timestamp && data.deletedAt == request.time;
     }
+    function serviceId(value) { return value is string && value.matches('^[a-zA-Z0-9_-]{1,64}$'); }
+    function serviceUid(value) { return value is string && value.matches('^[^/]{1,128}$'); }
+    function knownProgram(value) { return value in ['muscle-up','handstand','front-lever']; }
+    function serviceTime(value) {
+      return value is timestamp && value >= timestamp.value(0)
+        && value <= timestamp.value(4102444800000);
+    }
+    // Per-program ownership is independent of Free/Pro and of trainer status.
+    function validProgramGrant(data, programId) {
+      return data.keys().hasAll(['schema','programId','state','grantedAt','updatedAt'])
+        && data.keys().hasOnly(['schema','programId','state','grantedAt','updatedAt'])
+        && data.schema is int && data.schema == 1 && knownProgram(programId)
+        && data.programId == programId && data.state in ['active','revoked']
+        && serviceTime(data.grantedAt) && serviceTime(data.updatedAt)
+        && data.grantedAt <= data.updatedAt && data.updatedAt <= request.time;
+    }
+    function ownsProgram(programId) {
+      let path = /databases/$(database)/documents/users/$(request.auth.uid)/programs/$(programId);
+      return exists(path) && validProgramGrant(get(path).data, programId) && get(path).data.state == 'active';
+    }
+    function validProgram(data, programId, versionId) {
+      return data.keys().hasAll(['schema','programId','versionId','body','updatedAt'])
+        && data.keys().hasOnly(['schema','programId','versionId','body','updatedAt'])
+        && data.schema is int && data.schema == 1 && knownProgram(programId)
+        && data.programId == programId && serviceId(versionId) && data.versionId == versionId
+        && data.body is map && data.body.keys().hasAll(['bg','en','de']) && data.body.keys().hasOnly(['bg','en','de'])
+        && data.body.bg is string && data.body.bg.size() > 0 && data.body.bg.size() <= 50000
+        && data.body.en is string && data.body.en.size() > 0 && data.body.en.size() <= 50000
+        && data.body.de is string && data.body.de.size() > 0 && data.body.de.size() <= 50000
+        && serviceTime(data.updatedAt) && data.updatedAt <= request.time;
+    }
+    // Auth-only role does not grant broad access. An exact, current assignment
+    // and explicit recorded consent are required on every trainer server read.
+    function approvedTrainer() {
+      let data = request.auth.token.formeTrainer;
+      return data is map && data.keys().hasAll(['schema','validUntil']) && data.keys().hasOnly(['schema','validUntil'])
+        && data.schema is int && data.schema == 1 && data.validUntil is int
+        && data.validUntil > 0 && data.validUntil <= 4102444800
+        && request.time < timestamp.value(data.validUntil * 1000);
+    }
+    function validAssignment(data) {
+      return data.keys().hasAll(['schema','clientUid','coachUid','state','startsAt','endsAt','consent','consentAt','updatedAt'])
+        && data.keys().hasOnly(['schema','clientUid','coachUid','state','startsAt','endsAt','consent','consentAt','updatedAt'])
+        && data.schema is int && data.schema == 1
+        && serviceUid(data.clientUid) && serviceUid(data.coachUid) && data.clientUid != data.coachUid
+        && data.state in ['active','paused','ended'] && data.consent is bool
+        && serviceTime(data.startsAt) && serviceTime(data.endsAt) && data.startsAt < data.endsAt
+        && serviceTime(data.consentAt) && serviceTime(data.updatedAt)
+        && data.consentAt <= data.updatedAt && data.updatedAt <= request.time;
+    }
+    function serviceParticipant(data) {
+      return isAuthenticated() && request.auth.token.email_verified == true
+        && validAssignment(data) && isNotDeleting(data.clientUid)
+        && (request.auth.uid == data.clientUid
+          || (request.auth.uid == data.coachUid && 'formeTrainer' in request.auth.token && approvedTrainer()
+            && isNotDeleting(data.coachUid) && data.state == 'active' && data.consent == true
+            && data.startsAt <= request.time && request.time < data.endsAt));
+    }
+    function validNote(data, assignment, engagementId) {
+      return data.keys().hasAll(['schema','engagementId','clientUid','coachUid','kind','body','createdAt','updatedAt'])
+        && data.keys().hasOnly(['schema','engagementId','clientUid','coachUid','kind','body','createdAt','updatedAt'])
+        && data.schema is int && data.schema == 1 && data.engagementId == engagementId
+        && data.clientUid == assignment.clientUid && data.coachUid == assignment.coachUid
+        && data.kind in ['plan','feedback'] && data.body is string && data.body.size() > 0 && data.body.size() <= 20000
+        && serviceTime(data.createdAt) && serviceTime(data.updatedAt)
+        && data.createdAt <= data.updatedAt && data.updatedAt <= request.time;
+    }
     match /users/{uid}/private/snapshot {
       // A recent owner may read to erase their own data even after email changes.
       allow read: if isVerifiedOwner(uid) || isRecentOwner(uid);
@@ -71,6 +139,26 @@ service cloud.firestore {
     match /users/{uid}/pro/access {
       allow read: if isVerifiedOwner(uid) && hasProGrant() && isNotDeleting(uid);
       allow write: if false;
+    }
+    match /users/{uid}/programs/{programId} {
+      // Owner may read their own revoked grant/history. No directory queries.
+      allow get: if isVerifiedOwner(uid) && isNotDeleting(uid) && validProgramGrant(resource.data, programId);
+      allow list, write: if false;
+    }
+    match /program-content/{programId}/versions/{versionId} {
+      allow get: if isAuthenticated() && request.auth.token.email_verified == true
+        && isNotDeleting(request.auth.uid) && ownsProgram(programId) && validProgram(resource.data, programId, versionId);
+      allow list, write: if false;
+    }
+    match /coaching/{engagementId} {
+      allow get: if serviceId(engagementId) && serviceParticipant(resource.data);
+      allow list, write: if false;
+      match /notes/{noteId} {
+        allow get: if serviceId(engagementId) && serviceId(noteId)
+          && serviceParticipant(get(/databases/$(database)/documents/coaching/$(engagementId)).data)
+          && validNote(resource.data, get(/databases/$(database)/documents/coaching/$(engagementId)).data, engagementId);
+        allow list, write: if false;
+      }
     }
     match /{document=**} { allow read, write: if false; }
   }

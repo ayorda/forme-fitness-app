@@ -65,4 +65,44 @@ expect(await call(probe,'DELETE',pro('pro-owner')),403);
 expect(await call('/users/pro-owner/access/grant','PATCH',jwt('pro-owner'),{fields:{formeAccess:{mapValue:{fields:{schema:{integerValue:'1'},proUntil:{integerValue:String(until)}}}}}}),403);
 expect(await call('/users/pro-owner/pro/other','GET',pro('pro-owner')),403);
 expect(await call('/users/athlete-a/pro/access','GET',pro('athlete-a')),403); // deletion marker blocks old grant
+// Future service fixtures are synthetic and exist ONLY in the demo emulator.
+const stamp=n=>({timestampValue:new Date(n).toISOString()}),str=value=>({stringValue:value}),num=value=>({integerValue:String(value)}),bool=value=>({booleanValue:value});
+const now=Date.now(),past=stamp(now-60000),future=stamp(now+3600000);
+const serviceOwner=jwt('service-client'),coach=jwt('service-coach',true,3600,{formeTrainer:{schema:1,validUntil:until}}),stranger=jwt('service-stranger');
+const programGrant={schema:num(1),programId:str('muscle-up'),state:str('active'),grantedAt:past,updatedAt:past};
+const programVersion={schema:num(1),programId:str('muscle-up'),versionId:str('v1'),body:{mapValue:{fields:{bg:str('Локален пример'),en:str('Local fixture'),de:str('Lokales Beispiel')}}},updatedAt:past};
+const engagement={schema:num(1),clientUid:str('service-client'),coachUid:str('service-coach'),state:str('active'),startsAt:past,endsAt:future,consent:bool(true),consentAt:past,updatedAt:past};
+const coachingNote={schema:num(1),engagementId:str('engagement-a'),clientUid:str('service-client'),coachUid:str('service-coach'),kind:str('feedback'),body:str('Local technique fixture'),createdAt:past,updatedAt:past};
+const grantPath='/users/service-client/programs/muscle-up',versionPath='/program-content/muscle-up/versions/v1',engagementPath='/coaching/engagement-a',notePath=engagementPath+'/notes/note-a';
+async function fixture(path,fields){const response=await call(path,'PATCH','owner',{fields});assert.equal(response.status,200,JSON.stringify(response));}
+await fixture(grantPath,programGrant);await fixture(versionPath,programVersion);await fixture(engagementPath,engagement);await fixture(notePath,coachingNote);
+for(const target of [grantPath,versionPath,engagementPath,notePath]){
+ expect(await call(target,'GET',null),403);expect(await call(target,'GET',stranger),403);expect(await call(target,'GET',jwt('service-client',false)),403);
+ expect(await call(target,'GET',serviceOwner),200);
+ for(const method of ['PATCH','DELETE'])expect(await call(target,method,serviceOwner,method==='PATCH'?{fields:{schema:num(1)}}:undefined),403);
+}
+for(const target of ['/users/service-client/programs','/program-content/muscle-up/versions','/coaching',engagementPath+'/notes'])expect(await call(target,'GET',serviceOwner),403);
+expect(await call(versionPath,'GET',pro('pro-owner')),403); // Pro does not buy a program
+expect(await call(grantPath,'GET',coach),403);expect(await call(versionPath,'GET',coach),403);
+expect(await call('/users/service-client/private/snapshot','GET',coach),403); // no trainer access to the cloud archive
+for(const target of [engagementPath,notePath]){expect(await call(target,'GET',coach),200);expect(await call(target,'PATCH',coach,{fields:engagement}),403);expect(await call(target,'DELETE',coach),403);expect(await call(target,'GET',jwt('service-coach')),403);expect(await call(target,'GET',jwt('service-coach',false,3600,{formeTrainer:{schema:1,validUntil:until}})),403);expect(await call(target,'GET',jwt('wrong-coach',true,3600,{formeTrainer:{schema:1,validUntil:until}})),403);}
+for(const claim of [{schema:1,validUntil:Math.floor(now/1000)-1},{schema:2,validUntil:until},{schema:1,validUntil:String(until)},{schema:1,validUntil:until+.5},{schema:1,validUntil:4102444801},{schema:1,validUntil:until,admin:true},true,null,[]])expect(await call(notePath,'GET',jwt('service-coach',true,3600,{formeTrainer:claim})),403);
+// Revoked canonical grants block new reads even with an unchanged signed token.
+await fixture(grantPath,{...programGrant,state:str('revoked')});expect(await call(grantPath,'GET',serviceOwner),200);expect(await call(versionPath,'GET',serviceOwner),403);
+for(const bad of [{...programGrant,isPro:bool(true)},{...programGrant,programId:str('handstand')},{...programGrant,grantedAt:future},{...programGrant,schema:num(2)}]){await fixture(grantPath,bad);expect(await call(grantPath,'GET',serviceOwner),403);expect(await call(versionPath,'GET',serviceOwner),403);}
+await fixture(grantPath,programGrant);
+for(const bad of [{...programVersion,versionId:str('v2')},{...programVersion,body:{mapValue:{fields:{en:str('Missing translations')}}}},{...programVersion,updatedAt:future},{...programVersion,price:num(5)}]){await fixture(versionPath,bad);expect(await call(versionPath,'GET',serviceOwner),403);}await fixture(versionPath,programVersion);
+// Client retains their own history; trainer loses access at canonical withdrawal,
+// pause, ending, future start or server-time expiry, regardless of role JWT age.
+for(const change of [{consent:bool(false)},{state:str('paused')},{state:str('ended')},{startsAt:stamp(now+100000)},{startsAt:stamp(now-7200000),endsAt:past}]){
+ await fixture(engagementPath,{...engagement,...change});for(const target of [engagementPath,notePath]){expect(await call(target,'GET',coach),403);expect(await call(target,'GET',serviceOwner),200);}
+}
+for(const bad of [{...engagement,coachUid:str('service-client')},{...engagement,consent:str('true')},{...engagement,consentAt:future},{...engagement,email:str('private@example.com')},{...engagement,endsAt:past}]){await fixture(engagementPath,bad);expect(await call(engagementPath,'GET',serviceOwner),403);expect(await call(notePath,'GET',coach),403);}
+await fixture(engagementPath,engagement);
+for(const bad of [{...coachingNote,clientUid:str('other')},{...coachingNote,engagementId:str('other')},{...coachingNote,kind:str('diagnosis')},{...coachingNote,body:str('x'.repeat(20001))},{...coachingNote,createdAt:future},{...coachingNote,secret:str('extra')}]){await fixture(notePath,bad);expect(await call(notePath,'GET',serviceOwner),403);expect(await call(notePath,'GET',coach),403);}await fixture(notePath,coachingNote);
+expect(await call('/coaching/unassigned/notes/note-a','GET',coach),403);
+for(const target of ['/users/service-client/programs/handstand','/program-content/handstand/versions/v1','/coaching/client-created','/coaching/engagement-a/notes/client-created'])expect(await call(target,'PATCH',serviceOwner,{fields:{schema:num(1)}}),403);
+await fixture('/users/service-coach/private/snapshot',{format:num(2),state:str('deleting'),deletedAt:past});expect(await call(notePath,'GET',coach),403);expect(await call(notePath,'GET',serviceOwner),200);
+await fixture('/users/service-client/private/snapshot',{format:num(2),state:str('deleting'),deletedAt:past});for(const target of [grantPath,versionPath,engagementPath,notePath])expect(await call(target,'GET',serviceOwner),403);expect(await call(engagementPath,'GET',coach),403);
+
 process.stdout.write(JSON.stringify({assertions,project,productionRequests:0})+'\n');
