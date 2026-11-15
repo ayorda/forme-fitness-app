@@ -6,8 +6,10 @@
 
 | Файл | Роля |
 |---|---|
-| `auth.js`, `auth-config.js` | Незадължителен Firebase Auth адаптер и публична, по подразбиране неактивирана конфигурация; виж ACCOUNT-SETUP.md/QA-ACCOUNTS.md. |
-| `vendor/firebase-auth-13.3.0.js` | Официален App/Auth bundle, lazy import от адаптера; provenance/SHA-256 и лицензи в vendor/. |
+| `auth.js`, `auth-config.js` | Firebase Auth адаптер, активна публична конфигурация на FORME и повторно удостоверено изтриване; виж ACCOUNT-SETUP.md/QA-ACCOUNTS.md. |
+| `vendor/firebase-auth-13.3.0.js` | Общ официален App/Auth/Firestore bundle, lazy import от адаптера; provenance/SHA-256 и лицензи в vendor/. |
+| `cloud-sync.js`, `firestore.rules` | Изричен частен архив и минимален маркер след изтриване; никога фоново качване/сливане. |
+| `maintenance/purge-deletion-marker.cjs` | Операторска проверка/условно почистване с CLI OAuth; не е част от клиентския код и не се изпълнява автоматично. |
 | `personalization.js` | Доброволни локални предпочитания, детерминистични ограничения за план, рецепти/пазарски списък; архивна валидация в backup.js остава независима. |
 | `index.html` | Обвивка: странична лента, горна лента, навигация, мета данни, `<script>` редове |
 | `app.js` | Всички екрани, тренировъчен плеър и таймер, localStorage, i18n извиквания |
@@ -103,3 +105,9 @@ JSON архивът има независима проверка на струк
 `cloud-sync.js` използва verified SDK context от auth.js, един App/Auth/Firestore bundle и memoryLocalCache. Изричните операции, snapshot schema, CAS версията, bounded gzip, safety export и ограниченията са в [CLOUD-ARCHITECTURE.md](./CLOUD-ARCHITECTURE.md).
 
 `firebase.json` конфигурира само Firestore, не Firebase Hosting. Публикуването на клиента остава в GitHub Pages. Преди клиентски релийз правилата/индексите трябва да се валидират и публикуват за изрично избрания проект. CI има отделен локален demo security сценарий `qa/firestore-rules.mjs`. Не използвай production проект за emulator тестовете. Облачни payload/API заявки не се добавят в Service Worker кеша.
+
+## Данни и изтриване (v0.9.0)
+
+`#privacy` е вторичен екран, достъпен от footer и профила. Преводите са `privacy.*`, контактът е изрично избраният публичен адрес. Новият поток е `auth.remove(password, consent, eraseCloud)` → SDK reauthentication/token refresh → `cloud.eraseForDeletion(context)` → SDK `deleteUser`. Идентичността се проверява между асинхронните стъпки; паролата не се слага в state. Облакът и Auth не са една атомна услуга: при непотвърдена cloud транзакция Auth deletion не започва, а при частичен резултат няма фалшив успех.
+
+Три-полевият format2 маркер премахва текущия payload и блокира повторно format1 качване от стар токен. При всеки опит се обновява timestamp-ът; само оператор може да го премахне след липсващ Auth UID и минимум 2 часа от последното обновяване. Няма автоматичен cleanup. Инструкции/ограничения: [MAINTENANCE.md](./MAINTENANCE.md), информация за потребителя: [PRIVACY.md](./PRIVACY.md), проверки: [QA-PRIVACY.md](./QA-PRIVACY.md). Правилата са тестван прототип, изискващ окончателен преглед преди широко използване.

@@ -16,6 +16,7 @@ async function pack(text){
  const payload=base64(packed);if(payload.length>MAX_PAYLOAD)throw fail('large');
  return {format:1,encoding,payload,rawBytes:bytes.length,sha256:await digest(bytes)};
 }
+function isDeletionMarker(value){return value?.format===2&&value.state==='deleting'&&Object.keys(value).length===3&&typeof value.deletedAt?.toMillis==='function';}
 function validMeta(value){return value&&value.format===1&&Number.isInteger(value.revision)&&value.revision>=1&&value.revision<=2000000000&&['gzip','raw'].includes(value.encoding)&&typeof value.payload==='string'&&value.payload.length>=4&&value.payload.length<=MAX_PAYLOAD&&value.payload.length%4===0&&/^[A-Za-z0-9+/]*={0,2}$/.test(value.payload)&&Number.isInteger(value.rawBytes)&&value.rawBytes>=1&&value.rawBytes<=MAX_RAW&&typeof value.sha256==='string'&&/^[a-f0-9]{64}$/.test(value.sha256)&&typeof value.createdAt?.toMillis==='function'&&typeof value.updatedAt?.toMillis==='function';}
 async function unpack(value,backup){
  if(!validMeta(value))throw fail('invalid');
@@ -31,7 +32,7 @@ function errorCode(error){return error?.syncCode||(error?.code==='aborted'?'conf
 function create(account,storage,backup,options={}){
  let uid=account?.get().user?.uid||null,generation=0,busy=false,checked=false,remote=null,remoteText=null,permit=null,problem=null,localSummary=null,remoteSummary=null,db=null,sdk=null;
  const listeners=new Set(),online=options.isOnline||(()=>root.navigator?.onLine!==false);
- const get=()=>({busy,checked,exists:!!remote,revision:remote?.revision||0,updatedAt:remote?.updatedAt?.toMillis?.()||null,summary:remoteSummary?{...remoteSummary}:null,localSummary:localSummary?{...localSummary}:null,canRestore:!!permit,problem});
+ const get=()=>({busy,checked,exists:!!remote,revision:remote?.revision||0,updatedAt:remote?.updatedAt?.toMillis?.()||null,summary:remoteSummary?{...remoteSummary}:null,localSummary:localSummary?{...localSummary}:null,deleting:isDeletionMarker(remote),canRestore:!!permit,problem});
  const emit=()=>{for(const listener of listeners)try{listener(get());}catch{}};
  function clear(){checked=false;remote=null;remoteText=null;permit=null;localSummary=null;remoteSummary=null;}
  account?.subscribe(status=>{const next=status.user?.uid||null;if(next!==uid){uid=next;generation++;clear();problem=null;emit();}});
@@ -44,9 +45,20 @@ function create(account,storage,backup,options={}){
   catch(error){const code=errorCode(error);if(stamp===generation){clear();problem=code;}return {ok:false,code};}
   finally{busy=false;emit();}
  }
- async function read(ref,stamp){const result=await sdk.getDocFromServer(ref);assertActive(stamp);const value=result.exists()?result.data():null;if(value&&!validMeta(value))throw fail('invalid');return value;}
+ async function read(ref,stamp){const result=await sdk.getDocFromServer(ref);assertActive(stamp);const value=result.exists()?result.data():null;if(value&&!validMeta(value)&&!isDeletionMarker(value))throw fail('invalid');return value;}
  return Object.freeze({get,subscribe(listener){listeners.add(listener);return ()=>listeners.delete(listener);},
-  check:()=>run(async(ref,stamp)=>{const value=await read(ref,stamp),text=value?await unpack(value,backup):null;assertActive(stamp);remote=value;remoteText=text;remoteSummary=text?backup.summarizeArchive(text):null;permit=null;localSummary=backup.summarizeArchive(backup.exportData(storage));checked=true;return {ok:true,code:value?'found':'empty'};}),
+  async eraseForDeletion(context){
+   if(busy)return {ok:false,code:'busy'};const stamp=generation;busy=true;clear();emit();
+   const active=()=>{if(generation!==stamp||!uid||context.uid!==uid||account?.get().user?.uid!==uid)throw fail('changed');};
+   try{
+    if(!online())throw fail('offline');active();sdk=context.sdk;
+    if(!db){db=sdk.initializeFirestore(context.app,{localCache:sdk.memoryLocalCache()});if(context.emulator)sdk.connectFirestoreEmulator(db,'127.0.0.1',8080);}
+    const ref=sdk.doc(db,'users',uid,'private','snapshot');
+    await sdk.runTransaction(db,async transaction=>{await transaction.get(ref);active();transaction.set(ref,{format:2,state:'deleting',deletedAt:sdk.serverTimestamp()});},{maxAttempts:1});
+    active();problem='deleting';return {ok:true,code:'erased'};
+   }catch(error){return {ok:false,code:errorCode(error)};}finally{busy=false;emit();}
+  },
+  check:()=>run(async(ref,stamp)=>{const value=await read(ref,stamp);if(isDeletionMarker(value)){clear();remote=value;problem='deleting';return {ok:false,code:'deleting'};}const text=value?await unpack(value,backup):null;assertActive(stamp);remote=value;remoteText=text;remoteSummary=text?backup.summarizeArchive(text):null;permit=null;localSummary=backup.summarizeArchive(backup.exportData(storage));checked=true;return {ok:true,code:value?'found':'empty'};}),
   upload(consent){return run(async(ref,stamp)=>{
    if(consent!==true)throw fail('consent');if(!checked)throw fail('check');
    const expected=token(remote),text=canonical(backup,storage),prepared=await pack(text);assertActive(stamp);

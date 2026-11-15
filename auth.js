@@ -42,6 +42,22 @@ function create(config={},options={}){
  }
  return Object.freeze({get:snapshot,subscribe(listener){listeners.add(listener);return ()=>listeners.delete(listener);},start:()=>run(async()=>({ok:true}),false),
   async client(){if(configured!=='configured')return null;await ensure();const current=auth.currentUser;if(!current||!current.emailVerified)return null;await current.getIdToken(true);if(auth.currentUser!==current)return null;return {sdk,app:auth.app,uid:current.uid,emulator:!!config.emulatorUrl};},
+  remove(password,consent,eraseCloud){
+   if(consent!==true)return Promise.resolve({ok:false,code:'deleteConsent'});
+   if(typeof password!=='string'||!password.length||password.length>4096)return Promise.resolve({ok:false,code:'password'});
+   if(typeof eraseCloud!=='function')return Promise.resolve({ok:false,code:'configuration'});
+   return run(async()=>{
+    const current=auth.currentUser;if(!current)return {ok:false,code:'signedOut'};
+    await sdk.reauthenticateWithCredential(current,sdk.EmailAuthProvider.credential(current.email,password));
+    if(auth.currentUser!==current)return {ok:false,code:'request'};
+    await current.getIdToken(true);if(auth.currentUser!==current)return {ok:false,code:'request'};
+    const erased=await eraseCloud({sdk,app:auth.app,uid:current.uid,emulator:!!config.emulatorUrl});
+    if(!erased?.ok)return {ok:false,code:'deleteCloud'};
+    if(auth.currentUser!==current)return {ok:false,code:'deletePending'};
+    try{await sdk.deleteUser(current);user=auth.currentUser;return {ok:true,code:'deleted'};}
+    catch{return {ok:false,code:'deletePending'};}
+   });
+  },
   login(email,password){if(!validEmail(email))return Promise.resolve({ok:false,code:'email'});if(typeof password!=='string'||!password.length||password.length>4096)return Promise.resolve({ok:false,code:'password'});return run(async()=>{const result=await sdk.signInWithEmailAndPassword(auth,email.trim(),password);user=result.user;return {ok:true,code:'signedIn'};});},
   signup(email,password){if(!validEmail(email))return Promise.resolve({ok:false,code:'email'});if(!validPassword(password))return Promise.resolve({ok:false,code:'password'});return run(async()=>{const result=await sdk.createUserWithEmailAndPassword(auth,email.trim(),password);user=result.user;sdkLanguage();try{await sdk.sendEmailVerification(user);return {ok:true,code:'created'};}catch{return {ok:true,code:'createdEmailPending'};}});},
   reset(email){if(!validEmail(email))return Promise.resolve({ok:false,code:'email'});return run(async()=>{sdkLanguage();try{await sdk.sendPasswordResetEmail(auth,email.trim());}catch(error){if(error?.code!=='auth/user-not-found')throw error;}return {ok:true,code:'resetSent'};});},

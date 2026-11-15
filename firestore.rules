@@ -1,20 +1,27 @@
 rules_version = '2';
-// Private snapshot: users/{uid}/private/snapshot. All eight fields are required.
-// format:1, revision:int1..2e9, encoding:gzip|raw, payload:base64<=700000chars,
-// rawBytes:int1..12MiB, sha256:64hex, createdAt:immutable timestamp,
-// updatedAt:server timestamp. Archive contents are opaque, bounded private data;
-// clients independently validate decoding, hash and the complete archive schema.
-// No roles, public profiles, cross-user sharing, collection queries or deletion.
+// users/{uid}/private/snapshot has either the eight-field format1 archive
+// or a format2 deletion marker containing ONLY format,state,deletedAt.
+// Archive: bounded base64<=700000, rawBytes<=12MiB, immutable createdAt,
+// monotonic revision and server updatedAt. Client independently validates JSON/hash.
+// Marker: pending account deletion; payload and all archive metadata are gone.
+// Marker never returns to an archive, is not client-deletable, and has no email.
+// Only operator maintenance may purge it after Auth deletion + >=2h token expiry.
 service cloud.firestore {
   match /databases/{database}/documents {
     function isAuthenticated() { return request.auth != null; }
-    function isOwner(uid) { return isAuthenticated() && request.auth.uid == uid && request.auth.token.email_verified == true; }
+    function isOwner(uid) { return isAuthenticated() && request.auth.uid == uid; }
+    function isVerifiedOwner(uid) { return isOwner(uid) && request.auth.token.email_verified == true; }
+    function isRecentOwner(uid) {
+      return isOwner(uid) && request.auth.token.auth_time is int
+        && timestamp.value(request.auth.token.auth_time * 1000) <= request.time
+        && request.time < timestamp.value(request.auth.token.auth_time * 1000) + duration.value(5,'m');
+    }
     function uidUnchanged() { return !('uid' in request.resource.data); }
     function uidNotModified() { return !('uid' in request.resource.data); }
     function isValidSnapshot(data) {
       return data.keys().hasAll(['format','revision','encoding','payload','rawBytes','sha256','createdAt','updatedAt'])
         && data.keys().hasOnly(['format','revision','encoding','payload','rawBytes','sha256','createdAt','updatedAt'])
-        && data.format == 1 && data.revision is int && data.revision >= 1 && data.revision <= 2000000000
+        && data.format is int && data.format == 1 && data.revision is int && data.revision >= 1 && data.revision <= 2000000000
         && data.encoding in ['gzip','raw']
         && data.payload is string && data.payload.size() >= 4 && data.payload.size() <= 700000
         && data.payload.matches('^[A-Za-z0-9+/]*={0,2}$')
@@ -22,13 +29,26 @@ service cloud.firestore {
         && data.sha256 is string && data.sha256.size() == 64 && data.sha256.matches('^[a-f0-9]{64}$')
         && data.createdAt is timestamp && data.updatedAt is timestamp && data.updatedAt == request.time;
     }
+    function isValidDeletion(data) {
+      return data.keys().hasAll(['format','state','deletedAt'])
+        && data.keys().hasOnly(['format','state','deletedAt'])
+        && data.format is int && data.format == 2 && data.state == 'deleting'
+        && data.deletedAt is timestamp && data.deletedAt == request.time;
+    }
     match /users/{uid}/private/snapshot {
-      allow read: if isOwner(uid);
-      allow create: if isOwner(uid) && uidUnchanged() && isValidSnapshot(request.resource.data)
-        && request.resource.data.revision == 1 && request.resource.data.createdAt == request.time;
-      allow update: if isOwner(uid) && uidNotModified() && isValidSnapshot(request.resource.data)
-        && request.resource.data.revision == resource.data.revision + 1
-        && request.resource.data.createdAt == resource.data.createdAt;
+      // A recent owner may read to erase their own data even after email changes.
+      allow read: if isVerifiedOwner(uid) || isRecentOwner(uid);
+      allow create: if uidUnchanged() && (
+        (isVerifiedOwner(uid) && isValidSnapshot(request.resource.data)
+          && request.resource.data.revision == 1 && request.resource.data.createdAt == request.time)
+        || (isRecentOwner(uid) && isValidDeletion(request.resource.data))
+      );
+      allow update: if uidNotModified() && (
+        (isVerifiedOwner(uid) && resource.data.format == 1 && isValidSnapshot(request.resource.data)
+          && request.resource.data.revision == resource.data.revision + 1
+          && request.resource.data.createdAt == resource.data.createdAt)
+        || (isRecentOwner(uid) && isValidDeletion(request.resource.data))
+      );
       allow delete: if false;
     }
     match /{document=**} { allow read, write: if false; }
