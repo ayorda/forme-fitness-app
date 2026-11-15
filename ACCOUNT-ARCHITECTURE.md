@@ -31,3 +31,7 @@
 Вендорираният Firebase 13.3.0 съдържа само необходимите App/Auth експорти, 107 818 байта преди HTTP компресия. Няма runtime CDN зависимост. Произход, версии на включените пакети, точни аргументи/вход за bundle и SHA-256 са в [vendor/firebase-auth-SOURCES.json](./vendor/firebase-auth-SOURCES.json). Запазени са [Apache 2.0](./vendor/LICENSE-APACHE-2.0.txt), [ISC/idb](./vendor/LICENSE-IDB.txt) и [оригиналните notices](./vendor/firebase-auth-13.3.0.js.LEGAL.txt).
 
 За възстановяване на build-а използвай отделна временна директория, инсталирай точните версии от manifest-а с npm и `esbuild@0.28.2`, запази посочения entry като `entry.js` и изпълни посочените аргументи с `--outfile=vendor/firebase-auth-13.3.0.js`. Коренът на приложението няма нов build процес или package.json. При обновяване трябва нов manifest, лицензи, hash тест, синтактични, emulator и браузърни проверки.
+
+## Разширение 3.4 — v0.10.0
+
+Профилният панел показва последна сървърна проверка на Free/Pro право, без покупка или ограничаване на наличните функции. Официалните custom claims остават част от Auth, а не от локалния архив. Не се добавя Auth instance или промяна на LOCAL persistence. Договорът, ограниченията на отнемането и бъдещият доверен issuer са в [ACCESS-ARCHITECTURE.md](./ACCESS-ARCHITECTURE.md); 3.4 е изпълнена като архитектурна подготовка, не като активна платена услуга.

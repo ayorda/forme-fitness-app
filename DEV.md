@@ -8,6 +8,8 @@
 |---|---|
 | `auth.js`, `auth-config.js` | Firebase Auth адаптер, активна публична конфигурация на FORME и повторно удостоверено изтриване; виж ACCOUNT-SETUP.md/QA-ACCOUNTS.md. |
 | `vendor/firebase-auth-13.3.0.js` | Общ официален App/Auth/Firestore bundle, lazy import от адаптера; provenance/SHA-256 и лицензи в vendor/. |
+| `firebase-client.js` | Един memory-only Firestore за всяка App/SDK конфигурация, споделен от изричните cloud/access операции. |
+| `access.js` | Read-only проверка на подписан claim и сървърен Pro probe; състоянието е само в паметта. |
 | `cloud-sync.js`, `firestore.rules` | Изричен частен архив и минимален маркер след изтриване; никога фоново качване/сливане. |
 | `maintenance/purge-deletion-marker.cjs` | Операторска проверка/условно почистване с CLI OAuth; не е част от клиентския код и не се изпълнява автоматично. |
 | `personalization.js` | Доброволни локални предпочитания, детерминистични ограничения за план, рецепти/пазарски списък; архивна валидация в backup.js остава независима. |
@@ -123,3 +125,9 @@ JSON архивът има независима проверка на струк
 `maintenance/purge-deletion-marker.cjs` вече използва `createBackend` с официалния CLI транспорт, точен `batchGet` и сървърно `readTime`. Срокът е с наносекундна точност, без локален Date.now/параметър за подмяна. Auth lookup приема само еднозначно отсъствие; apply отново го проверява и прави един условен commit/delete с точен updateTime. Крайният production CLI е фиксиран към текущия проект; demo контекстът е само за изолирания QA сценарий. Инструментът не се импортира от приложението и няма автоматична задача.
 
 CI `deletion-maintenance` стартира само локални Auth/Firestore емулатори и изпълнява `qa/deletion-maintenance.mjs`; 20 функционални теста са в `privacy.test.js`. Ползвай [QA-MAINTENANCE.md](./QA-MAINTENANCE.md) за доказателствата и [MAINTENANCE.md](./MAINTENANCE.md) за production dry-run. Не стартирай разрушителни production тестове вместо собственика.
+
+## Free/Pro основа (v0.10.0)
+
+`auth.access()` изисква проверен собственик и официален `getIdTokenResult(current,true)`; резултатът се изхвърля при смяна на потребителя. `access.js` валидира тесния `formeAccess:{schema:1,proUntil:epochSeconds}` и при наличен grant проверява точния read-only Pro probe чрез `getDocFromServer`. Самите правила проверяват собственик, имейл, schema/типове/граници, request.time и липса на deletion marker. Липсващ документ след разрешен get е очакван; не се създава нов entitlement документ.
+
+`firebase-client.js` споделя DB и свързва Emulator само веднъж. Всички бъдещи модули трябва да ползват същия registry, а не отделно initializeFirestore. Client access state е само последна проверка/презентация, изчистена при смяна/офлайн/скриване/напускане; не е server authorization. Claim revocation има нормалния token прозорец и НЕ е мигновено отнемане. Няма production grant issuer или плащане в този етап. Архитектура/граници: [ACCESS-ARCHITECTURE.md](./ACCESS-ARCHITECTURE.md), тестове/приемане: [QA-ACCESS.md](./QA-ACCESS.md).

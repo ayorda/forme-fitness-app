@@ -37,7 +37,7 @@ function create(account,storage,backup,options={}){
  function clear(){checked=false;remote=null;remoteText=null;permit=null;localSummary=null;remoteSummary=null;}
  account?.subscribe(status=>{const next=status.user?.uid||null;if(next!==uid){uid=next;generation++;clear();problem=null;emit();}});
  const assertActive=stamp=>{const user=account?.get().user;if(generation!==stamp||!user||user.uid!==uid)throw fail('changed');if(!user.emailVerified)throw fail('verify');};
- async function client(stamp){assertActive(stamp);const context=await account.client();assertActive(stamp);if(!context||context.uid!==uid)throw fail('changed');sdk=context.sdk;if(!db){db=sdk.initializeFirestore(context.app,{localCache:sdk.memoryLocalCache()});if(context.emulator)sdk.connectFirestoreEmulator(db,'127.0.0.1',8080);}return sdk.doc(db,'users',uid,'private','snapshot');}
+ async function client(stamp){assertActive(stamp);const context=await account.client();assertActive(stamp);if(!context||context.uid!==uid)throw fail('changed');sdk=context.sdk;if(!db){db=root.FORME_FIRESTORE.database(context);}return sdk.doc(db,'users',uid,'private','snapshot');}
  async function run(operation){
   if(busy)return {ok:false,code:'busy'};
   const stamp=generation;busy=true;problem=null;emit();
@@ -52,7 +52,7 @@ function create(account,storage,backup,options={}){
    const active=()=>{if(generation!==stamp||!uid||context.uid!==uid||account?.get().user?.uid!==uid)throw fail('changed');};
    try{
     if(!online())throw fail('offline');active();sdk=context.sdk;
-    if(!db){db=sdk.initializeFirestore(context.app,{localCache:sdk.memoryLocalCache()});if(context.emulator)sdk.connectFirestoreEmulator(db,'127.0.0.1',8080);}
+    if(!db){db=root.FORME_FIRESTORE.database(context);}
     const ref=sdk.doc(db,'users',uid,'private','snapshot');
     await sdk.runTransaction(db,async transaction=>{await transaction.get(ref);active();transaction.set(ref,{format:2,state:'deleting',deletedAt:sdk.serverTimestamp()});},{maxAttempts:1});
     active();problem='deleting';return {ok:true,code:'erased'};

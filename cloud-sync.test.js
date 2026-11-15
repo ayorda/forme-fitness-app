@@ -4,7 +4,7 @@ const fs=require('node:fs'),vm=require('node:vm'),{webcrypto}=require('node:cryp
 const plain=x=>JSON.parse(JSON.stringify(x));
 function fixture(options={}){
  const window={crypto:webcrypto,navigator:{onLine:true}},c={window,TextEncoder,TextDecoder,CompressionStream,DecompressionStream,Blob,atob,btoa,...options.globals};
- vm.createContext(c);for(const file of ['backup.js','cloud-sync.js'])vm.runInContext(fs.readFileSync(file,'utf8'),c);
+ vm.createContext(c);for(const file of ['backup.js','firebase-client.js','cloud-sync.js'])vm.runInContext(fs.readFileSync(file,'utf8'),c);
  const data={...options.data},calls=[],shared=options.shared||new Map();let user=options.user===null?null:{uid:'athlete-a',emailVerified:true},listener,writeFail=null,readError=null,tick=1,readHook=null;
  const storage={getItem:k=>data[k]??null,setItem(k,v){if(k===writeFail)throw Error('quota');data[k]=String(v);},removeItem:k=>delete data[k]};
  const timestamp=()=>({seconds:tick++,nanoseconds:0,toMillis(){return this.seconds*1000;}});

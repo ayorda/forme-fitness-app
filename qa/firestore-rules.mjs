@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 const origin='http://127.0.0.1:8080',project='demo-forme-sync';
 if(process.env.FIRESTORE_EMULATOR_HOST!=='127.0.0.1:8080')throw Error('Use the local Firestore emulator at 127.0.0.1:8080');
 const url=origin+'/v1/projects/'+project+'/databases/(default)/documents';
-const jwt=(uid,verified=true,authAge=3600)=>[Buffer.from(JSON.stringify({alg:'none',typ:'JWT'})).toString('base64url'),Buffer.from(JSON.stringify({sub:uid,user_id:uid,aud:project,iss:'https://securetoken.google.com/'+project,iat:Math.floor(Date.now()/1000),exp:Math.floor(Date.now()/1000)+3600,email_verified:verified,auth_time:Math.floor(Date.now()/1000)-authAge,firebase:{sign_in_provider:'password'}})).toString('base64url'),''].join('.');
+const jwt=(uid,verified=true,authAge=3600,extra={})=>[Buffer.from(JSON.stringify({alg:'none',typ:'JWT'})).toString('base64url'),Buffer.from(JSON.stringify({sub:uid,user_id:uid,aud:project,iss:'https://securetoken.google.com/'+project,iat:Math.floor(Date.now()/1000),exp:Math.floor(Date.now()/1000)+3600,email_verified:verified,auth_time:Math.floor(Date.now()/1000)-authAge,firebase:{sign_in_provider:'password'},...extra})).toString('base64url'),''].join('.');
 const cleared=await fetch(origin+'/emulator/v1/projects/'+project+'/databases/(default)/documents',{method:'DELETE'});assert.ok(cleared.ok);
 const owner=jwt('athlete-a'),other=jwt('athlete-b'),unverified=jwt('athlete-a',false);
 let assertions=0;
@@ -48,4 +48,21 @@ expect(await call('/users/athlete-a/private/snapshot','GET',other),403);
 expect(await write({},recentUnverified,['createdAt','updatedAt'],'users/unverified-owner/private/snapshot'),403);
 expect(await erase(recentUnverified,{},['deletedAt'],'users/unverified-owner/private/snapshot'),200);
 expect(await erase(recent,{},['deletedAt'],'users/other-owner/private/snapshot'),403);
+// A signed grant authorizes only an exact owner's reserved probe path.
+const until=Math.floor(Date.now()/1000)+3600;
+const pro=uid=>jwt(uid,true,3600,{formeAccess:{schema:1,proUntil:until}});
+const probe='/users/pro-owner/pro/access';
+expect(await call(probe,'GET',null),403);expect(await call(probe,'GET',jwt('pro-owner')),403);
+expect(await call(probe,'GET',pro('other-owner')),403);
+expect(await call(probe,'GET',jwt('pro-owner',false,3600,{formeAccess:{schema:1,proUntil:until}})),403);
+for(const claim of [{schema:1,proUntil:Math.floor(Date.now()/1000)-1},{schema:1,proUntil:String(until)},{schema:1,proUntil:until+.5},{schema:2,proUntil:until},{schema:1,proUntil:until,admin:true},{schema:1},{schema:1,proUntil:4102444801},true,null,[]])expect(await call(probe,'GET',jwt('pro-owner',true,3600,{formeAccess:claim})),403);
+expect(await call(probe,'GET',pro('pro-owner')),404); // authorized, no stored document
+expect(await call('/users/pro-owner/pro','GET',pro('pro-owner')),403);
+expect(await call('/users','GET',pro('pro-owner')),403);
+expect(await call('/users/pro-owner/private/snapshot','GET',pro('pro-owner')),404);
+expect(await call(probe,'PATCH',pro('pro-owner'),{fields:{isPro:{booleanValue:true}}}),403);
+expect(await call(probe,'DELETE',pro('pro-owner')),403);
+expect(await call('/users/pro-owner/access/grant','PATCH',jwt('pro-owner'),{fields:{formeAccess:{mapValue:{fields:{schema:{integerValue:'1'},proUntil:{integerValue:String(until)}}}}}}),403);
+expect(await call('/users/pro-owner/pro/other','GET',pro('pro-owner')),403);
+expect(await call('/users/athlete-a/pro/access','GET',pro('athlete-a')),403); // deletion marker blocks old grant
 process.stdout.write(JSON.stringify({assertions,project,productionRequests:0})+'\n');

@@ -46,6 +46,7 @@ function create(config={},options={}){
  }
  return Object.freeze({get:snapshot,subscribe(listener){listeners.add(listener);return ()=>listeners.delete(listener);},start:()=>run(async()=>({ok:true}),false),
   async client(){if(configured!=='configured')return null;await ensure();const current=auth.currentUser;if(!current||!current.emailVerified)return null;await current.getIdToken(true);if(auth.currentUser!==current)return null;return {sdk,app:auth.app,uid:current.uid,emulator:!!config.emulatorUrl};},
+  async access(){if(configured!=='configured')return null;await ensure();const current=auth.currentUser;if(!current||!current.emailVerified)return null;const result=await sdk.getIdTokenResult(current,true);if(auth.currentUser!==current)return null;return {sdk,app:auth.app,uid:current.uid,claims:result.claims,emulator:!!config.emulatorUrl};},
   remove(password,consent,eraseCloud){
    if(consent!==true)return Promise.resolve({ok:false,code:'deleteConsent'});
    if(typeof password!=='string'||!password.length||password.length>4096)return Promise.resolve({ok:false,code:'password'});
