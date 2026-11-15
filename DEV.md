@@ -133,3 +133,9 @@ CI `deletion-maintenance` стартира само локални Auth/Firestor
 `firebase-client.js` споделя DB и свързва Emulator само веднъж. Всички бъдещи модули трябва да ползват същия registry, а не отделно initializeFirestore. Client access state е само последна проверка/презентация, изчистена при смяна/офлайн/скриване/напускане; не е server authorization. Claim revocation има нормалния token прозорец и НЕ е мигновено отнемане. Няма production grant issuer или плащане в този етап. Архитектура/граници: [ACCESS-ARCHITECTURE.md](./ACCESS-ARCHITECTURE.md), тестове/приемане: [QA-ACCESS.md](./QA-ACCESS.md).
 
 Подготовката 3.5 е описана в [SERVICES-ARCHITECTURE.md](./SERVICES-ARCHITECTURE.md): отделни Programs и човешки Coaching права, без production grants/назначения, покупки или лични uploads. Преди първи реален service запис се разширяват износът/изтриването/retention; текущият account deletion обхваща сегашния архив и Auth.
+
+## Автоматична синхронизация v0.12.0
+
+`bootstrap.js` изчаква съществуващия Auth и предоставя общия модел и `workspaces.js` facade; `app.js` използва този facade за потребителските данни. Нов код трябва да получава това storage, вместо да пише директно `window.localStorage`, за да не смесва акаунти. `sync-records.js` дефинира разрешените record видове/merge/tombstones, `auto-sync.js` координира offline source/baseline, Web Locks, official onSnapshot/transactions и отложено прилагане. Дневниците и dataStore се преизграждат без page reload при безопасно получаване. Auth persistence/SDK App името се запазват.
+
+Договорът/ограниченията са в [AUTO-SYNC-ARCHITECTURE.md](./AUTO-SYNC-ARCHITECTURE.md), тестовете в [QA-AUTO-SYNC.md](./QA-AUTO-SYNC.md). Не изпълнявай flush-ващия rules QA едновременно с browser fixtures.

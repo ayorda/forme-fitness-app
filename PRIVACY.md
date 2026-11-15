@@ -52,3 +52,5 @@
 - [Облачна архитектура](./CLOUD-ARCHITECTURE.md), [проверки и ограничения](./QA-PRIVACY.md), [оставащ продуктов обхват](./ROADMAP.md).
 
 Подготовката 3.5 е описана в [SERVICES-ARCHITECTURE.md](./SERVICES-ARCHITECTURE.md): отделни Programs и човешки Coaching права, без production grants/назначения, покупки или лични uploads. Преди първи реален service запис се разширяват износът/изтриването/retention; текущият account deletion обхваща сегашния архив и Auth.
+
+Актуализация v0.12.0: [автоматичният режим](./AUTO-SYNC-ARCHITECTURE.md) добавя отделен `private/auto` и локални акаунтни пространства. При изтриване auto се премахва атомично с marker-а на legacy snapshot, преди Auth. Стар клиент не може да запише marker, ако auto остава. Износът е за активния акаунт/гост; локалните namespaces/копия не се изтриват от Auth. Свали JSON преди изтриване на акаунт, а всички локални копия се чистят от настройките на сайта. Future Programs/Coaching записи още не се създават и изискват отделен lifecycle преди активиране. Новата дву-устройствена проверка е в [QA-AUTO-SYNC.md](./QA-AUTO-SYNC.md); вече приетият базов iPhone вход остава приет.

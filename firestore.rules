@@ -10,6 +10,10 @@ rules_version = '2';
 // gates a reserved, owner-only pro/access permission-check path. No client writes.
 // Future services contracts below are read-only prototypes. No production grants,
 // programs, trainer assignments or notes are created by the current application.
+// users/{uid}/private/auto: the same bounded eight-field format1 envelope,
+// payload=FORME_SYNC/version1/enabled:true per-record merge state. No roles/UID
+// fields. Owner verified, revision+1, immutable createdAt, server updatedAt.
+// Account deletion MUST atomically erase auto and write the minimal marker.
 service cloud.firestore {
   match /databases/{database}/documents {
     function isAuthenticated() { return request.auth != null; }
@@ -52,6 +56,13 @@ service cloud.firestore {
         && data.keys().hasOnly(['format','state','deletedAt'])
         && data.format is int && data.format == 2 && data.state == 'deleting'
         && data.deletedAt is timestamp && data.deletedAt == request.time;
+    }
+    function autoErased(uid) {
+      return !existsAfter(/databases/$(database)/documents/users/$(uid)/private/auto);
+    }
+    function freshDeletionAfter(uid) {
+      let marker = getAfter(/databases/$(database)/documents/users/$(uid)/private/snapshot).data;
+      return marker.format == 2 && marker.state == 'deleting' && marker.deletedAt == request.time;
     }
     function serviceId(value) { return value is string && value.matches('^[a-zA-Z0-9_-]{1,64}$'); }
     function serviceUid(value) { return value is string && value.matches('^[^/]{1,128}$'); }
@@ -126,15 +137,28 @@ service cloud.firestore {
       allow create: if uidUnchanged() && (
         (isVerifiedOwner(uid) && isValidSnapshot(request.resource.data)
           && request.resource.data.revision == 1 && request.resource.data.createdAt == request.time)
-        || (isRecentOwner(uid) && isValidDeletion(request.resource.data))
+        || (isRecentOwner(uid) && isValidDeletion(request.resource.data) && autoErased(uid))
       );
       allow update: if uidNotModified() && (
         (isVerifiedOwner(uid) && resource.data.format == 1 && isValidSnapshot(request.resource.data)
           && request.resource.data.revision == resource.data.revision + 1
           && request.resource.data.createdAt == resource.data.createdAt)
-        || (isRecentOwner(uid) && isValidDeletion(request.resource.data))
+        || (isRecentOwner(uid) && isValidDeletion(request.resource.data) && autoErased(uid))
       );
       allow delete: if false;
+    }
+    match /users/{uid}/private/auto {
+      // Recent owner may read solely to erase even after an email change.
+      allow get: if (isVerifiedOwner(uid) && isNotDeleting(uid)) || isRecentOwner(uid);
+      allow list: if false;
+      allow create: if uidUnchanged() && isVerifiedOwner(uid) && isNotDeleting(uid)
+        && isValidSnapshot(request.resource.data) && request.resource.data.revision == 1
+        && request.resource.data.createdAt == request.time;
+      allow update: if uidNotModified() && isVerifiedOwner(uid) && isNotDeleting(uid)
+        && resource.data.format == 1 && isValidSnapshot(request.resource.data)
+        && request.resource.data.revision == resource.data.revision + 1
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if isRecentOwner(uid) && freshDeletionAfter(uid);
     }
     match /users/{uid}/pro/access {
       allow read: if isVerifiedOwner(uid) && hasProGrant() && isNotDeleting(uid);

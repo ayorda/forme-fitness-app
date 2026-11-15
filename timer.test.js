@@ -14,7 +14,7 @@ function boot(language='bg',navigator=undefined){
  const files=['exercise-art.js','data.js','core.js','food-art.js','progress.js'];if(language!=='bg')files.push('i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');files.push('app.js');
  for(const file of files){
   let source=fs.readFileSync(file,'utf8');
-  if(file==='app.js')source=source.replace(/\}\)\(\);\s*$/, 'window.__timerTest={state,startWorkout,playerControl};})();');
+  if(file==='app.js')source=source.replace("}\nif(window.FORME_BOOTSTRAP)", 'window.__timerTest={state,startWorkout,playerControl};}\nif(window.FORME_BOOTSTRAP)');
   vm.runInContext(source,context,{filename:file});
  }
  return {run:code=>vm.runInContext('with(window.__timerTest){'+code+'}',context),advance:ms=>{now+=ms;},handlers,nodes,storage};

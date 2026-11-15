@@ -30,17 +30,20 @@ async function unpack(value,backup){
 const token=value=>value?`${value.revision}|${value.sha256}|${value.createdAt.seconds}:${value.createdAt.nanoseconds}|${value.updatedAt.seconds}:${value.updatedAt.nanoseconds}`:'';
 function errorCode(error){return error?.syncCode||(error?.code==='aborted'?'conflict':['permission-denied','unauthenticated'].includes(error?.code)?'permission':['unavailable','deadline-exceeded','auth/network-request-failed'].includes(error?.code)?'offline':error?.code==='resource-exhausted'?'quota':'request');}
 function create(account,storage,backup,options={}){
- let uid=account?.get().user?.uid||null,generation=0,busy=false,checked=false,remote=null,remoteText=null,permit=null,problem=null,localSummary=null,remoteSummary=null,db=null,sdk=null;
+ let uid=account?.get().user?.uid||null,verified=account?.get().user?.emailVerified===true,generation=0,busy=false,checked=false,remote=null,remoteText=null,permit=null,problem=null,localSummary=null,remoteSummary=null,db=null,sdk=null;
  const listeners=new Set(),online=options.isOnline||(()=>root.navigator?.onLine!==false);
- const get=()=>({busy,checked,exists:!!remote,revision:remote?.revision||0,updatedAt:remote?.updatedAt?.toMillis?.()||null,summary:remoteSummary?{...remoteSummary}:null,localSummary:localSummary?{...localSummary}:null,deleting:isDeletionMarker(remote),canRestore:!!permit,problem});
+ const get=()=>{reconcileIdentity();return {busy,checked,exists:!!remote,revision:remote?.revision||0,updatedAt:remote?.updatedAt?.toMillis?.()||null,summary:remoteSummary?{...remoteSummary}:null,localSummary:localSummary?{...localSummary}:null,deleting:isDeletionMarker(remote),canRestore:!!permit,problem};};
  const emit=()=>{for(const listener of listeners)try{listener(get());}catch{}};
  function clear(){checked=false;remote=null;remoteText=null;permit=null;localSummary=null;remoteSummary=null;}
- account?.subscribe(status=>{const next=status.user?.uid||null;if(next!==uid){uid=next;generation++;clear();problem=null;emit();}});
- const assertActive=stamp=>{const user=account?.get().user;if(generation!==stamp||!user||user.uid!==uid)throw fail('changed');if(!user.emailVerified)throw fail('verify');};
+ // Check the current identity even before observer delivery. A verification
+ // cycle invalidates pending requests and restore permits for the same UID.
+ function reconcileIdentity(){const user=account?.get().user,next=user?.uid||null,nextVerified=user?.emailVerified===true;if(next===uid&&nextVerified===verified)return false;uid=next;verified=nextVerified;generation++;clear();problem=null;return true;}
+ account?.subscribe(()=>{if(reconcileIdentity())emit();});
+ const assertActive=stamp=>{reconcileIdentity();if(generation!==stamp||!uid)throw fail('changed');if(!verified)throw fail('verify');};
  async function client(stamp){assertActive(stamp);const context=await account.client();assertActive(stamp);if(!context||context.uid!==uid)throw fail('changed');sdk=context.sdk;if(!db){db=root.FORME_FIRESTORE.database(context);}return sdk.doc(db,'users',uid,'private','snapshot');}
  async function run(operation){
   if(busy)return {ok:false,code:'busy'};
-  const stamp=generation;busy=true;problem=null;emit();
+  reconcileIdentity();const stamp=generation;busy=true;problem=null;emit();
   try{if(!online())throw fail('offline');assertActive(stamp);const ref=await client(stamp);assertActive(stamp);return await operation(ref,stamp);}
   catch(error){const code=errorCode(error);if(stamp===generation){clear();problem=code;}return {ok:false,code};}
   finally{busy=false;emit();}
@@ -48,13 +51,14 @@ function create(account,storage,backup,options={}){
  async function read(ref,stamp){const result=await sdk.getDocFromServer(ref);assertActive(stamp);const value=result.exists()?result.data():null;if(value&&!validMeta(value)&&!isDeletionMarker(value))throw fail('invalid');return value;}
  return Object.freeze({get,subscribe(listener){listeners.add(listener);return ()=>listeners.delete(listener);},
   async eraseForDeletion(context){
-   if(busy)return {ok:false,code:'busy'};const stamp=generation;busy=true;clear();emit();
-   const active=()=>{if(generation!==stamp||!uid||context.uid!==uid||account?.get().user?.uid!==uid)throw fail('changed');};
+   if(busy)return {ok:false,code:'busy'};reconcileIdentity();const stamp=generation;busy=true;clear();emit();
+   const active=()=>{reconcileIdentity();if(generation!==stamp||!uid||context.uid!==uid)throw fail('changed');};
    try{
     if(!online())throw fail('offline');active();sdk=context.sdk;
     if(!db){db=root.FORME_FIRESTORE.database(context);}
     const ref=sdk.doc(db,'users',uid,'private','snapshot');
-    await sdk.runTransaction(db,async transaction=>{await transaction.get(ref);active();transaction.set(ref,{format:2,state:'deleting',deletedAt:sdk.serverTimestamp()});},{maxAttempts:1});
+    const autoRef=sdk.doc(db,'users',uid,'private','auto');
+    await sdk.runTransaction(db,async transaction=>{await transaction.get(ref);const automatic=await transaction.get(autoRef);active();transaction.set(ref,{format:2,state:'deleting',deletedAt:sdk.serverTimestamp()});if(automatic.exists())transaction.delete(autoRef);},{maxAttempts:1});
     active();problem='deleting';return {ok:true,code:'erased'};
    }catch(error){return {ok:false,code:errorCode(error)};}finally{busy=false;emit();}
   },
@@ -65,9 +69,9 @@ function create(account,storage,backup,options={}){
    await sdk.runTransaction(db,async transaction=>{const snap=await transaction.get(ref);assertActive(stamp);const current=snap.exists()?snap.data():null;if(token(current)!==expected)throw fail('conflict');transaction.set(ref,{...prepared,revision:(current?.revision||0)+1,createdAt:current?.createdAt||sdk.serverTimestamp(),updatedAt:sdk.serverTimestamp()});},{maxAttempts:1});
    assertActive(stamp);const saved=await read(ref,stamp);if(!saved||saved.sha256!==prepared.sha256)throw fail('request');remote=saved;remoteText=text;permit=null;checked=true;localSummary=backup.summarizeArchive(text);remoteSummary=localSummary;return {ok:true,code:'uploaded'};
   });},
-  download(){if(!uid||!checked||!remoteText||account.get().user?.uid!==uid)return {ok:false,code:'check'};return {ok:true,text:remoteText};},
+  download(){try{reconcileIdentity();assertActive(generation);if(!checked||!remoteText)throw fail('check');return {ok:true,text:remoteText};}catch(error){return {ok:false,code:errorCode(error)};}},
   async safetyExport(){
-   const stamp=generation;try{assertActive(stamp);if(!checked||!remoteText)throw fail('check');const text=backup.exportData(storage),fingerprint=await digest(encode(canonicalText(backup,text)));assertActive(stamp);permit={fingerprint,token:token(remote)};emit();return {ok:true,text};}catch(error){return {ok:false,code:errorCode(error)};}
+   reconcileIdentity();const stamp=generation;try{assertActive(stamp);if(!checked||!remoteText)throw fail('check');const text=backup.exportData(storage),fingerprint=await digest(encode(canonicalText(backup,text)));assertActive(stamp);permit={fingerprint,token:token(remote)};emit();return {ok:true,text};}catch(error){return {ok:false,code:errorCode(error)};}
   },
   restore(consent){return run(async(ref,stamp)=>{
    if(consent!==true)throw fail('consent');if(!checked||!remoteText||!permit)throw fail('backup');

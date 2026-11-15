@@ -105,4 +105,21 @@ for(const target of ['/users/service-client/programs/handstand','/program-conten
 await fixture('/users/service-coach/private/snapshot',{format:num(2),state:str('deleting'),deletedAt:past});expect(await call(notePath,'GET',coach),403);expect(await call(notePath,'GET',serviceOwner),200);
 await fixture('/users/service-client/private/snapshot',{format:num(2),state:str('deleting'),deletedAt:past});for(const target of [grantPath,versionPath,engagementPath,notePath])expect(await call(target,'GET',serviceOwner),403);expect(await call(engagementPath,'GET',coach),403);
 
+// Automatic sync uses a distinct owner-only revisioned envelope. Deletion is atomic.
+const autoUid='automatic-owner',autoOwner=jwt(autoUid),autoRecent=jwt(autoUid,true,0),autoUnverified=jwt(autoUid,false),autoRecentUnverified=jwt(autoUid,false,0),autoPath='users/'+autoUid+'/private/auto',markerPath='users/'+autoUid+'/private/snapshot';
+expect(await call('/'+autoPath,'GET',null),403);expect(await call('/'+autoPath,'GET',other),403);expect(await call('/'+autoPath,'GET',autoUnverified),403);expect(await call('/'+autoPath,'GET',autoOwner),404);
+for(const token of [null,other,autoUnverified])expect(await write({},token,['createdAt','updatedAt'],autoPath),403);
+for(const bad of [{uid:str('other')},{role:str('admin')},{payload:str('x'.repeat(700001))},{rawBytes:num(12582913)},{revision:num(2)},{sha256:str('bad')},{encoding:str('other')}])expect(await write(bad,autoOwner,['createdAt','updatedAt'],autoPath),403);
+expect(await write({},autoOwner,[],autoPath),403);expect(await write({},autoOwner,['createdAt','updatedAt'],autoPath),200);
+const autoSaved=await call('/'+autoPath,'GET',autoOwner);expect(autoSaved,200);expect(await call('/'+autoPath,'GET',autoRecentUnverified),200); // cleanup identity allowed
+const autoNext={...fields,revision:num(2),createdAt:autoSaved.body.fields.createdAt};
+for(const bad of [{uid:str('other')},{isAdmin:bool(true)},{payload:str('x'.repeat(700001))},{rawBytes:str('2')},{sha256:str('bad')},{encoding:str('other')},{createdAt:past},{revision:num(1)}])expect(await write({...autoNext,...bad},autoOwner,['updatedAt'],autoPath),403);
+expect(await write(autoNext,autoOwner,['updatedAt'],autoPath),200);expect(await write(autoNext,autoOwner,['updatedAt'],autoPath),403);
+expect(await call('/users/'+autoUid+'/private','GET',autoOwner),403);expect(await call('/'+autoPath,'DELETE',autoRecent),403);
+expect(await erase(autoRecent,{},['deletedAt'],markerPath),403); // old cached client cannot leave auto behind
+async function atomicAutoErase(token){return call(':commit','POST',token,{writes:[{update:{name:'projects/'+project+'/databases/(default)/documents/'+markerPath,fields:{format:num(2),state:str('deleting')}},updateTransforms:[{fieldPath:'deletedAt',setToServerValue:'REQUEST_TIME'}]},{delete:'projects/'+project+'/databases/(default)/documents/'+autoPath}]});}
+expect(await atomicAutoErase(other),403);expect(await atomicAutoErase(autoOwner),403);expect(await atomicAutoErase(autoRecentUnverified),200);
+expect(await call('/'+autoPath,'GET',autoOwner),403);expect(await call('/'+autoPath,'GET',autoRecent),404);expect(await write({},autoOwner,['createdAt','updatedAt'],autoPath),403);
+expect(await call('/'+markerPath,'GET',autoRecent),200);expect(await erase(autoRecent,{},['deletedAt'],markerPath),200); // safe retry when auto already absent
+
 process.stdout.write(JSON.stringify({assertions,project,productionRequests:0})+'\n');
