@@ -9,13 +9,18 @@ from video_policy import validate_entry
 ROOT = Path(__file__).resolve().parents[1]
 manifest = json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())
 policy = manifest['productionPolicy']
-assert policy['version'] == '4.0' and policy['origin'] == 'filmed'
+assert policy['version'] == '4.1' and policy['origin'] == 'filmed'
 assert policy['tool'] == 'FFmpeg' and policy['aiGenerationAllowed'] is False
-assert (policy['duration'],policy['fps'],policy['frames']) == (5,'24/1',120)
+assert policy['durationMode'] == 'complete-natural-movement' and policy['fps'] == '24/1'
 assert policy['audio'] is False
 for entry in manifest['entries']:
     print(entry['exerciseId'],validate_entry(entry))
     accepted = entry['visualStandard']['status'] == 'accepted-internal'
+    if accepted:
+        reference = entry['referenceImage']
+        assert hashlib.sha256((ROOT/reference['path']).read_bytes()).hexdigest() == reference['sha256']
+        style = entry['visualStandard']
+        assert hashlib.sha256((ROOT/style['comparison']).read_bytes()).hexdigest() == style['comparisonSha256']
     poster = entry['poster']; image = (ROOT/poster['path']).read_bytes()
     assert len(image) == poster['bytes'] < 150000
     assert image.startswith(b'\xff\xd8')
@@ -34,8 +39,8 @@ for entry in manifest['entries']:
             assert stream[actual] == variant[expected], (path, actual)
         assert abs(float(probe['format']['duration']) - variant['duration']) < .02
         if accepted:
-            assert int(stream['nb_read_frames']) == 120
-            assert abs(float(probe['format']['duration'])-5) < .000001
+            assert int(stream['nb_read_frames']) == variant['frames']
+            assert abs(float(probe['format']['duration'])-variant['duration']) < .001
         if path.suffix == '.mp4':
             boxes, offset = [], 0
             while offset < len(data):

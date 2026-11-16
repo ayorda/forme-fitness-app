@@ -85,13 +85,8 @@ pendingExercise('Full_Planche','Пълен планч','elite','none','Елит�
 pendingExercise('One_Arm_Pull_Up','Набиране с една ръка','elite','bar','Елитно едностранно набиране с много високо натоварване.','Изисква продължителна специфична подготовка и контрол на рамо и лакът. Работи с подходяща помощ и наблюдение.','Двуръчно набиране и контролирана асистирана прогресия.'),
 pendingExercise('Iron_Cross','Железен кръст','elite','rings','Елитно статично задържане на халки с екстремно натоварване на рамене и лакти.','Изисква дългогодишна подготовка на халки и наблюдение от квалифициран треньор. Не опитвай без тях.','Структурирана подготвителна работа на халки с треньор.')
 );
-// Real footage and its adaptation retain CC BY-SA 4.0; see VIDEO-SOURCES.md.
-exercises.find(ex=>ex.id==='Parallel_Bar_Dips').demoVideo=Object.freeze({
- approved:true,src:'media/exercise-videos/parallel-bar-dips-v1.mp4',
- poster:'media/exercise-videos/parallel-bar-dips-v1-poster.jpg',width:854,height:480,
- credit:'Goulart / wger',source:'https://wger.de/en/exercise/194/view/',
- license:'CC BY-SA 4.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/'
-});
+// Real Coverr stock used under the Coverr License; see VIDEO-SOURCES.md.
+exercises.find(ex=>ex.id==='Parallel_Bar_Dips').demoVideo=Object.freeze({approved:true,origin:'filmed',reviewStatus:'accepted-internal',src:'media/exercise-videos/parallel-bar-dips-v2.mp4',poster:'media/exercise-videos/parallel-bar-dips-v2-poster.jpg',width:960,height:540,credit:'Coverr',source:'https://coverr.co/videos/a-man-does-bar-dips',license:'Coverr License',licenseUrl:'https://coverr.co/license'});
 // Multilingual names and training context for the requested core catalogue.
 const skillDetails={
  Pushups:['Push-Ups','Liegestütze','Гърди, рамене, трицепс','Стабилна опора и контрол на торса','Отпускане на кръста','Стрелец лицеви опори','Контролирани повторения'],

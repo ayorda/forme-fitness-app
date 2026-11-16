@@ -13,22 +13,21 @@ prepare = runpy.run_path(str(ROOT/'qa/prepare-real-video.py'))['prepare']
 
 
 def real_fixture():
-    entry = json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())['entries'][0]
-    entry['origin'] = 'filmed'
-    entry['visualStandard'] = dict(version='4.0',status='accepted-internal',comparison='qa/evidence/test.jpg',reviewedOn='2026-11-16',motion=dict(continuous=True,naturalSpeed=True,fullMovement=True,synthetic=False))
-    entry['review'].update(visualConsistency=True,jointsVisible=True,stableCamera=True,rightsChecked=True,framesInspected=120,independentTrainer='pending')
-    entry['variants'][0].update(duration=5,frames=120)
-    return entry
+    return json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())['entries'][0]
+
+
+def legacy_fixture():
+    return json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())['retiredEntries'][0]
 
 
 class VideoReviewGateTests(unittest.TestCase):
     def test_existing_clip_is_explicitly_legacy_not_a_premium_pass(self):
-        entry=json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())['entries'][0]
+        entry=legacy_fixture()
         self.assertIn('NOT ACCEPTED',validate_entry(entry))
 
     def test_new_bytes_or_unknown_exercise_cannot_inherit_legacy_exception(self):
         for key in ['bytes','exercise','duration']:
-            entry=json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())['entries'][0]
+            entry=legacy_fixture()
             if key=='bytes':
                 entry['variants'][0]['sha256']='a'*64
                 entry['poster']['sourceVideoSha256']='a'*64
@@ -37,15 +36,17 @@ class VideoReviewGateTests(unittest.TestCase):
             with self.assertRaises(AssertionError):validate_entry(entry)
 
     def test_real_contract_requires_full_continuous_natural_movement(self):
-        entry=real_fixture();self.assertIn('V4.0 INTERNAL',validate_entry(entry))
+        entry=real_fixture();self.assertIn('INTERNAL REVIEW',validate_entry(entry))
         for key,value in [('continuous',False),('naturalSpeed',False),('fullMovement',False),('synthetic',True)]:
             broken=copy.deepcopy(entry);broken['visualStandard']['motion'][key]=value
             with self.assertRaises(AssertionError):validate_entry(broken)
 
-    def test_exact_five_seconds_120_frames_silent_h264_contract(self):
-        for key,value in [('duration',4.99),('duration',5.5),('duration',6),('frames',119),('fps','30/1'),('audio',True),('codec','vp9'),('pixelFormat','yuv444p'),('path','media/exercise-videos/test.webm')]:
+    def test_duration_follows_complete_movement_without_a_five_second_cap(self):
+        for duration in [4.5,5.5,6.875,9.25]:
+            entry=real_fixture();entry['variants'][0].update(duration=duration,frames=round(duration*24));entry['review']['framesInspected']=round(duration*24);entry['trimDuration']=duration
+            self.assertIn('INTERNAL REVIEW',validate_entry(entry))
+        for key,value in [('duration',0),('duration',float('nan')),('duration',6.87),('frames',119),('fps','30/1'),('audio',True),('codec','vp9'),('pixelFormat','yuv444p'),('path','media/exercise-videos/test.webm')]:
             entry=real_fixture();entry['variants'][0][key]=value
-            entry['durationException']='Old broad exceptions must not bypass the exact v4.0 contract.'
             with self.assertRaises(AssertionError):validate_entry(entry)
 
     def test_ai_or_unknown_origin_cannot_pass_even_with_real_licence(self):
@@ -54,7 +55,7 @@ class VideoReviewGateTests(unittest.TestCase):
             with self.assertRaises(AssertionError):validate_entry(entry)
 
     def test_visual_rights_and_complete_frame_review_are_required(self):
-        for key,value in [('visualConsistency',False),('jointsVisible',False),('stableCamera',False),('rightsChecked',False),('framesInspected',119),('independentTrainer','certified-by-code'),('limitations','')]:
+        for key,value in [('visualConsistency',False),('jointsVisible',False),('cameraReadable',False),('noAssistance',False),('noAddedLoad',False),('rightsChecked',False),('framesInspected',164),('independentTrainer','certified-by-code'),('limitations','')]:
             entry=real_fixture();entry['review'][key]=value
             with self.assertRaises(AssertionError):validate_entry(entry)
 
@@ -72,10 +73,19 @@ class VideoReviewGateTests(unittest.TestCase):
 
     def test_owner_policy_has_no_generator_or_bulk_authorization(self):
         policy=json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())['productionPolicy']
-        self.assertEqual((policy['version'],policy['origin'],policy['tool']),('4.0','filmed','FFmpeg'))
+        self.assertEqual((policy['version'],policy['origin'],policy['tool']),('4.1','filmed','FFmpeg'))
         self.assertIs(policy['aiGenerationAllowed'],False)
-        self.assertEqual((policy['duration'],policy['fps'],policy['frames']),(5,'24/1',120))
+        self.assertEqual(policy['durationMode'],'complete-natural-movement');self.assertNotIn('duration',policy);self.assertNotIn('frames',policy)
         self.assertIn('Parallel_Bar_Dips only',policy['scope'])
+
+    def test_coverr_requires_real_free_source_and_integrated_app_rights(self):
+        for key in ['isAiGenerated','isPremium']:
+            entry=real_fixture();entry['sourceMetadataSnapshot'][key]=True
+            with self.assertRaises(AssertionError):validate_entry(entry)
+        entry=real_fixture();entry['sourceMetadataSnapshot']['defaultVariant']['renditions'][0]['isPlus']=True
+        with self.assertRaises(AssertionError):validate_entry(entry)
+        entry=real_fixture();entry['rightsReview']['useContext']='standalone-stock-resale'
+        with self.assertRaises(AssertionError):validate_entry(entry)
 
 
 class RealPreparationTests(unittest.TestCase):
@@ -84,7 +94,7 @@ class RealPreparationTests(unittest.TestCase):
         cls.temporary=tempfile.TemporaryDirectory();cls.base=Path(cls.temporary.name)
         cls.original=cls.base/'synthetic-qa-pattern-not-exercise.mp4'
         subprocess.run(['ffmpeg','-v','error','-f','lavfi','-i','testsrc2=s=96x64:r=30:d=7','-f','lavfi','-i','sine=duration=7','-c:v','libx264','-pix_fmt','yuv420p','-c:a','aac','-shortest',str(cls.original)],check=True,capture_output=True)
-        cls.plan=dict(sourceSha256=hashlib.sha256(cls.original.read_bytes()).hexdigest(),sourcePage='https://example.test/local-qa-only',licenseUrl='https://example.test/local-qa-only',origin='filmed',trimStart=1,maxEdge=480)
+        cls.plan=dict(sourceSha256=hashlib.sha256(cls.original.read_bytes()).hexdigest(),sourcePage='https://example.test/local-qa-only',licenseUrl='https://example.test/local-qa-only',origin='filmed',trimStart=1,duration=5.5,maxEdge=480)
 
     @classmethod
     def tearDownClass(cls):cls.temporary.cleanup()
@@ -96,7 +106,7 @@ class RealPreparationTests(unittest.TestCase):
             self.assertFalse(output.exists())
 
     def test_missing_interval_and_unsafe_crop_or_grade_refused_before_output(self):
-        for i,change in enumerate([dict(trimStart=3),dict(trimStart=-1),dict(trimStart=float('nan')),dict(trimStart=True),dict(maxEdge=4096),dict(crop=dict(x=0,y=0,width=100,height=64)),dict(grade=dict(saturation=.1)),dict(grade=dict(gamma=float('inf'))),dict(filters='reverse'),dict(sourcePage='javascript:alert(1)')]):
+        for i,change in enumerate([dict(trimStart=3),dict(duration=0),dict(duration=float('inf')),dict(duration=9),dict(trimStart=-1),dict(trimStart=float('nan')),dict(trimStart=True),dict(maxEdge=4096),dict(crop=dict(x=0,y=0,width=100,height=64)),dict(grade=dict(saturation=.1)),dict(grade=dict(gamma=float('inf'))),dict(filters='reverse'),dict(sourcePage='javascript:alert(1)')]):
             output=self.base/f'invalid-{i}'
             with self.assertRaises(ValueError):prepare(self.original,{**self.plan,**change},output)
             self.assertFalse(output.exists())
@@ -118,7 +128,7 @@ class RealPreparationTests(unittest.TestCase):
         self.assertEqual(hashlib.sha256(self.original.read_bytes()).hexdigest(),self.plan['sourceSha256'])
         self.assertIs(report['accepted'],False);self.assertEqual(len(report['candidates']),3)
         for candidate in report['candidates']:
-            self.assertEqual((candidate['duration'],candidate['frames'],candidate['fps']),(5,120,'24/1'))
+            self.assertEqual((candidate['duration'],candidate['frames'],candidate['fps']),(5.5,132,'24/1'))
             self.assertEqual((candidate['codec'],candidate['pixelFormat'],candidate['audio'],candidate['faststart']),('h264','yuv420p',False,True))
             self.assertGreater(candidate['ssim'],.9)
             self.assertTrue((output/f"poster-c{candidate['crf']}.jpg").exists())
@@ -136,7 +146,7 @@ class RealPreparationTests(unittest.TestCase):
         report=prepare(rotated,plan,self.base/'rotated-review')
         for candidate in report['candidates']:
             self.assertEqual((candidate['width'],candidate['height']),(64,96))
-            self.assertEqual((candidate['duration'],candidate['frames']),(5,120))
+            self.assertEqual((candidate['duration'],candidate['frames']),(5.5,132))
 
 
 if __name__=='__main__':unittest.main()

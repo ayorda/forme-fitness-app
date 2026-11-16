@@ -1,7 +1,7 @@
 """Prepare unaccepted real-footage review candidates, never publish them.
 
 python qa/prepare-real-video.py --input original.mp4 --plan review-plan.json --output /tmp/review
-Plan: sourceSha256, sourcePage, licenseUrl, origin='filmed', trimStart,
+Plan: sourceSha256, sourcePage, licenseUrl, origin='filmed', trimStart, duration,
 maxEdge (default 960), optional crop={x,y,width,height}, optional grade
 {contrast,brightness,saturation,gamma}. No preset grade or time manipulation.
 Copyright, visual and movement acceptance remain separate human checks.
@@ -28,14 +28,14 @@ def run(args):
 
 
 def prepare(original, plan, target):
-    allowed = {'sourceSha256', 'sourcePage', 'licenseUrl', 'origin', 'trimStart', 'maxEdge', 'crop', 'grade'}
+    allowed = {'sourceSha256', 'sourcePage', 'licenseUrl', 'origin', 'trimStart', 'duration', 'maxEdge', 'crop', 'grade'}
     if set(plan) - allowed:
         raise ValueError('Unsupported plan fields; no custom filters or speed changes')
     sha = hashlib.sha256(original.read_bytes()).hexdigest()
     if sha != plan['sourceSha256']:
         raise ValueError('Source SHA-256 does not match the review plan')
     if plan['origin'] != 'filmed':
-        raise ValueError('v4.0 accepts real footage only')
+        raise ValueError('Real footage only')
     for key in ['sourcePage', 'licenseUrl']:
         if not re.fullmatch(r'https://[^\s]+', plan[key]):
             raise ValueError('Public HTTPS source and licence references required')
@@ -46,9 +46,13 @@ def prepare(original, plan, target):
     if stream.get('sample_aspect_ratio', '1:1') not in ['1:1', '0:1', 'N/A']:
         raise ValueError('Nonsquare source pixels need separate reviewed normalization')
     start = plan['trimStart']
-    duration = float(stream.get('duration', source['format']['duration']))
-    if isinstance(start, bool) or not isinstance(start, (int, float)) or not math.isfinite(start) or start < 0 or start + 5 > duration + 0.000001:
-        raise ValueError('A continuous five seconds must exist in the source; no padding or speed changes')
+    source_duration = float(stream.get('duration', source['format']['duration']))
+    duration = plan['duration']
+    if isinstance(duration, bool) or not isinstance(duration, (int, float)) or not math.isfinite(duration) or duration <= 0 or abs(duration * 24 - round(duration * 24)) > .000001:
+        raise ValueError('Choose a positive duration on the 24 fps frame boundary')
+    frames = round(duration * 24)
+    if isinstance(start, bool) or not isinstance(start, (int, float)) or not math.isfinite(start) or start < 0 or start + duration > source_duration + 0.000001:
+        raise ValueError('The complete continuous interval must exist in the source; no padding or speed changes')
     edge = plan.get('maxEdge', 960)
     if type(edge) is not int or edge < 480 or edge > 1280 or edge % 2:
         raise ValueError('maxEdge must be an even integer between 480 and 1280')
@@ -84,7 +88,7 @@ def prepare(original, plan, target):
     # An existing directory is refused: do not overwrite a previous review.
     target.mkdir(parents=True, exist_ok=False)
     reference = target / 'reference.mkv'
-    run(['-ss', start, '-i', original, '-t', 5, '-map', '0:v:0', '-vf', ','.join(filters),
+    run(['-ss', start, '-i', original, '-t', duration, '-map', '0:v:0', '-vf', ','.join(filters),
          '-an', '-map_metadata', '-1', '-c:v', 'ffv1', reference])
     rows = []
     for crf in [22, 24, 26]:
@@ -93,8 +97,8 @@ def prepare(original, plan, target):
              '-profile:v', 'main', '-level', '3.1', '-pix_fmt', 'yuv420p', '-an',
              '-map_metadata', '-1', '-movflags', '+faststart', clip])
         metadata = probe(clip); video = metadata['streams'][0]
-        if len(metadata['streams']) != 1 or int(video['nb_read_frames']) != 120 or abs(float(metadata['format']['duration']) - 5) > .000001:
-            raise ValueError('Output must be exactly 5.000 seconds / 120 frames / silent')
+        if len(metadata['streams']) != 1 or int(video['nb_read_frames']) != frames or abs(float(metadata['format']['duration']) - duration) > .001:
+            raise ValueError('Output must match the reviewed continuous duration and frame count, without audio')
         data = clip.read_bytes(); boxes = []; offset = 0
         while offset < len(data):
             length, kind = struct.unpack_from('>I4s', data, offset)
@@ -108,14 +112,14 @@ def prepare(original, plan, target):
             '-f', 'null', '-'], capture_output=True, text=True, check=True)
         (target / f'ssim-c{crf}.log').write_text(comparison.stderr)
         rows.append(dict(path=clip.name, crf=crf, bytes=len(data), sha256=hashlib.sha256(data).hexdigest(),
-            duration=5, frames=120, fps=video['avg_frame_rate'], width=video['width'], height=video['height'],
+            duration=duration, frames=frames, fps=video['avg_frame_rate'], width=video['width'], height=video['height'],
             codec=video['codec_name'], pixelFormat=video['pix_fmt'], audio=False, faststart=True,
             ssim=float(re.search(r'All:([0-9.]+)', comparison.stderr).group(1))))
         run(['-i', clip, '-frames:v', 1, '-q:v', 3, '-map_metadata', '-1', target / f'poster-c{crf}.jpg'])
     report = dict(status='UNACCEPTED REVIEW CANDIDATES — NOT FOR CATALOGUE', accepted=False,
         sourceSha256=sha, sourceBytes=original.stat().st_size, plan=plan,
         filters=','.join(filters), candidates=rows,
-        limitations='Source declaration and metadata checks do not prove filming, copyright, technique or visual consistency. Inspect all 120 frames and normal-speed playback separately.')
+        limitations='Source declaration and metadata checks do not prove filming, copyright, technique or visual consistency. Inspect every output frame and normal-speed playback separately.')
     (target / 'quality.json').write_text(json.dumps(report, indent=2) + '\n')
     return report
 

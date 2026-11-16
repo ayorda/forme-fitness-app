@@ -4,6 +4,189 @@
   "entries": [
     {
       "exerciseId": "Parallel_Bar_Dips",
+      "title": "A Man Does Bar Dips",
+      "origin": "filmed",
+      "author": "Coverr",
+      "sourcePage": "https://coverr.co/videos/a-man-does-bar-dips",
+      "sourceMetadata": "https://coverr.co/videos/a-man-does-bar-dips",
+      "sourceMetadataSnapshot": {
+        "id": "QZfYwqAI6T",
+        "title": "A Man Does Bar Dips",
+        "description": "A man does bar dips in the street gym.",
+        "slug": "a-man-does-bar-dips",
+        "publishedAt": "2024-03-11T08:28:52.630Z",
+        "isPremium": false,
+        "isAiGenerated": false,
+        "contributorId": null,
+        "duration": "11.261250",
+        "fps": 24,
+        "hasAudio": false,
+        "defaultVariant": {
+          "renditions": [
+            {
+              "type": "fhd",
+              "size": 6226668,
+              "width": 1920,
+              "height": 1080,
+              "isPlus": false,
+              "url": "https://cdn.coverr.co/videos/coverr-a-man-does-bar-dips-2608/1080p.mp4",
+              "codec": "h264"
+            }
+          ]
+        }
+      },
+      "sourceFile": "https://cdn.coverr.co/videos/coverr-a-man-does-bar-dips-2608/1080p.mp4",
+      "sourceBytes": 6226668,
+      "sourceSha256": "c264868775da5a9e660212c7e165bd51e6b53a3be660b6fc24d76c2847e36a2f",
+      "license": "Coverr License",
+      "adaptationLicense": "Coverr License",
+      "licenseUrl": "https://coverr.co/license",
+      "rightsReview": {
+        "licenseCheckedOn": "2026-11-16",
+        "licenseRevision": "2026-11-04",
+        "useContext": "integrated-instructional-app",
+        "individualCreator": "Not listed by publisher; credit Coverr without inventing a person.",
+        "modelRelease": "Publisher states it holds releases for stock people; individual release not independently inspected.",
+        "restrictions": "Use as an instructional app component with original cues; no standalone stock resale/redistribution, ownership/endorsement claim, AI training or unlicensed trademarks."
+      },
+      "changes": "Continuous source interval 1.125\u20138.000 seconds, two complete natural-speed repetitions; moderate saturation/contrast/brightness/gamma correction, resized to 960x540, normalized to 24fps, H.264 compression. No crop, reverse, generated movement, interpolation, sound or added video text.",
+      "filter": "eq=saturation=0.87:contrast=1.04:brightness=-0.006:gamma=0.99,scale=960:540,setsar=1,fps=24,format=yuv420p",
+      "trimStart": 1.125,
+      "trimDuration": 6.875,
+      "durationReason": "Owner removed the fixed five-second rule and prioritized accurate complete demonstration. This continuous 6.875s interval preserves two complete repetitions and support at both ends at recorded speed.",
+      "referenceImage": {
+        "path": "media/exercises/Parallel_Bar_Dips-960.webp",
+        "sha256": "cf4e32b81cf013b7d213f4c8415b7ce07e237f3da56c0788e2e7d36137eb326b"
+      },
+      "review": {
+        "method": "All 165 final CRF24 frames inspected sequentially, start/bottom/end and compression candidates reviewed. Continuous parallel-bar support, controlled descent/press, bent knees/free feet, no assistance pad or added load.",
+        "framesInspected": 165,
+        "visualConsistency": true,
+        "jointsVisible": true,
+        "cameraReadable": true,
+        "rightsChecked": true,
+        "noAssistance": true,
+        "noAddedLoad": true,
+        "independentTrainer": "pending",
+        "limitations": "Internal visual review, not independent trainer certification or physical-phone acceptance. Outdoor setting differs from the reference gym; camera moves gently sideways. Near-side shoulder/elbow/grip remain readable; the far arm is partly occluded and feet approach the lower edge during descent. No exact joint-angle or all-use model/property-rights guarantee."
+      },
+      "variants": [
+        {
+          "path": "media/exercise-videos/parallel-bar-dips-v2.mp4",
+          "crf": 24,
+          "bytes": 642528,
+          "sha256": "2e8c901b11cc29b0cacfbbefd5ea58c7eab2326b32ae226c1c10ea5280dff910",
+          "duration": 6.875,
+          "frames": 165,
+          "fps": "24/1",
+          "width": 960,
+          "height": 540,
+          "codec": "h264",
+          "pixelFormat": "yuv420p",
+          "audio": false,
+          "faststart": true,
+          "ssim": 0.981832,
+          "encoderOptions": "libx264 -preset slow -crf 24 -profile:v main -level 3.1 -pix_fmt yuv420p -an -map_metadata -1 -movflags +faststart"
+        }
+      ],
+      "poster": {
+        "path": "media/exercise-videos/parallel-bar-dips-v2-poster.jpg",
+        "bytes": 52604,
+        "sha256": "e652c2e078f9700e1781ac54aea7c4990af66a1af259f4776d7d8ae1045ba748",
+        "width": 960,
+        "height": 540,
+        "sourceVideoSha256": "2e8c901b11cc29b0cacfbbefd5ea58c7eab2326b32ae226c1c10ea5280dff910",
+        "sourceTime": 0,
+        "description": "JPEG decoded from the actual first frame of the final MP4."
+      },
+      "visualStandard": {
+        "version": "4.1",
+        "status": "accepted-internal",
+        "reviewedOn": "2026-11-16",
+        "comparison": "qa/evidence/dips-real-v2.jpg",
+        "comparisonSha256": "9c8a32e35581b63061c7f9ddf98daee8e4cacb5b835da75186280c3681f6f12a",
+        "motion": {
+          "continuous": true,
+          "naturalSpeed": true,
+          "fullMovement": true,
+          "synthetic": false
+        },
+        "acceptanceBasis": "Owner prioritizes exercise match and full clear execution without fixed duration. Neutral clothing/black bars/muted green floor improve continuity; not claimed to be the same dark indoor scene."
+      },
+      "compression": {
+        "reference": "Lossless FFV1 after identical grade/scale/fps; aligned settb=1/24,setpts=N for SSIM.",
+        "candidates": [
+          {
+            "path": "candidate-c22.mp4",
+            "crf": 22,
+            "bytes": 820539,
+            "sha256": "692c1581d1bb8c559e0a08e7a0c6524d7ad17c1a9b4f10dbc641c73caa2a1991",
+            "duration": 6.875,
+            "frames": 165,
+            "fps": "24/1",
+            "width": 960,
+            "height": 540,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.985259
+          },
+          {
+            "path": "media/exercise-videos/parallel-bar-dips-v2.mp4",
+            "crf": 24,
+            "bytes": 642528,
+            "sha256": "2e8c901b11cc29b0cacfbbefd5ea58c7eab2326b32ae226c1c10ea5280dff910",
+            "duration": 6.875,
+            "frames": 165,
+            "fps": "24/1",
+            "width": 960,
+            "height": 540,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.981832,
+            "encoderOptions": "libx264 -preset slow -crf 24 -profile:v main -level 3.1 -pix_fmt yuv420p -an -map_metadata -1 -movflags +faststart"
+          },
+          {
+            "path": "candidate-c26.mp4",
+            "crf": 26,
+            "bytes": 508326,
+            "sha256": "57a6abd22574683064e8c6682469dd2986c023918c70d31a49aa309fc19e8a96",
+            "duration": 6.875,
+            "frames": 165,
+            "fps": "24/1",
+            "width": 960,
+            "height": 540,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.977519
+          }
+        ],
+        "selectedCrf": 24,
+        "ssim": 0.981832,
+        "vmaf": "Not measured: libvmaf unavailable."
+      }
+    }
+  ],
+  "productionPolicy": {
+    "version": "4.1",
+    "origin": "filmed",
+    "tool": "FFmpeg",
+    "aiGenerationAllowed": false,
+    "durationMode": "complete-natural-movement",
+    "fps": "24/1",
+    "audio": false,
+    "status": "first-clip-internal-review-accepted-device-review-separate",
+    "scope": "Parallel_Bar_Dips only; remaining48 deferred by owner",
+    "audit": "QA-VIDEO-REAL-V4.md"
+  },
+  "retiredEntries": [
+    {
+      "exerciseId": "Parallel_Bar_Dips",
       "title": "Dips",
       "author": "Goulart",
       "sourceMetadata": "https://wger.de/api/v2/video/64/",
@@ -92,18 +275,5 @@
         "audit": "QA-VIDEO-VISUAL-AUDIT.md"
       }
     }
-  ],
-  "productionPolicy": {
-    "version": "4.0",
-    "origin": "filmed",
-    "tool": "FFmpeg",
-    "aiGenerationAllowed": false,
-    "duration": 5,
-    "fps": "24/1",
-    "frames": 120,
-    "audio": false,
-    "status": "replacement-blocked-no-accepted-source",
-    "scope": "Parallel_Bar_Dips only; no batch additions",
-    "audit": "QA-VIDEO-REAL-V4.md"
-  }
+  ]
 }

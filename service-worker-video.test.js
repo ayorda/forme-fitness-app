@@ -3,14 +3,14 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 const URL_BASE='https://example.test/forme/';
-const clip=URL_BASE+'media/exercise-videos/parallel-bar-dips-v1.mp4';
+const clip=URL_BASE+'media/exercise-videos/parallel-bar-dips-v2.mp4';
 function setup({offline=false,cacheFailure=false,cacheOpenFailure=false,status=200}={}) {
  const stored=new Map(),legacy=new Map(),calls=[],handlers={};
- const stores=new Map([['forme-video-v0141-preview1',stored],['forme-media-v029-optimized',legacy],['unrelated-app',new Map()],['forme-video-old',new Map()]]);
+ const stores=new Map([['forme-video-v0143-dips2',stored],['forme-media-v029-optimized',legacy],['unrelated-app',new Map()],['forme-video-old',new Map()]]);
  const caches={async open(name){
   if(cacheOpenFailure)throw Error('disabled storage');
   if(!stores.has(name))stores.set(name,new Map());const data=stores.get(name);
-  return {async match(key){const value=data.get(key);return value?.clone?value.clone():value;},async put(key,value){if(cacheFailure&&name==='forme-video-v0141-preview1')throw Error('quota');data.set(key,value);},async delete(key){return data.delete(key);}};
+  return {async match(key){const value=data.get(key);return value?.clone?value.clone():value;},async put(key,value){if(cacheFailure&&name==='forme-video-v0143-dips2')throw Error('quota');data.set(key,value);},async delete(key){return data.delete(key);}};
  },async keys(){return [...stores.keys()];},async delete(name){return stores.delete(name);},async match(key){for(const data of stores.values())if(data.has(key))return data.get(key).clone();}};
  const full=()=>new Response(Uint8Array.from([0,1,2,3,4,5,6,7,8,9]),{status,headers:{'Content-Type':'video/mp4','ETag':'"v1"'}});
  const fetch=async request=>{calls.push(request);if(offline)throw Error('offline');return full();};
@@ -57,7 +57,7 @@ test('only exact approved same-origin versioned media uses the range cache',asyn
  assert.doesNotMatch(source.match(/const ASSETS = ([^;]+);/)[1],/exercise-videos/);
 });
 test('upgrade migrates the unchanged full video, preserves images and removes the retired duplicate',async()=>{
- const s=setup({offline:true}),image=URL_BASE+'media/exercises/Plank-480.webp',retired=clip.replace('.mp4','.webm');
+ const s=setup({offline:true}),image=URL_BASE+'media/exercises/Plank-480.webp',retired=URL_BASE+'media/exercise-videos/parallel-bar-dips-v1.webm';
  s.legacy.set(clip,s.full());s.legacy.set(image,new Response('unchanged image'));s.legacy.set(retired,s.full());
  await s.activate();assert.equal(s.stored.get(clip).status,200);assert.equal(s.legacy.has(clip),false);assert.equal(s.legacy.has(retired),false);assert.equal(await s.legacy.get(image).text(),'unchanged image');
  assert.equal(s.stores.has('unrelated-app'),true);assert.equal(s.stores.has('forme-video-old'),false);
@@ -70,5 +70,13 @@ test('failed migration leaves a usable old full body for offline playback',async
 });
 test('upgrade never migrates an incomplete video body',async()=>{
  const s=setup({offline:true});s.legacy.set(clip,new Response('partial',{status:206}));await s.activate();assert.equal(s.stored.size,0);
+ await assert.rejects(s.get(),/offline/);
+});
+test('replacement never serves retired bytes under the new video URL',async()=>{
+ const s=setup({offline:true}),retired=clip.replace('-v2.mp4','-v1.mp4'),image=URL_BASE+'media/exercises/Plank-480.webp';
+ s.legacy.set(retired,s.full());s.legacy.set(image,new Response('keep image'));
+ s.stores.get('forme-video-old').set(retired,s.full());
+ await s.activate();assert.equal(s.stored.has(clip),false);assert.equal(s.legacy.has(retired),false);
+ assert.equal(await s.legacy.get(image).text(),'keep image');
  await assert.rejects(s.get(),/offline/);
 });

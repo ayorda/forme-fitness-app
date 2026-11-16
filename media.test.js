@@ -34,22 +34,17 @@ test('approved local video has controls, no autoplay, source credit and an error
  context.mediaError({target:video});assert.equal(video.hidden,true);assert.equal(video.nextElementSibling.hidden,false);
 });
 
-test('AI video discloses its origin below the player and keeps the error fallback next to video',()=>{
- const video={approved:true,origin:'ai-image-to-video',generator:'wan3_0',resolution:'720p',reviewStatus:'accepted-internal',src:'media/exercise-videos/dips-ai-v1.mp4',poster:'media/exercise-videos/dips-ai-v1-poster.jpg',credit:'FORME / WAN 3.0',source:'https://higgsfield.ai/terms-of-use-agreement',license:'Higgsfield Terms of Use',licenseUrl:'https://higgsfield.ai/terms-of-use-agreement'};
+test('reviewed Coverr real footage renders with visible licence and no AI disclosure',()=>{
+ const video={approved:true,origin:'filmed',reviewStatus:'accepted-internal',src:'media/exercise-videos/dips-v2.mp4',poster:'media/exercise-videos/dips-v2-poster.jpg',width:960,height:540,credit:'Coverr',source:'https://coverr.co/videos/a-man-does-bar-dips',license:'Coverr License',licenseUrl:'https://coverr.co/license'};
  const html=context.renderVideo({id:'Parallel_Bar_Dips',name:'Test',demoVideo:video});
- assert.match(html,/<video controls playsinline preload="none"/);
- assert.match(html,/<\/video><p class="error" hidden>/);
- assert.match(html,/<p class="video-disclosure" data-media-origin="computer-generated">Компютърно генерирана демонстрация<\/p>/);
- assert.ok(html.indexOf('video-disclosure')>html.indexOf('</video>')&&html.indexOf('video-disclosure')<html.indexOf('video-cue'));
- assert.doesNotMatch(html,/CC BY-SA|autoplay|<canvas|<track/);
- for(const bad of [{reviewStatus:'pending'},{generator:'seedance_2_5'},{resolution:'1080p'},{license:'CC BY-SA 4.0'},{approved:false}])assert.doesNotMatch(context.renderVideo({name:'Test',demoVideo:{...video,...bad}}),/<video/);
- const real=context.renderVideo({name:'Test',demoVideo:{approved:true,src:'media/exercise-videos/real.mp4',credit:'Author',source:'https://example.test',license:'CC BY-SA 4.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/'}});
- assert.doesNotMatch(real,/video-disclosure|Компютърно генерирана/);
- const locale={window:{}};vm.runInNewContext(fs.readFileSync('interface-translations.js','utf8'),locale);
- for(const [language,expected] of [['bg','Компютърно генерирана демонстрация'],['en','Computer-generated exercise demonstration'],['de','Computergenerierte Übungsdemonstration']]){
-  const translated={esc:context.esc,textFor:(key,fallback)=>locale.window.FORME_INTERFACE_TRANSLATIONS.get(key,language)||fallback};
-  vm.runInNewContext(videoDefinition+';this.renderVideo=exerciseVideo;',translated);
-  assert.match(translated.renderVideo({name:'Test',demoVideo:video}),new RegExp('data-media-origin="computer-generated">'+expected+'</p>'));
+ assert.match(html,/<video controls playsinline preload="none"/);assert.match(html,/<\/video><p class="error" hidden>/);
+ assert.match(html,/Coverr License/);assert.doesNotMatch(html,/video-disclosure|computer-generated|Компютърно генерирана|autoplay|<canvas/);
+ for(const bad of [{reviewStatus:'pending'},{origin:'ai-image-to-video'},{license:'Pexels'},{licenseUrl:'https://example.test/license'},{source:'https://coverr.co.evil.test/videos/test'},{source:'https://coverr.co/videos/a-man-does-bar-dips?redirect=elsewhere'},{approved:false}])assert.doesNotMatch(context.renderVideo({name:'Test',demoVideo:{...video,...bad}}),/<video/);
+});
+test('retired AI metadata cannot bypass the real-footage player using a real licence',()=>{
+ for(const license of [{license:'CC BY-SA 4.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/'},{license:'Coverr License',licenseUrl:'https://coverr.co/license'}]){
+  const video={approved:true,origin:'ai-image-to-video',generator:'wan3_0',reviewStatus:'accepted-internal',src:'media/exercise-videos/never-published.mp4',credit:'QA',source:'https://coverr.co/videos/a-man-does-bar-dips',...license};
+  assert.doesNotMatch(context.renderVideo({name:'Test',demoVideo:video}),/<video/);
  }
 });
 
@@ -70,8 +65,8 @@ test('shipped video matches the catalogue, licensed source and immutable byte ma
  for(const entry of manifest.entries){
   const ex=available.find(ex=>ex.id===entry.exerciseId);assert.ok(ex);
   assert.equal(ex.demoVideo.source,entry.sourcePage);assert.equal(ex.demoVideo.license,entry.license);assert.equal(ex.demoVideo.licenseUrl,entry.licenseUrl);
-  assert.equal(entry.author,entry.sourceMetadataSnapshot.license_author);assert.equal(entry.sourceMetadataSnapshot.license,entry.licenseMetadataSnapshot.id);
-  assert.equal(entry.adaptationLicense,'CC BY-SA 4.0');assert.ok(entry.changes);assert.ok(entry.review.limitations);
+  assert.equal(entry.origin,'filmed');assert.equal(entry.sourceMetadataSnapshot.isAiGenerated,false);assert.equal(entry.sourceMetadataSnapshot.isPremium,false);assert.equal(entry.rightsReview.useContext,'integrated-instructional-app');
+  assert.equal(entry.adaptationLicense,'Coverr License');assert.ok(entry.changes);assert.ok(entry.review.limitations);
   for(const v of entry.variants){const bytes=fs.readFileSync(v.path);assert.equal(bytes.length,v.bytes);assert.ok(bytes.length<1024*1024);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),v.sha256);}
   assert.ok(entry.variants.some(v=>v.path===ex.demoVideo.src&&v.codec==='h264'));
   assert.equal(ex.demoVideo.poster,entry.poster.path);const poster=fs.readFileSync(entry.poster.path);assert.equal(poster.length,entry.poster.bytes);assert.equal(poster.readUInt16BE(0),0xffd8);assert.equal(crypto.createHash('sha256').update(poster).digest('hex'),entry.poster.sha256);
@@ -88,5 +83,5 @@ test('video poster accepts only local actual-frame JPEG paths and reserves undis
 test('real clip renders a licence, change notice and localized technique cue without autoplay',()=>{
  const c=vm.createContext({window:{FORME_EXERCISE_ART:{url:()=> 'placeholder'}}});vm.runInContext(fs.readFileSync('data.js','utf8'),c);
  const ex=c.window.FORME_DATA.exercises.find(ex=>ex.id==='Parallel_Bar_Dips');
- const html=context.renderVideo(ex);assert.match(html,/creativecommons\.org\/licenses\/by-sa\/4\.0/);assert.match(html,/Goulart/);assert.match(html,/Съкратено, компресирано, без звук/);assert.doesNotMatch(html,/autoplay|onerror=/);
+ const html=context.renderVideo(ex);assert.match(html,/https:\/\/coverr\.co\/license/);assert.match(html,/Coverr/);assert.match(html,/Съкратено, компресирано, без звук/);assert.doesNotMatch(html,/autoplay|onerror=/);
 });

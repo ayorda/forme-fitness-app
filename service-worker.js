@@ -1,10 +1,10 @@
-const CACHE = 'forme-mobile-v0142-ai-prep1';
+const CACHE = 'forme-mobile-v0143-dips2';
 const MEDIA_CACHE = 'forme-media-v029-optimized';
-const VIDEO_CACHE = 'forme-video-v0141-preview1';
+const VIDEO_CACHE = 'forme-video-v0143-dips2';
 // Explicit, versioned public clips only. Full bodies are cached on first playback,
 // never during installation; partial 206 responses must never enter CacheStorage.
-const VIDEO_ASSETS = ['./media/exercise-videos/parallel-bar-dips-v1.mp4', './media/exercise-videos/parallel-bar-dips-v1-poster.jpg'];
-const RETIRED_VIDEO_ASSETS = ['./media/exercise-videos/parallel-bar-dips-v1.webm'];
+const VIDEO_ASSETS = ['./media/exercise-videos/parallel-bar-dips-v2.mp4', './media/exercise-videos/parallel-bar-dips-v2-poster.jpg'];
+const RETIRED_VIDEO_ASSETS = ['./media/exercise-videos/parallel-bar-dips-v1.webm', './media/exercise-videos/parallel-bar-dips-v1.mp4', './media/exercise-videos/parallel-bar-dips-v1-poster.jpg'];
 async function migrateVideoCache() {
   let legacy;
   try { legacy = await caches.open(MEDIA_CACHE); } catch { return; }
@@ -55,7 +55,7 @@ async function videoResponse(request) {
   return new Response(body.slice(start, end + 1), {status:206, headers});
 }
 const REFRESHED_MEDIA = ['./media/foods/banana-480.webp', './media/foods/banana-960.webp', './media/foods/banana-v2-480.webp', './media/foods/banana-v2-960.webp'];
-const ASSETS = ['./', './index.html', './styles.css', './app.js?v=0142', './auth.js', './firebase-client.js', './cloud-sync.js', './access.js', './services.js', './workspaces.js', './sync-records.js', './auto-sync.js', './bootstrap.js', './pwa-register.js', './local-copies.js', './auth-config.js', './vendor/firebase-auth-13.3.0.js', './workout-audio.js', './skill-trees.js', './data.js', './exercise-art.js', './exercise-photos.js', './core.js', './food-art.js', './food-photos.js', './i18n.js', './interface-translations.js', './exercise-translations.js', './food-translations.js', './workout-translations.js', './locale-content.js', './storage-schema.js', './state-normalizer.js', './progress.js', './programs.js', './nutrition-journal.js', './backup.js', './recovery.js','./personalization.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+const ASSETS = ['./', './index.html', './styles.css', './app.js?v=0143', './auth.js', './firebase-client.js', './cloud-sync.js', './access.js', './services.js', './workspaces.js', './sync-records.js', './auto-sync.js', './bootstrap.js', './pwa-register.js', './local-copies.js', './auth-config.js', './vendor/firebase-auth-13.3.0.js', './workout-audio.js', './skill-trees.js', './data.js', './exercise-art.js', './exercise-photos.js', './core.js', './food-art.js', './food-photos.js', './i18n.js', './interface-translations.js', './exercise-translations.js', './food-translations.js', './workout-translations.js', './locale-content.js', './storage-schema.js', './state-normalizer.js', './progress.js', './programs.js', './nutrition-journal.js', './backup.js', './recovery.js','./personalization.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS.map(path => new Request(path, {cache:'reload'})))).then(() => self.skipWaiting()));
 });
