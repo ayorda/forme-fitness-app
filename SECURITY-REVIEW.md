@@ -29,3 +29,5 @@
 Преди широка аудитория остават: приемане на retention/операторския процес и отговорности, независим/по-широк client/supply-chain/hosting review, anti-abuse/квоти и реални устройства. App Check не е активиран или представян като налична защита. Преди първи Programs/Coaching запис се разширяват export/deletion/retention и се приема реалният човешки процес. Бюджет 0 €, без нови платени услуги и без промяна на production правила/административни ключове в тази задача.
 
 [PRIVACY.md](./PRIVACY.md), [MAINTENANCE.md](./MAINTENANCE.md), [ROADMAP.md](./ROADMAP.md).
+
+Актуализация v0.13.2: отделният operator helper вече независимо проверява липсата на auto при read и atomic commit; промененото състояние запазва marker-а. 26 unit/27 локални HTTP твърдения и read-only production съвместимост. Това не променя Rules score, не активира retention максимум и не приключва организационното/production приемане по 3.3.4. [Процесът за приемане](./RETENTION-PROCESS-DRAFT.md) е изрично предложение.

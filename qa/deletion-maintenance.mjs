@@ -48,6 +48,21 @@ try{
  await refused(purge({uid:conflict,apply:true,...aged,async deleteDocument(document,version){const changed=await marker(conflict,{deletedAt:{timestampValue:'2021-01-01T00:00:00Z'}});assert.notEqual(changed.body.updateTime,version);await backend.deleteDocument(document,version);}}),error=>error.status===400||error.status===409||error.status===412);
  await present(conflict);
 
+ // An orphaned automatic payload preserves the deletion barrier.
+ const automaticPath=uid=>path(uid).replace(/\/snapshot$/,'/auto');
+ async function putAuto(uid){return call(firestoreOrigin,automaticPath(uid),'PATCH',{fields:{privateFixture:{stringValue:'must-not-delete'}}});}
+ async function markerStillPresent(uid){const row=await call(firestoreOrigin,path(uid));assert.equal(row.body.fields.state.stringValue,'deleting');assertions++;}
+ async function autoStillPresent(uid){const row=await call(firestoreOrigin,automaticPath(uid));assert.equal(row.body.fields.privateFixture.stringValue,'must-not-delete');assertions++;}
+ const remains='cleanup-auto-remains-'+randomUUID();created.push(remains);await marker(remains);await putAuto(remains);
+ await refused(purge({uid:remains,apply:true,...aged}),/automatic-data-remains/);await markerStillPresent(remains);await autoStillPresent(remains);
+ const late='cleanup-auto-race-'+randomUUID();created.push(late);await marker(late);
+ await refused(purge({uid:late,apply:true,...aged,async deleteDocument(document,version){await putAuto(late);await backend.deleteDocument(document,version);}}),error=>error.status===400||error.status===409||error.status===412);
+ await markerStillPresent(late);await autoStillPresent(late);
+ await refused(purge({uid:late,apply:true,...aged}),/automatic-data-remains/);
+ // The fixture, not maintenance, removes auto; a new explicit review can pass.
+ await call(firestoreOrigin,automaticPath(late),'DELETE');
+ assert.deepEqual(await purge({uid:late,apply:true,...aged}),{eligible:true,deleted:true});assertions++;await absent(late);
+
  const realArchive='cleanup-archive-'+randomUUID();created.push(realArchive);
  await marker(realArchive,{format:{integerValue:'1'},payload:{stringValue:'must-not-delete'}});
  await refused(purge({uid:realArchive,apply:true,...aged}),/not-a-deletion-marker/);
@@ -62,5 +77,5 @@ try{
  process.stdout.write(JSON.stringify({assertions,requests,project,elapsedRetention:'simulated-only-in-test',productionRequests:0,productionDeletes:0})+'\n');
 }finally{
  // Clean only this test's exact fixture documents. Never flush the shared emulator.
- for(const uid of created){try{await call(firestoreOrigin,path(uid),'DELETE');}catch(error){if(error.status!==404)throw error;}}
+ for(const uid of created)for(const target of [path(uid).replace(/\/snapshot$/,'/auto'),path(uid)]){try{await call(firestoreOrigin,target,'DELETE');}catch(error){if(error.status!==404)throw error;}}
 }

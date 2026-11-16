@@ -40,6 +40,8 @@ async function purge({uid,apply=false,project=PROJECT,loadDocument,userExists,de
  if(typeof apply!=='boolean')throw Error('invalid-apply');
  await missingUser(userExists,uid);
  const snapshot=await loadDocument(uid);
+ if(snapshot?.autoAbsent===false)throw Error('automatic-data-remains');
+ if(snapshot?.autoAbsent!==true)throw Error('invalid-automatic-state');
  const approved=assess(snapshot?.document,uid,snapshot?.readTime,project);
  if(!apply)return {eligible:true,deleted:false};
  await missingUser(userExists,uid);
@@ -59,21 +61,27 @@ function createBackend({auth,firestore,project=PROJECT}){
    return true;
   },
   async loadDocument(uid){
-   const name=documentName(uid,project);
-   const res=await firestore.post(`/projects/${project}/databases/(default)/documents:batchGet`,{documents:[name]});
-   if(res.status!==200||!Array.isArray(res.body)||res.body.length!==1)throw Error('invalid-snapshot-response');
-   const row=res.body[0];
-   if(!row||row.missing!==undefined||row.found?.name!==name)throw Error('missing-or-wrong-document');
-   timestampNanos(row.readTime);
-   return {document:row.found,readTime:row.readTime};
+   const name=documentName(uid,project),automatic=name.replace(/\/snapshot$/,'/auto');
+   const res=await firestore.post(`/projects/${project}/databases/(default)/documents:batchGet`,{documents:[name,automatic]});
+   if(res.status!==200||!Array.isArray(res.body)||res.body.length!==2)throw Error('invalid-snapshot-response');
+   const matches=name=>res.body.filter(row=>row?.missing===name||row?.found?.name===name);
+   const rows=matches(name),autos=matches(automatic);
+   if(rows.length!==1||autos.length!==1)throw Error('invalid-snapshot-response');
+   const row=rows[0],auto=autos[0];
+   if(Object.hasOwn(row,'missing')||row.found?.name!==name)throw Error('missing-or-wrong-document');
+   timestampNanos(row.readTime);timestampNanos(auto.readTime);
+   if(Object.hasOwn(auto,'found'))throw Error('automatic-data-remains');
+   if(auto.missing!==automatic)throw Error('invalid-automatic-state');
+   return {document:row.found,readTime:row.readTime,autoAbsent:true};
   },
   async deleteDocument(name,updateTime){
-   // Commit contains one conditional deletion of the exact private snapshot only.
+   // Both conditions are atomic: exact marker version and still no auto data.
    const match=/\/users\/([A-Za-z0-9_-]{1,128})\/private\/snapshot$/.exec(name);
    if(!match||documentName(match[1],project)!==name)throw Error('wrong-document');
    timestampNanos(updateTime);
-   const res=await firestore.post(`/projects/${project}/databases/(default)/documents:commit`,{writes:[{delete:name,currentDocument:{updateTime}}]});
-   if(res.status!==200||!Array.isArray(res.body?.writeResults)||res.body.writeResults.length!==1)throw Error('delete-not-confirmed');
+   const automatic=name.replace(/\/snapshot$/,'/auto');
+   const res=await firestore.post(`/projects/${project}/databases/(default)/documents:commit`,{writes:[{verify:automatic,currentDocument:{exists:false}},{delete:name,currentDocument:{updateTime}}]});
+   if(res.status!==200||!Array.isArray(res.body?.writeResults)||res.body.writeResults.length!==2)throw Error('delete-not-confirmed');
    timestampNanos(res.body.commitTime);
   }
  };

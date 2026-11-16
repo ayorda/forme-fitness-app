@@ -146,3 +146,5 @@ CI `deletion-maintenance` стартира само локални Auth/Firestor
 [LOCAL-DATA-CONTROLS.md](./LOCAL-DATA-CONTROLS.md) описва allowlist, lifecycle и ограниченията; [QA-LOCAL-COPIES.md](./QA-LOCAL-COPIES.md) съдържа доказателства и ръчен iPhone тест. Нов потребителски ключ се добавя съгласувано в backup, workspace, auto, износ и cleanup. Device prefs/SDK storage остават извън cleanup; не заменяй scoped премахването с raw localStorage.clear().
 
 За промяна в cloud restore lifecycle използвай [QA-SAFE-RESTORE.md](./QA-SAFE-RESTORE.md). `safetyExport()` подготвя файл, `confirmSafetyExport(receipt)` се извиква само след успешен старт на download, `cancelRestore()` отменя и pending preparation. Receipt е краткоживееща object identity в паметта, не credential/право за Firestore. Човешкото потвърждение за запазен файл остава задължително.
+
+Operator maintenance v0.13.2 изисква snapshot + auto absence proof и atomic verify/delete. Не заменяй двете условия с отделни unguarded REST delete заявки. Виж [QA-MAINTENANCE.md](./QA-MAINTENANCE.md) и [RETENTION-PROCESS-DRAFT.md](./RETENTION-PROCESS-DRAFT.md).

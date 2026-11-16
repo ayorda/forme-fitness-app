@@ -1,4 +1,37 @@
-# FORME v0.9.2 — безопасно операторско почистване
+# FORME v0.13.2 — операторско почистване с проверка на auto
+
+Фаза 3, задача 3.3.4, **ПОДГОТВЕНО И ТЕХНИЧЕСКИ ПРОВЕРЕНО; ОПЕРАТОРСКОТО ПРИЕМАНЕ ОСТАВА**. Общият план е 13/20, 7 незавършени задачи плюс финално приемане.
+
+## Разширение след въвеждане на auto
+
+Предишният helper разглеждаше само snapshot marker-а. Новият регресионен тест първо възпроизведе разрешено почистване при оставащ auto; v0.13.2 вече го отказва. Клиентският deletion flow от v0.12.0 премахва auto атомично, но операторският helper проверява това независимо, без да предполага предишен успешен клиент.
+
+BatchGet чете точно snapshot + auto за същия UID/проект, приема двата реда в произволен ред, валидира readTimes и използва marker readTime за минималния срок. Не приема липсващ/неясен auto резултат като липса. Apply повторно проверява Auth и използва един atomic commit с `verify auto exists:false` + `delete marker updateTime`. Появил се auto/променен marker отменят целия commit. Няма fallback или автоматично изтриване на auto.
+
+## Текущи доказателства
+
+- **26 unit теста** (20 предишни +6 нови): dry-run/apply, времена, UID/проект, exact schemas, auto presence/unknown, unordered batch rows, malformed/foreign/contradictory auto, two-operation acknowledgement и precondition без retry.
+- **27 HTTP/Emulator твърдения** (18 предишни +9 нови), 58 действителни loopback заявки: оставащ auto пази marker-а; появил се auto непосредствено преди commit отказва без частично изтриване; след отделно fixture почистване нов изричен преглед успява. Auto съдържанието не се премахва от helper-а.
+- Изминалият срок е симулиран само в локалната test wrapper чрез server readTime +3h. Няма твърдение за реално изчакани два часа или възможност за подмяна на часовник в production CLI.
+- **Production read-only:** фиксиран `(default)`, STANDARD/FIRESTORE_NATIVE, `europe-west3`, freeTier:true; lookup на случаен несъществуващ UID и batchGet на неговите два точни несъществуващи пътя. Валидни server readTimes, missing marker отказан; **0 production записи/изтривания**. Това не е положително production cleanup приемане.
+- Пълен app/model набор: **816 теста**, 36 production JS parse проверки плюс отделно syntax на operator `.cjs` и QA `.mjs`. Клиентските Auth/auto/cloud данни/Rules и SDK са непроменени от тази поправка; UI версията/кешът се обновяват последователно.
+
+Проведено успешно: 816/816 app/model теста, 36 production parse + operator/QA syntax; 26 unit/27 HTTP checks. BG/EN/DE × две теми × 320/390/768/1280 =24 guest privacy изгледа без overflow/page errors, плюс локален safety download/cleanup и офлайн privacy/home/services/account. Не е проведен нов физически iPhone/Android или destructive production тест.
+
+Повтаряне само локално:
+
+```sh
+node --test test.js *.test.js
+npx -y firebase-tools@15.36.0 emulators:exec --only auth,firestore --project demo-forme-sync "node qa/deletion-maintenance.mjs"
+```
+
+QA кодът допуска само demo проекта и loopback портовете, чисти само собствените точни fixture пътища и не изтрива общата база. Не стартирай втори emulator на заети портове. Клиентските Rules се проверяват отделно от operator admin transport.
+
+Предложението за действителен процес и критериите за приемане са в [RETENTION-PROCESS-DRAFT.md](./RETENTION-PROCESS-DRAFT.md). Максимален retention срок и cleanup график още няма. [MAINTENANCE.md](./MAINTENANCE.md), [PRIVACY.md](./PRIVACY.md).
+
+---
+
+## Исторически резултати — FORME v0.9.2 — безопасно операторско почистване
 
 Фаза 3, **3.3 — частично изпълнена**. Този етап укрепва съществуващия инструмент за минималните маркери след изтриване и добавя повторима проверка на реалните HTTP операции. Не променя постоянния вход, дневниците, гост режима, Firestore правилата/индексите или плащанията. Общият обхват остава **11/20 завършени основни задачи**, 9 незавършени плюс финално приемане.
 

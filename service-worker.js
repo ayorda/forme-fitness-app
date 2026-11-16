@@ -1,4 +1,4 @@
-const CACHE = 'forme-mobile-v0131-safety1';
+const CACHE = 'forme-mobile-v0132-maintenance1';
 const MEDIA_CACHE = 'forme-media-v029-optimized';
 const REFRESHED_MEDIA = ['./media/foods/banana-480.webp', './media/foods/banana-960.webp', './media/foods/banana-v2-480.webp', './media/foods/banana-v2-960.webp'];
 const ASSETS = ['./', './index.html', './styles.css', './app.js', './auth.js', './firebase-client.js', './cloud-sync.js', './access.js', './services.js', './workspaces.js', './sync-records.js', './auto-sync.js', './bootstrap.js', './local-copies.js', './auth-config.js', './vendor/firebase-auth-13.3.0.js', './workout-audio.js', './skill-trees.js', './data.js', './exercise-art.js', './exercise-photos.js', './core.js', './food-art.js', './food-photos.js', './i18n.js', './interface-translations.js', './exercise-translations.js', './food-translations.js', './workout-translations.js', './locale-content.js', './storage-schema.js', './state-normalizer.js', './progress.js', './programs.js', './nutrition-journal.js', './backup.js', './recovery.js','./personalization.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
