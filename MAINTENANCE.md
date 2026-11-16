@@ -39,3 +39,5 @@ node maintenance/purge-deletion-marker.cjs --uid UID_FROM_CONSOLE --apply
 Виж [QA-PRIVACY.md](./QA-PRIVACY.md) и [ROADMAP.md](./ROADMAP.md).
 
 Актуализация v0.12.0: [автоматичният режим](./AUTO-SYNC-ARCHITECTURE.md) добавя отделен `private/auto` и локални акаунтни пространства. При изтриване auto се премахва атомично с marker-а на legacy snapshot, преди Auth. Стар клиент не може да запише marker, ако auto остава. Износът е за активния акаунт/гост; локалните namespaces/копия не се изтриват от Auth. Свали JSON преди изтриване на акаунт, а всички локални копия се чистят от настройките на сайта. Future Programs/Coaching записи още не се създават и изискват отделен lifecycle преди активиране. Новата дву-устройствена проверка е в [QA-AUTO-SYNC.md](./QA-AUTO-SYNC.md); вече приетият базов iPhone вход остава приет.
+
+Локалните копия във v0.13.0 се управляват отделно чрез [локалния панел](./LOCAL-DATA-CONTROLS.md). Той не изпълнява този операторски инструмент, не премахва облачния marker и не въвежда максимален retention срок.

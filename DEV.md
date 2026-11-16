@@ -14,6 +14,7 @@
 | `maintenance/purge-deletion-marker.cjs` | Операторска проверка/условно почистване с CLI OAuth; не е част от клиентския код и не се изпълнява автоматично. |
 | `personalization.js` | Доброволни локални предпочитания, детерминистични ограничения за план, рецепти/пазарски списък; архивна валидация в backup.js остава независима. |
 | `index.html` | Обвивка: странична лента, горна лента, навигация, мета данни, `<script>` редове |
+| `local-copies.js` | Износ/почистване само на неактивни локални копия със safety файл, guards и явен partial резултат; без cloud/Auth API. |
 | `app.js` | Всички екрани, тренировъчен плеър и таймер, localStorage, i18n извиквания |
 | `core.js` | Чисти функции без DOM: калории по грамаж, филтри, часовник (тестват се директно) |
 | `data.js` | Каталози: 49 упражнения, 6 тренировки, 30 храни + програми |
@@ -139,3 +140,7 @@ CI `deletion-maintenance` стартира само локални Auth/Firestor
 `bootstrap.js` изчаква съществуващия Auth и предоставя общия модел и `workspaces.js` facade; `app.js` използва този facade за потребителските данни. Нов код трябва да получава това storage, вместо да пише директно `window.localStorage`, за да не смесва акаунти. `sync-records.js` дефинира разрешените record видове/merge/tombstones, `auto-sync.js` координира offline source/baseline, Web Locks, official onSnapshot/transactions и отложено прилагане. Дневниците и dataStore се преизграждат без page reload при безопасно получаване. Auth persistence/SDK App името се запазват.
 
 Договорът/ограниченията са в [AUTO-SYNC-ARCHITECTURE.md](./AUTO-SYNC-ARCHITECTURE.md), тестовете в [QA-AUTO-SYNC.md](./QA-AUTO-SYNC.md). Не изпълнявай flush-ващия rules QA едновременно с browser fixtures.
+
+## Неактивни локални копия — v0.13.0
+
+[LOCAL-DATA-CONTROLS.md](./LOCAL-DATA-CONTROLS.md) описва allowlist, lifecycle и ограниченията; [QA-LOCAL-COPIES.md](./QA-LOCAL-COPIES.md) съдържа доказателства и ръчен iPhone тест. Нов потребителски ключ се добавя съгласувано в backup, workspace, auto, износ и cleanup. Device prefs/SDK storage остават извън cleanup; не заменяй scoped премахването с raw localStorage.clear().

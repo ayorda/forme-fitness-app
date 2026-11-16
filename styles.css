@@ -595,3 +595,5 @@
 .privacy-delete-button:disabled{cursor:not-allowed}
 
 .services-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px}.services-cards .panel{margin:0;min-width:0}
+
+.local-copy-card{margin:16px 0}.local-copy-confirm{border-top:1px solid var(--line);padding-top:16px}.local-copy-confirm .account-actions{margin-top:16px}

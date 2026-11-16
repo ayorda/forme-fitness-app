@@ -14,3 +14,5 @@
 - See [DEV.md](./DEV.md) for structure, [QA-AUDIO.md](./QA-AUDIO.md) for the audio lifecycle, and [ROADMAP.md](./ROADMAP.md) for priorities and blockers.
 
 - The owner explicitly chose automatic per-record synchronization for 3.2. Preserve that goal; manual snapshots are an advanced backup tool. Use the account workspace storage supplied by bootstrap for user data; direct global localStorage writes can mix accounts. Keep device preferences local, preserve legacy/guest data and tombstones, and include private/auto in atomic account deletion. 3.2 remains partial until real two-device acceptance.
+
+- Keep local-copy cleanup scoped to inactive known account data. It must preserve the current account, guest originals, SDK/session data and cloud records, require an exact safety export and separate confirmation, and retain paused/barrier guards. Extend the cleanup allowlist/QA if new user-data keys are added. It is not a general clear-all or secure-erase control.
