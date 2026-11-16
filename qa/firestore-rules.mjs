@@ -122,4 +122,25 @@ expect(await atomicAutoErase(other),403);expect(await atomicAutoErase(autoOwner)
 expect(await call('/'+autoPath,'GET',autoOwner),403);expect(await call('/'+autoPath,'GET',autoRecent),404);expect(await write({},autoOwner,['createdAt','updatedAt'],autoPath),403);
 expect(await call('/'+markerPath,'GET',autoRecent),200);expect(await erase(autoRecent,{},['deletedAt'],markerPath),200); // safe retry when auto already absent
 
+// Adversarial review: malformed recency, cross-role identity, atomic batch
+// failure and collection-group queries. Synthetic JWTs are emulator-only.
+const auditUid='audit-owner',auditOwner=jwt(auditUid),auditRecent=jwt(auditUid,true,0),auditPath='users/'+auditUid+'/private/snapshot',auditAuto='users/'+auditUid+'/private/auto';
+for(const auth_time of [Math.floor(Date.now()/1000)+3600,true,-1,null])expect(await erase(jwt(auditUid,true,0,{auth_time}),{},['deletedAt'],auditPath),403);
+expect(await call('/'+auditAuto,'GET',jwt(auditUid,false,-3600)),403);
+expect(await erase(autoRecent,{},['deletedAt'],autoPath),403); // marker is never a valid auto payload
+expect(await write({},auditOwner,['createdAt','updatedAt'],auditPath),200);
+const auditSaved=await call('/'+auditPath,'GET',auditOwner);
+expect(await atomicAuditEraseAndRecreate(),403);
+async function atomicAuditEraseAndRecreate(){return call(':commit','POST',auditRecent,{writes:[
+ {update:{name:'projects/'+project+'/databases/(default)/documents/'+auditPath,fields:{format:num(2),state:str('deleting')}},updateTransforms:[{fieldPath:'deletedAt',setToServerValue:'REQUEST_TIME'}]},
+ {update:{name:'projects/'+project+'/databases/(default)/documents/'+auditAuto,fields},updateTransforms:['createdAt','updatedAt'].map(fieldPath=>({fieldPath,setToServerValue:'REQUEST_TIME'}))}
+]});}
+expect(await call(':runQuery','POST',auditOwner,{structuredQuery:{from:[{collectionId:'private',allDescendants:true}]}}),403);
+expect(await call(':commit','POST',auditOwner,{writes:[
+ {update:{name:'projects/'+project+'/databases/(default)/documents/'+auditPath,fields:{...fields,revision:num(2),createdAt:auditSaved.body.fields.createdAt}},updateTransforms:[{fieldPath:'updatedAt',setToServerValue:'REQUEST_TIME'}]},
+ {update:{name:'projects/'+project+'/databases/(default)/documents/users/foreign-audit-owner/private/snapshot',fields},updateTransforms:['createdAt','updatedAt'].map(fieldPath=>({fieldPath,setToServerValue:'REQUEST_TIME'}))}
+]}),403);
+const intact=await call('/'+auditPath,'GET',auditOwner);expect(intact,200);assert.equal(intact.body.fields.revision.integerValue,'1');assertions++;
+expect(await call('/'+autoPath,'GET',jwt(auditUid,true,0,{formeAccess:{schema:1,proUntil:until},formeTrainer:{schema:1,validUntil:until}})),403);
+
 process.stdout.write(JSON.stringify({assertions,project,productionRequests:0})+'\n');

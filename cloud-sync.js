@@ -31,10 +31,11 @@ const token=value=>value?`${value.revision}|${value.sha256}|${value.createdAt.se
 function errorCode(error){return error?.syncCode||(error?.code==='aborted'?'conflict':['permission-denied','unauthenticated'].includes(error?.code)?'permission':['unavailable','deadline-exceeded','auth/network-request-failed'].includes(error?.code)?'offline':error?.code==='resource-exhausted'?'quota':'request');}
 function create(account,storage,backup,options={}){
  let uid=account?.get().user?.uid||null,verified=account?.get().user?.emailVerified===true,generation=0,busy=false,checked=false,remote=null,remoteText=null,permit=null,problem=null,localSummary=null,remoteSummary=null,db=null,sdk=null;
- const listeners=new Set(),online=options.isOnline||(()=>root.navigator?.onLine!==false);
- const get=()=>{reconcileIdentity();return {busy,checked,exists:!!remote,revision:remote?.revision||0,updatedAt:remote?.updatedAt?.toMillis?.()||null,summary:remoteSummary?{...remoteSummary}:null,localSummary:localSummary?{...localSummary}:null,deleting:isDeletionMarker(remote),canRestore:!!permit,problem};};
+ const listeners=new Set(),online=options.isOnline||(()=>root.navigator?.onLine!==false);let preparedSafety=null,safetyGeneration=0;
+ const get=()=>{reconcileIdentity();return {busy,checked,exists:!!remote,revision:remote?.revision||0,updatedAt:remote?.updatedAt?.toMillis?.()||null,summary:remoteSummary?{...remoteSummary}:null,localSummary:localSummary?{...localSummary}:null,deleting:isDeletionMarker(remote),canRestore:!!permit&&!busy,problem};};
  const emit=()=>{for(const listener of listeners)try{listener(get());}catch{}};
- function clear(){checked=false;remote=null;remoteText=null;permit=null;localSummary=null;remoteSummary=null;}
+ function cancelSafety(){safetyGeneration++;preparedSafety=null;permit=null;}
+ function clear(){checked=false;remote=null;remoteText=null;cancelSafety();localSummary=null;remoteSummary=null;}
  // Check the current identity even before observer delivery. A verification
  // cycle invalidates pending requests and restore permits for the same UID.
  function reconcileIdentity(){const user=account?.get().user,next=user?.uid||null,nextVerified=user?.emailVerified===true;if(next===uid&&nextVerified===verified)return false;uid=next;verified=nextVerified;generation++;clear();problem=null;return true;}
@@ -71,8 +72,25 @@ function create(account,storage,backup,options={}){
   });},
   download(){try{reconcileIdentity();assertActive(generation);if(!checked||!remoteText)throw fail('check');return {ok:true,text:remoteText};}catch(error){return {ok:false,code:errorCode(error)};}},
   async safetyExport(){
-   reconcileIdentity();const stamp=generation;try{assertActive(stamp);if(!checked||!remoteText)throw fail('check');const text=backup.exportData(storage),fingerprint=await digest(encode(canonicalText(backup,text)));assertActive(stamp);permit={fingerprint,token:token(remote)};emit();return {ok:true,text};}catch(error){return {ok:false,code:errorCode(error)};}
+   if(busy)return {ok:false,code:'busy'};
+   reconcileIdentity();cancelSafety();const stamp=generation,epoch=safetyGeneration;busy=true;emit();
+   try{
+    assertActive(stamp);if(!checked||!remoteText)throw fail('check');
+    const text=backup.exportData(storage),fingerprint=await digest(encode(canonicalText(backup,text)));assertActive(stamp);
+    if(epoch!==safetyGeneration)throw fail('changed');
+    const receipt=Object.freeze({});preparedSafety={receipt,stamp,fingerprint,token:token(remote)};return {ok:true,text,receipt};
+   }catch(error){cancelSafety();return {ok:false,code:errorCode(error)};}finally{busy=false;emit();}
   },
+  // The UI acknowledges this exact preparation only after initiating download.
+  // A separate user checkbox still confirms that the file was actually saved.
+  confirmSafetyExport(receipt){
+   try{
+    reconcileIdentity();if(busy)throw fail('busy');assertActive(generation);
+    if(!preparedSafety||preparedSafety.receipt!==receipt||preparedSafety.stamp!==generation||!checked||preparedSafety.token!==token(remote))throw fail('backup');
+    permit={fingerprint:preparedSafety.fingerprint,token:preparedSafety.token};preparedSafety=null;emit();return {ok:true,code:'backupSaved'};
+   }catch(error){cancelSafety();emit();return {ok:false,code:errorCode(error)};}
+  },
+  cancelRestore(){cancelSafety();emit();return {ok:true,code:'cancelled'};},
   restore(consent){return run(async(ref,stamp)=>{
    if(consent!==true)throw fail('consent');if(!checked||!remoteText||!permit)throw fail('backup');
    const saved=await read(ref,stamp);if(token(saved)!==permit.token)throw fail('conflict');
