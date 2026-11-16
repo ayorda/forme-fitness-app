@@ -1,5 +1,7 @@
 # FORME — Тренировки и хранене
 
+**Актуална стратегия v4.0 (16.11.2026):** реално заснети видеа + FFmpeg, точно 5,000 s; без WAN/Higgsfield/AI генератори. Работи се само по Parallel Bar Dips. Няма приет заместител след преглед на 14 нови кандидата; активният стар 10,5 s MP4/постер са непроменени. [Точен отчет и оставащи стъпки](./QA-VIDEO-REAL-V4.md).
+
 [![FORME final verification](https://github.com/ayorda/forme-fitness-app/actions/workflows/final-check.yml/badge.svg)](https://github.com/ayorda/forme-fitness-app/actions/workflows/final-check.yml)
 
 **Безплатно, мобилно PWA приложение на български, английски и немски** за калистеника, йога, мобилност и ориентиране в храненето.
