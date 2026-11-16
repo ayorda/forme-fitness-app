@@ -103,7 +103,38 @@ try:
                 assert layout['scroll']<=width,(lang,theme,width,layout)
                 report['views'].append(dict(language=lang,theme=theme,width=width))
         wait(page,'navigator.serviceWorker.controller!==null')
+        video_requests=[]
+        page.on('request',lambda request:video_requests.append(request.url) if '/media/exercise-videos/' in request.url else None)
+        page.goto(BASE+'#exercises',wait_until='domcontentloaded')
+        page.locator('[data-action=exercise-detail][data-id=Parallel_Bar_Dips]').first.click()
+        video=page.locator('.exercise-video video');video.wait_for()
+        assert video.get_attribute('preload')=='none' and video.get_attribute('autoplay') is None
+        page.wait_for_timeout(300);assert not video_requests,video_requests
+        for width in [320,1280]:
+            page.set_viewport_size({'width':width,'height':900})
+            page.evaluate('()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))')
+            assert page.evaluate('document.documentElement.scrollWidth')<=width
+        assert 'Goulart' in page.locator('.exercise-video').inner_text()
+        assert page.locator('.exercise-video a[href="https://creativecommons.org/licenses/by-sa/4.0/"]').count()==1
+        assert page.locator('.video-cue').inner_text()
+        video.click(position={'x':26,'y':video.bounding_box()['height']-48});wait(page,'document.querySelector("video").currentTime>.25')
+        assert abs(video.evaluate('v=>v.duration')-10.5)<.1
+        video.evaluate('v=>{v.currentTime=7;return v.play()}');wait(page,'document.querySelector("video").currentTime>7.1')
+        video.evaluate('v=>v.pause()')
+        partial=page.evaluate("async()=>{const r=await fetch('media/exercise-videos/parallel-bar-dips-v1.mp4',{headers:{Range:'bytes=2-7'}});return {status:r.status,range:r.headers.get('Content-Range'),length:(await r.arrayBuffer()).byteLength}}")
+        assert partial==dict(status=206,range='bytes 2-7/744949',length=6),partial
+        # Decode the alternate shipped codec too; the public player uses MP4 for iOS.
+        video.evaluate("v=>{v.src='media/exercise-videos/parallel-bar-dips-v1.webm';return v.play()}")
+        wait(page,'document.querySelector("video").currentTime>.25');video.evaluate('v=>v.pause()');clean(page)
+        page.locator('[data-action=close-modal]').click()
+        page.goto(BASE+'#home',wait_until='domcontentloaded')
         ctx.set_offline(True);page.reload(wait_until='domcontentloaded');page.locator('.hero').wait_for()
+        page.goto(BASE+'#exercises',wait_until='domcontentloaded')
+        page.locator('[data-action=exercise-detail][data-id=Parallel_Bar_Dips]').first.click()
+        offline_video=page.locator('.exercise-video video');offline_video.click(position={'x':26,'y':offline_video.bounding_box()['height']-48});wait(page,'document.querySelector("video").currentTime>.25')
+        page.locator('.exercise-video video').evaluate('v=>{v.currentTime=5;return v.play()}');wait(page,'document.querySelector("video").currentTime>5.1')
+        clean(page);page.locator('[data-action=close-modal]').click()
+        report.setdefault('video',[]).append(dict(language=lang,noPreload=True,mp4AndWebmDecode=True,range206=True,offlineReloadAndSeek=True,widths=[320,1280]))
         for route in ['privacy','services','account']:
             page.goto(BASE+'#'+route,wait_until='domcontentloaded');page.locator('#app').locator('h1,h2').first.wait_for();clean(page)
         report['guest'].append(dict(language=lang,routes=True,offline=True));ctx.set_offline(False);ctx.close();print(lang,'guest/offline passed',flush=True)
@@ -153,7 +184,7 @@ try:
     fallback=fallback_ctx.new_page();fallback.goto(BASE+'#exercises',wait_until='domcontentloaded');fallback.locator('.photo-visual.media-pending').first.wait_for()
     fallback.goto(BASE+'#nutrition',wait_until='domcontentloaded');fallback.locator('.food-visual.media-pending').first.wait_for();clean(fallback)
     fallback.goto(BASE+'#exercises',wait_until='domcontentloaded')
-    fallback.evaluate("()=>{FORME_DATA.exercises.find(x=>x.id==='Plank').demoVideo={approved:true,src:'media/exercise-videos/qa-missing.mp4',credit:'Local test fixture',source:'https://example.invalid/source'};}")
+    fallback.evaluate("()=>{FORME_DATA.exercises.find(x=>x.id==='Plank').demoVideo={approved:true,src:'media/exercise-videos/qa-missing.mp4',credit:'Local test fixture',source:'https://example.invalid/source',license:'CC BY-SA 4.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/'};}")
     fallback.locator('[data-action=exercise-detail][data-id=Plank]').first.click();fallback.locator('video').wait_for();fallback.locator('video').evaluate('(v)=>v.load()')
     wait(fallback,"document.querySelector('video').hidden&&!document.querySelector('video').nextElementSibling.hidden");clean(fallback)
     fallback.locator('[data-action=close-modal]').click()

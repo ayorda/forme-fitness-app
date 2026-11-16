@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "checkedOn": "2026-11-16",
+  "entries": [
+    {
+      "exerciseId": "Parallel_Bar_Dips",
+      "title": "Dips",
+      "author": "Goulart",
+      "sourceMetadata": "https://wger.de/api/v2/video/64/",
+      "sourceFile": "https://wger.de/media/exercise-video/194/d039ec90-474d-47a9-a3ad-bf0b00828c82.MP4",
+      "sourceBytes": 5424928,
+      "sourceSha256": "050ca4eddec7fcad452ed29d50bd891a8e897806e62b46a970fc3ada02a4cf50",
+      "sourceMetadataSnapshot": {
+        "id": 64,
+        "uuid": "d039ec90-474d-47a9-a3ad-bf0b00828c82",
+        "exercise": 194,
+        "exercise_uuid": "09dd3e3c-e53a-4e2c-a2e3-645d334f53e2",
+        "video": "https://wger.de/media/exercise-video/194/d039ec90-474d-47a9-a3ad-bf0b00828c82.MP4",
+        "is_main": false,
+        "size": 5424928,
+        "duration": "12.75",
+        "width": 1920,
+        "height": 1080,
+        "codec": "h264",
+        "codec_long": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "license": 2,
+        "license_title": "",
+        "license_object_url": "",
+        "license_author": "Goulart",
+        "license_author_url": "",
+        "license_derivative_source_url": "",
+        "author_history": [
+          "Goulart"
+        ]
+      },
+      "licenseMetadata": "https://wger.de/api/v2/license/2/",
+      "licenseMetadataSnapshot": {
+        "id": 2,
+        "full_name": "Creative Commons Attribution Share Alike 4",
+        "short_name": "CC-BY-SA 4",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+      },
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "adaptationLicense": "CC BY-SA 4.0",
+      "changes": "First 10.5 seconds, resized to 854x480, 24 fps at original speed; re-encoded, audio and metadata removed. No generated or interpolated movement.",
+      "filter": "scale=854:480,fps=24",
+      "trimStart": 0,
+      "trimDuration": 10.5,
+      "review": {
+        "method": "Original and compressed footage visually inspected across the complete clip, including start/support, controlled descent and press, free feet, no assistance pad or added load.",
+        "limitations": "Not an independent qualified-trainer certification or a real-phone playback acceptance; publisher metadata supplies the copyright licence, not a separate model release. No affiliation or endorsement implied."
+      },
+      "variants": [
+        {
+          "path": "media/exercise-videos/parallel-bar-dips-v1.mp4",
+          "bytes": 744949,
+          "sha256": "e23dd1326c87bad75cd78f4ce6ffc9d352047765a24938d436bd1ee38646549b",
+          "codec": "h264",
+          "pixelFormat": "yuv420p",
+          "width": 854,
+          "height": 480,
+          "fps": "24/1",
+          "duration": 10.5,
+          "audio": false,
+          "encoderOptions": "libx264 -preset slow -crf 30 -profile:v main -level 3.1 -pix_fmt yuv420p -movflags +faststart"
+        },
+        {
+          "path": "media/exercise-videos/parallel-bar-dips-v1.webm",
+          "bytes": 789453,
+          "sha256": "bb57a6f1b74de16c41f14596d913fa310c168739d27c22456bcbaf2c63ea10a4",
+          "codec": "vp9",
+          "pixelFormat": "yuv420p",
+          "width": 854,
+          "height": 480,
+          "fps": "24/1",
+          "duration": 10.5,
+          "audio": false,
+          "encoderOptions": "libvpx-vp9 -b:v 0 -crf 44 -row-mt 1"
+        }
+      ],
+      "sourcePage": "https://wger.de/en/exercise/194/view/"
+    }
+  ]
+}

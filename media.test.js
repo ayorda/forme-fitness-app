@@ -28,7 +28,7 @@ test('unapproved or unsafe video paths remain clearly pending',()=>{
  }
 });
 test('approved local video has controls, no autoplay, source credit and an error fallback',()=>{
- const html=context.renderVideo({name:'Test',demoVideo:{approved:true,src:'media/exercise-videos/pullup.mp4',credit:'Author',source:'https://example.test/source'}});
+ const html=context.renderVideo({name:'Test',demoVideo:{approved:true,src:'media/exercise-videos/pullup.mp4',credit:'Author',source:'https://example.test/source',license:'CC BY-SA 4.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/'}});
  assert.match(html,/<video controls playsinline preload="none"/);assert.doesNotMatch(html,/autoplay/);assert.match(html,/Author/);
  assert.doesNotMatch(html,/onerror=/);const video={tagName:'VIDEO',dataset:{mediaFallback:'video'},hidden:false,nextElementSibling:{hidden:true}};
  context.mediaError({target:video});assert.equal(video.hidden,true);assert.equal(video.nextElementSibling.hidden,false);
@@ -39,4 +39,26 @@ test('delegated image failures reveal the matching food or exercise fallback',()
 });
 test('unmarked and unrelated media errors do not hide arbitrary content',()=>{
  for(const target of [undefined,{tagName:'IMG',dataset:{},hidden:false},{tagName:'VIDEO',dataset:{mediaFallback:'food'},hidden:false},{tagName:'DIV',dataset:{mediaFallback:'exercise'},hidden:false}]){context.mediaError({target});if(target)assert.equal(target.hidden,false);}
+});
+
+test('shipped video matches the catalogue, licensed source and immutable byte manifest',()=>{
+ const crypto=require('node:crypto');
+ const c=vm.createContext({window:{FORME_EXERCISE_ART:{url:()=> 'placeholder'}}});
+ vm.runInContext(fs.readFileSync('data.js','utf8'),c);
+ const manifest=JSON.parse(fs.readFileSync('media/exercise-videos/manifest.json','utf8'));
+ const available=c.window.FORME_DATA.exercises.filter(ex=>ex.demoVideo?.approved);
+ assert.equal(available.length,manifest.entries.length);assert.equal(available.length,1);
+ for(const entry of manifest.entries){
+  const ex=available.find(ex=>ex.id===entry.exerciseId);assert.ok(ex);
+  assert.equal(ex.demoVideo.source,entry.sourcePage);assert.equal(ex.demoVideo.license,entry.license);assert.equal(ex.demoVideo.licenseUrl,entry.licenseUrl);
+  assert.equal(entry.author,entry.sourceMetadataSnapshot.license_author);assert.equal(entry.sourceMetadataSnapshot.license,entry.licenseMetadataSnapshot.id);
+  assert.equal(entry.adaptationLicense,'CC BY-SA 4.0');assert.ok(entry.changes);assert.ok(entry.review.limitations);
+  for(const v of entry.variants){const bytes=fs.readFileSync(v.path);assert.equal(bytes.length,v.bytes);assert.ok(bytes.length<1024*1024);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),v.sha256);}
+  assert.ok(entry.variants.some(v=>v.path===ex.demoVideo.src&&v.codec==='h264'));
+ }
+});
+test('real clip renders a licence, change notice and localized technique cue without autoplay',()=>{
+ const c=vm.createContext({window:{FORME_EXERCISE_ART:{url:()=> 'placeholder'}}});vm.runInContext(fs.readFileSync('data.js','utf8'),c);
+ const ex=c.window.FORME_DATA.exercises.find(ex=>ex.id==='Parallel_Bar_Dips');
+ const html=context.renderVideo(ex);assert.match(html,/creativecommons\.org\/licenses\/by-sa\/4\.0/);assert.match(html,/Goulart/);assert.match(html,/Съкратено, компресирано, без звук/);assert.doesNotMatch(html,/autoplay|onerror=/);
 });

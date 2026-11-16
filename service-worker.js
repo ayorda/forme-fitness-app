@@ -1,7 +1,40 @@
-const CACHE = 'forme-mobile-v0133-policy2';
+const CACHE = 'forme-mobile-v0140-video1';
 const MEDIA_CACHE = 'forme-media-v029-optimized';
+// Explicit, versioned public clips only. Full bodies are cached on first playback,
+// never during installation; partial 206 responses must never enter CacheStorage.
+const VIDEO_ASSETS = ['./media/exercise-videos/parallel-bar-dips-v1.mp4', './media/exercise-videos/parallel-bar-dips-v1.webm'];
+async function videoResponse(request) {
+  let cache, full;
+  const key = request.url;
+  try { cache = await caches.open(MEDIA_CACHE); full = await cache.match(key); } catch {}
+  if (!full || full.status !== 200) {
+    const headers = new Headers(request.headers);
+    headers.delete('Range'); headers.delete('If-Range');
+    full = await fetch(new Request(request, {headers}));
+    if (!full || full.status !== 200) return full;
+    try { if (cache) await cache.put(key, full.clone()); } catch { /* Playback survives quota/cache failure. */ }
+  }
+  const range = request.headers.get('Range');
+  const ifRange = request.headers.get('If-Range');
+  if (!range || (ifRange && (ifRange.startsWith('W/') || (ifRange !== full.headers.get('ETag') && ifRange !== full.headers.get('Last-Modified'))))) return full;
+  const body = await full.arrayBuffer(), length = body.byteLength;
+  const match = /^bytes=(\d*)-(\d*)$/.exec(range);
+  let start = match?.[1] ? Number(match[1]) : 0;
+  let end = match?.[2] ? Number(match[2]) : length - 1;
+  if (match && !match[1] && match[2]) { start = Math.max(0, length - end); end = length - 1; }
+  if (!match || (!match[1] && !match[2]) || !Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start >= length || start > end || (!match[1] && Number(match[2]) === 0)) {
+    return new Response(null, {status:416, headers:{'Content-Range':`bytes */${length}`}});
+  }
+  end = Math.min(end, length - 1);
+  const headers = new Headers(full.headers);
+  headers.delete('Content-Encoding');
+  headers.set('Accept-Ranges', 'bytes');
+  headers.set('Content-Range', `bytes ${start}-${end}/${length}`);
+  headers.set('Content-Length', String(end - start + 1));
+  return new Response(body.slice(start, end + 1), {status:206, headers});
+}
 const REFRESHED_MEDIA = ['./media/foods/banana-480.webp', './media/foods/banana-960.webp', './media/foods/banana-v2-480.webp', './media/foods/banana-v2-960.webp'];
-const ASSETS = ['./', './index.html', './styles.css', './app.js?v=0133', './auth.js', './firebase-client.js', './cloud-sync.js', './access.js', './services.js', './workspaces.js', './sync-records.js', './auto-sync.js', './bootstrap.js', './pwa-register.js', './local-copies.js', './auth-config.js', './vendor/firebase-auth-13.3.0.js', './workout-audio.js', './skill-trees.js', './data.js', './exercise-art.js', './exercise-photos.js', './core.js', './food-art.js', './food-photos.js', './i18n.js', './interface-translations.js', './exercise-translations.js', './food-translations.js', './workout-translations.js', './locale-content.js', './storage-schema.js', './state-normalizer.js', './progress.js', './programs.js', './nutrition-journal.js', './backup.js', './recovery.js','./personalization.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+const ASSETS = ['./', './index.html', './styles.css', './app.js?v=0140', './auth.js', './firebase-client.js', './cloud-sync.js', './access.js', './services.js', './workspaces.js', './sync-records.js', './auto-sync.js', './bootstrap.js', './pwa-register.js', './local-copies.js', './auth-config.js', './vendor/firebase-auth-13.3.0.js', './workout-audio.js', './skill-trees.js', './data.js', './exercise-art.js', './exercise-photos.js', './core.js', './food-art.js', './food-photos.js', './i18n.js', './interface-translations.js', './exercise-translations.js', './food-translations.js', './workout-translations.js', './locale-content.js', './storage-schema.js', './state-normalizer.js', './progress.js', './programs.js', './nutrition-journal.js', './backup.js', './recovery.js','./personalization.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS.map(path => new Request(path, {cache:'reload'})))).then(() => self.skipWaiting()));
 });
@@ -14,6 +47,10 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   if (event.request.method !== 'GET' || url.origin !== self.location.origin) return;
+  if (VIDEO_ASSETS.some(path => new URL(path, self.registration.scope).href === url.href)) {
+    event.respondWith(videoResponse(event.request));
+    return;
+  }
   if (event.request.mode === 'navigate') {
     event.respondWith(fetch(event.request).then(async res => (res && res.ok === false) ? ((await caches.match('./index.html')) || res) : res).catch(() => caches.match('./index.html')));
     return;
