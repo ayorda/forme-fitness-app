@@ -97,7 +97,10 @@ try:
         for theme in ['light','dark']:
             page.evaluate('(theme)=>document.documentElement.setAttribute("data-theme",theme)',theme)
             for width in [320,390,768,1280]:
-                page.set_viewport_size({'width':width,'height':900});assert page.evaluate('document.documentElement.scrollWidth')<=width
+                page.set_viewport_size({'width':width,'height':900})
+                page.evaluate('()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))')
+                layout=page.evaluate('()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,overflow:[...document.querySelectorAll("body *")].filter(el=>el.getBoundingClientRect().right>innerWidth+1).slice(0,8).map(el=>({tag:el.tagName,cls:el.className,right:Math.round(el.getBoundingClientRect().right)}))})')
+                assert layout['scroll']<=width,(lang,theme,width,layout)
                 report['views'].append(dict(language=lang,theme=theme,width=width))
         wait(page,'navigator.serviceWorker.controller!==null')
         ctx.set_offline(True);page.reload(wait_until='domcontentloaded');page.locator('.hero').wait_for()
