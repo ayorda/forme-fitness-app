@@ -132,6 +132,23 @@ try:
         video.click(position={'x':26,'y':video.bounding_box()['height']-48});wait(page,'document.querySelector("video").currentTime>.25&&!document.querySelector("video").ended')
         assert video.evaluate('v=>v.currentTime<2');video.evaluate('v=>v.pause()');clean(page)
         page.locator('[data-action=close-modal]').click()
+        # Metadata-only UI fixture: no candidate is approved or played here.
+        fixture=dict(approved=True,origin='ai-image-to-video',generator='wan3_0',resolution='720p',reviewStatus='accepted-internal',src='media/exercise-videos/qa-not-published.mp4',width=960,height=720,credit='LOCAL QA FIXTURE',source='https://higgsfield.ai/terms-of-use-agreement',license='Higgsfield Terms of Use',licenseUrl='https://higgsfield.ai/terms-of-use-agreement')
+        page.evaluate('(video)=>{const e=FORME_DATA.exercises.find(e=>e.id==="Parallel_Bar_Dips");window.qaOriginalDemo=e.demoVideo;e.demoVideo=video}',fixture)
+        page.locator('[data-action=exercise-detail][data-id=Parallel_Bar_Dips]').first.click()
+        disclosure=page.locator('.video-disclosure');disclosure.wait_for()
+        expected={'bg':'Компютърно генерирана демонстрация','en':'Computer-generated exercise demonstration','de':'Computergenerierte Übungsdemonstration'}[lang]
+        assert disclosure.inner_text()==expected and disclosure.is_visible()
+        geometry=disclosure.evaluate('el=>{const v=el.parentElement.querySelector("video"),r=el.getBoundingClientRect(),b=v.getBoundingClientRect();return {gap:r.top-b.bottom,font:parseFloat(getComputedStyle(el).fontSize),position:getComputedStyle(el).position,paused:v.paused}}')
+        assert 0<=geometry['gap']<30 and geometry['font']>=12 and geometry['position']=='static' and geometry['paused'],geometry
+        bad={**fixture,'reviewStatus':'pending'}
+        clean(page);page.locator('[data-action=close-modal]').click()
+        page.evaluate('(video)=>FORME_DATA.exercises.find(e=>e.id==="Parallel_Bar_Dips").demoVideo=video',bad)
+        page.locator('[data-action=exercise-detail][data-id=Parallel_Bar_Dips]').first.click()
+        assert page.locator('.exercise-video video').count()==0
+        clean(page);page.locator('[data-action=close-modal]').click()
+        page.evaluate('()=>{FORME_DATA.exercises.find(e=>e.id==="Parallel_Bar_Dips").demoVideo=window.qaOriginalDemo;delete window.qaOriginalDemo}')
+        report.setdefault('aiDisclosureFixture',[]).append(dict(language=lang,translated=True,visibleBelowPlayer=True,unapprovedRefused=True,metadataOnlyNotActualVideoAcceptance=True))
         page.goto(BASE+'#home',wait_until='domcontentloaded')
         ctx.set_offline(True);page.reload(wait_until='domcontentloaded');page.locator('.hero').wait_for()
         page.goto(BASE+'#exercises',wait_until='domcontentloaded')

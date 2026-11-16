@@ -92,5 +92,18 @@
         "audit": "QA-VIDEO-VISUAL-AUDIT.md"
       }
     }
-  ]
+  ],
+  "generationPolicy": {
+    "version": "2.0",
+    "origin": "ai-image-to-video",
+    "model": "wan3_0",
+    "resolution": "720p",
+    "duration": 5,
+    "fps": "24/1",
+    "frames": 120,
+    "generate_audio": false,
+    "disclosureKey": "exercises.videoGenerated",
+    "status": "preparation-only-no-accepted-ai-clip",
+    "generationPausedByOwner": true
+  }
 }

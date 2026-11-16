@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "status": "paused-preparation-only",
+  "exerciseId": "Parallel_Bar_Dips",
+  "referenceImage": {
+    "path": "media/exercises/Parallel_Bar_Dips-960.webp",
+    "sha256": "cf4e32b81cf013b7d213f4c8415b7ce07e237f3da56c0788e2e7d36137eb326b"
+  },
+  "selectedModel": {
+    "id": "wan3_0",
+    "resolution": "720p",
+    "duration": 5,
+    "generate_audio": false
+  },
+  "attempts": [
+    {
+      "model": "seedance_2_5",
+      "jobId": "602be71b-c98a-4f9a-8f32-12d0ed00287e",
+      "status": "failed-no-output-before-owner-wan-selection",
+      "providerReason": "Not supplied"
+    },
+    {
+      "model": "wan3_0",
+      "jobId": "cf8bbe0a-2cce-4e6f-b8ba-d3e527f27bcd",
+      "status": "generated-rejected",
+      "sourceSha256": "5a796c99c0bf2349bb75d8f1f3fd6971ac1799456ba3c7cb5bc8d1b3a895ced4",
+      "probe": {
+        "bytes": 4965713,
+        "width": 1174,
+        "height": 782,
+        "fps": "30/1",
+        "frames": 150,
+        "duration": 5.0,
+        "codec": "h264",
+        "audio": false,
+        "providerAigcSha256": "e0475eb41e771cf79d66720e0246d200448780604cc9440b4d9c31c9d31dd60c"
+      },
+      "review": {
+        "framesInspected": 120,
+        "method": "All ten 12-frame sheets from the 24fps normalized clip",
+        "result": "Rejected: camera/framing follows the athlete; high-position headroom is insufficient. Not independently certified."
+      },
+      "compression": [
+        {
+          "crf": 23,
+          "bytes": 543937,
+          "sha256": "01682c7070f512de71994ab073cfcf018d441c2f3315af255bf7fa63939056cc",
+          "ssim": 0.989486,
+          "width": 1080,
+          "height": 720,
+          "fps": "24/1",
+          "frames": 120,
+          "duration": 5,
+          "providerTagsPreserved": [
+            "AIGC"
+          ]
+        },
+        {
+          "crf": 26,
+          "bytes": 359761,
+          "sha256": "534a4e8a6663a490e8c0c6a10ef78a1dd3c77d06ea039d8e0cbccb958288932f",
+          "ssim": 0.986386,
+          "width": 1080,
+          "height": 720,
+          "fps": "24/1",
+          "frames": 120,
+          "duration": 5,
+          "providerTagsPreserved": [
+            "AIGC"
+          ]
+        },
+        {
+          "crf": 29,
+          "bytes": 248203,
+          "sha256": "68babb570e6aaa2ffbc8f11786b5162f3c4d42cc04691b01d9c0c276a05146b7",
+          "ssim": 0.981713,
+          "width": 1080,
+          "height": 720,
+          "fps": "24/1",
+          "frames": 120,
+          "duration": 5,
+          "providerTagsPreserved": [
+            "AIGC"
+          ]
+        }
+      ]
+    },
+    {
+      "model": "wan3_0",
+      "jobId": "a5e3cbf4-2a15-4bd1-9799-2411fb7166ba",
+      "status": "generated-rejected-early",
+      "sourceSha256": "0f8d707d8d0f82a959fc05f134c3a3817f72883a8ce660cae0145fc1028a8f5c",
+      "probe": {
+        "bytes": 3931630,
+        "width": 1108,
+        "height": 832,
+        "fps": "30/1",
+        "frames": 150,
+        "duration": 5.0,
+        "codec": "h264",
+        "audio": false,
+        "providerAigcSha256": "ad328a8f53461176fdcc6a4a706303e51be34cfb0f03dd0f7047a07a0869e6e3"
+      },
+      "review": {
+        "method": "Sequential overview plus bottom/final full frames; rejected before complete frame-by-frame acceptance",
+        "result": "Head cropped in high support; requested complete top-bottom-top sequence not convincingly demonstrated. No full 120-frame signoff claimed."
+      }
+    }
+  ],
+  "acceptedAiClips": 0,
+  "activePublicVideo": "unchanged licensed-real-footage v1 (10.5s)",
+  "ownerDecision": "Stop generation; publish tested preparation only. No further jobs or bulk48.",
+  "proposedThirdJobSubmitted": false,
+  "comparison": {
+    "path": "qa/evidence/ai-dips-review-v2.jpg",
+    "bytes": 295521,
+    "sha256": "eb4e7a49c7b2b82cfbaac5deaa5f1eace4541656913b559801ef18074384cc46"
+  },
+  "physicalDeviceAndIndependentTrainerAcceptance": "pending"
+}

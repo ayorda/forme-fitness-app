@@ -34,6 +34,25 @@ test('approved local video has controls, no autoplay, source credit and an error
  context.mediaError({target:video});assert.equal(video.hidden,true);assert.equal(video.nextElementSibling.hidden,false);
 });
 
+test('AI video discloses its origin below the player and keeps the error fallback next to video',()=>{
+ const video={approved:true,origin:'ai-image-to-video',generator:'wan3_0',resolution:'720p',reviewStatus:'accepted-internal',src:'media/exercise-videos/dips-ai-v1.mp4',poster:'media/exercise-videos/dips-ai-v1-poster.jpg',credit:'FORME / WAN 3.0',source:'https://higgsfield.ai/terms-of-use-agreement',license:'Higgsfield Terms of Use',licenseUrl:'https://higgsfield.ai/terms-of-use-agreement'};
+ const html=context.renderVideo({id:'Parallel_Bar_Dips',name:'Test',demoVideo:video});
+ assert.match(html,/<video controls playsinline preload="none"/);
+ assert.match(html,/<\/video><p class="error" hidden>/);
+ assert.match(html,/<p class="video-disclosure" data-media-origin="computer-generated">Компютърно генерирана демонстрация<\/p>/);
+ assert.ok(html.indexOf('video-disclosure')>html.indexOf('</video>')&&html.indexOf('video-disclosure')<html.indexOf('video-cue'));
+ assert.doesNotMatch(html,/CC BY-SA|autoplay|<canvas|<track/);
+ for(const bad of [{reviewStatus:'pending'},{generator:'seedance_2_5'},{resolution:'1080p'},{license:'CC BY-SA 4.0'},{approved:false}])assert.doesNotMatch(context.renderVideo({name:'Test',demoVideo:{...video,...bad}}),/<video/);
+ const real=context.renderVideo({name:'Test',demoVideo:{approved:true,src:'media/exercise-videos/real.mp4',credit:'Author',source:'https://example.test',license:'CC BY-SA 4.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/'}});
+ assert.doesNotMatch(real,/video-disclosure|Компютърно генерирана/);
+ const locale={window:{}};vm.runInNewContext(fs.readFileSync('interface-translations.js','utf8'),locale);
+ for(const [language,expected] of [['bg','Компютърно генерирана демонстрация'],['en','Computer-generated exercise demonstration'],['de','Computergenerierte Übungsdemonstration']]){
+  const translated={esc:context.esc,textFor:(key,fallback)=>locale.window.FORME_INTERFACE_TRANSLATIONS.get(key,language)||fallback};
+  vm.runInNewContext(videoDefinition+';this.renderVideo=exerciseVideo;',translated);
+  assert.match(translated.renderVideo({name:'Test',demoVideo:video}),new RegExp('data-media-origin="computer-generated">'+expected+'</p>'));
+ }
+});
+
 test('delegated image failures reveal the matching food or exercise fallback',()=>{
  for(const kind of ['food','exercise']){const picture={hidden:false},changes=[];const visual={classList:{add:name=>changes.push(name)}};const target={tagName:'IMG',dataset:{mediaFallback:kind},closest:selector=>selector==='picture'?picture:selector===(kind==='food'?'.food-visual':'.photo-visual')?visual:null};context.mediaError({target});assert.equal(picture.hidden,true);assert.deepEqual(changes,['media-pending']);}
 });
