@@ -6,3 +6,6 @@ firestore-debug.log
 ui-debug.log
 database-debug.log
 pubsub-debug.log
+
+# Local/CI browser fixtures and evidence, never application data
+qa-results/

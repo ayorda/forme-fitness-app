@@ -47,7 +47,8 @@ test('installation caches the app and activation removes only old FORME caches',
   assert.equal(media.has('https://example.test/media/foods/banana-v2-960.webp'),false);
   assert.equal(media.has('https://example.test/media/foods/apple-480.webp'),true);
   const cache=[...a.stored.entries()].find(([name])=>name.startsWith('forme-mobile-'))[1];
-  for(const asset of ['./index.html','./app.js','./data.js','./styles.css','./food-photos.js','./i18n.js','./interface-translations.js','./exercise-translations.js','./food-translations.js','./workout-translations.js','./locale-content.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);
+  const appUrl='./'+fs.readFileSync('index.html','utf8').match(/<script src="(app\.js\?v=\d+)"/)[1];
+  for(const asset of ['./index.html',appUrl,'./data.js','./styles.css','./food-photos.js','./i18n.js','./interface-translations.js','./exercise-translations.js','./food-translations.js','./workout-translations.js','./locale-content.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);
 });
 
 test('offline navigation opens the saved app and external requests are left alone',async()=>{

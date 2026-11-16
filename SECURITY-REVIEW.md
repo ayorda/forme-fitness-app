@@ -1,4 +1,4 @@
-# FORME v0.13.1 — ограничен технически преглед на защитата
+# FORME v0.13.3 — ограничен технически преглед на защитата
 
 Базата е main `4bb1fc856a92a1c941fc5a0387a5c2695165b7a0` (v0.13.0); поправката е v0.13.1. Това е преглед на наличния код и локални adversarial/SDK проверки, не независима сертификация, пълен penetration test или финално правно приемане. 3.3 остава **3/6 технически подготвени**; петата подстъпка за общ review е започната, не обявена за окончателно завършена. Общият план е 13/20.
 
@@ -16,7 +16,7 @@
 | Account deletion | Recent Auth, auto + snapshot marker атомично преди Auth deletion; fresh marker необходим за auto delete; marker + пресъздаден auto се отказват. | Операторско почистване, минимален UID/време остатък, липса на максимален срок. Без разрушителен production тест. |
 | Local copies | Отделени UID/guest, точен safety export/consent, guards, Web Lock, отказ/partial/retry; текущите Auth/guest/cloud се пазят. | Некриптиран споделен браузър не е vault. localStorage не е многоключова транзакция; технически guards и други копия остават. |
 | Imports/DOM | Позволени ключове/типове/граници; ограничено декомпресиране, размер/SHA-256/архивна схема. `esc`/textContent при лични имена, бележки и email; няма eval/динамично изпълнение на архиви. | SHA-256 не е автентичност/криптиране. Schema/Rollback не заменят запазен файл; същият origin с изпълним зловреден код има достъп до browser данните. |
-| SDK/cache | Pinned SDK + source/license hashes в регресионния набор. Service Worker пази same-origin GET; Firebase API/POST не се кешират. | Доверява се на GitHub Pages origin/публикувания код и доставчиците; HTTP security headers/CSP не са одитирани като отделна завършена защита. |
+| SDK/cache | Pinned SDK + source/license hashes в регресионния набор. Service Worker пази same-origin GET; Firebase API/POST не се кешират. | Доверява се на GitHub Pages origin/публикувания код и доставчиците; Meta CSP е приложена и проверена във v0.13.3; липсващите server headers/frame-ancestors и независимият преглед остават. |
 
 Оценката на Rules по използвания Firebase auditor checklist е [SECURITY-RULES-AUDIT.json](./SECURITY-RULES-AUDIT.json): **4/5**, с ограничения за shared quota и непрозрачния owner payload. Това не е оценка 4/5 за целия продукт. Не е установен обход към чужди данни в проверените сценарии; липсата на установен обход не доказва липса на всички уязвимости.
 
@@ -31,3 +31,5 @@
 [PRIVACY.md](./PRIVACY.md), [MAINTENANCE.md](./MAINTENANCE.md), [ROADMAP.md](./ROADMAP.md).
 
 Актуализация v0.13.2: отделният operator helper вече независимо проверява липсата на auto при read и atomic commit; промененото състояние запазва marker-а. 26 unit/27 локални HTTP твърдения и read-only production съвместимост. Това не променя Rules score, не активира retention максимум и не приключва организационното/production приемане по 3.3.4. [Процесът за приемане](./RETENTION-PROCESS-DRAFT.md) е изрично предложение.
+
+Актуализация v0.13.3 към 3.3.5: ранна default-deny meta CSP с точни Firebase origins, външна PWA регистрация, capture media fallback и versioned app/precaching за upgrade от стар SW. Отделната browser-security CI задача проверява реално блокирани probes, 3 езика/24 изгледа/offline, официални LOCAL SDK flows за Auth/auto/manual/delete и плеър/audio lifecycle. Браузърният bypass е false; local test HTML добавя само 2 loopback connect origins, production ги няма. Няма нови grants, платени услуги или приемане на операторски срокове. 825 unit/model теста/37 production parse; [обхват и ограничения](./BROWSER-SECURITY.md), [QA](./QA-BROWSER-SECURITY.md). Общото/независимо приемане и физическите устройства остават; 3.3 още е 3/6 технически, whole scope13/20.

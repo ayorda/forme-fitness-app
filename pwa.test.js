@@ -6,7 +6,8 @@ const sw = fs.readFileSync('service-worker.js','utf8');
 const manifest = JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));
 test('HTML links install manifest and registers service worker', () => {
   assert.match(html, /rel="manifest" href="manifest\.webmanifest"/);
-  assert.match(html, /navigator\.serviceWorker\.register\('\.\/service-worker\.js'\)/);
+  assert.match(html, /<script src="pwa-register\.js"><\/script>/);
+  assert.match(fs.readFileSync('pwa-register.js','utf8'), /serviceWorker\.register\('\.\/service-worker\.js'\)/);
   assert.match(sw, /caches\.open/);
   assert.match(sw, /new Request\(path, \{cache:'reload'\}\)/);
 });
@@ -34,7 +35,7 @@ test('every app module stays cached offline and viewed media is saved for reuse'
  const artPos=html.indexOf('<script src="exercise-art.js"></script>');
  const dataPos=html.indexOf('<script src="data.js"></script>');
  assert.ok(artPos>=0&&artPos<dataPos);
-  assert.ok(sw.includes('forme-mobile-v0132-maintenance1'));
+  assert.ok(sw.includes('forme-mobile-v0133-policy1'));
  assert.ok(sw.includes('exercise-art.js'));
  assert.ok(sw.includes('progress.js'));
  assert.ok(sw.includes('programs.js'));

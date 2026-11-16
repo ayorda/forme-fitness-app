@@ -148,3 +148,7 @@ CI `deletion-maintenance` стартира само локални Auth/Firestor
 За промяна в cloud restore lifecycle използвай [QA-SAFE-RESTORE.md](./QA-SAFE-RESTORE.md). `safetyExport()` подготвя файл, `confirmSafetyExport(receipt)` се извиква само след успешен старт на download, `cancelRestore()` отменя и pending preparation. Receipt е краткоживееща object identity в паметта, не credential/право за Firestore. Човешкото потвърждение за запазен файл остава задължително.
 
 Operator maintenance v0.13.2 изисква snapshot + auto absence proof и atomic verify/delete. Не заменяй двете условия с отделни unguarded REST delete заявки. Виж [QA-MAINTENANCE.md](./QA-MAINTENANCE.md) и [RETENTION-PROCESS-DRAFT.md](./RETENTION-PROCESS-DRAFT.md).
+
+## Browser policy / runtime QA — v0.13.3
+
+[BROWSER-SECURITY.md](./BROWSER-SECURITY.md) описва разрешените ресурси и ограниченията. Не добавяй inline event/script код или eval изключение, за да заобиколиш политиката. Нов собствен модул влиза в HTML/SW/parse; нов външен origin изисква изричен преглед. Media error използва capture listener и data-media-fallback marker. `qa/csp-browser.py` се изпълнява само срещу local demo Auth/Firestore; отделната CI задача инсталира pinned Playwright от `qa/requirements-browser.txt`. За локалния system Chromium задай FORME_CHROMIUM_EXECUTABLE; CSP bypass остава false. [QA-BROWSER-SECURITY.md](./QA-BROWSER-SECURITY.md).

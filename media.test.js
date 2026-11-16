@@ -5,9 +5,10 @@ const vm=require('node:vm');
 
 const source=fs.readFileSync('app.js','utf8');
 const definition=source.split('\n').find(line=>line.startsWith('const image='));
+const errorDefinition=source.split('\n').find(line=>line.startsWith('function handleMediaError('));
 const videoDefinition=source.split('\n').find(line=>line.startsWith('function exerciseVideo('));
 const context=vm.createContext({window:{FORME_EXERCISE_PHOTOS:{get:id=>id==='Test'?{origin:'ai',small:'media/exercises/Test-480.webp',large:'media/exercises/Test-960.webp'}:null}},esc:s=>String(s).replaceAll('&','&amp;').replaceAll('"','&quot;'),textFor:(_key,fallback)=>fallback});
-vm.runInContext(definition+'\n'+videoDefinition+'\nthis.renderImage=image;this.renderVideo=exerciseVideo;',context);
+vm.runInContext(definition+'\n'+videoDefinition+'\n'+errorDefinition+'\nthis.mediaError=handleMediaError;this.renderImage=image;this.renderVideo=exerciseVideo;',context);
 
 test('missing media shows a local placeholder without a broken image',()=>{
   assert.match(context.renderImage({id:'Missing',name:'Missing'}),/Изображението предстои/);
@@ -19,7 +20,7 @@ test('AI image uses responsive WebP and an honest error fallback',()=>{
   assert.match(html,/Test-480.webp 480w, media\/exercises\/Test-960.webp 960w/);
   assert.match(html,/loading="lazy"/);
   assert.match(html,/AI визуализация/);
-  assert.match(html,/closest\('picture'\).hidden=true/);
+  assert.match(html,/data-media-fallback="exercise"/);assert.doesNotMatch(html,/onerror=/);
 });
 test('unapproved or unsafe video paths remain clearly pending',()=>{
  for(const video of [undefined,{approved:false,src:'media/exercise-videos/pullup.mp4',credit:'Author',source:'https://example.test'}, {approved:true,src:'https://example.test/video.mp4',credit:'Author',source:'https://example.test'}, {approved:true,src:'media/exercise-videos/../other.mp4',credit:'Author',source:'https://example.test'}, {approved:true,src:'media/exercise-videos/pullup.mp4',credit:'Author',source:'javascript:alert(1)'}]){
@@ -29,6 +30,13 @@ test('unapproved or unsafe video paths remain clearly pending',()=>{
 test('approved local video has controls, no autoplay, source credit and an error fallback',()=>{
  const html=context.renderVideo({name:'Test',demoVideo:{approved:true,src:'media/exercise-videos/pullup.mp4',credit:'Author',source:'https://example.test/source'}});
  assert.match(html,/<video controls playsinline preload="none"/);assert.doesNotMatch(html,/autoplay/);assert.match(html,/Author/);
- const handler=html.match(/onerror="([^"]+)"/)[1];const video={hidden:false,nextElementSibling:{hidden:true}};
- Function(handler).call(video);assert.equal(video.hidden,true);assert.equal(video.nextElementSibling.hidden,false);
+ assert.doesNotMatch(html,/onerror=/);const video={tagName:'VIDEO',dataset:{mediaFallback:'video'},hidden:false,nextElementSibling:{hidden:true}};
+ context.mediaError({target:video});assert.equal(video.hidden,true);assert.equal(video.nextElementSibling.hidden,false);
+});
+
+test('delegated image failures reveal the matching food or exercise fallback',()=>{
+ for(const kind of ['food','exercise']){const picture={hidden:false},changes=[];const visual={classList:{add:name=>changes.push(name)}};const target={tagName:'IMG',dataset:{mediaFallback:kind},closest:selector=>selector==='picture'?picture:selector===(kind==='food'?'.food-visual':'.photo-visual')?visual:null};context.mediaError({target});assert.equal(picture.hidden,true);assert.deepEqual(changes,['media-pending']);}
+});
+test('unmarked and unrelated media errors do not hide arbitrary content',()=>{
+ for(const target of [undefined,{tagName:'IMG',dataset:{},hidden:false},{tagName:'VIDEO',dataset:{mediaFallback:'food'},hidden:false},{tagName:'DIV',dataset:{mediaFallback:'exercise'},hidden:false}]){context.mediaError({target});if(target)assert.equal(target.hidden,false);}
 });

@@ -2,7 +2,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 
-const docs=['README.md','DEV.md','DEMO.md','QA-MOBILE.md','QA-ACCESSIBILITY.md','QA-PWA-UPDATE.md','QA-RESILIENCE.md','MEDIA-DELIVERY-CHECKLIST.md','CONTENT-AUDIT.md','ROADMAP.md','QA-AUDIO.md','QA-JOURNAL.md','QA-SKILLS.md','QA-RECOVERY.md','QA-PERSONALIZATION.md','MASTER-ACCEPTANCE.md','ACCOUNT-SETUP.md','ACCOUNT-ARCHITECTURE.md','QA-ACCOUNTS.md','ACCOUNT-LIVE-TEST.md','PAYMENTS-PLAN.md','QA-MIGRATION.md','CLOUD-ARCHITECTURE.md','QA-SYNC.md','PRIVACY.md','MAINTENANCE.md','QA-PRIVACY.md','QA-PERSISTENT-LOGIN.md','QA-MAINTENANCE.md','ACCESS-ARCHITECTURE.md','QA-ACCESS.md','SERVICES-ARCHITECTURE.md','QA-SERVICES.md','AUTO-SYNC-ARCHITECTURE.md','QA-AUTO-SYNC.md','LOCAL-DATA-CONTROLS.md','QA-LOCAL-COPIES.md','QA-SAFE-RESTORE.md','SECURITY-REVIEW.md','RETENTION-PROCESS-DRAFT.md'];
+const docs=['README.md','DEV.md','DEMO.md','QA-MOBILE.md','QA-ACCESSIBILITY.md','QA-PWA-UPDATE.md','QA-RESILIENCE.md','MEDIA-DELIVERY-CHECKLIST.md','CONTENT-AUDIT.md','ROADMAP.md','QA-AUDIO.md','QA-JOURNAL.md','QA-SKILLS.md','QA-RECOVERY.md','QA-PERSONALIZATION.md','MASTER-ACCEPTANCE.md','ACCOUNT-SETUP.md','ACCOUNT-ARCHITECTURE.md','QA-ACCOUNTS.md','ACCOUNT-LIVE-TEST.md','PAYMENTS-PLAN.md','QA-MIGRATION.md','CLOUD-ARCHITECTURE.md','QA-SYNC.md','PRIVACY.md','MAINTENANCE.md','QA-PRIVACY.md','QA-PERSISTENT-LOGIN.md','QA-MAINTENANCE.md','ACCESS-ARCHITECTURE.md','QA-ACCESS.md','SERVICES-ARCHITECTURE.md','QA-SERVICES.md','AUTO-SYNC-ARCHITECTURE.md','QA-AUTO-SYNC.md','LOCAL-DATA-CONTROLS.md','QA-LOCAL-COPIES.md','QA-SAFE-RESTORE.md','SECURITY-REVIEW.md','RETENTION-PROCESS-DRAFT.md','BROWSER-SECURITY.md','QA-BROWSER-SECURITY.md'];
 
 function localRefs(html){
  return [...html.matchAll(/(?:src|href)="([^"]+)"/g)]
@@ -21,7 +21,7 @@ test('every local link in the documentation resolves to a real file',()=>{
    if(/^(https?:|mailto:|#)/.test(target))continue;
    const path=target.replace(/^\.\//,'').split('#')[0];
    if(!path)continue;
-   assert.ok(fs.existsSync(path),`${doc}: broken local link -> ${target}`);
+   assert.ok(fs.existsSync(path.split('?')[0]),`${doc}: broken local link -> ${target}`);
    checked++;
   }
  }
@@ -33,7 +33,7 @@ test('the app shell references only files that exist',()=>{
  const refs=localRefs(html);
  assert.ok(refs.length>=20,'sanity: the shell links its assets');
  for(const path of refs)
-  assert.ok(fs.existsSync(path),`index.html references a missing file -> ${path}`);
+  assert.ok(fs.existsSync(path.split('?')[0]),`index.html references a missing file -> ${path}`);
 });
 
 test('every shell asset is listed in the service worker for offline use',()=>{
@@ -46,5 +46,5 @@ test('every shell asset is listed in the service worker for offline use',()=>{
  for(const path of localRefs(html))
   assert.ok(assets.has(path),`index.html asset "${path}" is not cached for offline use`);
  for(const path of assets)
-  assert.ok(fs.existsSync(path),`service worker caches a missing file -> ${path}`);
+  assert.ok(fs.existsSync(path.split('?')[0]),`service worker caches a missing file -> ${path}`);
 });
