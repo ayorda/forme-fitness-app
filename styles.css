@@ -597,3 +597,6 @@
 .services-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px}.services-cards .panel{margin:0;min-width:0}
 
 .local-copy-card{margin:16px 0}.local-copy-confirm{border-top:1px solid var(--line);padding-top:16px}.local-copy-confirm .account-actions{margin-top:16px}
+
+/* Keep all account, language and favorite controls visible with fallback fonts. */
+@media(max-width:360px){.topbar{padding-left:10px;padding-right:10px;column-gap:4px}.top-brand{gap:6px}.top-brand strong{font-size:16px;letter-spacing:.08em}.theme-toggle+.avatar{margin-left:0}}
