@@ -55,6 +55,15 @@ test('shipped video matches the catalogue, licensed source and immutable byte ma
   assert.equal(entry.adaptationLicense,'CC BY-SA 4.0');assert.ok(entry.changes);assert.ok(entry.review.limitations);
   for(const v of entry.variants){const bytes=fs.readFileSync(v.path);assert.equal(bytes.length,v.bytes);assert.ok(bytes.length<1024*1024);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),v.sha256);}
   assert.ok(entry.variants.some(v=>v.path===ex.demoVideo.src&&v.codec==='h264'));
+  assert.equal(ex.demoVideo.poster,entry.poster.path);const poster=fs.readFileSync(entry.poster.path);assert.equal(poster.length,entry.poster.bytes);assert.equal(poster.readUInt16BE(0),0xffd8);assert.equal(crypto.createHash('sha256').update(poster).digest('hex'),entry.poster.sha256);
+ }
+});
+test('video poster accepts only local actual-frame JPEG paths and reserves undistorted dimensions',()=>{
+ const video={approved:true,src:'media/exercise-videos/pullup.mp4',credit:'Author',source:'https://example.test/source',license:'CC BY-SA 4.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/'};
+ const html=context.renderVideo({name:'Test',demoVideo:{...video,poster:'media/exercise-videos/frame-v1.jpg',width:720,height:720}});
+ assert.match(html,/poster="media\/exercise-videos\/frame-v1\.jpg"/);assert.match(html,/width="720" height="720"/);
+ for(const poster of ['https://example.test/leak.jpg','javascript:alert(1)','media/exercise-videos/../other.jpg','media/exercise-videos/fake.svg']) {
+  const result=context.renderVideo({name:'Test',demoVideo:{...video,poster,width:NaN,height:-1}});assert.doesNotMatch(result,/ poster=/);assert.match(result,/width="854" height="480"/);
  }
 });
 test('real clip renders a licence, change notice and localized technique cue without autoplay',()=>{

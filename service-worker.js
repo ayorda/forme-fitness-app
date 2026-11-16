@@ -1,12 +1,33 @@
-const CACHE = 'forme-mobile-v0140-video1';
+const CACHE = 'forme-mobile-v0141-preview1';
 const MEDIA_CACHE = 'forme-media-v029-optimized';
+const VIDEO_CACHE = 'forme-video-v0141-preview1';
 // Explicit, versioned public clips only. Full bodies are cached on first playback,
 // never during installation; partial 206 responses must never enter CacheStorage.
-const VIDEO_ASSETS = ['./media/exercise-videos/parallel-bar-dips-v1.mp4', './media/exercise-videos/parallel-bar-dips-v1.webm'];
+const VIDEO_ASSETS = ['./media/exercise-videos/parallel-bar-dips-v1.mp4', './media/exercise-videos/parallel-bar-dips-v1-poster.jpg'];
+const RETIRED_VIDEO_ASSETS = ['./media/exercise-videos/parallel-bar-dips-v1.webm'];
+async function migrateVideoCache() {
+  let legacy;
+  try { legacy = await caches.open(MEDIA_CACHE); } catch { return; }
+  for (const path of VIDEO_ASSETS) {
+    const key = new URL(path, self.registration.scope).href;
+    try {
+      const full = await legacy.match(key);
+      if (full?.status !== 200) continue;
+      const current = await caches.open(VIDEO_CACHE);
+      await current.put(key, full);
+      await legacy.delete(key);
+    } catch { /* Keep the old complete body when a migration hits quota. */ }
+  }
+  await Promise.all(RETIRED_VIDEO_ASSETS.map(path => legacy.delete(new URL(path, self.registration.scope).href).catch(() => false)));
+}
 async function videoResponse(request) {
   let cache, full;
   const key = request.url;
-  try { cache = await caches.open(MEDIA_CACHE); full = await cache.match(key); } catch {}
+  try { cache = await caches.open(VIDEO_CACHE); full = await cache.match(key); } catch {}
+  // A failed upgrade copy must not break a previously viewed clip offline.
+  if (!full || full.status !== 200) {
+    try { full = await (await caches.open(MEDIA_CACHE)).match(key); } catch {}
+  }
   if (!full || full.status !== 200) {
     const headers = new Headers(request.headers);
     headers.delete('Range'); headers.delete('If-Range');
@@ -34,13 +55,14 @@ async function videoResponse(request) {
   return new Response(body.slice(start, end + 1), {status:206, headers});
 }
 const REFRESHED_MEDIA = ['./media/foods/banana-480.webp', './media/foods/banana-960.webp', './media/foods/banana-v2-480.webp', './media/foods/banana-v2-960.webp'];
-const ASSETS = ['./', './index.html', './styles.css', './app.js?v=0140', './auth.js', './firebase-client.js', './cloud-sync.js', './access.js', './services.js', './workspaces.js', './sync-records.js', './auto-sync.js', './bootstrap.js', './pwa-register.js', './local-copies.js', './auth-config.js', './vendor/firebase-auth-13.3.0.js', './workout-audio.js', './skill-trees.js', './data.js', './exercise-art.js', './exercise-photos.js', './core.js', './food-art.js', './food-photos.js', './i18n.js', './interface-translations.js', './exercise-translations.js', './food-translations.js', './workout-translations.js', './locale-content.js', './storage-schema.js', './state-normalizer.js', './progress.js', './programs.js', './nutrition-journal.js', './backup.js', './recovery.js','./personalization.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+const ASSETS = ['./', './index.html', './styles.css', './app.js?v=0141', './auth.js', './firebase-client.js', './cloud-sync.js', './access.js', './services.js', './workspaces.js', './sync-records.js', './auto-sync.js', './bootstrap.js', './pwa-register.js', './local-copies.js', './auth-config.js', './vendor/firebase-auth-13.3.0.js', './workout-audio.js', './skill-trees.js', './data.js', './exercise-art.js', './exercise-photos.js', './core.js', './food-art.js', './food-photos.js', './i18n.js', './interface-translations.js', './exercise-translations.js', './food-translations.js', './workout-translations.js', './locale-content.js', './storage-schema.js', './state-normalizer.js', './progress.js', './programs.js', './nutrition-journal.js', './backup.js', './recovery.js','./personalization.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS.map(path => new Request(path, {cache:'reload'})))).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', event => {
   event.waitUntil(Promise.all([
-    caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('forme-') && key !== CACHE && key !== MEDIA_CACHE).map(key => caches.delete(key)))),
+    caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('forme-') && key !== CACHE && key !== MEDIA_CACHE && key !== VIDEO_CACHE).map(key => caches.delete(key)))),
+    migrateVideoCache(),
     caches.open(MEDIA_CACHE).then(cache => Promise.all(REFRESHED_MEDIA.map(path => cache.delete(new URL(path, self.registration.scope).href))))
   ]).then(() => self.clients.claim()));
 });

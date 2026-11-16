@@ -88,6 +88,7 @@ pendingExercise('Iron_Cross','Железен кръст','elite','rings','Ели
 // Real footage and its adaptation retain CC BY-SA 4.0; see VIDEO-SOURCES.md.
 exercises.find(ex=>ex.id==='Parallel_Bar_Dips').demoVideo=Object.freeze({
  approved:true,src:'media/exercise-videos/parallel-bar-dips-v1.mp4',
+ poster:'media/exercise-videos/parallel-bar-dips-v1-poster.jpg',width:854,height:480,
  credit:'Goulart / wger',source:'https://wger.de/en/exercise/194/view/',
  license:'CC BY-SA 4.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/'
 });

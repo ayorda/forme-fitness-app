@@ -4,11 +4,18 @@ import json
 from pathlib import Path
 import struct
 import subprocess
+from video_policy import validate_entry
 
 ROOT = Path(__file__).resolve().parents[1]
 manifest = json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())
 for entry in manifest['entries']:
-    assert entry['license'] == entry['adaptationLicense'] == 'CC BY-SA 4.0'
+    print(entry['exerciseId'],validate_entry(entry))
+    poster = entry['poster']; image = (ROOT/poster['path']).read_bytes()
+    assert len(image) == poster['bytes'] < 150000
+    assert image.startswith(b'\xff\xd8')
+    assert hashlib.sha256(image).hexdigest() == poster['sha256']
+    poster_probe = json.loads(subprocess.check_output(['ffprobe','-v','quiet','-show_streams','-of','json',str(ROOT/poster['path'])]))['streams'][0]
+    assert poster_probe['width'] == poster['width'] and poster_probe['height'] == poster['height']
     for variant in entry['variants']:
         path = ROOT/variant['path']
         data = path.read_bytes()
@@ -20,7 +27,6 @@ for entry in manifest['entries']:
         for actual, expected in [('codec_name','codec'),('width','width'),('height','height'),('pix_fmt','pixelFormat'),('avg_frame_rate','fps')]:
             assert stream[actual] == variant[expected], (path, actual)
         assert abs(float(probe['format']['duration']) - variant['duration']) < .02
-        assert 8 <= variant['duration'] <= 15
         if path.suffix == '.mp4':
             boxes, offset = [], 0
             while offset < len(data):

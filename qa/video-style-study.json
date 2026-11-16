@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "exerciseId": "Parallel_Bar_Dips",
+  "status": "rejected-not-for-catalogue",
+  "styleGuide": "FORME Exercise Video Style Guide v1.0",
+  "source": {
+    "metadataUrl": "https://wger.de/api/v2/video/65/",
+    "metadata": {
+      "id": 65,
+      "uuid": "7a6987aa-138d-41e4-8842-5c3e3d970bd9",
+      "exercise": 194,
+      "exercise_uuid": "09dd3e3c-e53a-4e2c-a2e3-645d334f53e2",
+      "video": "https://wger.de/media/exercise-video/194/7a6987aa-138d-41e4-8842-5c3e3d970bd9.MOV",
+      "is_main": false,
+      "size": 8340144,
+      "duration": "16.37",
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "codec_long": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+      "license": 2,
+      "license_title": "",
+      "license_object_url": "",
+      "license_author": "Goulart",
+      "license_author_url": "",
+      "license_derivative_source_url": "",
+      "author_history": [
+        "Goulart"
+      ]
+    },
+    "bytes": 8340144,
+    "sha256": "70d306b3c036ffd7d0d2373d9c781442d996e710b490a1560381cb85b53917b3",
+    "author": "Goulart",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "preparation": {
+    "trimStart": 11.3,
+    "duration": 5,
+    "width": 720,
+    "height": 720,
+    "fps": 24,
+    "crop": {
+      "width": 1080,
+      "height": 1080,
+      "x": 550,
+      "y": 0
+    },
+    "colour": "Source-specific secondary HSL: cyan/green, magenta and yellow reduced; mild contrast/shadow balance, no synthetic background or movement.",
+    "filterAfterLut": "eq=contrast=1.04:brightness=-0.008:saturation=0.98,colorbalance=rs=-0.003:gs=0.005:bs=-0.004,vignette=PI/10,scale=720:720:flags=lanczos,fps=24,format=yuv420p"
+  },
+  "compression": {
+    "reference": "Lossless FFV1 after all crop/grade, same 120 frames, frames normalized with settb=1/24,setpts=N before SSIM.",
+    "vmaf": "Unavailable: installed FFmpeg has no libvmaf filter.",
+    "candidates": [
+      {
+        "crf": 23,
+        "bytes": 955445,
+        "ssim": 0.980721
+      },
+      {
+        "crf": 26,
+        "bytes": 606291,
+        "ssim": 0.973858
+      },
+      {
+        "crf": 29,
+        "bytes": 392527,
+        "ssim": 0.964198
+      }
+    ],
+    "selectedCrf": 26,
+    "selectedBytes": 606291,
+    "selectedSsim": 0.973858,
+    "artifactSha256": "70b55c106305edb179415de14af8e1444277afb00600cd5c23097ffc4ed25a0b"
+  },
+  "review": {
+    "movement": "One complete descent/press visible; no speed changes, reverse playback or generated frames. End includes a turn, not a clean held support. Not independent trainer certification.",
+    "visual": "Rejected: background remains busy, bright frame/window compete with athlete, crop and rear view do not produce a convincing match to the photograph.",
+    "catalogue": "NOT registered in data.js or service worker. Main app retains the previously published legacy clip."
+  },
+  "comparison": {
+    "path": "qa/evidence/dips-visual-study-v1.jpg",
+    "bytes": 282024,
+    "sha256": "5a1660d2d56b311560ff1d6a23cf61dd493fb1b780785695f9165aa7548670db",
+    "panels": "Unchanged AI photo; actual published video64 frames at 0.75/3s; rejected video65 study frames at 0/2.25s. Fit/letterbox only, no anatomy generation. Each panel retains its own licence."
+  }
+}

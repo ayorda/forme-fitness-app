@@ -64,22 +64,33 @@
           "duration": 10.5,
           "audio": false,
           "encoderOptions": "libx264 -preset slow -crf 30 -profile:v main -level 3.1 -pix_fmt yuv420p -movflags +faststart"
-        },
+        }
+      ],
+      "sourcePage": "https://wger.de/en/exercise/194/view/",
+      "retiredVariants": [
         {
           "path": "media/exercise-videos/parallel-bar-dips-v1.webm",
           "bytes": 789453,
           "sha256": "bb57a6f1b74de16c41f14596d913fa310c168739d27c22456bcbaf2c63ea10a4",
-          "codec": "vp9",
-          "pixelFormat": "yuv420p",
-          "width": 854,
-          "height": 480,
-          "fps": "24/1",
-          "duration": 10.5,
-          "audio": false,
-          "encoderOptions": "libvpx-vp9 -b:v 0 -crf 44 -row-mt 1"
+          "reason": "Unused in the player and larger than MP4; removed from current delivery in v0.14.1, retained in Git history."
         }
       ],
-      "sourcePage": "https://wger.de/en/exercise/194/view/"
+      "poster": {
+        "path": "media/exercise-videos/parallel-bar-dips-v1-poster.jpg",
+        "bytes": 73399,
+        "sha256": "9fa0409edf2e9e36dc40ac44b84afb52a225fab8af294a790554d36787f47992",
+        "width": 854,
+        "height": 480,
+        "sourceVideoSha256": "e23dd1326c87bad75cd78f4ce6ffc9d352047765a24938d436bd1ee38646549b",
+        "sourceTime": 0,
+        "description": "JPEG decoded from the actual first frame of the active MP4, not an AI exercise photograph."
+      },
+      "visualStandard": {
+        "version": "1.0",
+        "status": "legacy-not-accepted",
+        "reason": "The v0.14.0 clip remains playable; it does not pass the new FORME Athletic Cinematic visual gate. No replacement has been accepted.",
+        "audit": "QA-VIDEO-VISUAL-AUDIT.md"
+      }
     }
   ]
 }

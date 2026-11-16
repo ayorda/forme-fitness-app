@@ -89,7 +89,7 @@ try:
     if os.environ.get('FORME_CHROMIUM_EXECUTABLE'): options['executable_path']=os.environ['FORME_CHROMIUM_EXECUTABLE']
     browser=p.chromium.launch(**options)
     for lang in ['bg','en','de']:
-        ctx=browser.new_context(bypass_csp=False,viewport={'width':390,'height':900});observe(ctx)
+        ctx=browser.new_context(bypass_csp=False,viewport={'width':390,'height':900},reduced_motion='reduce' if lang=='bg' else 'no-preference');observe(ctx)
         ctx.add_init_script('if(location.protocol==="http:")localStorage.setItem("forme-language",'+json.dumps(lang)+');')
         page=ctx.new_page();page.goto(BASE,wait_until='domcontentloaded');page.locator('.hero').wait_for()
         for route in ['sessions','exercises','nutrition','plan','progress','favorites','recovery','account','privacy','services','home']:
@@ -104,12 +104,16 @@ try:
                 report['views'].append(dict(language=lang,theme=theme,width=width))
         wait(page,'navigator.serviceWorker.controller!==null')
         video_requests=[]
-        page.on('request',lambda request:video_requests.append(request.url) if '/media/exercise-videos/' in request.url else None)
+        page.on('request',lambda request:video_requests.append(request.url) if request.url.endswith('.mp4') else None)
         page.goto(BASE+'#exercises',wait_until='domcontentloaded')
         page.locator('[data-action=exercise-detail][data-id=Parallel_Bar_Dips]').first.click()
         video=page.locator('.exercise-video video');video.wait_for()
         assert video.get_attribute('preload')=='none' and video.get_attribute('autoplay') is None
         page.wait_for_timeout(300);assert not video_requests,video_requests
+        assert video.get_attribute('poster')=='media/exercise-videos/parallel-bar-dips-v1-poster.jpg'
+        poster=video.evaluate('async v=>{const image=new Image();image.src=v.poster;await image.decode();return {width:image.naturalWidth,height:image.naturalHeight}}')
+        assert poster==dict(width=854,height=480),poster
+        assert video.evaluate('v=>v.paused&&v.currentTime===0')
         for width in [320,1280]:
             page.set_viewport_size({'width':width,'height':900})
             page.evaluate('()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))')
@@ -121,20 +125,22 @@ try:
         assert abs(video.evaluate('v=>v.duration')-10.5)<.1
         video.evaluate('v=>{v.currentTime=7;return v.play()}');wait(page,'document.querySelector("video").currentTime>7.1')
         video.evaluate('v=>v.pause()')
+        paused=video.evaluate('v=>v.currentTime');page.wait_for_timeout(300);assert abs(video.evaluate('v=>v.currentTime')-paused)<.1
         partial=page.evaluate("async()=>{const r=await fetch('media/exercise-videos/parallel-bar-dips-v1.mp4',{headers:{Range:'bytes=2-7'}});return {status:r.status,range:r.headers.get('Content-Range'),length:(await r.arrayBuffer()).byteLength}}")
         assert partial==dict(status=206,range='bytes 2-7/744949',length=6),partial
-        # Decode the alternate shipped codec too; the public player uses MP4 for iOS.
-        video.evaluate("v=>{v.src='media/exercise-videos/parallel-bar-dips-v1.webm';return v.play()}")
-        wait(page,'document.querySelector("video").currentTime>.25');video.evaluate('v=>v.pause()');clean(page)
+        video.evaluate('v=>{v.currentTime=v.duration-.1;return v.play()}');wait(page,'document.querySelector("video").ended')
+        video.click(position={'x':26,'y':video.bounding_box()['height']-48});wait(page,'document.querySelector("video").currentTime>.25&&!document.querySelector("video").ended')
+        assert video.evaluate('v=>v.currentTime<2');video.evaluate('v=>v.pause()');clean(page)
         page.locator('[data-action=close-modal]').click()
         page.goto(BASE+'#home',wait_until='domcontentloaded')
         ctx.set_offline(True);page.reload(wait_until='domcontentloaded');page.locator('.hero').wait_for()
         page.goto(BASE+'#exercises',wait_until='domcontentloaded')
         page.locator('[data-action=exercise-detail][data-id=Parallel_Bar_Dips]').first.click()
+        assert page.locator('.exercise-video video').evaluate('v=>v.poster.endsWith("-poster.jpg")')
         offline_video=page.locator('.exercise-video video');offline_video.click(position={'x':26,'y':offline_video.bounding_box()['height']-48});wait(page,'document.querySelector("video").currentTime>.25')
         page.locator('.exercise-video video').evaluate('v=>{v.currentTime=5;return v.play()}');wait(page,'document.querySelector("video").currentTime>5.1')
         clean(page);page.locator('[data-action=close-modal]').click()
-        report.setdefault('video',[]).append(dict(language=lang,noPreload=True,mp4AndWebmDecode=True,range206=True,offlineReloadAndSeek=True,widths=[320,1280]))
+        report.setdefault('video',[]).append(dict(language=lang,noPreload=True,actualPoster=True,mp4Decode=True,pauseAndReplay=True,range206=True,offlineReloadAndSeek=True,reducedMotion=lang=='bg',widths=[320,1280],styleStatus='legacy-not-accepted'))
         for route in ['privacy','services','account']:
             page.goto(BASE+'#'+route,wait_until='domcontentloaded');page.locator('#app').locator('h1,h2').first.wait_for();clean(page)
         report['guest'].append(dict(language=lang,routes=True,offline=True));ctx.set_offline(False);ctx.close();print(lang,'guest/offline passed',flush=True)
@@ -142,9 +148,15 @@ try:
     upgrade_ctx=browser.new_context(bypass_csp=False);observe(upgrade_ctx);upgrade=upgrade_ctx.new_page()
     upgrade.goto(BASE+'qa-upgrade.html',wait_until='domcontentloaded');upgrade.evaluate("()=>navigator.serviceWorker.register('./qa-legacy-worker.js')")
     wait(upgrade,"navigator.serviceWorker.controller?.scriptURL.endsWith('qa-legacy-worker.js')")
+    upgrade.evaluate("async()=>{const old=await caches.open('forme-media-v029-optimized');for(const path of ['media/exercise-videos/parallel-bar-dips-v1.mp4','media/exercises/Parallel_Bar_Dips-480.webp','media/exercises/Parallel_Bar_Dips-960.webp'])await old.put(path,await fetch(path));await old.put('media/exercise-videos/parallel-bar-dips-v1.webm',new Response('Retired duplicate test fixture'));localStorage.setItem('forme-favorites',JSON.stringify({exercises:['Plank'],workouts:[]}));}")
     upgrade.goto(BASE+'#home',wait_until='domcontentloaded');upgrade.locator('.hero').wait_for();assert upgrade.evaluate('window.qaLegacyScriptWasLoaded') is None;clean(upgrade)
-    wait(upgrade,"navigator.serviceWorker.controller?.scriptURL.endsWith('/service-worker.js')")
-    upgrade_ctx.set_offline(True);upgrade.reload(wait_until='domcontentloaded');upgrade.locator('.hero').wait_for();clean(upgrade);upgrade_ctx.set_offline(False);upgrade_ctx.close();report['legacyCacheUpgradeAndOffline']=True
+    wait(upgrade,"navigator.serviceWorker.controller?.scriptURL.endsWith('/service-worker.js') && navigator.serviceWorker.controller.state==='activated'")
+    migrated=upgrade.evaluate("async()=>{const current=await caches.open('forme-video-v0141-preview1'),old=await caches.open('forme-media-v029-optimized');return {video:(await current.match('media/exercise-videos/parallel-bar-dips-v1.mp4'))?.status,oldVideo:!!await old.match('media/exercise-videos/parallel-bar-dips-v1.mp4'),retired:!!await old.match('media/exercise-videos/parallel-bar-dips-v1.webm'),image:!!await old.match('media/exercises/Parallel_Bar_Dips-480.webp')}}")
+    assert migrated==dict(video=200,oldVideo=False,retired=False,image=True),(migrated,upgrade.evaluate("async()=>{const result={};for(const key of await caches.keys())result[key]=(await (await caches.open(key)).keys()).map(r=>r.url);return result}"))
+    upgrade_ctx.set_offline(True);upgrade.reload(wait_until='domcontentloaded');upgrade.locator('.hero').wait_for();clean(upgrade)
+    assert local_data(upgrade)==['Plank']
+    upgrade.goto(BASE+'#exercises',wait_until='domcontentloaded');upgrade.locator('[data-action=exercise-detail][data-id=Parallel_Bar_Dips]').first.click();old_video=upgrade.locator('.exercise-video video');old_video.click(position={'x':26,'y':old_video.bounding_box()['height']-48});wait(upgrade,'document.querySelector("video").currentTime>.25');clean(upgrade)
+    upgrade_ctx.set_offline(False);upgrade_ctx.close();report['legacyCacheUpgradeAndOffline']=True;report['videoCacheMigrationAndGuestPreservation']=True
 
     # Executable probe is a separate same-origin external script, so eval is
     # tested under page CSP rather than privileged DevTools evaluation.
