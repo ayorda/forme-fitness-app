@@ -19,7 +19,14 @@
 
 - Preserve the enforced early CSP: no executable inline script/event attributes or eval/remote-script exception. Keep pwa-register.js precached and the exact versioned app URL consistent in index.html and SW ASSETS when changing the app shell. Run browser-security with CSP bypass false; loopback/LNA permissions belong only to isolated demo fixtures, never the production policy. Meta CSP does not provide frame-ancestors or server headers.
 
-## Current scope checkpoint — v0.15.1 / self-hosted fonts
+## Current scope checkpoint — v0.15.2 / modal isolation
+
+- Owner asked to continue other project tasks; other48videos still deferred. Current bounded Phase1/1.1 accessibility task: actualv0151 dialog Tab-wrap did not prevent background programmaticfocus/AX accountbuttons. New modal-accessibility.js isolates .shell/.skip-link via nativeinert+aria-hidden and a documentfocus guard, leaves dialog/live toast available, restores exact prior attrs on close, preserves rerender input focus with stale-callback guards. Existing app Tab/Escape/triggerreturn/player/data lifecycle kept. UI isolation is NOT a data/security boundary.
+- Local module is in HTML/SW; app/interface-translations ?v=0152 and shell forme-mobile-v0152-modal1. CSS/fonts ?v0151 and audio/backup ?v0150 unchanged; existingimage/video/audio caches kept/no media prefetch. Auth/SDK/rules/workspaces/sync/schemas/data/media bytes unchanged.
+- Four technical steps: reproduce; implement; verify; main/CI/Pages/public. modal-accessibility.test.js checks attrs/lifecycle/fallback/rerender/stale/dispose; qa/modal-browser.py actualChromium6cases BG/EN/DE390/1280 checks focus+AXbackgroundblocked, outside-rootguard, TabEscapeclose/backdrop/triggerreturn/repeatedcycles, detail→playercontrols andoffline. No new fullaxe/WCAGcert/realVoiceOver/TalkBack/physicalphone claim; olderQA-ACCESSIBILITY result kept historical.
+- Whole plan stays13/20 +7unfinished andsharedacceptance. 1.1 stillpartial for owner model/visualparts/acceptance;2.5humanlistening/physicalaudio;3.2real2devices;3.3operator/retention/security/physical;1.2/1.6materialsrights. No reliable whole-product date before dependencies. Do not infer acceptance from genericcontinue; basicreal_iPhoneAuth accepted already, don't reask.
+
+## Previous scope checkpoint — v0.15.1 / self-hosted fonts
 
 - Owner asked to continue OTHER project work; other48videos remain explicitly deferred. Current bounded task Phase1/1.1 typography, supporting3.3.5: same DM Sans/Space Grotesk now local,5unchanged officialWOFF2 files/103100B with original exact-byte SIL OFL1.1 copyright/licences. FONT-SOURCES.md + media/fonts/manifest.json include source/version/SHA/rights. No model/images/videos generation or paid services.
 - Do not claim custom Cyrillic coverage: both currentfont families lack it. Bulgarian letters retain existing system fallback; Latin files include German ÄÖÜäöüß. CSS weights/family stacks unchanged. Two Latin font preloads; all5small fonts shell-precached; font-display swap. No runtime GoogleFonts CSS/font requests; CSP style-src self unsafe-inline/font-src self. Existing inline CSS limitation remains.
