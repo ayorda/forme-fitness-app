@@ -284,6 +284,8 @@
 /* Reviewed anatomy frames must keep shoes, palms and equipment contacts visible.
    Preserve the existing card/detail box dimensions; fit the complete 3:2 frame. */
 .photo-visual picture img[src*="-anatomy-v"]{object-fit:contain}
+/* Keep the AI notice visible without covering palms/feet at the lower edge. */
+.photo-visual .media-ai-tag{top:10px;bottom:auto}
 /* Detail views can use the full frame; catalogue card dimensions stay intact.
    Older engines without :has retain the complete contain fallback above. */
 .modal-visual:has(.photo-visual img[src*="-anatomy-v"]){height:auto;aspect-ratio:3/2}

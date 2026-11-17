@@ -22,6 +22,12 @@ test('AI image uses responsive WebP and an honest error fallback',()=>{
   assert.match(html,/AI визуализация/);
   assert.match(html,/data-media-fallback="exercise"/);assert.doesNotMatch(html,/onerror=/);
 });
+test('exercise detail requests a readable full frame while cards retain lazy smaller sizing',()=>{
+ const card=context.renderImage({id:'Test',name:'Test'}),detail=context.renderImage({id:'Test',name:'Test'},true);
+ assert.match(card,/sizes="\(max-width:780px\) 100vw, 33vw"/);
+ assert.match(detail,/sizes="\(max-width:780px\) calc\(100vw - 36px\), 704px"/);
+ assert.match(detail,/loading="lazy"/);assert.match(detail,/data-media-fallback="exercise"/);
+});
 test('unapproved or unsafe video paths remain clearly pending',()=>{
  for(const video of [undefined,{approved:false,src:'media/exercise-videos/pullup.mp4',credit:'Author',source:'https://example.test'}, {approved:true,src:'https://example.test/video.mp4',credit:'Author',source:'https://example.test'}, {approved:true,src:'media/exercise-videos/../other.mp4',credit:'Author',source:'https://example.test'}, {approved:true,src:'media/exercise-videos/pullup.mp4',credit:'Author',source:'javascript:alert(1)'}]){
   const html=context.renderVideo({name:'Test',demoVideo:video});assert.match(html,/Видео демонстрацията предстои/);assert.doesNotMatch(html,/<video/);

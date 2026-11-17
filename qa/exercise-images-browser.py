@@ -10,11 +10,11 @@ import time
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-REVIEW = json.loads((ROOT / 'qa/exercise-image-review.json').read_text())
+REVIEW = json.loads((ROOT / 'qa/exercise-image-review-v3.json').read_text())
 MANIFEST = json.loads((ROOT / 'media/manifest.json').read_text())
 CORRECTED = [r['id'] for r in REVIEW['corrections']]
 FILES = [v for e in MANIFEST['entries'] if e['kind'] == 'exercise' and e['id'] in CORRECTED for v in e['variants'].values()]
-RETIRED = [f'media/exercises/{id}-{width}.webp' for id in CORRECTED for width in (480, 960)]
+RETIRED = [path for r in REVIEW['corrections'] for path in r['oldPaths']]
 REPORT = dict(cases=[], errors=[], csp=[], productionRequests=[], retiredRequests=[])
 
 
@@ -73,7 +73,7 @@ def main():
                 for width in [390, 1280]:
                     ctx = browser.new_context(bypass_csp=False, viewport=dict(width=width, height=900), is_mobile=width == 390, has_touch=width == 390)
                     observe(ctx)
-                    ctx.add_init_script('if(["http:","https:"].includes(location.protocol)){localStorage.setItem("forme-language",' + json.dumps(lang) + ');localStorage.setItem("forme-favorites",JSON.stringify({exercises:["Plank"],workouts:[]}));}')
+                    ctx.add_init_script('if(["http:","https:"].includes(location.protocol)){localStorage.setItem("forme-language",' + json.dumps(lang) + ');if(!localStorage.getItem("forme-qa-images-seeded")){localStorage.setItem("forme-favorites",JSON.stringify({exercises:["Plank"],workouts:[]}));localStorage.setItem("forme-qa-images-seeded","true");}}')
                     page = ctx.new_page()
                     page.goto(base + '#exercises', wait_until='domcontentloaded')
                     page.locator('[data-action=exercise-detail][data-id=Handstand]').first.wait_for()
@@ -98,11 +98,15 @@ def main():
                         page.locator(f'[data-action=exercise-detail][data-id={id}]').first.click()
                         image = page.locator('.modal .photo-visual img')
                         image.evaluate('img=>img.decode()')
-                        assert id + '-anatomy-v2-' in image.evaluate('img=>img.currentSrc')
+                        assert id + '-anatomy-v3-' in image.evaluate('img=>img.currentSrc')
+                        if width == 1280:
+                            assert image.evaluate('img=>img.currentSrc.endsWith("-960.webp")')
                         assert image.evaluate('img=>getComputedStyle(img).objectFit') == 'contain'
                         frame = page.locator('.modal .modal-visual').bounding_box()
                         assert abs(frame['width'] / frame['height'] - 1.5) < .01, frame
                         assert page.locator('.modal .media-ai-tag').inner_text()
+                        badge = page.locator('.modal .media-ai-tag').bounding_box()
+                        assert 0 <= badge['y'] - frame['y'] <= 12, (id, badge, frame)
                         assert page.locator('.modal .exercise-photo-credit').inner_text()
                         assert page.evaluate('document.documentElement.scrollWidth') <= width
                         if os.environ.get('FORME_IMAGES_SCREENSHOTS'):
@@ -121,7 +125,7 @@ def main():
                         page.locator('.modal-close').click()
                     assert 'Plank' in page.evaluate('localStorage.getItem("forme-favorites")')
                     REPORT['csp'] += page.evaluate('qaCsp')
-                    REPORT['cases'].append(dict(language=lang, width=width, cards=49, correctedDetails=5, decodedVariants=10, offline=True, guestPreserved=True))
+                    REPORT['cases'].append(dict(language=lang, width=width, cards=49, correctedDetails=len(CORRECTED), decodedVariants=len(FILES), offline=True, guestPreserved=True))
                     ctx.close()
             if server:
                 ctx = browser.new_context(bypass_csp=False)
@@ -133,7 +137,7 @@ def main():
                 page.evaluate("async paths=>{const c=await caches.open('forme-media-v029-optimized');for(const f of paths)await c.put(f,new Response('retired defective fixture'));await c.put('media/exercises/Plank-480.webp',await fetch('media/exercises/Plank-480.webp'));localStorage.setItem('forme-favorites',JSON.stringify({exercises:['Plank'],workouts:[]}));}", RETIRED)
                 page.goto(base + '#exercises', wait_until='domcontentloaded')
                 wait(page, "navigator.serviceWorker.controller?.scriptURL.endsWith('/service-worker.js')&&navigator.serviceWorker.controller.state==='activated'")
-                result = page.evaluate("async paths=>{const c=await caches.open('forme-media-v029-optimized');return {retired:(await Promise.all(paths.map(f=>c.match(f)))).some(Boolean),plank:!!await c.match('media/exercises/Plank-480.webp'),guest:localStorage.getItem('forme-favorites').includes('Plank'),shell:(await caches.keys()).includes('forme-mobile-v0154-anatomy1')}}", RETIRED)
+                result = page.evaluate("async paths=>{const c=await caches.open('forme-media-v029-optimized');return {retired:(await Promise.all(paths.map(f=>c.match(f)))).some(Boolean),plank:!!await c.match('media/exercises/Plank-480.webp'),guest:localStorage.getItem('forme-favorites').includes('Plank'),shell:(await caches.keys()).includes('forme-mobile-v0155-exactpose1')}}", RETIRED)
                 assert result == dict(retired=False, plank=True, guest=True, shell=True), result
                 REPORT['upgrade'] = result
                 ctx.close()

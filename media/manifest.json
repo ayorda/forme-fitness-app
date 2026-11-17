@@ -442,26 +442,31 @@
       "name": "Странично разтягане в седеж",
       "origin": "AI generated",
       "tool": "OpenAI image generation tool",
-      "date": "2026-11-07",
+      "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "contact-sheet reviewed",
-        "scope": "pose, equipment and anatomy; not technique certification"
+        "visual": "individual source, 960/480 and exact exercise phase reviewed",
+        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+        "status": "accepted-visual",
+        "revision": "anatomy-v3",
+        "receipt": "qa/exercise-image-review-v3.json",
+        "contract": "qa/exercise-image-contracts.json",
+        "sourceSha256": "b5738d77c78e01b92d903efb9d3eff4d77094374015c35d6cf1a9e4d666c69bb"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Seated_Overhead_Stretch-480.webp",
+          "path": "media/exercises/Seated_Overhead_Stretch-anatomy-v3-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 15550,
-          "sha256": "66c4fb62df5fa0b607eae7ffb77d1a8674f552602c37760652de340240351350"
+          "bytes": 15988,
+          "sha256": "72a9536dbfd68e01e1eaa1f221fb2653112e7e37c5cc0de3e9cf6a7b32573401"
         },
         "desktop": {
-          "path": "media/exercises/Seated_Overhead_Stretch-960.webp",
+          "path": "media/exercises/Seated_Overhead_Stretch-anatomy-v3-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 41820,
-          "sha256": "b65b7b7b3b2b3cabb1debacc944f20554dad46a5dcd9afcc5fa5d01516a7237d"
+          "bytes": 48032,
+          "sha256": "784f2ba3f524f539a23985648edaf9b197f79487a501d7dcd3141872e9bf934d"
         }
       }
     },
@@ -500,26 +505,31 @@
       "name": "Кръгове с коляно от четири опори",
       "origin": "AI generated",
       "tool": "OpenAI image generation tool",
-      "date": "2026-11-07",
+      "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "contact-sheet reviewed",
-        "scope": "pose, equipment and anatomy; not technique certification"
+        "visual": "individual source, 960/480 and exact exercise phase reviewed",
+        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+        "status": "accepted-visual",
+        "revision": "anatomy-v3",
+        "receipt": "qa/exercise-image-review-v3.json",
+        "contract": "qa/exercise-image-contracts.json",
+        "sourceSha256": "87240181bd552bf40c82ec5aca187c48249b9b128441e33140018a477910d956"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Hip_Circles_prone-480.webp",
+          "path": "media/exercises/Hip_Circles_prone-anatomy-v3-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 15518,
-          "sha256": "58762e06b4c734089439efc7ffc62d9368e1e4685de525b6afd33b0fa71a3fb7"
+          "bytes": 17518,
+          "sha256": "bc5f80a2b81ed7b6aae1607d1836dd3da47f5cca2a5e0f11096eb3f5aa3163ff"
         },
         "desktop": {
-          "path": "media/exercises/Hip_Circles_prone-960.webp",
+          "path": "media/exercises/Hip_Circles_prone-anatomy-v3-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 36414,
-          "sha256": "bae0983b32dc7e51f8dfcf66ad992440508f27081432bc89e720a79ede44e931"
+          "bytes": 45498,
+          "sha256": "801ef7c10dfeb31fb2bcc02e7068fc79e74412174916977bb3e614d5f17ee399"
         }
       }
     },
@@ -674,26 +684,31 @@
       "name": "Разтягане на китки",
       "origin": "AI generated",
       "tool": "OpenAI image generation tool",
-      "date": "2026-11-07",
+      "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "contact-sheet reviewed",
-        "scope": "pose, equipment and anatomy; not technique certification"
+        "visual": "individual source, 960/480 and exact exercise phase reviewed",
+        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+        "status": "accepted-visual",
+        "revision": "anatomy-v3",
+        "receipt": "qa/exercise-image-review-v3.json",
+        "contract": "qa/exercise-image-contracts.json",
+        "sourceSha256": "0efa1e2d8403404a1f843a3ccddf23ea35835721d4e71fbb2369a16e23982eaa"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Kneeling_Forearm_Stretch-480.webp",
+          "path": "media/exercises/Kneeling_Forearm_Stretch-anatomy-v3-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17846,
-          "sha256": "401f8c0754d3257a212c040fc9ee0404719c2b526d8afa2e232279d1d55b8d61"
+          "bytes": 20310,
+          "sha256": "7d7fcbb36b19fb33fff1b817a8a0b5917d06643b4c867ac444afd099d4068467"
         },
         "desktop": {
-          "path": "media/exercises/Kneeling_Forearm_Stretch-960.webp",
+          "path": "media/exercises/Kneeling_Forearm_Stretch-anatomy-v3-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 45716,
-          "sha256": "82b8f79d459d0dec2718bf381bc9c82de83e2043885324497b2aa77169c6d6cd"
+          "bytes": 56264,
+          "sha256": "3581aeba21e48c95d93defbc9bdff7bebfb3379ef88bdc2f6547179263ef667e"
         }
       }
     },
@@ -942,27 +957,28 @@
       "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "individual source and final 960/480 variants reviewed",
-        "scope": "limb continuity, pose, joints, equipment contacts and style; not independent technique certification",
+        "visual": "individual source, 960/480 and exact exercise phase reviewed",
+        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
         "status": "accepted-visual",
-        "revision": "anatomy-v2",
-        "receipt": "qa/exercise-image-review.json",
-        "sourceSha256": "c678bde188822f0bcf32a303e72418bacf83986252f3ab969dd1efed6d06b05b"
+        "revision": "anatomy-v3",
+        "receipt": "qa/exercise-image-review-v3.json",
+        "contract": "qa/exercise-image-contracts.json",
+        "sourceSha256": "82489a7e9f0e30af5ff2ef28d93e415f9ac914621fc358f2d62c35e339ce92af"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Toes_to_Bar-anatomy-v2-480.webp",
+          "path": "media/exercises/Toes_to_Bar-anatomy-v3-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 19206,
-          "sha256": "648dd2c9086749ae85263b29a7cb877949109d46e4e6bfc38f4032872019d138"
+          "bytes": 18354,
+          "sha256": "6efb208bb2d5030156ce19807e87692088734a9ba1c4412e1034b2bf91ec4fd0"
         },
         "desktop": {
-          "path": "media/exercises/Toes_to_Bar-anatomy-v2-960.webp",
+          "path": "media/exercises/Toes_to_Bar-anatomy-v3-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 45458,
-          "sha256": "44557d860d512bb93b92647a904618b5fc6ef1ee3c661a296496718fc1fb0b62"
+          "bytes": 46500,
+          "sha256": "6282ed2f565810e2f754b98437d627b0ee7bb19f8bc75efbc880bc34c0fc0dc3"
         }
       }
     },
@@ -975,27 +991,28 @@
       "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "individual source and final 960/480 variants reviewed",
-        "scope": "limb continuity, pose, joints, equipment contacts and style; not independent technique certification",
+        "visual": "individual source, 960/480 and exact exercise phase reviewed",
+        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
         "status": "accepted-visual",
-        "revision": "anatomy-v2",
-        "receipt": "qa/exercise-image-review.json",
-        "sourceSha256": "0745e19f2d96f02edab5645bced02dc1bf976adaddd90faf632abd0c14cb3a13"
+        "revision": "anatomy-v3",
+        "receipt": "qa/exercise-image-review-v3.json",
+        "contract": "qa/exercise-image-contracts.json",
+        "sourceSha256": "ea1523bcb4818dd18199cf6ce55802690f9747e44832523300c9657bf69944e9"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Archer_Pushups-anatomy-v2-480.webp",
+          "path": "media/exercises/Archer_Pushups-anatomy-v3-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 15972,
-          "sha256": "42c907a4a4ca9a12cc16a45735c4f7779840d4f492b9e93a5a4d621b585aea21"
+          "bytes": 11386,
+          "sha256": "fd22b18b7a59dc0ba7f74754f1c149879d459773b877a80a557ed9c0bbdb1003"
         },
         "desktop": {
-          "path": "media/exercises/Archer_Pushups-anatomy-v2-960.webp",
+          "path": "media/exercises/Archer_Pushups-anatomy-v3-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 56610,
-          "sha256": "b7bd97379014c19b6432fbe4484404b8d62ce948bd1f9b4f3da41a752075ef12"
+          "bytes": 43998,
+          "sha256": "20ecf94771907f16d4ed958ab20e6082aec4ea9a57683bac07475886af823eb2"
         }
       }
     },
@@ -1095,27 +1112,28 @@
       "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "individual source and final 960/480 variants reviewed",
-        "scope": "limb continuity, pose, joints, equipment contacts and style; not independent technique certification",
+        "visual": "individual source, 960/480 and exact exercise phase reviewed",
+        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
         "status": "accepted-visual",
-        "revision": "anatomy-v2",
-        "receipt": "qa/exercise-image-review.json",
-        "sourceSha256": "5d1cbe82fb45ccee9fa39db9fd6b54f11f5c18f168eebad64234fabbeb9e1855"
+        "revision": "anatomy-v3",
+        "receipt": "qa/exercise-image-review-v3.json",
+        "contract": "qa/exercise-image-contracts.json",
+        "sourceSha256": "c664adb91a35f62f54415e3d2e7f09a9f41959ac79befb1dafffd6b76562c955"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Handstand-anatomy-v2-480.webp",
+          "path": "media/exercises/Handstand-anatomy-v3-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 20756,
-          "sha256": "cc95adf4901043b7101522552359c671213af4026ddc6422bde3376d07e27e7f"
+          "bytes": 10300,
+          "sha256": "f2f8710fb73a402c6ef4db688c81bddd3e4563cd9c29941978c6aeafb9572360"
         },
         "desktop": {
-          "path": "media/exercises/Handstand-anatomy-v2-960.webp",
+          "path": "media/exercises/Handstand-anatomy-v3-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 56682,
-          "sha256": "3c0a7f6e1e8a53da4e85d89adc92a8387f620a6ef6e4948869fed65a6f39b9a2"
+          "bytes": 27940,
+          "sha256": "69da4d820b1c83070ba213e9b327dc84f1301c1c015ac03ce2b4f54ee666067f"
         }
       }
     },
@@ -1125,26 +1143,31 @@
       "name": "Тък планч",
       "origin": "AI generated",
       "tool": "OpenAI image generation tool",
-      "date": "2026-11-07",
+      "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "contact-sheet reviewed",
-        "scope": "pose, equipment and anatomy; not technique certification"
+        "visual": "individual source, 960/480 and exact exercise phase reviewed",
+        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+        "status": "accepted-visual",
+        "revision": "anatomy-v3",
+        "receipt": "qa/exercise-image-review-v3.json",
+        "contract": "qa/exercise-image-contracts.json",
+        "sourceSha256": "de89d53559bdec6931de4d6f4fc1972102fcc27d816f004c202caf69ff209123"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Tuck_Planche-480.webp",
+          "path": "media/exercises/Tuck_Planche-anatomy-v3-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17816,
-          "sha256": "994f4993633fa3b56b5bb282e1abbe18b90c72b14062a768e6445c1051413fd6"
+          "bytes": 19354,
+          "sha256": "c3472dee49538a7503e0d5995730990633652028da8a747048bb227fad52ed1e"
         },
         "desktop": {
-          "path": "media/exercises/Tuck_Planche-960.webp",
+          "path": "media/exercises/Tuck_Planche-anatomy-v3-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 46562,
-          "sha256": "3dc776d336819faf370f26a02c2a160fdda990b3368deef6fd6905cd76b3f408"
+          "bytes": 56156,
+          "sha256": "e9dd4268b2ec9f9a931cafff4fab774146c78e6f1974ba518aeff2564a394e39"
         }
       }
     },
@@ -1154,26 +1177,31 @@
       "name": "Тък фронт левър",
       "origin": "AI generated",
       "tool": "OpenAI image generation tool",
-      "date": "2026-11-07",
+      "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "contact-sheet reviewed",
-        "scope": "pose, equipment and anatomy; not technique certification"
+        "visual": "individual source, 960/480 and exact exercise phase reviewed",
+        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+        "status": "accepted-visual",
+        "revision": "anatomy-v3",
+        "receipt": "qa/exercise-image-review-v3.json",
+        "contract": "qa/exercise-image-contracts.json",
+        "sourceSha256": "d1398fd9381aa184ee0409e1cc9e52b8373b24d2ae96f39f2a57c6a96323f5e4"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Tuck_Front_Lever-480.webp",
+          "path": "media/exercises/Tuck_Front_Lever-anatomy-v3-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17482,
-          "sha256": "0a5d8725419134423159582fc80f616c59c18cb9c46f68aca45869d23267fbe2"
+          "bytes": 10494,
+          "sha256": "d2fbc9193d3607d4aa8759f3c3373648d8f8c3eee503e05810c80d6fbe90d06a"
         },
         "desktop": {
-          "path": "media/exercises/Tuck_Front_Lever-960.webp",
+          "path": "media/exercises/Tuck_Front_Lever-anatomy-v3-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 43342,
-          "sha256": "b203ccbed7cd11f94d0124593496a866dcd0db145462c8062f4683e557ff8b38"
+          "bytes": 27354,
+          "sha256": "d96e825158deab5a6c98215720858286800a68078a83241472df47f9ab3424ba"
         }
       }
     },
@@ -1273,27 +1301,28 @@
       "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "individual source and final 960/480 variants reviewed",
-        "scope": "limb continuity, pose, joints, equipment contacts and style; not independent technique certification",
+        "visual": "individual source, 960/480 and exact exercise phase reviewed",
+        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
         "status": "accepted-visual",
-        "revision": "anatomy-v2",
-        "receipt": "qa/exercise-image-review.json",
-        "sourceSha256": "c165c8fd296894e033b4b801da28909c60c39cac29c4c67ddac06e2ad69facee"
+        "revision": "anatomy-v3",
+        "receipt": "qa/exercise-image-review-v3.json",
+        "contract": "qa/exercise-image-contracts.json",
+        "sourceSha256": "a01f48e55e7eea5230661d4eeecaea5a09f8d7e3f87b23235eac69bc5acb5da0"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Handstand_Pushups-anatomy-v2-480.webp",
+          "path": "media/exercises/Handstand_Pushups-anatomy-v3-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18098,
-          "sha256": "2b6a17c1afcca1b77a92f9df4d9bd6cf17c6ac739f09fa940debe10f2e33719a"
+          "bytes": 11860,
+          "sha256": "f5abf2f04b31b7e51fabc26454c6ba9452219360920efa37149b77ec5a0ad028"
         },
         "desktop": {
-          "path": "media/exercises/Handstand_Pushups-anatomy-v2-960.webp",
+          "path": "media/exercises/Handstand_Pushups-anatomy-v3-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 54064,
-          "sha256": "242af822d7093c2cd3c59269f79c004674a4f63cf9d499ef7cd0f44daf7b9d80"
+          "bytes": 31068,
+          "sha256": "a2191aec1484d01602e6fd20c7f73a2d41c716813672d22a918a5e9ea089c09e"
         }
       }
     },
@@ -1332,26 +1361,31 @@
       "name": "Страдъл планч",
       "origin": "AI generated",
       "tool": "OpenAI image generation tool",
-      "date": "2026-11-07",
+      "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "contact-sheet reviewed",
-        "scope": "pose, equipment and anatomy; not technique certification"
+        "visual": "individual source, 960/480 and exact exercise phase reviewed",
+        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+        "status": "accepted-visual",
+        "revision": "anatomy-v3",
+        "receipt": "qa/exercise-image-review-v3.json",
+        "contract": "qa/exercise-image-contracts.json",
+        "sourceSha256": "ad8908040123c36a2347723778927b8fdd4f10586164fac9df291d8c66bdfe2e"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Straddle_Planche-480.webp",
+          "path": "media/exercises/Straddle_Planche-anatomy-v3-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 14934,
-          "sha256": "6a34227020cdd71ba2c7029586f859a00ce0c8c5f207e0e7161995ecc0bd25ec"
+          "bytes": 17354,
+          "sha256": "069645ca880a83d1605a623d3c33064d13bdcb4528d0b02cc5dcfee03d5c78f9"
         },
         "desktop": {
-          "path": "media/exercises/Straddle_Planche-960.webp",
+          "path": "media/exercises/Straddle_Planche-anatomy-v3-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 39926,
-          "sha256": "676ccbca3a2e6bf0c035fb71e41f6c8b330669b5cb2f64c5db6f9485931640a0"
+          "bytes": 61706,
+          "sha256": "5f9e332899832ff9969cdd9754781e534a8b33ac340148cd43572bc3dab8422a"
         }
       }
     },
@@ -1361,26 +1395,31 @@
       "name": "Пълен планч",
       "origin": "AI generated",
       "tool": "OpenAI image generation tool",
-      "date": "2026-11-07",
+      "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "contact-sheet reviewed",
-        "scope": "pose, equipment and anatomy; not technique certification"
+        "visual": "individual source, 960/480 and exact exercise phase reviewed",
+        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+        "status": "accepted-visual",
+        "revision": "anatomy-v3",
+        "receipt": "qa/exercise-image-review-v3.json",
+        "contract": "qa/exercise-image-contracts.json",
+        "sourceSha256": "33aa51cc227a9dbc4cec45a9752802f060c82ffc4f1a246e07e9edfeb076cca3"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Full_Planche-480.webp",
+          "path": "media/exercises/Full_Planche-anatomy-v3-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17298,
-          "sha256": "c76de6c82a2e06536b475acebe3b4729791d9124d0e6a52722957c5f5568138d"
+          "bytes": 20062,
+          "sha256": "b5203f8ec325fafe608e72afc4be14961fa08153d7417bc73f3e46f798227643"
         },
         "desktop": {
-          "path": "media/exercises/Full_Planche-960.webp",
+          "path": "media/exercises/Full_Planche-anatomy-v3-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 46576,
-          "sha256": "6dade0efeb85cbe235c1244334a1927daa3a6f480982f89b5c37291c89d4e2e1"
+          "bytes": 59094,
+          "sha256": "b41d048a3f4240b39e48b192881967a7a5b27e9074a7919c075e6f35fe05e753"
         }
       }
     },

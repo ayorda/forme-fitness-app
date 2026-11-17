@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 1,
+  "scope": "Explicit depicted phase and equipment, grounded in unchanged FORME catalogue; visual observations are not an automatic pose detector",
+  "references": [
+    "https://gmb.io/levers/0/",
+    "https://www.crossfit.com/essentials/hspu-and-you-master-the-movement"
+  ],
+  "exercises": [
+    {
+      "id": "Handstand",
+      "catalogue": {
+        "id": "Handstand",
+        "name": "Стойка на ръце",
+        "level": "intermediate",
+        "equip": "wall",
+        "description": "Баланс в обърната опора.",
+        "steps": "Постави длани стабилно и влизай в опора до стена само ако можеш безопасно да излезеш от нея. Дръж раменете активни.",
+        "easier": "Разходка с крака по стената в удобен обхват.",
+        "defaultMetric": "seconds"
+      },
+      "phase": "settled-wall-handstand",
+      "requiredVisible": {
+        "verticalStack": "Wrists, shoulders, pelvis and ankles form a clean near-vertical line.",
+        "straightArms": "Both arms are extended and shoulders actively support the inverted body.",
+        "wallContact": "Both heels contact the same visible wall plane; no kick-up or crossed ankles."
+      },
+      "rejectIf": [
+        "kick-up",
+        "pike support",
+        "banana-back"
+      ]
+    },
+    {
+      "id": "Handstand_Pushups",
+      "catalogue": {
+        "id": "Handstand_Pushups",
+        "name": "Лицеви опори от стойка на ръце",
+        "level": "advanced",
+        "equip": "wall",
+        "description": "Напреднало вертикално избутване в обърната опора.",
+        "steps": "След уверена стойка с безопасно излизане сгъни ръцете контролирано в удобен обхват и избутай.",
+        "easier": "Пайк лицеви опори.",
+        "defaultMetric": "reps"
+      },
+      "phase": "strict-wall-hspu-lowering",
+      "requiredVisible": {
+        "verticalPress": "Torso and straight legs remain nearly vertical above shoulders.",
+        "bentElbows": "Both elbows visibly bend near a right angle with planted palms.",
+        "headTriangle": "Head is forward of palm line with clear floor clearance.",
+        "heelContact": "Two heels lightly touch wall without a waist pike."
+      },
+      "rejectIf": [
+        "wall pike push-up",
+        "straight-arm handstand",
+        "headstand"
+      ]
+    },
+    {
+      "id": "Tuck_Front_Lever",
+      "catalogue": {
+        "id": "Tuck_Front_Lever",
+        "name": "Тък фронт левър",
+        "level": "advanced",
+        "equip": "bar",
+        "description": "Статичен вис с прибрани крака и тяло към хоризонтала.",
+        "steps": "От активен вис прибери коленете и поддържай контролирана линия на торса, без резки движения.",
+        "easier": "Активен вис и прибиране на колене.",
+        "defaultMetric": "seconds"
+      },
+      "phase": "basic-tuck-front-lever",
+      "requiredVisible": {
+        "horizontalBack": "Shoulders and hips are at approximately equal height, chest faces up.",
+        "straightArms": "Both elbows remain extended with both hands gripping the overhead bar.",
+        "compactTuck": "Both knees are against upper abdomen and both heels close to hips.",
+        "unsupportedHang": "Torso and feet are entirely suspended below the bar."
+      },
+      "rejectIf": [
+        "upright hanging crunch",
+        "advanced open tuck",
+        "bent-arm row",
+        "skin-the-cat"
+      ]
+    },
+    {
+      "id": "Toes_to_Bar",
+      "catalogue": {
+        "id": "Toes_to_Bar",
+        "name": "Пръсти към лоста",
+        "level": "intermediate",
+        "equip": "bar",
+        "description": "Повдигане на краката от вис към лоста.",
+        "steps": "От активен вис повдигни краката контролирано към лоста, без да разчиташ на силно люлеене.",
+        "easier": "Повдигане на свити колене от вис.",
+        "defaultMetric": "reps"
+      },
+      "phase": "strict-toes-to-bar-top",
+      "requiredVisible": {
+        "twoGrips": "Both hands grip the bar outside the legs with extended elbows.",
+        "toeContact": "Both shoe toe boxes reach the front/underside of the bar between hands.",
+        "highStraightLegs": "Both knees are near straight and feet are at bar height above head.",
+        "hangingCompression": "Pelvis hangs below bar with coherent hip flexion and no foot support."
+      },
+      "rejectIf": [
+        "hanging L-sit",
+        "knee raise",
+        "sole-supported pike"
+      ]
+    },
+    {
+      "id": "Archer_Pushups",
+      "catalogue": {
+        "id": "Archer_Pushups",
+        "name": "Стрелец лицеви опори",
+        "level": "intermediate",
+        "equip": "none",
+        "description": "Едностранно натоварване в лицева опора.",
+        "steps": "От широка опора премести тежестта към едната сгъваща се ръка и се върни контролирано.",
+        "easier": "Стандартни лицеви опори или вариант с по-малко преместване.",
+        "defaultMetric": "reps"
+      },
+      "phase": "low-side-loaded-archer-pushup",
+      "requiredVisible": {
+        "loadedArm": "One elbow is clearly flexed and the chest shifts toward that palm.",
+        "sideAssist": "Other arm extends sideways, perpendicular to head-to-feet axis.",
+        "neutralPlank": "Torso and pelvis remain a supported low plank, not resting on floor.",
+        "twoToeSupports": "Two full legs and two shoe toe contacts are separately traceable."
+      },
+      "rejectIf": [
+        "forward reach",
+        "symmetrical wide push-up",
+        "sprawled prone rest"
+      ]
+    },
+    {
+      "id": "Seated_Overhead_Stretch",
+      "catalogue": {
+        "id": "Seated_Overhead_Stretch",
+        "name": "Странично разтягане в седеж",
+        "level": "beginner",
+        "equip": "mat",
+        "description": "Плавно странично разтягане за торс и рамене.",
+        "steps": "Седни със събрани ходила. Подпри едната длан отстрани, постави другата ръка над главата и наклони торса плавно настрани. Смени страната.",
+        "easier": "Намали страничния наклон.",
+        "defaultMetric": "seconds"
+      },
+      "phase": "butterfly-seated-side-bend",
+      "requiredVisible": {
+        "butterflyBase": "Both soles meet in front with knees open, no crossed shins.",
+        "sideBend": "Torso bends sideways while both hips remain seated.",
+        "armArc": "One palm supports beside hip and opposite arm arcs overhead."
+      },
+      "rejectIf": [
+        "cross-legged side bend",
+        "lotus",
+        "forward fold"
+      ]
+    },
+    {
+      "id": "Hip_Circles_prone",
+      "catalogue": {
+        "id": "Hip_Circles_prone",
+        "name": "Кръгове с коляно от четири опори",
+        "level": "beginner",
+        "equip": "mat",
+        "description": "Контролирано движение на тазобедрената става.",
+        "steps": "Застани на четири опори. Повдигни едно свито коляно. Направи плавен кръг, без да извиваш кръста.",
+        "easier": "Намали радиуса на кръга.",
+        "defaultMetric": "reps"
+      },
+      "phase": "quadruped-bent-knee-circle-phase",
+      "requiredVisible": {
+        "quadrupedSupport": "Two palms and one knee support on mat; spine and pelvis controlled.",
+        "bentLiftedKnee": "Other knee is unmistakably flexed near a right angle while elevated.",
+        "twoLegChains": "Both thighs, knees, shins and separate shoes remain traceable."
+      },
+      "rejectIf": [
+        "straight-leg bird-dog",
+        "standing hip circle",
+        "straight rear-leg kick"
+      ]
+    },
+    {
+      "id": "Tuck_Planche",
+      "catalogue": {
+        "id": "Tuck_Planche",
+        "name": "Тък планч",
+        "level": "advanced",
+        "equip": "none",
+        "description": "Силова опора на ръце с прибрани колене.",
+        "steps": "От стабилна опора пренеси раменете напред с изпънати лакти и задръж прибрана позиция само ако я контролираш.",
+        "easier": "Наклон в опора с крака на пода.",
+        "defaultMetric": "seconds"
+      },
+      "phase": "floor-tuck-planche",
+      "requiredVisible": {
+        "floorPalms": "Both flat palms support directly on floor, no handles.",
+        "straightArmLean": "Elbows are extended and shoulders lean forward of wrists.",
+        "freeTuck": "Knees tuck close without resting on arms; both feet clear floor."
+      },
+      "rejectIf": [
+        "parallette tuck",
+        "frog stand",
+        "feet-supported lean"
+      ]
+    },
+    {
+      "id": "Straddle_Planche",
+      "catalogue": {
+        "id": "Straddle_Planche",
+        "name": "Страдъл планч",
+        "level": "advanced",
+        "equip": "none",
+        "description": "Силова хоризонтална опора с разтворени крака.",
+        "steps": "Само след стабилни подготвителни варианти пренеси тежестта напред и задръж със стегнато тяло и изпънати лакти.",
+        "easier": "Тък планч.",
+        "defaultMetric": "seconds"
+      },
+      "phase": "floor-straddle-planche",
+      "requiredVisible": {
+        "floorPalms": "Both palms rest directly on floor, no apparatus supports.",
+        "lockedLean": "Arms are extended with shoulders ahead of wrists.",
+        "horizontalStraddle": "Torso and two extended legs form a suspended horizontal V straddle.",
+        "clearFeet": "Both whole shoes are above floor, with coherent hip attachments."
+      },
+      "rejectIf": [
+        "parallette straddle",
+        "straddle push-up",
+        "tuck planche"
+      ]
+    },
+    {
+      "id": "Full_Planche",
+      "catalogue": {
+        "id": "Full_Planche",
+        "name": "Пълен планч",
+        "level": "elite",
+        "equip": "none",
+        "description": "Елитна хоризонтална опора с изпънато тяло.",
+        "steps": "Изисква дългосрочна подготовка и стабилен контрол в по-лесни варианти. Изпълнявай само с квалифицирано наблюдение.",
+        "easier": "Страдъл или тък планч според готовността.",
+        "defaultMetric": "seconds"
+      },
+      "phase": "floor-full-planche",
+      "requiredVisible": {
+        "floorPalms": "Both palms rest directly on floor with natural wrists.",
+        "lockedLean": "Arms are extended with shoulders in front of wrists.",
+        "straightTogether": "Torso, hips, straight knees and two adjacent ankles form one horizontal line.",
+        "unsupportedFeet": "Both shoes float clear of floor; no other support touches body."
+      },
+      "rejectIf": [
+        "parallette full planche",
+        "straddle planche",
+        "push-up"
+      ]
+    },
+    {
+      "id": "Kneeling_Forearm_Stretch",
+      "catalogue": {
+        "id": "Kneeling_Forearm_Stretch",
+        "name": "Разтягане на китки",
+        "level": "beginner",
+        "equip": "mat",
+        "description": "Подготовка на китките за опори и стойки.",
+        "steps": "Застани на колене и постави длани на пода с пръсти към коленете. Премести тежестта леко назад. Не допускай болка.",
+        "easier": "Изпълни с по-малко натоварване.",
+        "defaultMetric": "seconds"
+      },
+      "phase": "kneeling-palms-down-fingers-to-knees",
+      "requiredVisible": {
+        "palmsDown": "Both whole palms are down on mat in front of knees.",
+        "bothFingersBack": "Both sets of fingers point toward knees, not opposite directions.",
+        "gentleKneeling": "Both knees support with light backward shift and plausible wrists.",
+        "separateFeet": "Two shins and two full bare feet are visible separately behind knees."
+      },
+      "rejectIf": [
+        "one reversed hand",
+        "fingers forward",
+        "backs-of-hands stretch"
+      ]
+    }
+  ]
+}

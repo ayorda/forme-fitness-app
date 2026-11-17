@@ -497,5 +497,16 @@
       "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
       "detailReview": false
     }
-  ]
+  ],
+  "supersededAssessment": {
+    "date": "2026-11-17",
+    "receipt": "qa/exercise-image-review-v3.json",
+    "ids": [
+      "Handstand",
+      "Handstand_Pushups",
+      "Toes_to_Bar",
+      "Archer_Pushups"
+    ],
+    "reason": "Owner rejected exact exercise clarity; historical visual acceptance is superseded for these images. Skin_the_Cat remains the active v2 image."
+  }
 }

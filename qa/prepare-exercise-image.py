@@ -8,6 +8,7 @@ import hashlib
 import io
 import json
 import re
+import subprocess
 from pathlib import Path
 
 from PIL import Image, ImageOps
@@ -15,6 +16,46 @@ from PIL import Image, ImageOps
 CHECKS = ('singleAthlete', 'limbCount', 'limbContinuity', 'jointAlignment',
           'exercisePose', 'equipmentContact', 'fullBodyMargins',
           'styleConsistency', 'mobileReadability')
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def catalogue_record(exercise):
+    """Read the actual application fields; never trust a receipt's own label."""
+    script = """const fs=require('fs'),vm=require('vm');
+const c={window:{FORME_EXERCISE_ART:{url:()=> 'fixture'}}};vm.createContext(c);
+vm.runInContext(fs.readFileSync('data.js','utf8'),c);
+const e=c.window.FORME_DATA.exercises.find(e=>e.id===process.argv[1]);
+if(!e)process.exit(2);
+console.log(JSON.stringify(Object.fromEntries(['id','name','level','equip','description','steps','easier','defaultMetric'].map(k=>[k,e[k]]))));"""
+    return json.loads(subprocess.check_output(['node', '-e', script, exercise], cwd=ROOT))
+
+
+def validate_exact_match(record, exercise):
+    policy = json.loads((ROOT / 'qa/exercise-image-contracts.json').read_text())
+    policies = [r for r in policy['exercises'] if r['id'] == exercise]
+    if len(policies) != 1:
+        raise ValueError('Need an explicit exercise-specific pose contract')
+    policy = policies[0]
+    current = catalogue_record(exercise)
+    exact = record.get('exactMatch', {})
+    if policy['catalogue'] != current or exact.get('catalogue') != current:
+        raise ValueError('Catalogue changed or wrong exercise/progression receipt')
+    if exact.get('phase') != policy['phase'] or exact.get('observedEquipment') != current['equip']:
+        raise ValueError('Wrong depicted phase or equipment')
+    for category in ['anatomy', 'exactMatch', 'style']:
+        if record.get(category, {}).get('status') != 'accepted':
+            raise ValueError('Anatomy, exact exercise and style must each be accepted')
+    for category in ['anatomy', 'style']:
+        if len(record[category].get('notes', '').strip()) < 30:
+            raise ValueError('Missing individual category observations')
+    criteria = exact.get('criteria', {})
+    if set(criteria) != set(policy['requiredVisible']):
+        raise ValueError('Missing or foreign exercise-specific visible criteria')
+    if any(c.get('passed') is not True or len(c.get('observation', '').strip()) < 20
+           for c in criteria.values()):
+        raise ValueError('Every exact exercise criterion needs a passing visual observation')
+    if set(record.get('reviewedVariants', [])) != {'source', '480', '960'}:
+        raise ValueError('Source and both compressed sizes must be reviewed')
 
 
 def sha(data):
@@ -41,8 +82,8 @@ def prepare(source, exercise, output, review=None):
         variants[str(width)] = data
     revision = 'candidate'
     if review is not None:
-        if review.get('schemaVersion') != 1:
-            raise ValueError('Unknown review schema')
+        if review.get('schemaVersion') != 2:
+            raise ValueError('Need strict schema 2 with separate anatomy/exercise/style decisions')
         records = [r for r in review.get('corrections', []) if r.get('id') == exercise]
         if len(records) != 1:
             raise ValueError('Need exactly one review for this exercise')
@@ -55,6 +96,7 @@ def prepare(source, exercise, output, review=None):
             raise ValueError('Ambiguous or unexpected limb count')
         if not record.get('poseNotes') or not record.get('reviewedAt'):
             raise ValueError('Missing individual pose review')
+        validate_exact_match(record, exercise)
         revision = record.get('revision', '')
         if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', revision):
             raise ValueError('Unsafe revision')

@@ -1,0 +1,1981 @@
+{
+  "schemaVersion": 2,
+  "reviewer": "Codex individual visual review",
+  "reviewScope": "Source, compressed variants and exact exercise phase; not independent trainer certification",
+  "reviewedAt": "2026-11-17",
+  "corrections": [
+    {
+      "id": "Handstand",
+      "revision": "anatomy-v3",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "c664adb91a35f62f54415e3d2e7f09a9f41959ac79befb1dafffd6b76562c955",
+      "oldDesktopSha256": "3c0a7f6e1e8a53da4e85d89adc92a8387f620a6ef6e4948869fed65a6f39b9a2",
+      "oldPaths": [
+        "media/exercises/Handstand-anatomy-v2-480.webp",
+        "media/exercises/Handstand-anatomy-v2-960.webp"
+      ],
+      "poseNotes": "Oblique side view: two palms at bottom, shoulders and pelvis above wrists, parallel knees/shins and two upward shoes touching the right-side wall. No kick-up or banana curve.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two continuous arm and leg chains, normal joint connections and proportions, no visible duplicated appendage; checked in source and both compressed variants."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Handstand",
+          "name": "Стойка на ръце",
+          "level": "intermediate",
+          "equip": "wall",
+          "description": "Баланс в обърната опора.",
+          "steps": "Постави длани стабилно и влизай в опора до стена само ако можеш безопасно да излезеш от нея. Дръж раменете активни.",
+          "easier": "Разходка с крака по стената в удобен обхват.",
+          "defaultMetric": "seconds"
+        },
+        "phase": "settled-wall-handstand",
+        "observedEquipment": "wall",
+        "criteria": {
+          "verticalStack": {
+            "passed": true,
+            "observation": "Oblique side view: two palms at bottom, shoulders and pelvis above wrists, parallel knees/shins and two upward shoes touching the right-side wall. No kick-up or banana curve. Feature checked: verticalStack."
+          },
+          "straightArms": {
+            "passed": true,
+            "observation": "Oblique side view: two palms at bottom, shoulders and pelvis above wrists, parallel knees/shins and two upward shoes touching the right-side wall. No kick-up or banana curve. Feature checked: straightArms."
+          },
+          "wallContact": {
+            "passed": true,
+            "observation": "Oblique side view: two palms at bottom, shoulders and pelvis above wrists, parallel knees/shins and two upward shoes touching the right-side wall. No kick-up or banana curve. Feature checked: wallContact."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "Charcoal gym and muted olive clothing/equipment, soft natural light, realistic skin and uncluttered complete framing match FORME."
+      },
+      "variants": {
+        "480": {
+          "bytes": 10300,
+          "sha256": "f2f8710fb73a402c6ef4db688c81bddd3e4563cd9c29941978c6aeafb9572360"
+        },
+        "960": {
+          "bytes": 27940,
+          "sha256": "69da4d820b1c83070ba213e9b327dc84f1301c1c015ac03ce2b4f54ee666067f"
+        }
+      }
+    },
+    {
+      "id": "Handstand_Pushups",
+      "revision": "anatomy-v3",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "a01f48e55e7eea5230661d4eeecaea5a09f8d7e3f87b23235eac69bc5acb5da0",
+      "oldDesktopSha256": "242af822d7093c2cd3c59269f79c004674a4f63cf9d499ef7cd0f44daf7b9d80",
+      "oldPaths": [
+        "media/exercises/Handstand_Pushups-anatomy-v2-480.webp",
+        "media/exercises/Handstand_Pushups-anatomy-v2-960.webp"
+      ],
+      "poseNotes": "Front oblique view: upper arms spread laterally, both elbows bend, forearms descend to palms; T-shirt torso and legs stack vertically. Head is forward with floor clearance, heels against wall.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two continuous arm and leg chains, normal joint connections and proportions, no visible duplicated appendage; checked in source and both compressed variants."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Handstand_Pushups",
+          "name": "Лицеви опори от стойка на ръце",
+          "level": "advanced",
+          "equip": "wall",
+          "description": "Напреднало вертикално избутване в обърната опора.",
+          "steps": "След уверена стойка с безопасно излизане сгъни ръцете контролирано в удобен обхват и избутай.",
+          "easier": "Пайк лицеви опори.",
+          "defaultMetric": "reps"
+        },
+        "phase": "strict-wall-hspu-lowering",
+        "observedEquipment": "wall",
+        "criteria": {
+          "verticalPress": {
+            "passed": true,
+            "observation": "Front oblique view: upper arms spread laterally, both elbows bend, forearms descend to palms; T-shirt torso and legs stack vertically. Head is forward with floor clearance, heels against wall. Feature checked: verticalPress."
+          },
+          "bentElbows": {
+            "passed": true,
+            "observation": "Front oblique view: upper arms spread laterally, both elbows bend, forearms descend to palms; T-shirt torso and legs stack vertically. Head is forward with floor clearance, heels against wall. Feature checked: bentElbows."
+          },
+          "headTriangle": {
+            "passed": true,
+            "observation": "Front oblique view: upper arms spread laterally, both elbows bend, forearms descend to palms; T-shirt torso and legs stack vertically. Head is forward with floor clearance, heels against wall. Feature checked: headTriangle."
+          },
+          "heelContact": {
+            "passed": true,
+            "observation": "Front oblique view: upper arms spread laterally, both elbows bend, forearms descend to palms; T-shirt torso and legs stack vertically. Head is forward with floor clearance, heels against wall. Feature checked: heelContact."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "Charcoal gym and muted olive clothing/equipment, soft natural light, realistic skin and uncluttered complete framing match FORME."
+      },
+      "variants": {
+        "480": {
+          "bytes": 11860,
+          "sha256": "f5abf2f04b31b7e51fabc26454c6ba9452219360920efa37149b77ec5a0ad028"
+        },
+        "960": {
+          "bytes": 31068,
+          "sha256": "a2191aec1484d01602e6fd20c7f73a2d41c716813672d22a918a5e9ea089c09e"
+        }
+      }
+    },
+    {
+      "id": "Tuck_Front_Lever",
+      "revision": "anatomy-v3",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "d1398fd9381aa184ee0409e1cc9e52b8373b24d2ae96f39f2a57c6a96323f5e4",
+      "oldDesktopSha256": "b203ccbed7cd11f94d0124593496a866dcd0db145462c8062f4683e557ff8b38",
+      "oldPaths": [
+        "media/exercises/Tuck_Front_Lever-480.webp",
+        "media/exercises/Tuck_Front_Lever-960.webp"
+      ],
+      "poseNotes": "Head is at left and chest faces up; shoulder/hip line is nearly horizontal. Knees meet the rib cage left of pelvis and shins fold back to two shoes beside buttocks. Arms point straight diagonally up to bar.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two continuous arm and leg chains, normal joint connections and proportions, no visible duplicated appendage; checked in source and both compressed variants."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Tuck_Front_Lever",
+          "name": "Тък фронт левър",
+          "level": "advanced",
+          "equip": "bar",
+          "description": "Статичен вис с прибрани крака и тяло към хоризонтала.",
+          "steps": "От активен вис прибери коленете и поддържай контролирана линия на торса, без резки движения.",
+          "easier": "Активен вис и прибиране на колене.",
+          "defaultMetric": "seconds"
+        },
+        "phase": "basic-tuck-front-lever",
+        "observedEquipment": "bar",
+        "criteria": {
+          "horizontalBack": {
+            "passed": true,
+            "observation": "Head is at left and chest faces up; shoulder/hip line is nearly horizontal. Knees meet the rib cage left of pelvis and shins fold back to two shoes beside buttocks. Arms point straight diagonally up to bar. Feature checked: horizontalBack."
+          },
+          "straightArms": {
+            "passed": true,
+            "observation": "Head is at left and chest faces up; shoulder/hip line is nearly horizontal. Knees meet the rib cage left of pelvis and shins fold back to two shoes beside buttocks. Arms point straight diagonally up to bar. Feature checked: straightArms."
+          },
+          "compactTuck": {
+            "passed": true,
+            "observation": "Head is at left and chest faces up; shoulder/hip line is nearly horizontal. Knees meet the rib cage left of pelvis and shins fold back to two shoes beside buttocks. Arms point straight diagonally up to bar. Feature checked: compactTuck."
+          },
+          "unsupportedHang": {
+            "passed": true,
+            "observation": "Head is at left and chest faces up; shoulder/hip line is nearly horizontal. Knees meet the rib cage left of pelvis and shins fold back to two shoes beside buttocks. Arms point straight diagonally up to bar. Feature checked: unsupportedHang."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "Charcoal gym and muted olive clothing/equipment, soft natural light, realistic skin and uncluttered complete framing match FORME."
+      },
+      "variants": {
+        "480": {
+          "bytes": 10494,
+          "sha256": "d2fbc9193d3607d4aa8759f3c3373648d8f8c3eee503e05810c80d6fbe90d06a"
+        },
+        "960": {
+          "bytes": 27354,
+          "sha256": "d96e825158deab5a6c98215720858286800a68078a83241472df47f9ab3424ba"
+        }
+      }
+    },
+    {
+      "id": "Toes_to_Bar",
+      "revision": "anatomy-v3",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "82489a7e9f0e30af5ff2ef28d93e415f9ac914621fc358f2d62c35e339ce92af",
+      "oldDesktopSha256": "44557d860d512bb93b92647a904618b5fc6ef1ee3c661a296496718fc1fb0b62",
+      "oldPaths": [
+        "media/exercises/Toes_to_Bar-anatomy-v2-480.webp",
+        "media/exercises/Toes_to_Bar-anatomy-v2-960.webp"
+      ],
+      "poseNotes": "Two gripping hands flank the raised legs; both shoe toe boxes reach the sloping bar near its underside. Heels stay lower, knees near straight, hips suspended well below bar; neither sole stands on it.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two continuous arm and leg chains, normal joint connections and proportions, no visible duplicated appendage; checked in source and both compressed variants."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Toes_to_Bar",
+          "name": "Пръсти към лоста",
+          "level": "intermediate",
+          "equip": "bar",
+          "description": "Повдигане на краката от вис към лоста.",
+          "steps": "От активен вис повдигни краката контролирано към лоста, без да разчиташ на силно люлеене.",
+          "easier": "Повдигане на свити колене от вис.",
+          "defaultMetric": "reps"
+        },
+        "phase": "strict-toes-to-bar-top",
+        "observedEquipment": "bar",
+        "criteria": {
+          "twoGrips": {
+            "passed": true,
+            "observation": "Two gripping hands flank the raised legs; both shoe toe boxes reach the sloping bar near its underside. Heels stay lower, knees near straight, hips suspended well below bar; neither sole stands on it. Feature checked: twoGrips."
+          },
+          "toeContact": {
+            "passed": true,
+            "observation": "Two gripping hands flank the raised legs; both shoe toe boxes reach the sloping bar near its underside. Heels stay lower, knees near straight, hips suspended well below bar; neither sole stands on it. Feature checked: toeContact."
+          },
+          "highStraightLegs": {
+            "passed": true,
+            "observation": "Two gripping hands flank the raised legs; both shoe toe boxes reach the sloping bar near its underside. Heels stay lower, knees near straight, hips suspended well below bar; neither sole stands on it. Feature checked: highStraightLegs."
+          },
+          "hangingCompression": {
+            "passed": true,
+            "observation": "Two gripping hands flank the raised legs; both shoe toe boxes reach the sloping bar near its underside. Heels stay lower, knees near straight, hips suspended well below bar; neither sole stands on it. Feature checked: hangingCompression."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "Charcoal gym and muted olive clothing/equipment, soft natural light, realistic skin and uncluttered complete framing match FORME."
+      },
+      "variants": {
+        "480": {
+          "bytes": 18354,
+          "sha256": "6efb208bb2d5030156ce19807e87692088734a9ba1c4412e1034b2bf91ec4fd0"
+        },
+        "960": {
+          "bytes": 46500,
+          "sha256": "6282ed2f565810e2f754b98437d627b0ee7bb19f8bc75efbc880bc34c0fc0dc3"
+        }
+      }
+    },
+    {
+      "id": "Archer_Pushups",
+      "revision": "anatomy-v3",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "ea1523bcb4818dd18199cf6ce55802690f9747e44832523300c9657bf69944e9",
+      "oldDesktopSha256": "b7bd97379014c19b6432fbe4484404b8d62ce948bd1f9b4f3da41a752075ef12",
+      "oldPaths": [
+        "media/exercises/Archer_Pushups-anatomy-v2-480.webp",
+        "media/exercises/Archer_Pushups-anatomy-v2-960.webp"
+      ],
+      "poseNotes": "Head-to-feet axis runs from bottom to top of frame. Assist arm extends left-to-right across that axis; loaded elbow on image-left is flexed, torso shifted toward that palm. Both full legs and two toe contacts visible.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two continuous arm and leg chains, normal joint connections and proportions, no visible duplicated appendage; checked in source and both compressed variants."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Archer_Pushups",
+          "name": "Стрелец лицеви опори",
+          "level": "intermediate",
+          "equip": "none",
+          "description": "Едностранно натоварване в лицева опора.",
+          "steps": "От широка опора премести тежестта към едната сгъваща се ръка и се върни контролирано.",
+          "easier": "Стандартни лицеви опори или вариант с по-малко преместване.",
+          "defaultMetric": "reps"
+        },
+        "phase": "low-side-loaded-archer-pushup",
+        "observedEquipment": "none",
+        "criteria": {
+          "loadedArm": {
+            "passed": true,
+            "observation": "Head-to-feet axis runs from bottom to top of frame. Assist arm extends left-to-right across that axis; loaded elbow on image-left is flexed, torso shifted toward that palm. Both full legs and two toe contacts visible. Feature checked: loadedArm."
+          },
+          "sideAssist": {
+            "passed": true,
+            "observation": "Head-to-feet axis runs from bottom to top of frame. Assist arm extends left-to-right across that axis; loaded elbow on image-left is flexed, torso shifted toward that palm. Both full legs and two toe contacts visible. Feature checked: sideAssist."
+          },
+          "neutralPlank": {
+            "passed": true,
+            "observation": "Head-to-feet axis runs from bottom to top of frame. Assist arm extends left-to-right across that axis; loaded elbow on image-left is flexed, torso shifted toward that palm. Both full legs and two toe contacts visible. Feature checked: neutralPlank."
+          },
+          "twoToeSupports": {
+            "passed": true,
+            "observation": "Head-to-feet axis runs from bottom to top of frame. Assist arm extends left-to-right across that axis; loaded elbow on image-left is flexed, torso shifted toward that palm. Both full legs and two toe contacts visible. Feature checked: twoToeSupports."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "Charcoal gym and muted olive clothing/equipment, soft natural light, realistic skin and uncluttered complete framing match FORME."
+      },
+      "variants": {
+        "480": {
+          "bytes": 11386,
+          "sha256": "fd22b18b7a59dc0ba7f74754f1c149879d459773b877a80a557ed9c0bbdb1003"
+        },
+        "960": {
+          "bytes": 43998,
+          "sha256": "20ecf94771907f16d4ed958ab20e6082aec4ea9a57683bac07475886af823eb2"
+        }
+      }
+    },
+    {
+      "id": "Seated_Overhead_Stretch",
+      "revision": "anatomy-v3",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "b5738d77c78e01b92d903efb9d3eff4d77094374015c35d6cf1a9e4d666c69bb",
+      "oldDesktopSha256": "b65b7b7b3b2b3cabb1debacc944f20554dad46a5dcd9afcc5fa5d01516a7237d",
+      "oldPaths": [
+        "media/exercises/Seated_Overhead_Stretch-480.webp",
+        "media/exercises/Seated_Overhead_Stretch-960.webp"
+      ],
+      "poseNotes": "Two inner soles meet centrally in front, shins are not crossed and knees open sideways. One palm supports at image-left, opposite arm arcs over head toward that side while both hips remain seated.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two continuous arm and leg chains, normal joint connections and proportions, no visible duplicated appendage; checked in source and both compressed variants."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Seated_Overhead_Stretch",
+          "name": "Странично разтягане в седеж",
+          "level": "beginner",
+          "equip": "mat",
+          "description": "Плавно странично разтягане за торс и рамене.",
+          "steps": "Седни със събрани ходила. Подпри едната длан отстрани, постави другата ръка над главата и наклони торса плавно настрани. Смени страната.",
+          "easier": "Намали страничния наклон.",
+          "defaultMetric": "seconds"
+        },
+        "phase": "butterfly-seated-side-bend",
+        "observedEquipment": "mat",
+        "criteria": {
+          "butterflyBase": {
+            "passed": true,
+            "observation": "Two inner soles meet centrally in front, shins are not crossed and knees open sideways. One palm supports at image-left, opposite arm arcs over head toward that side while both hips remain seated. Feature checked: butterflyBase."
+          },
+          "sideBend": {
+            "passed": true,
+            "observation": "Two inner soles meet centrally in front, shins are not crossed and knees open sideways. One palm supports at image-left, opposite arm arcs over head toward that side while both hips remain seated. Feature checked: sideBend."
+          },
+          "armArc": {
+            "passed": true,
+            "observation": "Two inner soles meet centrally in front, shins are not crossed and knees open sideways. One palm supports at image-left, opposite arm arcs over head toward that side while both hips remain seated. Feature checked: armArc."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "Charcoal gym and muted olive clothing/equipment, soft natural light, realistic skin and uncluttered complete framing match FORME."
+      },
+      "variants": {
+        "480": {
+          "bytes": 15988,
+          "sha256": "72a9536dbfd68e01e1eaa1f221fb2653112e7e37c5cc0de3e9cf6a7b32573401"
+        },
+        "960": {
+          "bytes": 48032,
+          "sha256": "784f2ba3f524f539a23985648edaf9b197f79487a501d7dcd3141872e9bf934d"
+        }
+      }
+    },
+    {
+      "id": "Hip_Circles_prone",
+      "revision": "anatomy-v3",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "87240181bd552bf40c82ec5aca187c48249b9b128441e33140018a477910d956",
+      "oldDesktopSha256": "bae0983b32dc7e51f8dfcf66ad992440508f27081432bc89e720a79ede44e931",
+      "oldPaths": [
+        "media/exercises/Hip_Circles_prone-480.webp",
+        "media/exercises/Hip_Circles_prone-960.webp"
+      ],
+      "poseNotes": "Two palms and supporting knee contact mat; other thigh is elevated with an unmistakable flexed knee and descending shin. Two shoes remain separate. This is one bent-knee phase of the circle, not a straight-leg kick.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two continuous arm and leg chains, normal joint connections and proportions, no visible duplicated appendage; checked in source and both compressed variants."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Hip_Circles_prone",
+          "name": "Кръгове с коляно от четири опори",
+          "level": "beginner",
+          "equip": "mat",
+          "description": "Контролирано движение на тазобедрената става.",
+          "steps": "Застани на четири опори. Повдигни едно свито коляно. Направи плавен кръг, без да извиваш кръста.",
+          "easier": "Намали радиуса на кръга.",
+          "defaultMetric": "reps"
+        },
+        "phase": "quadruped-bent-knee-circle-phase",
+        "observedEquipment": "mat",
+        "criteria": {
+          "quadrupedSupport": {
+            "passed": true,
+            "observation": "Two palms and supporting knee contact mat; other thigh is elevated with an unmistakable flexed knee and descending shin. Two shoes remain separate. This is one bent-knee phase of the circle, not a straight-leg kick. Feature checked: quadrupedSupport."
+          },
+          "bentLiftedKnee": {
+            "passed": true,
+            "observation": "Two palms and supporting knee contact mat; other thigh is elevated with an unmistakable flexed knee and descending shin. Two shoes remain separate. This is one bent-knee phase of the circle, not a straight-leg kick. Feature checked: bentLiftedKnee."
+          },
+          "twoLegChains": {
+            "passed": true,
+            "observation": "Two palms and supporting knee contact mat; other thigh is elevated with an unmistakable flexed knee and descending shin. Two shoes remain separate. This is one bent-knee phase of the circle, not a straight-leg kick. Feature checked: twoLegChains."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "Charcoal gym and muted olive clothing/equipment, soft natural light, realistic skin and uncluttered complete framing match FORME."
+      },
+      "variants": {
+        "480": {
+          "bytes": 17518,
+          "sha256": "bc5f80a2b81ed7b6aae1607d1836dd3da47f5cca2a5e0f11096eb3f5aa3163ff"
+        },
+        "960": {
+          "bytes": 45498,
+          "sha256": "801ef7c10dfeb31fb2bcc02e7068fc79e74412174916977bb3e614d5f17ee399"
+        }
+      }
+    },
+    {
+      "id": "Tuck_Planche",
+      "revision": "anatomy-v3",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "de89d53559bdec6931de4d6f4fc1972102fcc27d816f004c202caf69ff209123",
+      "oldDesktopSha256": "3dc776d336819faf370f26a02c2a160fdda990b3368deef6fd6905cd76b3f408",
+      "oldPaths": [
+        "media/exercises/Tuck_Planche-480.webp",
+        "media/exercises/Tuck_Planche-960.webp"
+      ],
+      "poseNotes": "Both flat palms contact rubber floor with no handles. Straight arms lean toward head, knees tuck beside torso with a gap from upper arms, both shoes stay above floor. No knee-on-elbow frog support.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two continuous arm and leg chains, normal joint connections and proportions, no visible duplicated appendage; checked in source and both compressed variants."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Tuck_Planche",
+          "name": "Тък планч",
+          "level": "advanced",
+          "equip": "none",
+          "description": "Силова опора на ръце с прибрани колене.",
+          "steps": "От стабилна опора пренеси раменете напред с изпънати лакти и задръж прибрана позиция само ако я контролираш.",
+          "easier": "Наклон в опора с крака на пода.",
+          "defaultMetric": "seconds"
+        },
+        "phase": "floor-tuck-planche",
+        "observedEquipment": "none",
+        "criteria": {
+          "floorPalms": {
+            "passed": true,
+            "observation": "Both flat palms contact rubber floor with no handles. Straight arms lean toward head, knees tuck beside torso with a gap from upper arms, both shoes stay above floor. No knee-on-elbow frog support. Feature checked: floorPalms."
+          },
+          "straightArmLean": {
+            "passed": true,
+            "observation": "Both flat palms contact rubber floor with no handles. Straight arms lean toward head, knees tuck beside torso with a gap from upper arms, both shoes stay above floor. No knee-on-elbow frog support. Feature checked: straightArmLean."
+          },
+          "freeTuck": {
+            "passed": true,
+            "observation": "Both flat palms contact rubber floor with no handles. Straight arms lean toward head, knees tuck beside torso with a gap from upper arms, both shoes stay above floor. No knee-on-elbow frog support. Feature checked: freeTuck."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "Charcoal gym and muted olive clothing/equipment, soft natural light, realistic skin and uncluttered complete framing match FORME."
+      },
+      "variants": {
+        "480": {
+          "bytes": 19354,
+          "sha256": "c3472dee49538a7503e0d5995730990633652028da8a747048bb227fad52ed1e"
+        },
+        "960": {
+          "bytes": 56156,
+          "sha256": "e9dd4268b2ec9f9a931cafff4fab774146c78e6f1974ba518aeff2564a394e39"
+        }
+      }
+    },
+    {
+      "id": "Straddle_Planche",
+      "revision": "anatomy-v3",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "ad8908040123c36a2347723778927b8fdd4f10586164fac9df291d8c66bdfe2e",
+      "oldDesktopSha256": "676ccbca3a2e6bf0c035fb71e41f6c8b330669b5cb2f64c5db6f9485931640a0",
+      "oldPaths": [
+        "media/exercises/Straddle_Planche-480.webp",
+        "media/exercises/Straddle_Planche-960.webp"
+      ],
+      "poseNotes": "Oblique view exposes pelvis and two distinct extended legs diverging behind it. Both shoes float above floor; hands are flat directly on floor, straight arms and shoulder-forward lean remain clear.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two continuous arm and leg chains, normal joint connections and proportions, no visible duplicated appendage; checked in source and both compressed variants."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Straddle_Planche",
+          "name": "Страдъл планч",
+          "level": "advanced",
+          "equip": "none",
+          "description": "Силова хоризонтална опора с разтворени крака.",
+          "steps": "Само след стабилни подготвителни варианти пренеси тежестта напред и задръж със стегнато тяло и изпънати лакти.",
+          "easier": "Тък планч.",
+          "defaultMetric": "seconds"
+        },
+        "phase": "floor-straddle-planche",
+        "observedEquipment": "none",
+        "criteria": {
+          "floorPalms": {
+            "passed": true,
+            "observation": "Oblique view exposes pelvis and two distinct extended legs diverging behind it. Both shoes float above floor; hands are flat directly on floor, straight arms and shoulder-forward lean remain clear. Feature checked: floorPalms."
+          },
+          "lockedLean": {
+            "passed": true,
+            "observation": "Oblique view exposes pelvis and two distinct extended legs diverging behind it. Both shoes float above floor; hands are flat directly on floor, straight arms and shoulder-forward lean remain clear. Feature checked: lockedLean."
+          },
+          "horizontalStraddle": {
+            "passed": true,
+            "observation": "Oblique view exposes pelvis and two distinct extended legs diverging behind it. Both shoes float above floor; hands are flat directly on floor, straight arms and shoulder-forward lean remain clear. Feature checked: horizontalStraddle."
+          },
+          "clearFeet": {
+            "passed": true,
+            "observation": "Oblique view exposes pelvis and two distinct extended legs diverging behind it. Both shoes float above floor; hands are flat directly on floor, straight arms and shoulder-forward lean remain clear. Feature checked: clearFeet."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "Charcoal gym and muted olive clothing/equipment, soft natural light, realistic skin and uncluttered complete framing match FORME."
+      },
+      "variants": {
+        "480": {
+          "bytes": 17354,
+          "sha256": "069645ca880a83d1605a623d3c33064d13bdcb4528d0b02cc5dcfee03d5c78f9"
+        },
+        "960": {
+          "bytes": 61706,
+          "sha256": "5f9e332899832ff9969cdd9754781e534a8b33ac340148cd43572bc3dab8422a"
+        }
+      }
+    },
+    {
+      "id": "Full_Planche",
+      "revision": "anatomy-v3",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "33aa51cc227a9dbc4cec45a9752802f060c82ffc4f1a246e07e9edfeb076cca3",
+      "oldDesktopSha256": "6dade0efeb85cbe235c1244334a1927daa3a6f480982f89b5c37291c89d4e2e1",
+      "oldPaths": [
+        "media/exercises/Full_Planche-480.webp",
+        "media/exercises/Full_Planche-960.webp"
+      ],
+      "poseNotes": "Side oblique view shows shoulder, pelvis, straight knees and two adjacent shoes along a near-horizontal line. Both palms alone contact floor; two extended arms lean forward and both shoes visibly float.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two continuous arm and leg chains, normal joint connections and proportions, no visible duplicated appendage; checked in source and both compressed variants."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Full_Planche",
+          "name": "Пълен планч",
+          "level": "elite",
+          "equip": "none",
+          "description": "Елитна хоризонтална опора с изпънато тяло.",
+          "steps": "Изисква дългосрочна подготовка и стабилен контрол в по-лесни варианти. Изпълнявай само с квалифицирано наблюдение.",
+          "easier": "Страдъл или тък планч според готовността.",
+          "defaultMetric": "seconds"
+        },
+        "phase": "floor-full-planche",
+        "observedEquipment": "none",
+        "criteria": {
+          "floorPalms": {
+            "passed": true,
+            "observation": "Side oblique view shows shoulder, pelvis, straight knees and two adjacent shoes along a near-horizontal line. Both palms alone contact floor; two extended arms lean forward and both shoes visibly float. Feature checked: floorPalms."
+          },
+          "lockedLean": {
+            "passed": true,
+            "observation": "Side oblique view shows shoulder, pelvis, straight knees and two adjacent shoes along a near-horizontal line. Both palms alone contact floor; two extended arms lean forward and both shoes visibly float. Feature checked: lockedLean."
+          },
+          "straightTogether": {
+            "passed": true,
+            "observation": "Side oblique view shows shoulder, pelvis, straight knees and two adjacent shoes along a near-horizontal line. Both palms alone contact floor; two extended arms lean forward and both shoes visibly float. Feature checked: straightTogether."
+          },
+          "unsupportedFeet": {
+            "passed": true,
+            "observation": "Side oblique view shows shoulder, pelvis, straight knees and two adjacent shoes along a near-horizontal line. Both palms alone contact floor; two extended arms lean forward and both shoes visibly float. Feature checked: unsupportedFeet."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "Charcoal gym and muted olive clothing/equipment, soft natural light, realistic skin and uncluttered complete framing match FORME."
+      },
+      "variants": {
+        "480": {
+          "bytes": 20062,
+          "sha256": "b5203f8ec325fafe608e72afc4be14961fa08153d7417bc73f3e46f798227643"
+        },
+        "960": {
+          "bytes": 59094,
+          "sha256": "b41d048a3f4240b39e48b192881967a7a5b27e9074a7919c075e6f35fe05e753"
+        }
+      }
+    },
+    {
+      "id": "Kneeling_Forearm_Stretch",
+      "revision": "anatomy-v3",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "0efa1e2d8403404a1f843a3ccddf23ea35835721d4e71fbb2369a16e23982eaa",
+      "oldDesktopSha256": "82b8f79d459d0dec2718bf381bc9c82de83e2043885324497b2aa77169c6d6cd",
+      "oldPaths": [
+        "media/exercises/Kneeling_Forearm_Stretch-480.webp",
+        "media/exercises/Kneeling_Forearm_Stretch-960.webp"
+      ],
+      "poseNotes": "Both sets of fingers point image-left toward both knees, with palms down and wrists to the right of fingertips. Hips clear heels, two shins and two whole separate feet trail behind, arms not crossed.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two continuous arm and leg chains, normal joint connections and proportions, no visible duplicated appendage; checked in source and both compressed variants."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Kneeling_Forearm_Stretch",
+          "name": "Разтягане на китки",
+          "level": "beginner",
+          "equip": "mat",
+          "description": "Подготовка на китките за опори и стойки.",
+          "steps": "Застани на колене и постави длани на пода с пръсти към коленете. Премести тежестта леко назад. Не допускай болка.",
+          "easier": "Изпълни с по-малко натоварване.",
+          "defaultMetric": "seconds"
+        },
+        "phase": "kneeling-palms-down-fingers-to-knees",
+        "observedEquipment": "mat",
+        "criteria": {
+          "palmsDown": {
+            "passed": true,
+            "observation": "Both sets of fingers point image-left toward both knees, with palms down and wrists to the right of fingertips. Hips clear heels, two shins and two whole separate feet trail behind, arms not crossed. Feature checked: palmsDown."
+          },
+          "bothFingersBack": {
+            "passed": true,
+            "observation": "Both sets of fingers point image-left toward both knees, with palms down and wrists to the right of fingertips. Hips clear heels, two shins and two whole separate feet trail behind, arms not crossed. Feature checked: bothFingersBack."
+          },
+          "gentleKneeling": {
+            "passed": true,
+            "observation": "Both sets of fingers point image-left toward both knees, with palms down and wrists to the right of fingertips. Hips clear heels, two shins and two whole separate feet trail behind, arms not crossed. Feature checked: gentleKneeling."
+          },
+          "separateFeet": {
+            "passed": true,
+            "observation": "Both sets of fingers point image-left toward both knees, with palms down and wrists to the right of fingertips. Hips clear heels, two shins and two whole separate feet trail behind, arms not crossed. Feature checked: separateFeet."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "Charcoal gym and muted olive clothing/equipment, soft natural light, realistic skin and uncluttered complete framing match FORME."
+      },
+      "variants": {
+        "480": {
+          "bytes": 20310,
+          "sha256": "7d7fcbb36b19fb33fff1b817a8a0b5917d06643b4c867ac444afd099d4068467"
+        },
+        "960": {
+          "bytes": 56264,
+          "sha256": "3581aeba21e48c95d93defbc9bdff7bebfb3379ef88bdc2f6547179263ef667e"
+        }
+      }
+    }
+  ],
+  "rejectedCandidates": [
+    {
+      "id": "Tuck_Front_Lever",
+      "sourceSha256": "62216b28b97a6039a11b1fec62750b636ec06d28af811c353c933d2d66678325",
+      "reason": "Open tuck progression: knees and feet remained far from chest/hips."
+    },
+    {
+      "id": "Kneeling_Forearm_Stretch",
+      "sourceSha256": "305f052dcd9c80c53611d900fb436eb7915925fcc8d9bc39817234d01f50df8e",
+      "reason": "Far foot obscured by seated-on-heels pose; unclear independent limb trace."
+    }
+  ],
+  "catalogueAudit": [
+    {
+      "id": "Pushups",
+      "catalogue": {
+        "id": "Pushups",
+        "name": "Лицеви опори",
+        "level": "beginner",
+        "equip": "none",
+        "description": "Сила за гърди, рамене и трицепс.",
+        "steps": "Постави длани малко по-широко от раменете. Дръж тялото стегнато. Спусни гърдите контролирано и избутай нагоре.",
+        "easier": "Лицеви опори с колене на земята.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "df7f81c48997e40693d3c7496afec98398977c5a748149116e322ea0cd2d39d3",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "a027b1396e6dfa464305bd1cefe8f26c67b42ec323903fd3270a0cdca73a8c3b",
+        "desktop": "df7f81c48997e40693d3c7496afec98398977c5a748149116e322ea0cd2d39d3"
+      }
+    },
+    {
+      "id": "Bodyweight_Squat",
+      "catalogue": {
+        "id": "Bodyweight_Squat",
+        "name": "Клек със собствено тегло",
+        "level": "beginner",
+        "equip": "none",
+        "description": "Основно движение за крака и седалище.",
+        "steps": "Стъпи на ширината на раменете. Изнеси таза назад и сгъни коленете. Изправи се, като натискаш пода с цялото стъпало.",
+        "easier": "Клек до стол.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "c1c8dc84f4d015d9f4a89a1b6e0a9fde2e868a10b3b43499afcb1ea7640cdbe5",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "fe6d29c1c49dd0ed989db2bb9785bbf37858891be3e30d6f840def5c94e43bbf",
+        "desktop": "c1c8dc84f4d015d9f4a89a1b6e0a9fde2e868a10b3b43499afcb1ea7640cdbe5"
+      }
+    },
+    {
+      "id": "Plank",
+      "catalogue": {
+        "id": "Plank",
+        "name": "Планк",
+        "level": "beginner",
+        "equip": "none",
+        "description": "Статично укрепване на корем и торс.",
+        "steps": "Подпрете се на предмишници и пръсти. Стегни корема и седалището. Дишай спокойно, без да отпускаш кръста.",
+        "easier": "Планк с колене на пода.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "d52d58e4500d13b472dd9aa158f5db230e762284152f1e6e8ae217c0b9b90818",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "a10077b15054aba98fd12a3c71338304a2cd93b58aae696cc20cd5b183246d9f",
+        "desktop": "d52d58e4500d13b472dd9aa158f5db230e762284152f1e6e8ae217c0b9b90818"
+      }
+    },
+    {
+      "id": "Pullups",
+      "catalogue": {
+        "id": "Pullups",
+        "name": "Набирания с надхват",
+        "level": "intermediate",
+        "equip": "bar",
+        "description": "Сила на гръб и ръце.",
+        "steps": "Хвани лоста стабилно с длани напред. Издърпай тялото нагоре без рязко люлеене. Спусни се контролирано до почти изпънати ръце.",
+        "easier": "Набирания с ластик или негативни повторения.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "9e419f0ede7bf8c92a18261d29e46dc83ddca3e308ae1d891bd68a019a820113",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "8ec0afc766a8aa2507b777101995a0c088e625e276c37e81b48680d1acf5b42e",
+        "desktop": "9e419f0ede7bf8c92a18261d29e46dc83ddca3e308ae1d891bd68a019a820113"
+      }
+    },
+    {
+      "id": "Mountain_Climbers",
+      "catalogue": {
+        "id": "Mountain_Climbers",
+        "name": "Планински катерач",
+        "level": "beginner",
+        "equip": "none",
+        "description": "Динамично натоварване на торса и пулса.",
+        "steps": "Застани в позиция за лицева опора. Придърпай едно коляно към гърдите. Редувай краката с контролирано темпо.",
+        "easier": "Бавно редуване на коленете.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "1853398cdd959da239f34a7d7dfe7865305fbc982fdf97db2113a1f55d098f08",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "02eddca85956b281a58a1b4fe0b1676d426cda62e722b16bbceccbee96a7499e",
+        "desktop": "1853398cdd959da239f34a7d7dfe7865305fbc982fdf97db2113a1f55d098f08"
+      }
+    },
+    {
+      "id": "Bench_Dips",
+      "catalogue": {
+        "id": "Bench_Dips",
+        "name": "Кофички на пейка",
+        "level": "intermediate",
+        "equip": "bench",
+        "description": "Упражнение за трицепс с опора.",
+        "steps": "Подпри ръцете на стабилна пейка зад теб. Сгъни лактите умерено, без да проваляш раменете. Избутай се нагоре.",
+        "easier": "Сгъни коленете и намали амплитудата.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "d0675fc42c7e4b0548149ed8b5a630b7c33801e1b8be81f79596a26e8b02b1e0",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "ab94bb7f463891c5fe0393fafd9b7020800071643d835c982c8d74ba96a5794f",
+        "desktop": "d0675fc42c7e4b0548149ed8b5a630b7c33801e1b8be81f79596a26e8b02b1e0"
+      }
+    },
+    {
+      "id": "Hanging_Leg_Raise",
+      "catalogue": {
+        "id": "Hanging_Leg_Raise",
+        "name": "Повдигане на крака от вис",
+        "level": "advanced",
+        "equip": "bar",
+        "description": "Контрол на корема и таза от вис.",
+        "steps": "Увисни стабилно на лоста. Повдигни краката контролирано, без люлеене. Върни ги бавно.",
+        "easier": "Повдигане на колене от вис.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "0f5008ac3ffc81c89c23bb47b694ec143c20ad7e7fa90e0264b209feaba36af9",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "c48aaa88cfa35cd091ce4eeb766f369dc0c12635e995a8a82f4ba48194fa8df3",
+        "desktop": "0f5008ac3ffc81c89c23bb47b694ec143c20ad7e7fa90e0264b209feaba36af9"
+      }
+    },
+    {
+      "id": "Side_Bridge",
+      "catalogue": {
+        "id": "Side_Bridge",
+        "name": "Страничен планк",
+        "level": "beginner",
+        "equip": "none",
+        "description": "Стабилност на страничната коремна мускулатура.",
+        "steps": "Подпри се на една предмишница. Подравни рамо, таз и глезени. Задръж, без тазът да пропада.",
+        "easier": "Свий долното коляно и го остави на пода.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "c3be47a159ff580aa60ebea67dfd3813173d442e8852382946b6f950bdea2ce4",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "52e45e66ef152d1c2903c1820b0c5623588607e74c6f00ea812118c22644d836",
+        "desktop": "c3be47a159ff580aa60ebea67dfd3813173d442e8852382946b6f950bdea2ce4"
+      }
+    },
+    {
+      "id": "Childs_Pose",
+      "catalogue": {
+        "id": "Childs_Pose",
+        "name": "Поза на детето",
+        "level": "beginner",
+        "equip": "mat",
+        "description": "Спокойна поза за отпускане на гърба.",
+        "steps": "Застани на колене. Седни назад към петите и протегни ръцете напред. Дишай плавно.",
+        "easier": "Разтвори коленете и постави възглавница под торса.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "5ed8daabf8aa67e2ae1dbbef213f6f62a5cfcdf9cc494f0fc0a3e72f0ef3b936",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "1958d16959655880dd93934d2c2619b3743cbd23f495abaa7a1d1cb77d274dc6",
+        "desktop": "5ed8daabf8aa67e2ae1dbbef213f6f62a5cfcdf9cc494f0fc0a3e72f0ef3b936"
+      }
+    },
+    {
+      "id": "Cat_Stretch",
+      "catalogue": {
+        "id": "Cat_Stretch",
+        "name": "Котешки гръб",
+        "level": "beginner",
+        "equip": "mat",
+        "description": "Мека мобилизация на гръбнака.",
+        "steps": "Застани на длани и колене. Издишай и закръгли гърба. Върни се плавно до неутрална позиция.",
+        "easier": "По-малка амплитуда.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "a8431de7249ec1b23bd7320f84e36030432b6ffbcbdec6317582579bf702f555",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "3e5a13501806ea5663566d3b6532fbe573222cf136aa38f59a7b4b9ec11ad35a",
+        "desktop": "a8431de7249ec1b23bd7320f84e36030432b6ffbcbdec6317582579bf702f555"
+      }
+    },
+    {
+      "id": "Butt_Lift_Bridge",
+      "catalogue": {
+        "id": "Butt_Lift_Bridge",
+        "name": "Мост от лег",
+        "level": "beginner",
+        "equip": "mat",
+        "description": "Отваряне на предната линия и активиране на седалището.",
+        "steps": "Легни по гръб със свити колене. Повдигни таза чрез натиск през петите. Спусни бавно.",
+        "easier": "Повдигай таза по-ниско.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "193c9f757cf2d91923557c16de8d029f72e720a1d6921748c045f04ce4300016",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "d034b285340e18bf03faa44e7ab3349b32e1edf43eafcfd03f2504e1e739129e",
+        "desktop": "193c9f757cf2d91923557c16de8d029f72e720a1d6921748c045f04ce4300016"
+      }
+    },
+    {
+      "id": "Dancers_Stretch",
+      "catalogue": {
+        "id": "Dancers_Stretch",
+        "name": "Седящо усукване",
+        "level": "beginner",
+        "equip": "mat",
+        "description": "Леко разтягане и усукване в седеж.",
+        "steps": "Седни с изпънат единия крак. Прехвърли другия през него и завърти торса внимателно. Смени страната.",
+        "easier": "Остави двата крака по-отпуснати.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "3f01d5e699a69fa9b64d41c5e8f8fe0dac897a684763ffe055cd4bfb29d2d98c",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "b64579358623a8f210b5e38edbd53d2931ef9bf180fda9c032a38e8497e615f8",
+        "desktop": "3f01d5e699a69fa9b64d41c5e8f8fe0dac897a684763ffe055cd4bfb29d2d98c"
+      }
+    },
+    {
+      "id": "Seated_Floor_Hamstring_Stretch",
+      "catalogue": {
+        "id": "Seated_Floor_Hamstring_Stretch",
+        "name": "Наклон напред в седеж",
+        "level": "beginner",
+        "equip": "mat",
+        "description": "Разтягане на задната част на бедрата.",
+        "steps": "Седни с единия крак изпънат. Наклони се от таза към изпънатия крак, без да дърпаш рязко. Смени страната.",
+        "easier": "Свий леко коляното.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "2d353021774c09cf811b4d9d86b3daab851548e537fa46349d3bd9e47dbfe43c",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "18f7e40aa18d503cd05f2f92c32b5542082b18c6824c517dc00e0a986b45b43f",
+        "desktop": "2d353021774c09cf811b4d9d86b3daab851548e537fa46349d3bd9e47dbfe43c"
+      }
+    },
+    {
+      "id": "Groin_and_Back_Stretch",
+      "catalogue": {
+        "id": "Groin_and_Back_Stretch",
+        "name": "Пеперуда в седеж",
+        "level": "intermediate",
+        "equip": "mat",
+        "description": "Отпускане на вътрешните бедра.",
+        "steps": "Седни и събери ходилата. Отпусни коленете настрани. Наклони се леко напред, без натиск.",
+        "easier": "Постави опора под коленете.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "869bf40c2ec0c4ceeb07b4bc5bd823ff7d97b1edc1f934fbb764662afdbe9d89",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "cdb6c43280ccf1a522678508df809b84d13021df57888b8a40418f6ce91da16e",
+        "desktop": "869bf40c2ec0c4ceeb07b4bc5bd823ff7d97b1edc1f934fbb764662afdbe9d89"
+      }
+    },
+    {
+      "id": "Spinal_Stretch",
+      "catalogue": {
+        "id": "Spinal_Stretch",
+        "name": "Разтягане на гръбнака в седеж",
+        "level": "beginner",
+        "equip": "chair",
+        "description": "Нежна практика за гръб и рамене.",
+        "steps": "Седни стабилно на стол. Постави длани зад главата. Наведи леко брадичката и отпусни гърба без болка.",
+        "easier": "По-малка амплитуда.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "3a48db62df11b0c210de5cc775d74bfe2f5537bd10ddf1905ec2cf94c2b274ce",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "39a1333a60f21d4266c113ee89fdb648dbcd50ba922e6742e112af937ef2ba79",
+        "desktop": "3a48db62df11b0c210de5cc775d74bfe2f5537bd10ddf1905ec2cf94c2b274ce"
+      }
+    },
+    {
+      "id": "Seated_Overhead_Stretch",
+      "catalogue": {
+        "id": "Seated_Overhead_Stretch",
+        "name": "Странично разтягане в седеж",
+        "level": "beginner",
+        "equip": "mat",
+        "description": "Плавно странично разтягане за торс и рамене.",
+        "steps": "Седни със събрани ходила. Подпри едната длан отстрани, постави другата ръка над главата и наклони торса плавно настрани. Смени страната.",
+        "easier": "Намали страничния наклон.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "b65b7b7b3b2b3cabb1debacc944f20554dad46a5dcd9afcc5fa5d01516a7237d",
+      "result": "replaced-strict-pass",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "66c4fb62df5fa0b607eae7ffb77d1a8674f552602c37760652de340240351350",
+        "desktop": "b65b7b7b3b2b3cabb1debacc944f20554dad46a5dcd9afcc5fa5d01516a7237d"
+      }
+    },
+    {
+      "id": "Standing_Hip_Circles",
+      "catalogue": {
+        "id": "Standing_Hip_Circles",
+        "name": "Кръгове с тазобедрена става",
+        "level": "beginner",
+        "equip": "none",
+        "description": "Активна мобилност на таза.",
+        "steps": "Застани на един крак с опора при нужда. Повдигни коляно и очертай бавен кръг. Смени посоката и крака.",
+        "easier": "По-малки кръгове.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "be14cb81ad56d0cd00a0491ed128f581886df8f17ae0e88de984d1fe25bb34a9",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "676faaa72ea260080cdfe74ec75c55dafa7aeaf54ed41332284aede4cb9d2baa",
+        "desktop": "be14cb81ad56d0cd00a0491ed128f581886df8f17ae0e88de984d1fe25bb34a9"
+      }
+    },
+    {
+      "id": "Hip_Circles_prone",
+      "catalogue": {
+        "id": "Hip_Circles_prone",
+        "name": "Кръгове с коляно от четири опори",
+        "level": "beginner",
+        "equip": "mat",
+        "description": "Контролирано движение на тазобедрената става.",
+        "steps": "Застани на четири опори. Повдигни едно свито коляно. Направи плавен кръг, без да извиваш кръста.",
+        "easier": "Намали радиуса на кръга.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "bae0983b32dc7e51f8dfcf66ad992440508f27081432bc89e720a79ede44e931",
+      "result": "replaced-strict-pass",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "58762e06b4c734089439efc7ffc62d9368e1e4685de525b6afd33b0fa71a3fb7",
+        "desktop": "bae0983b32dc7e51f8dfcf66ad992440508f27081432bc89e720a79ede44e931"
+      }
+    },
+    {
+      "id": "Arm_Circles",
+      "catalogue": {
+        "id": "Arm_Circles",
+        "name": "Кръгове с ръце",
+        "level": "beginner",
+        "equip": "none",
+        "description": "Загряване на раменния пояс.",
+        "steps": "Изпъни ръце встрани. Прави малки кръгове напред и назад. Увеличавай размера постепенно.",
+        "easier": "Започни с много малки кръгове.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "c6df3dbdf9af89fd4cf59055f2148b4c3d7f97c4400440e074d212ef92b378ba",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "b885d201e09449be9ede1aee12eb45d7ea2e6328eed9278a6100347d6b75d0cc",
+        "desktop": "c6df3dbdf9af89fd4cf59055f2148b4c3d7f97c4400440e074d212ef92b378ba"
+      }
+    },
+    {
+      "id": "Kneeling_Hip_Flexor",
+      "catalogue": {
+        "id": "Kneeling_Hip_Flexor",
+        "name": "Разтягане на сгъвачите на таза",
+        "level": "beginner",
+        "equip": "mat",
+        "description": "Раздвижване на предната част на таза.",
+        "steps": "Застани на едно коляно. Прибери таза леко и премести тежестта напред. Смени страната.",
+        "easier": "Постави мека опора под коляното.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "a09bc35d82c5fa0c6a477fbc77df519569a53a01f0b3ebdcbdbacef24b919519",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "b575f34a90b5310b791a950db5d9ae82ed33ac4153dec073574b1615274381bf",
+        "desktop": "a09bc35d82c5fa0c6a477fbc77df519569a53a01f0b3ebdcbdbacef24b919519"
+      }
+    },
+    {
+      "id": "Dynamic_Chest_Stretch",
+      "catalogue": {
+        "id": "Dynamic_Chest_Stretch",
+        "name": "Динамично отваряне на гърди",
+        "level": "beginner",
+        "equip": "none",
+        "description": "Подвижност на гърди и рамене.",
+        "steps": "Изпъни ръце пред тялото. Отвори ги встрани контролирано. Върни и повтори, без да засилваш.",
+        "easier": "По-малка амплитуда.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "d2fa99e585b3d73de42d2790e39f968bb5f4b8b89b2e8c23a1ae39091fe004ef",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "6d21ea2e615b49e61b282e4dedca95fd351e33cac89b83c11b884a2aef99c0c1",
+        "desktop": "d2fa99e585b3d73de42d2790e39f968bb5f4b8b89b2e8c23a1ae39091fe004ef"
+      }
+    },
+    {
+      "id": "Shoulder_Stretch",
+      "catalogue": {
+        "id": "Shoulder_Stretch",
+        "name": "Разтягане на рамо",
+        "level": "beginner",
+        "equip": "none",
+        "description": "Леко разтягане на задното рамо.",
+        "steps": "Прехвърли едната ръка пред гърдите. Придържай я внимателно с другата. Смени страната.",
+        "easier": "Намали натиска.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "446e5496f8c03baffa1dd9b103cbb8c6494d113ac1668f2cf35acb15b89ba51c",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "944630ec2c9ae829bbd5d698bd6224cad8cfc1fe5aea02b03eb169424d1f5b1c",
+        "desktop": "446e5496f8c03baffa1dd9b103cbb8c6494d113ac1668f2cf35acb15b89ba51c"
+      }
+    },
+    {
+      "id": "Calf_Stretch_Hands_Against_Wall",
+      "catalogue": {
+        "id": "Calf_Stretch_Hands_Against_Wall",
+        "name": "Разтягане на прасец до стена",
+        "level": "beginner",
+        "equip": "wall",
+        "description": "Подвижност на глезена и прасеца.",
+        "steps": "Постави длани на стена. Изнеси единия крак назад с пета на земята. Наклони се напред и смени крака.",
+        "easier": "Приближи задния крак.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "09b60cbb8dcf4304790c93efc9c100014115f0ba4af47921fec89a97c73129a4",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "f4c9b8e5c76fb87fc0619276f6b9d30f6cc06208926c6f21aa2003d466d5f4bd",
+        "desktop": "09b60cbb8dcf4304790c93efc9c100014115f0ba4af47921fec89a97c73129a4"
+      }
+    },
+    {
+      "id": "Kneeling_Forearm_Stretch",
+      "catalogue": {
+        "id": "Kneeling_Forearm_Stretch",
+        "name": "Разтягане на китки",
+        "level": "beginner",
+        "equip": "mat",
+        "description": "Подготовка на китките за опори и стойки.",
+        "steps": "Застани на колене и постави длани на пода с пръсти към коленете. Премести тежестта леко назад. Не допускай болка.",
+        "easier": "Изпълни с по-малко натоварване.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "82b8f79d459d0dec2718bf381bc9c82de83e2043885324497b2aa77169c6d6cd",
+      "result": "replaced-strict-pass",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "401f8c0754d3257a212c040fc9ee0404719c2b526d8afa2e232279d1d55b8d61",
+        "desktop": "82b8f79d459d0dec2718bf381bc9c82de83e2043885324497b2aa77169c6d6cd"
+      }
+    },
+    {
+      "id": "Chinups",
+      "catalogue": {
+        "id": "Chinups",
+        "name": "Набирания с подхват",
+        "level": "intermediate",
+        "equip": "bar",
+        "description": "Дърпащо движение за гръб и ръце.",
+        "steps": "Хвани стабилен лост с длани към себе си. Без люлеене издърпай тялото нагоре и се спусни контролирано.",
+        "easier": "Набирания с помощ или австралийски набирания.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "582a9674bbfcd19fd2cdcbf80ea31b54dc0e92ff6355270f399338b4bcabfdfe",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "bb9449fe1f59d1fa310ed5aecdddf74d4a9661b0b52495f8df038816c9435866",
+        "desktop": "582a9674bbfcd19fd2cdcbf80ea31b54dc0e92ff6355270f399338b4bcabfdfe"
+      }
+    },
+    {
+      "id": "Australian_Rows",
+      "catalogue": {
+        "id": "Australian_Rows",
+        "name": "Австралийски набирания",
+        "level": "beginner",
+        "equip": "bar",
+        "description": "Хоризонтално дърпане за гръб и ръце.",
+        "steps": "Хвани стабилен нисък лост, дръж тялото стегнато и придърпай гърдите към лоста. Спусни се контролирано.",
+        "easier": "Използвай по-висок лост и по-изправена позиция.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "e7335a7aaf209428832bc5208528969e1487e0a203da2262e5e9f0474fd097c9",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "133585767f0e232e5eb0dc1cad07e2abeef2325bf933668b4bf86cd32c2616c9",
+        "desktop": "e7335a7aaf209428832bc5208528969e1487e0a203da2262e5e9f0474fd097c9"
+      }
+    },
+    {
+      "id": "Parallel_Bar_Dips",
+      "catalogue": {
+        "id": "Parallel_Bar_Dips",
+        "name": "Кофички на успоредка",
+        "level": "intermediate",
+        "equip": "parallel",
+        "description": "Бутащо движение за гърди, рамене и трицепс.",
+        "steps": "Подпри се на стабилна успоредка. Спусни се бавно в комфортен обхват и се избутай до стабилна опора.",
+        "easier": "Опора на успоредка или вариант с подходяща помощ.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "cf4e32b81cf013b7d213f4c8415b7ce07e237f3da56c0788e2e7d36137eb326b",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "65b8c4a680a9a5019f568112dda3cca3ee878197c51e89100b44e9aafffbd063",
+        "desktop": "cf4e32b81cf013b7d213f4c8415b7ce07e237f3da56c0788e2e7d36137eb326b"
+      }
+    },
+    {
+      "id": "Bar_Muscle_Up",
+      "catalogue": {
+        "id": "Bar_Muscle_Up",
+        "name": "Силово възлизане на лост",
+        "level": "advanced",
+        "equip": "bar",
+        "description": "Напреднало движение с издърпване и преминаване над лоста. Изисква стабилни набирания и кофички.",
+        "steps": "Изпълнявай само с добра предварителна подготовка и подходяща височина. Издърпай се контролирано, премини над лоста и се избутай в опора.",
+        "easier": "Продължи да развиваш силни набирания и кофички с квалифицирано наблюдение.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "863e0753ad7ef5bb6d4be5766701bf72fd955f673fca0f04b55ec2cca22f1fa7",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "b3a3ed45ae496fa0c3cb816d30dc215148a36622d7b71515301683c2a25ffd2f",
+        "desktop": "863e0753ad7ef5bb6d4be5766701bf72fd955f673fca0f04b55ec2cca22f1fa7"
+      }
+    },
+    {
+      "id": "Hollow_Body_Hold",
+      "catalogue": {
+        "id": "Hollow_Body_Hold",
+        "name": "Лодка (hollow hold)",
+        "level": "beginner",
+        "equip": "none",
+        "description": "Статично упражнение за контрол на торса.",
+        "steps": "Легни по гръб, стегни корема и леко повдигни раменете и краката, докато кръстът остава опрян.",
+        "easier": "Свий колене и дръж ръцете до тялото.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "53ea05cf5959c717044832754f1ec25d4fb1de58773fa65b78b83ef71b1b0e68",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "41915d48b9d5e98dc7a31be54fb6ed26cbe87155d6a92d0b86567470658b8036",
+        "desktop": "53ea05cf5959c717044832754f1ec25d4fb1de58773fa65b78b83ef71b1b0e68"
+      }
+    },
+    {
+      "id": "Frog_Stand",
+      "catalogue": {
+        "id": "Frog_Stand",
+        "name": "Жабешка стойка",
+        "level": "intermediate",
+        "equip": "none",
+        "description": "Балансова опора върху ръце с опрени колене.",
+        "steps": "От клек постави длани стабилно, опри коленете върху горната част на ръцете и пренеси тежестта постепенно напред.",
+        "easier": "Пренасяй тежестта напред, без да отделяш стъпалата.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "40cead02021a48914a8709007755de7d4c454e4540bedbf92d89b0df74103831",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "e71686a1a2e5b70d29f1ca67953d1b8287e56ba3911e5d391cbbebc4f816ebd7",
+        "desktop": "40cead02021a48914a8709007755de7d4c454e4540bedbf92d89b0df74103831"
+      }
+    },
+    {
+      "id": "Pike_Pushups",
+      "catalogue": {
+        "id": "Pike_Pushups",
+        "name": "Пайк лицеви опори",
+        "level": "intermediate",
+        "equip": "none",
+        "description": "Вертикално бутащо движение за раменете.",
+        "steps": "Повдигни таза, постави ръцете стабилно и сгъни лактите контролирано. Избутай се до началото.",
+        "easier": "Намали наклона и използвай удобен обхват.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "3b6af1f19463e61c556397a4dde0f20a4946795a0f58f85c1b8865594ee2e7df",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "0ed08f55e55e40375a62b18a622a1152e22959d0602f625d5f576a8112eeb5a5",
+        "desktop": "3b6af1f19463e61c556397a4dde0f20a4946795a0f58f85c1b8865594ee2e7df"
+      }
+    },
+    {
+      "id": "Skin_the_Cat",
+      "catalogue": {
+        "id": "Skin_the_Cat",
+        "name": "Превъртане във вис (skin the cat)",
+        "level": "advanced",
+        "equip": "rings",
+        "description": "Напреднало движение за контрол и подвижност на раменете.",
+        "steps": "На стабилни халки прибери коленете и преминавай бавно само през обхват, който контролираш.",
+        "easier": "Подготви се с активен вис и контролирано прибиране на колене.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "6eaea55c2730cab9ad945ebe04984e8be49d57864501761f2085ee121945210e",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "f3c795d57d840f8ba6db4e434208ea406ea09f8fcb9169ca3eddef4e52d044f6",
+        "desktop": "6eaea55c2730cab9ad945ebe04984e8be49d57864501761f2085ee121945210e"
+      }
+    },
+    {
+      "id": "Toes_to_Bar",
+      "catalogue": {
+        "id": "Toes_to_Bar",
+        "name": "Пръсти към лоста",
+        "level": "intermediate",
+        "equip": "bar",
+        "description": "Повдигане на краката от вис към лоста.",
+        "steps": "От активен вис повдигни краката контролирано към лоста, без да разчиташ на силно люлеене.",
+        "easier": "Повдигане на свити колене от вис.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "44557d860d512bb93b92647a904618b5fc6ef1ee3c661a296496718fc1fb0b62",
+      "result": "replaced-strict-pass",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "648dd2c9086749ae85263b29a7cb877949109d46e4e6bfc38f4032872019d138",
+        "desktop": "44557d860d512bb93b92647a904618b5fc6ef1ee3c661a296496718fc1fb0b62"
+      }
+    },
+    {
+      "id": "Archer_Pushups",
+      "catalogue": {
+        "id": "Archer_Pushups",
+        "name": "Стрелец лицеви опори",
+        "level": "intermediate",
+        "equip": "none",
+        "description": "Едностранно натоварване в лицева опора.",
+        "steps": "От широка опора премести тежестта към едната сгъваща се ръка и се върни контролирано.",
+        "easier": "Стандартни лицеви опори или вариант с по-малко преместване.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "b7bd97379014c19b6432fbe4484404b8d62ce948bd1f9b4f3da41a752075ef12",
+      "result": "replaced-strict-pass",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "42c907a4a4ca9a12cc16a45735c4f7779840d4f492b9e93a5a4d621b585aea21",
+        "desktop": "b7bd97379014c19b6432fbe4484404b8d62ce948bd1f9b4f3da41a752075ef12"
+      }
+    },
+    {
+      "id": "Pistol_Squat",
+      "catalogue": {
+        "id": "Pistol_Squat",
+        "name": "Клек на един крак",
+        "level": "intermediate",
+        "equip": "none",
+        "description": "Клек на един крак с контрол на баланса.",
+        "steps": "На един крак сгъни коляното и таза в контролиран обхват и се изправи.",
+        "easier": "Клек на един крак към стабилна пейка с помощ.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "72220ca0c5e2ecfa655b62493ec80d4e104f36e7b6832f05834df43f58f92ac4",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "ace8c60dc8d177223c9b5fdd8930e61f60507b1bdf1c5f86ae0c6f45a08fec86",
+        "desktop": "72220ca0c5e2ecfa655b62493ec80d4e104f36e7b6832f05834df43f58f92ac4"
+      }
+    },
+    {
+      "id": "L_Sit",
+      "catalogue": {
+        "id": "L_Sit",
+        "name": "L-седеж",
+        "level": "intermediate",
+        "equip": "parallel",
+        "description": "Статична опора с крака напред.",
+        "steps": "В стабилна опора избутай раменете далеч от ушите и повдигни краката напред според възможностите си.",
+        "easier": "Опора със свити и повдигнати колене.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "cb45f02ea22fcd77804e19cccd2b0352dc1367b7f227b940117dfffbb73d9f56",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "816737a0805de265d3f462e7495b68edf67d3bc6e9f750b4444c92d71fe5a5af",
+        "desktop": "cb45f02ea22fcd77804e19cccd2b0352dc1367b7f227b940117dfffbb73d9f56"
+      }
+    },
+    {
+      "id": "Dragon_Flag",
+      "catalogue": {
+        "id": "Dragon_Flag",
+        "name": "Драконов флаг",
+        "level": "advanced",
+        "equip": "bench",
+        "description": "Напреднало упражнение за контрол на торса.",
+        "steps": "На стабилна пейка с надежден захват зад главата поддържай стегнато тяло и контролирай спускането.",
+        "easier": "Обратни коремни преси или прибрано спускане.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "fe81e2b8624b5464dd2d1acce5b987debf38fc16b1f998d46ae45dd51d86489f",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "ecb558f39145f9f87325bb327db7ba4f5e019a1eb0ae2dee85b430ae5eb948de",
+        "desktop": "fe81e2b8624b5464dd2d1acce5b987debf38fc16b1f998d46ae45dd51d86489f"
+      }
+    },
+    {
+      "id": "Handstand",
+      "catalogue": {
+        "id": "Handstand",
+        "name": "Стойка на ръце",
+        "level": "intermediate",
+        "equip": "wall",
+        "description": "Баланс в обърната опора.",
+        "steps": "Постави длани стабилно и влизай в опора до стена само ако можеш безопасно да излезеш от нея. Дръж раменете активни.",
+        "easier": "Разходка с крака по стената в удобен обхват.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "3c0a7f6e1e8a53da4e85d89adc92a8387f620a6ef6e4948869fed65a6f39b9a2",
+      "result": "replaced-strict-pass",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "cc95adf4901043b7101522552359c671213af4026ddc6422bde3376d07e27e7f",
+        "desktop": "3c0a7f6e1e8a53da4e85d89adc92a8387f620a6ef6e4948869fed65a6f39b9a2"
+      }
+    },
+    {
+      "id": "Tuck_Planche",
+      "catalogue": {
+        "id": "Tuck_Planche",
+        "name": "Тък планч",
+        "level": "advanced",
+        "equip": "none",
+        "description": "Силова опора на ръце с прибрани колене.",
+        "steps": "От стабилна опора пренеси раменете напред с изпънати лакти и задръж прибрана позиция само ако я контролираш.",
+        "easier": "Наклон в опора с крака на пода.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "3dc776d336819faf370f26a02c2a160fdda990b3368deef6fd6905cd76b3f408",
+      "result": "replaced-strict-pass",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "994f4993633fa3b56b5bb282e1abbe18b90c72b14062a768e6445c1051413fd6",
+        "desktop": "3dc776d336819faf370f26a02c2a160fdda990b3368deef6fd6905cd76b3f408"
+      }
+    },
+    {
+      "id": "Tuck_Front_Lever",
+      "catalogue": {
+        "id": "Tuck_Front_Lever",
+        "name": "Тък фронт левър",
+        "level": "advanced",
+        "equip": "bar",
+        "description": "Статичен вис с прибрани крака и тяло към хоризонтала.",
+        "steps": "От активен вис прибери коленете и поддържай контролирана линия на торса, без резки движения.",
+        "easier": "Активен вис и прибиране на колене.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "b203ccbed7cd11f94d0124593496a866dcd0db145462c8062f4683e557ff8b38",
+      "result": "replaced-strict-pass",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "0a5d8725419134423159582fc80f616c59c18cb9c46f68aca45869d23267fbe2",
+        "desktop": "b203ccbed7cd11f94d0124593496a866dcd0db145462c8062f4683e557ff8b38"
+      }
+    },
+    {
+      "id": "Ring_Muscle_Up",
+      "catalogue": {
+        "id": "Ring_Muscle_Up",
+        "name": "Силово възлизане на халки",
+        "level": "advanced",
+        "equip": "rings",
+        "description": "Напреднало възлизане с преход върху халки.",
+        "steps": "Само след подготовка за стабилен вис, дърпане, преход и опора на халки; изпълнявай контролирано и с наблюдение.",
+        "easier": "Набирания и опора на халки с подходяща помощ.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "fdc5b5365567e8ffaa0992fb66eff70b1beaf953a75213d2be99320b4f7167e4",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "b607fad2dca669ff76cd48caaab67d18065b0bc9fd7296e57b858849c87a044a",
+        "desktop": "fdc5b5365567e8ffaa0992fb66eff70b1beaf953a75213d2be99320b4f7167e4"
+      }
+    },
+    {
+      "id": "Back_Lever",
+      "catalogue": {
+        "id": "Back_Lever",
+        "name": "Бек левър",
+        "level": "advanced",
+        "equip": "rings",
+        "description": "Статичен хоризонтален вис с високо натоварване на раменете.",
+        "steps": "Само след постепенна подготовка изпълни контролирано задържане с подходяща помощ и без насилване на раменете.",
+        "easier": "Прибран вариант с подходяща помощ.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "9bbdd926a3b22ae2623b53cdfe2b7e34c7968c3800e45bf8b1294482725594c7",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "be1476bc272c169bf03a4c126ea09c6557db2003a9a79b519df08a8198c38dac",
+        "desktop": "9bbdd926a3b22ae2623b53cdfe2b7e34c7968c3800e45bf8b1294482725594c7"
+      }
+    },
+    {
+      "id": "Human_Flag",
+      "catalogue": {
+        "id": "Human_Flag",
+        "name": "Човешко знаме",
+        "level": "advanced",
+        "equip": "pole",
+        "description": "Статично задържане на тялото до вертикален стълб.",
+        "steps": "Със стабилен захват и активни рамене задръж подходящ прибран вариант без рязко изхвърляне.",
+        "easier": "Страничен планк и подготвителна опора на стълб.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "31b7f4decc317c7207bbedf30d3c6800c9b9696c658148d91eb1a9bf990292a3",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "020227621dfb39454b3257e401e58fa6c8d68766332097440479c85f1d75b358",
+        "desktop": "31b7f4decc317c7207bbedf30d3c6800c9b9696c658148d91eb1a9bf990292a3"
+      }
+    },
+    {
+      "id": "Handstand_Pushups",
+      "catalogue": {
+        "id": "Handstand_Pushups",
+        "name": "Лицеви опори от стойка на ръце",
+        "level": "advanced",
+        "equip": "wall",
+        "description": "Напреднало вертикално избутване в обърната опора.",
+        "steps": "След уверена стойка с безопасно излизане сгъни ръцете контролирано в удобен обхват и избутай.",
+        "easier": "Пайк лицеви опори.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "242af822d7093c2cd3c59269f79c004674a4f63cf9d499ef7cd0f44daf7b9d80",
+      "result": "replaced-strict-pass",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "2b6a17c1afcca1b77a92f9df4d9bd6cf17c6ac739f09fa940debe10f2e33719a",
+        "desktop": "242af822d7093c2cd3c59269f79c004674a4f63cf9d499ef7cd0f44daf7b9d80"
+      }
+    },
+    {
+      "id": "Front_Lever",
+      "catalogue": {
+        "id": "Front_Lever",
+        "name": "Фронт левър",
+        "level": "advanced",
+        "equip": "bar",
+        "description": "Статичен хоризонтален вис с изпънато тяло.",
+        "steps": "От активен вис задръж подготвената позиция с изпънати ръце и контролиран торс, без люлеене.",
+        "easier": "Тък фронт левър.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "02f5758b0831f6b59dbde51538cc1bee0ca406757537a1d50901f40176527405",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "48dacf3afdb86b5f2317e9b712423e7f3b39525ce011f04dd8e0fd9a1842a74c",
+        "desktop": "02f5758b0831f6b59dbde51538cc1bee0ca406757537a1d50901f40176527405"
+      }
+    },
+    {
+      "id": "Straddle_Planche",
+      "catalogue": {
+        "id": "Straddle_Planche",
+        "name": "Страдъл планч",
+        "level": "advanced",
+        "equip": "none",
+        "description": "Силова хоризонтална опора с разтворени крака.",
+        "steps": "Само след стабилни подготвителни варианти пренеси тежестта напред и задръж със стегнато тяло и изпънати лакти.",
+        "easier": "Тък планч.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "676ccbca3a2e6bf0c035fb71e41f6c8b330669b5cb2f64c5db6f9485931640a0",
+      "result": "replaced-strict-pass",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "6a34227020cdd71ba2c7029586f859a00ce0c8c5f207e0e7161995ecc0bd25ec",
+        "desktop": "676ccbca3a2e6bf0c035fb71e41f6c8b330669b5cb2f64c5db6f9485931640a0"
+      }
+    },
+    {
+      "id": "Full_Planche",
+      "catalogue": {
+        "id": "Full_Planche",
+        "name": "Пълен планч",
+        "level": "elite",
+        "equip": "none",
+        "description": "Елитна хоризонтална опора с изпънато тяло.",
+        "steps": "Изисква дългосрочна подготовка и стабилен контрол в по-лесни варианти. Изпълнявай само с квалифицирано наблюдение.",
+        "easier": "Страдъл или тък планч според готовността.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "6dade0efeb85cbe235c1244334a1927daa3a6f480982f89b5c37291c89d4e2e1",
+      "result": "replaced-strict-pass",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": true,
+      "auditedVariants": {
+        "mobile": "c76de6c82a2e06536b475acebe3b4729791d9124d0e6a52722957c5f5568138d",
+        "desktop": "6dade0efeb85cbe235c1244334a1927daa3a6f480982f89b5c37291c89d4e2e1"
+      }
+    },
+    {
+      "id": "One_Arm_Pull_Up",
+      "catalogue": {
+        "id": "One_Arm_Pull_Up",
+        "name": "Набиране с една ръка",
+        "level": "elite",
+        "equip": "bar",
+        "description": "Елитно едностранно набиране с много високо натоварване.",
+        "steps": "Изисква продължителна специфична подготовка и контрол на рамо и лакът. Работи с подходяща помощ и наблюдение.",
+        "easier": "Двуръчно набиране и контролирана асистирана прогресия.",
+        "defaultMetric": "reps"
+      },
+      "auditedDesktopSha256": "1cd0cf6bd248ce5d20135185247e3f5ee9995de57724f0d6663113e46578c439",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "3334050a5169bb61c9d70f78fc2adf0965822e0cb86741fe0aaba5dd9e18d78e",
+        "desktop": "1cd0cf6bd248ce5d20135185247e3f5ee9995de57724f0d6663113e46578c439"
+      }
+    },
+    {
+      "id": "Iron_Cross",
+      "catalogue": {
+        "id": "Iron_Cross",
+        "name": "Железен кръст",
+        "level": "elite",
+        "equip": "rings",
+        "description": "Елитно статично задържане на халки с екстремно натоварване на рамене и лакти.",
+        "steps": "Изисква дългогодишна подготовка на халки и наблюдение от квалифициран треньор. Не опитвай без тях.",
+        "easier": "Структурирана подготвителна работа на халки с треньор.",
+        "defaultMetric": "seconds"
+      },
+      "auditedDesktopSha256": "c0c03d84b4aa7755f2510aa42111934273ea6023ab89dd5ab8297f9465bfc8ec",
+      "result": "no-additional-obvious-mismatch-in-quick-audit",
+      "scopeNote": "Static phase only; dynamic exercises require the written sequence/video for full movement.",
+      "detailReview": false,
+      "auditedVariants": {
+        "mobile": "a97e33c5d5f359069781fcdc7fd7537c847ca3068e20992749150dfab812cd7a",
+        "desktop": "c0c03d84b4aa7755f2510aa42111934273ea6023ab89dd5ab8297f9465bfc8ec"
+      }
+    }
+  ]
+}

@@ -48,17 +48,17 @@ test('installation caches the app and activation removes only old FORME caches',
   assert.equal(media.has('https://example.test/media/foods/apple-480.webp'),true);
   const cache=[...a.stored.entries()].find(([name])=>name.startsWith('forme-mobile-'))[1];
   const appUrl='./'+fs.readFileSync('index.html','utf8').match(/<script src="(app\.js\?v=\d+)"/)[1];
-  for(const asset of ['./index.html',appUrl,'./data.js','./styles.css?v=0154','./food-photos.js','./i18n.js','./interface-translations.js?v=0154','./exercise-translations.js','./food-translations.js','./workout-translations.js','./locale-content.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);
+  for(const asset of ['./index.html',appUrl,'./data.js','./styles.css?v=0155','./food-photos.js','./i18n.js','./interface-translations.js?v=0155','./exercise-translations.js','./food-translations.js','./workout-translations.js','./locale-content.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);
 });
 
-test('anatomy upgrade removes all ten retired pictures and retains unrelated offline images',async()=>{
+test('anatomy upgrade removes all 22 retired pictures and retains unrelated offline images',async()=>{
  const a=setup();const media=a.stored.get('forme-media-v029-optimized');
- const review=JSON.parse(fs.readFileSync('qa/exercise-image-review.json','utf8'));
- for(const record of review.corrections)for(const width of [480,960])media.set(`https://example.test/media/exercises/${record.id}-${width}.webp`,'retired image');
+ const review=JSON.parse(fs.readFileSync('qa/exercise-image-review-v3.json','utf8'));
+ for(const record of review.corrections)for(const path of record.oldPaths)media.set('https://example.test/'+path,'retired image');
  const kept='https://example.test/media/exercises/Plank-480.webp';media.set(kept,'previously viewed plank');
- const corrected='https://example.test/media/exercises/Handstand-anatomy-v2-480.webp';media.set(corrected,'already viewed corrected handstand');
+ const corrected='https://example.test/media/exercises/Handstand-anatomy-v3-480.webp';media.set(corrected,'already viewed corrected handstand');
  await lifecycle(a.handlers.install);await lifecycle(a.handlers.activate);
- for(const record of review.corrections)for(const width of [480,960])assert.equal(media.has(`https://example.test/media/exercises/${record.id}-${width}.webp`),false);
+ for(const record of review.corrections)for(const path of record.oldPaths)assert.equal(media.has('https://example.test/'+path),false);
  assert.equal(media.get(kept),'previously viewed plank');assert.equal(media.get(corrected),'already viewed corrected handstand');
 });
 

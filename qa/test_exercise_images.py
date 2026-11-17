@@ -4,6 +4,7 @@ import importlib.util
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 from PIL import Image
 
@@ -22,12 +23,19 @@ class ImageGateTests(unittest.TestCase):
 
     def receipt(self):
         variants = helper.prepare(self.source, 'Handstand', self.root / 'preview')
-        return {'schemaVersion': 1, 'corrections': [{
-            'id': 'Handstand', 'revision': 'anatomy-v2', 'status': 'accepted-visual',
+        policy = next(p for p in json.loads((helper.ROOT / 'qa/exercise-image-contracts.json').read_text())['exercises'] if p['id'] == 'Handstand')
+        return {'schemaVersion': 2, 'corrections': [{
+            'id': 'Handstand', 'revision': 'anatomy-v3', 'status': 'accepted-visual',
             'sourceSha256': hashlib.sha256(self.source.read_bytes()).hexdigest(),
             'reviewedAt': '2026-11-17', 'poseNotes': 'Synthetic gate fixture only, not an accepted athlete.',
             'observedLimbs': dict(arms=2, hands=2, legs=2, feet=2),
             'checks': dict.fromkeys(helper.CHECKS, True),
+            'reviewedVariants': ['source', '480', '960'],
+            'anatomy': {'status': 'accepted', 'notes': 'Synthetic test receipt, not a real anatomy decision.'},
+            'style': {'status': 'accepted', 'notes': 'Synthetic test receipt, not a real style decision.'},
+            'exactMatch': {'status': 'accepted', 'catalogue': policy['catalogue'], 'phase': policy['phase'],
+                           'observedEquipment': policy['catalogue']['equip'],
+                           'criteria': {k: {'passed': True, 'observation': 'Synthetic observation for gate validation only.'} for k in policy['requiredVisible']}},
             'variants': {path.split('-')[-1].split('.')[0]: value for path, value in variants.items()}}]}
 
     def test_preview_cannot_enter_live_media(self):
@@ -80,6 +88,45 @@ class ImageGateTests(unittest.TestCase):
             else:
                 receipt['corrections'].append(dict(receipt['corrections'][0]))
             with self.assertRaises(ValueError):
+                helper.prepare(self.source, 'Handstand', self.root / 'publish', receipt)
+
+    def test_legacy_checkbox_only_receipt_refused(self):
+        receipt = self.receipt()
+        receipt['schemaVersion'] = 1
+        with self.assertRaisesRegex(ValueError, 'strict schema 2'):
+            helper.prepare(self.source, 'Handstand', self.root / 'publish', receipt)
+
+    def test_wrong_phase_equipment_or_category_refused(self):
+        for mutation in ['phase', 'equipment', 'style']:
+            receipt = self.receipt()
+            record = receipt['corrections'][0]
+            if mutation == 'phase':
+                record['exactMatch']['phase'] = 'wall-pike-pushup'
+            elif mutation == 'equipment':
+                record['exactMatch']['observedEquipment'] = 'parallettes'
+            else:
+                record['style']['status'] = 'pending'
+            with self.assertRaises(ValueError):
+                helper.prepare(self.source, 'Handstand', self.root / 'publish', receipt)
+
+    def test_missing_failed_or_foreign_pose_criterion_refused(self):
+        for mutation in ['missing', 'failed', 'foreign']:
+            receipt = self.receipt()
+            criteria = receipt['corrections'][0]['exactMatch']['criteria']
+            if mutation == 'missing':
+                criteria.pop('verticalStack')
+            elif mutation == 'failed':
+                criteria['verticalStack']['passed'] = False
+            else:
+                criteria['highStraightLegs'] = dict(passed=True, observation='Foreign toes-to-bar observation cannot approve a handstand.')
+            with self.assertRaises(ValueError):
+                helper.prepare(self.source, 'Handstand', self.root / 'publish', receipt)
+
+    def test_actual_catalogue_change_invalidates_old_review(self):
+        receipt = self.receipt()
+        changed = dict(receipt['corrections'][0]['exactMatch']['catalogue'], equip='none')
+        with patch.object(helper, 'catalogue_record', return_value=changed):
+            with self.assertRaisesRegex(ValueError, 'Catalogue changed'):
                 helper.prepare(self.source, 'Handstand', self.root / 'publish', receipt)
 
 
