@@ -390,7 +390,7 @@
 
 /* Тема: „auto“ следва системата, „light“ е ръчен избор */
 :root{color-scheme:dark}
-[data-theme="light"]{color-scheme:light;--bg:#f4f7f4;--surface:#ffffff;--surface2:#eef3ee;--surface3:#e3ebe3;--line:#d2ddd3;--text:#101a14;--muted:#4d5c53;--dim:#66756b;--lime:#5f8f16;--lime-dark:#4a7310}
+[data-theme="light"]{color-scheme:light;--bg:#f4f7f4;--surface:#ffffff;--surface2:#eef3ee;--surface3:#e3ebe3;--line:#d2ddd3;--text:#101a14;--muted:#4d5c53;--dim:#5c6b60;--lime:#4a7310;--lime-dark:#3b5f0b}
 [data-theme="light"] body{background:var(--bg);color:var(--text)}
 [data-theme="light"] .sidebar{background:#eaf0ea;border-right-color:#d6e0d7}
 [data-theme="light"] .topbar{background:rgba(244,247,244,.98);border-bottom-color:#dde6de}
@@ -412,8 +412,8 @@
 [data-theme="light"] .field label{color:#465448}
 [data-theme="light"] .btn{background:#e8efe6;border-color:#cdd9ce;color:#1c2a21}
 [data-theme="light"] .btn:hover{background:#dbe7d8}
-[data-theme="light"] .btn-primary{background:#5f8f16;border-color:#5f8f16;color:#fff}
-[data-theme="light"] .btn-primary:hover{background:#6fa01d}
+[data-theme="light"] .btn-primary{background:var(--lime);border-color:var(--lime);color:#fff}
+[data-theme="light"] .btn-primary:hover{background:var(--lime-dark);border-color:var(--lime-dark)}
 [data-theme="light"] .btn-ghost{background:rgba(0,0,0,.04);border-color:#bccdbd;color:#1c2a21}
 [data-theme="light"] .btn-danger{background:#fdeaea;border-color:#f0c4c4;color:#8a2020}
 [data-theme="light"] .chip-action{color:#33463a}
@@ -649,3 +649,22 @@
 
 /* Preserve dark-card contrast on screen and dark text on the printed page. */
 @media print{.today-plan h2,.today-plan .eyebrow{color:#111!important}}
+
+/* Keep light-theme secondary text, selected tabs and form values readable. */
+[data-theme="light"] .food-card .nutrition-mini{color:var(--muted)}
+[data-theme="light"] .tab.active{color:#fff}
+[data-theme="light"] .plan-summary{background:var(--surface2);border-color:var(--line);color:var(--muted)}
+[data-theme="light"] .progress-forms input,[data-theme="light"] .progress-forms select,[data-theme="light"] .journal-panel input{background:var(--surface);border-color:#7c8c7f;color:var(--text)}
+
+[data-theme="light"] .completion-status,[data-theme="light"] .completion-status .link-btn{color:var(--lime)}
+[data-theme="light"] .nutri-warning,[data-theme="light"] .player-settings label,[data-theme="light"] .sound-line,[data-theme="light"] .month-weekday{color:var(--muted)}
+[data-theme="light"] .journal-day-btn.active,[data-theme="light"] .month-selection{background:var(--surface2);border-color:var(--line)}
+
+[data-theme="light"] .month-plan-source,[data-theme="light"] .month-plan-source .link-btn{color:var(--muted)}
+
+[data-theme="light"] .date-plan-editor label{color:var(--muted)}
+[data-theme="light"] .date-plan-editor select{background:var(--surface);border-color:#7c8c7f;color:var(--text)}
+/* Image placeholders keep a dark label surface in either theme. */
+.visual .visual-label{color:#c3ff5c}
+
+[data-theme="light"] .art-footer{color:var(--muted)}

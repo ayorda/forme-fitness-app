@@ -153,3 +153,28 @@ jobs:
             qa-results/fonts.json
             qa-results/modal.json
           if-no-files-found: warn
+
+  accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install locked audit tools without lifecycle scripts
+        run: |
+          npm ci --prefix qa --ignore-scripts --no-audit --no-fund
+          python -m pip install -r qa/requirements-browser.txt
+          python -m playwright install --with-deps chromium
+      - name: Real CSP accessibility audit of 300 synthetic UI views
+        run: python qa/a11y-browser.py
+      - name: Upload accessibility audit including manual-review items
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility
+          path: qa-results/a11y.json
+          if-no-files-found: warn

@@ -11,3 +11,6 @@ pubsub-debug.log
 # Local/CI browser fixtures and evidence, never application data
 qa-results/
 __pycache__/
+
+# Pinned development-only browser audit dependencies
+/qa/node_modules/

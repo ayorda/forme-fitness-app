@@ -2362,7 +2362,7 @@ test('Pressing S during rest skips the break, the legend and shortcut dialog lis
 });
 test('Progress set form offers a 1-tap "today" date button and remembers the chosen date across re-renders',()=>{
  const app=boot('#progress',{},new Date(2026,10,15,12));
- assert.match(app.page(),/data-action="set-date-today" aria-label="Задай днешна дата">Днес/);
+ assert.match(app.page(),/data-action="set-date-today" aria-label="Днес · Задай днешна дата">Днес/);
  const input=app.node('set-date');
  input.value='2026-11-02';
  app.change({id:'set-date',value:'2026-11-02'});
@@ -2376,7 +2376,7 @@ test('Progress set form offers a 1-tap "today" date button and remembers the cho
 });
 test('Progress workout logger offers the same 1-tap today date button',()=>{
  const app=boot('#progress',{},new Date(2026,10,20,12));
- assert.match(app.page(),/data-action="log-workout-date-today" aria-label="Задай днешна дата">Днес/);
+ assert.match(app.page(),/data-action="log-workout-date-today" aria-label="Днес · Задай днешна дата">Днес/);
  app.node('log-workout-date').value='2026-10-01';
  app.click({dataset:{action:'log-workout-date-today'}});
  assert.equal(app.node('log-workout-date').value,'2026-11-20');
@@ -2560,7 +2560,7 @@ test('Weekly plan view offers 1-tap rest buttons for every date-only override (w
  },new Date(2026,10,9,12));
  const page=app.page();
  assert.match(page,/class="plan-rest-quick"/);
- assert.match(page,/data-action="week-mark-rest" data-date="2026-11-10" aria-label="Маркирай като почивен ден: 2026-11-10 \(Спокойно възстановяване\)">Празен ден · ВТО/);
+ assert.match(page,/data-action="week-mark-rest" data-date="2026-11-10" aria-label="Празен ден · ВТО · Маркирай като почивен ден: 2026-11-10 \(Спокойно възстановяване\)">Празен ден · ВТО/);
  assert.doesNotMatch(page,/data-action="week-mark-rest" data-date="2026-11-12"/);
  assert.equal((page.match(/data-action="week-mark-rest"/g)||[]).length,1);
 
@@ -2661,7 +2661,7 @@ test('Exercise details link to the progress log filtered by that exercise (exerc
 
 test('Workout cards log the session for today in one tap (quick-log-workout)',()=>{
  const app=boot('#sessions',{'forme-language':'bg'},new Date(2026,10,9,12));
- assert.match(app.node('workout-results').innerHTML,/data-action="quick-log-workout" data-id="cal-start" aria-label="Запиши тренировка в дневника: Силна основа">\+ Дневник/);
+ assert.match(app.node('workout-results').innerHTML,/data-action="quick-log-workout" data-id="cal-start" aria-label="\+ Дневник · Запиши тренировка в дневника: Силна основа">\+ Дневник/);
  app.click({dataset:{action:'quick-log-workout',id:'cal-start'}});
  const saved=JSON.parse(app.storage['forme-progress-v1']);
  assert.equal(saved.sessions.length,1);
@@ -2762,7 +2762,7 @@ test('Favorites search also triggers the one-tap filter reset',()=>{
 
 test('Progress weekly goal can be raised by one workout in a tap (goal-plus-workout)',()=>{
  const app=boot('#progress',{'forme-language':'bg'},new Date(2026,10,9,12));
- assert.match(app.page(),/data-action="goal-plus-workout" aria-label="Увеличи седмичната цел с 1 тренировка"[^>]*>\+1</);
+ assert.match(app.page(),/data-action="goal-plus-workout" aria-label="\+1 · Увеличи седмичната цел с 1 тренировка"[^>]*>\+1</);
  app.click({dataset:{action:'goal-plus-workout'}});
  assert.equal(journalGoal(app).workoutsPerWeek,4);
  assert.equal(journalGoal(app).minutesPerWeek,90);
@@ -2782,7 +2782,7 @@ function journalGoal(app){return JSON.parse(app.storage['forme-progress-v1']).go
 
 test('Progress weekly goal can be lowered by one workout in a tap (goal-minus-workout)',()=>{
  const app=boot('#progress',{'forme-language':'bg'},new Date(2026,10,9,12));
- assert.match(app.page(),/data-action="goal-minus-workout" aria-label="Намали седмичната цел с 1 тренировка"[^>]*>−1</);
+ assert.match(app.page(),/data-action="goal-minus-workout" aria-label="−1 · Намали седмичната цел с 1 тренировка"[^>]*>−1</);
  app.click({dataset:{action:'goal-minus-workout'}});
  assert.equal(JSON.parse(app.storage['forme-progress-v1']).goal.workoutsPerWeek,2);
  assert.equal(JSON.parse(app.storage['forme-progress-v1']).goal.minutesPerWeek,90);
@@ -2966,7 +2966,7 @@ test('Each week-plan day card jumps to that same date in the month view (day-ope
   'forme-language':'bg',
   'forme-plan':JSON.stringify({wed:'yoga-reset'})
  },new Date(2026,10,9,12));
- assert.match(app.page(),/data-action="day-open-month" data-day="wed" aria-label="Виж в месеца: СРЯ">Месец →/);
+ assert.match(app.page(),/data-action="day-open-month" data-day="wed" aria-label="Месец → · Виж в месеца: СРЯ">Месец →/);
  app.click({dataset:{action:'day-open-month',day:'wed'}});
  const page=app.page();
  assert.match(page,/data-action="plan-view" data-view="month" aria-pressed="true"/);
@@ -2987,7 +2987,7 @@ test('Month selection can jump back to the same day in the week plan (month-open
  },new Date(2026,10,9,12));
  app.click({dataset:{action:'plan-view',view:'month'}});
  app.click({dataset:{action:'plan-date',date:'11'}});
- assert.match(app.page(),/data-action="month-open-week" data-date="2026-11-11" aria-label="Виж в седмицата: 2026-11-11">Седмица →/);
+ assert.match(app.page(),/data-action="month-open-week" data-date="2026-11-11" aria-label="Седмица → · Виж в седмицата: 2026-11-11">Седмица →/);
  app.click({dataset:{action:'month-open-week',date:'2026-11-11'}});
  assert.match(app.page(),/data-action="plan-view" data-view="week" aria-pressed="true"/);
  assert.match(app.page(),/id="day-wed"/);
@@ -3343,7 +3343,7 @@ test('Each meal row can be halved or doubled in one tap (scale-meal-row)',()=>{
   'forme-current-meal':JSON.stringify([{id:'chicken',grams:'200'},{id:'rice',grams:'150'}])
  },new Date(2026,10,9,12));
  app.click({dataset:{action:'food-tab',tab:'meal'}});
- assert.match(app.page(),/data-action="scale-meal-row" data-index="0" data-factor="0\.5" aria-label="Половин порция: Пилешки гърди"/);
+ assert.match(app.page(),/data-action="scale-meal-row" data-index="0" data-factor="0\.5" aria-label="×½ · Половин порция: Пилешки гърди"/);
  app.click({dataset:{action:'scale-meal-row',index:'0',factor:'0.5'}});
  let meal=JSON.parse(app.storage['forme-current-meal']);
  assert.deepEqual(meal,[{id:'chicken',grams:'100'},{id:'rice',grams:'150'}]);
