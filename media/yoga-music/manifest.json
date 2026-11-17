@@ -1,0 +1,185 @@
+{
+  "schema": 1,
+  "version": "1.0",
+  "created": "2026-11-17",
+  "provenance": "Original deterministic algorithmic compositions rendered by qa/render-yoga-music.py for FORME; no third-party samples, recordings, melodies or generation services.",
+  "rights": "Project-created audio; no third-party attribution obligation identified. No claim of exclusive copyright in algorithmically generated material.",
+  "files": [
+    {
+      "id": "calm",
+      "src": "media/yoga-music/calm-v1.m4a",
+      "seconds": 80,
+      "sampleRate": 48000,
+      "channels": 2,
+      "codec": "AAC-LC",
+      "container": "M4A",
+      "bytes": 1014209,
+      "sha256": "4bb4316e47fccc58d0dfb585f3a0d2b226bfd74bf0b615a41535c07a1ec975c2",
+      "decodedPeak": 0.419323,
+      "decodedRms": 0.089581,
+      "score": {
+        "seed": 1501,
+        "chords": [
+          [
+            50,
+            57,
+            60,
+            64
+          ],
+          [
+            53,
+            60,
+            64,
+            69
+          ],
+          [
+            48,
+            55,
+            62,
+            64
+          ],
+          [
+            55,
+            62,
+            65,
+            69
+          ]
+        ],
+        "step": 5,
+        "pluck": 0.035,
+        "pulse": 0
+      }
+    },
+    {
+      "id": "flow",
+      "src": "media/yoga-music/flow-v1.m4a",
+      "seconds": 80,
+      "sampleRate": 48000,
+      "channels": 2,
+      "codec": "AAC-LC",
+      "container": "M4A",
+      "bytes": 1006671,
+      "sha256": "8566a654244cbfcda96e9153dc293841cd4f46d007624220c5cd8392e586d498",
+      "decodedPeak": 0.41919,
+      "decodedRms": 0.086182,
+      "score": {
+        "seed": 1502,
+        "chords": [
+          [
+            50,
+            57,
+            62,
+            65
+          ],
+          [
+            58,
+            65,
+            69,
+            72
+          ],
+          [
+            53,
+            60,
+            65,
+            69
+          ],
+          [
+            48,
+            55,
+            62,
+            67
+          ]
+        ],
+        "step": 3.3333333333333335,
+        "pluck": 0.045,
+        "pulse": 0.012
+      }
+    },
+    {
+      "id": "breath",
+      "src": "media/yoga-music/breath-v1.m4a",
+      "seconds": 80,
+      "sampleRate": 48000,
+      "channels": 2,
+      "codec": "AAC-LC",
+      "container": "M4A",
+      "bytes": 1045212,
+      "sha256": "52ef20283eb8193e9191c7784ed24ec643807528fc8626b76f52ebcb766073d5",
+      "decodedPeak": 0.384019,
+      "decodedRms": 0.089704,
+      "score": {
+        "seed": 1503,
+        "chords": [
+          [
+            48,
+            55,
+            62
+          ],
+          [
+            48,
+            55,
+            64
+          ],
+          [
+            50,
+            57,
+            64
+          ],
+          [
+            48,
+            55,
+            62
+          ]
+        ],
+        "step": 20,
+        "pluck": 0.009,
+        "pulse": 0
+      }
+    },
+    {
+      "id": "relax",
+      "src": "media/yoga-music/relax-v1.m4a",
+      "seconds": 80,
+      "sampleRate": 48000,
+      "channels": 2,
+      "codec": "AAC-LC",
+      "container": "M4A",
+      "bytes": 1041772,
+      "sha256": "66f71981d46b71381097e2cb72d91a6a8d80fc36660a5c3665055d19e95d7df2",
+      "decodedPeak": 0.406842,
+      "decodedRms": 0.089862,
+      "score": {
+        "seed": 1504,
+        "chords": [
+          [
+            45,
+            52,
+            59,
+            64
+          ],
+          [
+            48,
+            55,
+            59,
+            64
+          ],
+          [
+            43,
+            50,
+            57,
+            62
+          ],
+          [
+            45,
+            52,
+            59,
+            64
+          ]
+        ],
+        "step": 10,
+        "pluck": 0.014,
+        "pulse": 0
+      }
+    }
+  ]
+}

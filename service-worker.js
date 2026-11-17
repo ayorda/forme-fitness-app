@@ -1,4 +1,18 @@
-const CACHE = 'forme-mobile-v0143-dips2';
+const CACHE = 'forme-mobile-v0150-yoga1';
+const AUDIO_CACHE = 'forme-audio-v0150-original1';
+const AUDIO_ASSETS = ['calm', 'flow', 'breath', 'relax'].map(id => './media/yoga-music/' + id + '-v1.m4a');
+// Recordings are fetched in full by Web Audio only when selected. Never precache.
+async function audioResponse(request) {
+  let cache;
+  try {
+    cache = await caches.open(AUDIO_CACHE);
+    const saved = await cache.match(request.url);
+    if (saved?.status === 200) return saved;
+  } catch { /* Network playback still works if local storage is unavailable. */ }
+  const response = await fetch(request);
+  if (response?.status === 200) try { await cache?.put(request.url, response.clone()); } catch {}
+  return response;
+}
 const MEDIA_CACHE = 'forme-media-v029-optimized';
 const VIDEO_CACHE = 'forme-video-v0143-dips2';
 // Explicit, versioned public clips only. Full bodies are cached on first playback,
@@ -55,13 +69,13 @@ async function videoResponse(request) {
   return new Response(body.slice(start, end + 1), {status:206, headers});
 }
 const REFRESHED_MEDIA = ['./media/foods/banana-480.webp', './media/foods/banana-960.webp', './media/foods/banana-v2-480.webp', './media/foods/banana-v2-960.webp'];
-const ASSETS = ['./', './index.html', './styles.css', './app.js?v=0143', './auth.js', './firebase-client.js', './cloud-sync.js', './access.js', './services.js', './workspaces.js', './sync-records.js', './auto-sync.js', './bootstrap.js', './pwa-register.js', './local-copies.js', './auth-config.js', './vendor/firebase-auth-13.3.0.js', './workout-audio.js', './skill-trees.js', './data.js', './exercise-art.js', './exercise-photos.js', './core.js', './food-art.js', './food-photos.js', './i18n.js', './interface-translations.js', './exercise-translations.js', './food-translations.js', './workout-translations.js', './locale-content.js', './storage-schema.js', './state-normalizer.js', './progress.js', './programs.js', './nutrition-journal.js', './backup.js', './recovery.js','./personalization.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+const ASSETS = ['./', './index.html', './styles.css', './app.js?v=0150', './auth.js', './firebase-client.js', './cloud-sync.js', './access.js', './services.js', './workspaces.js', './sync-records.js', './auto-sync.js', './bootstrap.js', './pwa-register.js', './local-copies.js', './auth-config.js', './vendor/firebase-auth-13.3.0.js', './workout-audio.js?v=0150', './skill-trees.js', './data.js', './exercise-art.js', './exercise-photos.js', './core.js', './food-art.js', './food-photos.js', './i18n.js', './interface-translations.js?v=0150', './exercise-translations.js', './food-translations.js', './workout-translations.js', './locale-content.js', './storage-schema.js', './state-normalizer.js', './progress.js', './programs.js', './nutrition-journal.js', './backup.js?v=0150', './recovery.js','./personalization.js', './favicon.svg', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS.map(path => new Request(path, {cache:'reload'})))).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', event => {
   event.waitUntil(Promise.all([
-    caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('forme-') && key !== CACHE && key !== MEDIA_CACHE && key !== VIDEO_CACHE).map(key => caches.delete(key)))),
+    caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('forme-') && key !== CACHE && key !== MEDIA_CACHE && key !== VIDEO_CACHE && key !== AUDIO_CACHE).map(key => caches.delete(key)))),
     migrateVideoCache(),
     caches.open(MEDIA_CACHE).then(cache => Promise.all(REFRESHED_MEDIA.map(path => cache.delete(new URL(path, self.registration.scope).href))))
   ]).then(() => self.clients.claim()));
@@ -69,6 +83,10 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   if (event.request.method !== 'GET' || url.origin !== self.location.origin) return;
+  if (AUDIO_ASSETS.some(path => new URL(path, self.registration.scope).href === url.href)) {
+    event.respondWith(audioResponse(event.request));
+    return;
+  }
   if (VIDEO_ASSETS.some(path => new URL(path, self.registration.scope).href === url.href)) {
     event.respondWith(videoResponse(event.request));
     return;

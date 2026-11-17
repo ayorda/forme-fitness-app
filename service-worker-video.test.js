@@ -10,7 +10,7 @@ function setup({offline=false,cacheFailure=false,cacheOpenFailure=false,status=2
  const caches={async open(name){
   if(cacheOpenFailure)throw Error('disabled storage');
   if(!stores.has(name))stores.set(name,new Map());const data=stores.get(name);
-  return {async match(key){const value=data.get(key);return value?.clone?value.clone():value;},async put(key,value){if(cacheFailure&&name==='forme-video-v0143-dips2')throw Error('quota');data.set(key,value);},async delete(key){return data.delete(key);}};
+  return {async match(key){const value=data.get(key);return value?.clone?value.clone():value;},async put(key,value){if(cacheFailure&&['forme-video-v0143-dips2','forme-audio-v0150-original1'].includes(name))throw Error('quota');data.set(key,value);},async delete(key){return data.delete(key);}};
  },async keys(){return [...stores.keys()];},async delete(name){return stores.delete(name);},async match(key){for(const data of stores.values())if(data.has(key))return data.get(key).clone();}};
  const full=()=>new Response(Uint8Array.from([0,1,2,3,4,5,6,7,8,9]),{status,headers:{'Content-Type':'video/mp4','ETag':'"v1"'}});
  const fetch=async request=>{calls.push(request);if(offline)throw Error('offline');return full();};
@@ -79,4 +79,24 @@ test('replacement never serves retired bytes under the new video URL',async()=>{
  await s.activate();assert.equal(s.stored.has(clip),false);assert.equal(s.legacy.has(retired),false);
  assert.equal(await s.legacy.get(image).text(),'keep image');
  await assert.rejects(s.get(),/offline/);
+});
+
+const audioURL=URL_BASE+'media/yoga-music/calm-v1.m4a';
+test('music is cached only on selection, and its full body works offline',async()=>{
+ const s=setup();assert.equal(s.stores.has('forme-audio-v0150-original1'),false);
+ const r=await s.get(null,audioURL);assert.equal(r.status,200);assert.equal(s.calls.length,1);
+ const saved=s.stores.get('forme-audio-v0150-original1');assert.equal(saved.size,1);
+ const offline=setup({offline:true});offline.stores.set('forme-audio-v0150-original1',saved);
+ assert.equal((await offline.get(null,audioURL)).status,200);assert.equal(offline.calls.length,0);
+ await offline.activate();assert.equal(offline.stores.get('forme-audio-v0150-original1').size,1);
+});
+test('audio errors and partial responses never poison the music cache',async()=>{
+ for(const status of [206,404,503]){const s=setup({status});assert.equal((await s.get(null,audioURL)).status,status);assert.equal(s.stores.get('forme-audio-v0150-original1').size,0);}
+ await assert.rejects(setup({offline:true}).get(null,audioURL),/offline/);
+ assert.equal((await setup({cacheOpenFailure:true}).get(null,audioURL)).status,200);
+ const quota=setup({cacheFailure:true});assert.equal((await quota.get(null,audioURL)).status,200);assert.equal(quota.stores.get('forme-audio-v0150-original1').size,0);
+});
+test('no music recording is in the install shell and only versioned tracks use its cache',async()=>{
+ const source=fs.readFileSync('service-worker.js','utf8');assert.doesNotMatch(source.match(/const ASSETS = ([^;]+);/)[1],/yoga-music/);
+ const s=setup();await s.get(null,audioURL.replace('-v1.m4a','-unapproved.m4a'));assert.equal(s.stores.has('forme-audio-v0150-original1'),false);
 });

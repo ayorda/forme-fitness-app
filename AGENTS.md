@@ -19,7 +19,16 @@
 
 - Preserve the enforced early CSP: no executable inline script/event attributes or eval/remote-script exception. Keep pwa-register.js precached and the exact versioned app URL consistent in index.html and SW ASSETS when changing the app shell. Run browser-security with CSP bypass false; loopback/LNA permissions belong only to isolated demo fixtures, never the production policy. Meta CSP does not provide frame-ancestors or server headers.
 
-## Current scope checkpoint — v0.14.3 / video standard v4.1
+## Current scope checkpoint — v0.15.0 / Yoga Music
+
+- Owner explicitly deferred other exercise videos; do not resume video generation, source search or bulk additions from a generic continue-project request. The v0.14.3 Parallel Bar Dips file/player/cache remains unchanged; 1/49 present, 48 deferred.
+- Current phase2/task2.5 technical batch: four original deterministic 80s AAC-LC/M4A scores (calm/flow/breath/relax), no external samples or paid generators. Scores and provenance: YOGA-MUSIC.md, media/yoga-music/manifest.json, qa/render-yoga-music.py. No claim of musician recording or exclusive algorithmic copyright.
+- Audio is opt-in, no startup autoplay, one reused AudioContext/current buffer, official gesture resume, stale fetch/decode/resume guards, serialized decoding, correct stop/pause/mute/hide; local synth fallback is explicitly shown. Existing auto/calm/flow settings remain compatible; breath/relax are manual alternatives in the existing two yoga workouts. No new workout catalogue entries.
+- Lazy audio cache forme-audio-v0150-original1, no install music prefetch; full200 only. Existing VIDEO_CACHE forme-video-v0143-dips2 and image cache029 preserved. Shell forme-mobile-v0150-yoga1; app/workout-audio/interface-translations/backup use exact ?v=0150 in HTML and shell assets for returning clients.
+- Four technical delivery steps: original audio/provenance; integration; checks; main/CI/Pages/public verification. Human listening for comfort/volume/loop and physical Safari/HomeScreen/Android acceptance remain separate and pending (QA-AUDIO.md). Previous basic iPhone auth acceptance does not imply audio acceptance.
+- Whole plan stays13/20 +7unfinished and shared final acceptance; 2.5 remains partial until listening/phones. No reliable whole-product date without remaining media/model rights, operator decisions, devices and acceptance. No Auth/SDK/Rules/backend/data migration or paid service changes in this batch.
+
+## Previous scope checkpoint — v0.14.3 / video standard v4.1
 
 - Latest owner explicitly REMOVED the fixed5s rule. Use real filmed footage + FFmpeg with duration chosen for full, accurate, clear natural movement. NO Higgsfield/Wan/AI video generator or paid services. Finish only Parallel Bar Dips; other48 deferred as a separate task. This supersedes exact5s/120frame v4.0 and older WAN directions.
 - Current replacement: Coverr “A Man Does Bar Dips”, source1.125–8.000s, two full reps, 6.875s/24fps/165frames/960x540, CRF24 H264Main3.1/yuv420p/faststart/silent642528B, SHA2e8c901b11cc29b0cacfbbefd5ea58c7eab2326b32ae226c1c10ea5280dff910; actualfirstframeJPEG52604B. All165 final frames inspected. Independenttrainer/physicalphones separate, not claimed. Openair/gentlymovingcamera are disclosed; no fake dark indoor replacement.

@@ -90,7 +90,7 @@ function validate(payload){
   if(key==='forme-language'){if(!['bg','en','de'].includes(value))return false;continue;}
   let parsed;try{parsed=JSON.parse(value);}catch{return false;}
   if(key==='forme-sound'){if(typeof parsed!=='boolean')return false;}
-  else if(key==='forme-music'){if(!validObject(parsed)||typeof parsed.enabled!=='boolean'||!Number.isInteger(parsed.volume)||parsed.volume<0||parsed.volume>100||!['auto','calm','flow'].includes(parsed.mode))return false;}
+  else if(key==='forme-music'){if(!validObject(parsed)||typeof parsed.enabled!=='boolean'||!Number.isInteger(parsed.volume)||parsed.volume<0||parsed.volume>100||!['auto','calm','flow','breath','relax'].includes(parsed.mode))return false;}
   else if(key==='forme-personal-v1'){if(!validPersonal(parsed))return false;}
   else if(key==='forme-recovery-v1'){if(!validRecovery(parsed))return false;}
   else if(key==='forme-theme'){if(!['dark','light','auto'].includes(parsed))return false;}
