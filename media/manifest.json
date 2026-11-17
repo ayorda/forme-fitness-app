@@ -906,26 +906,30 @@
       "name": "Превъртане във вис (skin the cat)",
       "origin": "AI generated",
       "tool": "OpenAI image generation tool",
-      "date": "2026-11-07",
+      "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "contact-sheet reviewed",
-        "scope": "pose, equipment and anatomy; not technique certification"
+        "visual": "individual source and final 960/480 variants reviewed",
+        "scope": "limb continuity, pose, joints, equipment contacts and style; not independent technique certification",
+        "status": "accepted-visual",
+        "revision": "anatomy-v2",
+        "receipt": "qa/exercise-image-review.json",
+        "sourceSha256": "a5cde0fa3dbac15cbf4a4253f8801808336dbb1451d5d4dcde035674628b4afe"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Skin_the_Cat-480.webp",
+          "path": "media/exercises/Skin_the_Cat-anatomy-v2-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17224,
-          "sha256": "cc9e9bd65e5ed5e561909fdb73a46016ad8eb02f2c1c78382df948eb5ea288a9"
+          "bytes": 20708,
+          "sha256": "f3c795d57d840f8ba6db4e434208ea406ea09f8fcb9169ca3eddef4e52d044f6"
         },
         "desktop": {
-          "path": "media/exercises/Skin_the_Cat-960.webp",
+          "path": "media/exercises/Skin_the_Cat-anatomy-v2-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 45092,
-          "sha256": "8f157b769fe06a984e3fdee807d3256d97d8548fe4cb85240535d0a62183e1f7"
+          "bytes": 55686,
+          "sha256": "6eaea55c2730cab9ad945ebe04984e8be49d57864501761f2085ee121945210e"
         }
       }
     },
@@ -935,26 +939,30 @@
       "name": "Пръсти към лоста",
       "origin": "AI generated",
       "tool": "OpenAI image generation tool",
-      "date": "2026-11-07",
+      "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "contact-sheet reviewed",
-        "scope": "pose, equipment and anatomy; not technique certification"
+        "visual": "individual source and final 960/480 variants reviewed",
+        "scope": "limb continuity, pose, joints, equipment contacts and style; not independent technique certification",
+        "status": "accepted-visual",
+        "revision": "anatomy-v2",
+        "receipt": "qa/exercise-image-review.json",
+        "sourceSha256": "c678bde188822f0bcf32a303e72418bacf83986252f3ab969dd1efed6d06b05b"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Toes_to_Bar-480.webp",
+          "path": "media/exercises/Toes_to_Bar-anatomy-v2-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 17626,
-          "sha256": "12dfe9bf1c75d291e69ac3783a26fc39bfa29c073fc73166e56c53af9820cc5a"
+          "bytes": 19206,
+          "sha256": "648dd2c9086749ae85263b29a7cb877949109d46e4e6bfc38f4032872019d138"
         },
         "desktop": {
-          "path": "media/exercises/Toes_to_Bar-960.webp",
+          "path": "media/exercises/Toes_to_Bar-anatomy-v2-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 43060,
-          "sha256": "21652495826ca91e7d1389313ff3237fb21171bf0ab4848aee78bb7f418e9ce6"
+          "bytes": 45458,
+          "sha256": "44557d860d512bb93b92647a904618b5fc6ef1ee3c661a296496718fc1fb0b62"
         }
       }
     },
@@ -964,26 +972,30 @@
       "name": "Стрелец лицеви опори",
       "origin": "AI generated",
       "tool": "OpenAI image generation tool",
-      "date": "2026-11-07",
+      "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "contact-sheet reviewed",
-        "scope": "pose, equipment and anatomy; not technique certification"
+        "visual": "individual source and final 960/480 variants reviewed",
+        "scope": "limb continuity, pose, joints, equipment contacts and style; not independent technique certification",
+        "status": "accepted-visual",
+        "revision": "anatomy-v2",
+        "receipt": "qa/exercise-image-review.json",
+        "sourceSha256": "0745e19f2d96f02edab5645bced02dc1bf976adaddd90faf632abd0c14cb3a13"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Archer_Pushups-480.webp",
+          "path": "media/exercises/Archer_Pushups-anatomy-v2-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 19348,
-          "sha256": "bf935635be4e52fecb06c417d10f1339cb0fbec70591cabf0a9193ba5267c1d6"
+          "bytes": 15972,
+          "sha256": "42c907a4a4ca9a12cc16a45735c4f7779840d4f492b9e93a5a4d621b585aea21"
         },
         "desktop": {
-          "path": "media/exercises/Archer_Pushups-960.webp",
+          "path": "media/exercises/Archer_Pushups-anatomy-v2-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 48990,
-          "sha256": "ff46a524af6aa7b3a61be716871d0e4249adad96df85d728e6e85a7468f31a2b"
+          "bytes": 56610,
+          "sha256": "b7bd97379014c19b6432fbe4484404b8d62ce948bd1f9b4f3da41a752075ef12"
         }
       }
     },
@@ -1080,26 +1092,30 @@
       "name": "Стойка на ръце",
       "origin": "AI generated",
       "tool": "OpenAI image generation tool",
-      "date": "2026-11-07",
+      "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "contact-sheet reviewed",
-        "scope": "pose, equipment and anatomy; not technique certification"
+        "visual": "individual source and final 960/480 variants reviewed",
+        "scope": "limb continuity, pose, joints, equipment contacts and style; not independent technique certification",
+        "status": "accepted-visual",
+        "revision": "anatomy-v2",
+        "receipt": "qa/exercise-image-review.json",
+        "sourceSha256": "5d1cbe82fb45ccee9fa39db9fd6b54f11f5c18f168eebad64234fabbeb9e1855"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Handstand-480.webp",
+          "path": "media/exercises/Handstand-anatomy-v2-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 19542,
-          "sha256": "23d11637723993cfd5f74d187576c12b9ddfd468053a69f2989d3de7113ad101"
+          "bytes": 20756,
+          "sha256": "cc95adf4901043b7101522552359c671213af4026ddc6422bde3376d07e27e7f"
         },
         "desktop": {
-          "path": "media/exercises/Handstand-960.webp",
+          "path": "media/exercises/Handstand-anatomy-v2-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 54460,
-          "sha256": "0f6f43cbc16ed9671c3740f2dcf10fe4c01e36a89bf5f8bd0dc2accedb2f3f64"
+          "bytes": 56682,
+          "sha256": "3c0a7f6e1e8a53da4e85d89adc92a8387f620a6ef6e4948869fed65a6f39b9a2"
         }
       }
     },
@@ -1254,26 +1270,30 @@
       "name": "Лицеви опори от стойка на ръце",
       "origin": "AI generated",
       "tool": "OpenAI image generation tool",
-      "date": "2026-11-07",
+      "date": "2026-11-17",
       "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
       "review": {
-        "visual": "contact-sheet reviewed",
-        "scope": "pose, equipment and anatomy; not technique certification"
+        "visual": "individual source and final 960/480 variants reviewed",
+        "scope": "limb continuity, pose, joints, equipment contacts and style; not independent technique certification",
+        "status": "accepted-visual",
+        "revision": "anatomy-v2",
+        "receipt": "qa/exercise-image-review.json",
+        "sourceSha256": "c165c8fd296894e033b4b801da28909c60c39cac29c4c67ddac06e2ad69facee"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Handstand_Pushups-480.webp",
+          "path": "media/exercises/Handstand_Pushups-anatomy-v2-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 15354,
-          "sha256": "38215b9a015df5235c4fb7d59e3798b75b49bee2d2a3871c8a7bba05fa67f162"
+          "bytes": 18098,
+          "sha256": "2b6a17c1afcca1b77a92f9df4d9bd6cf17c6ac739f09fa940debe10f2e33719a"
         },
         "desktop": {
-          "path": "media/exercises/Handstand_Pushups-960.webp",
+          "path": "media/exercises/Handstand_Pushups-anatomy-v2-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 48898,
-          "sha256": "cfd60bb50f1f4f16da67fc41935068771122b0a4a2e0dd2806018c145c75f50b"
+          "bytes": 54064,
+          "sha256": "242af822d7093c2cd3c59269f79c004674a4f63cf9d499ef7cd0f44daf7b9d80"
         }
       }
     },

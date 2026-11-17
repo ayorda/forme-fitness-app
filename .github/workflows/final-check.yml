@@ -20,6 +20,10 @@ jobs:
           node-version: "22"
       - name: Automated app and PWA tests
         run: node --test test.js modal-accessibility.test.js fonts.test.js pwa.test.js food-art.test.js plan.test.js catalog.test.js home.test.js integration.test.js media.test.js service-worker-video.test.js offline.test.js timer.test.js i18n.test.js storage.test.js month.test.js hero.test.js exercise-translations.test.js food-translations.test.js workout-translations.test.js interface-translations.test.js locale-content.test.js language-switch.test.js progress.test.js storage-schema.test.js nutrition-journal.test.js backup.test.js food-photos.test.js exercise-photos.test.js state-normalizer.test.js resilience.test.js filters-search.test.js text-review.test.js i18n-coverage.test.js docs-links.test.js markup-integrity.test.js ci-workflow.test.js version-consistency.test.js code-hygiene.test.js workout-audio.test.js set-conditions.test.js skill-trees.test.js recovery.test.js personalization.test.js auth.test.js cloud-sync.test.js privacy.test.js access.test.js firebase-client.test.js services.test.js workspaces.test.js sync-records.test.js auto-sync.test.js bootstrap.test.js local-copies.test.js security-policy.test.js
+      - name: Reviewed exercise image publication gate
+        run: |
+          python3 -m pip install Pillow==12.0.0
+          python3 -m unittest discover -s qa -p 'test_exercise_images.py'
       - name: Audit shipped audio/video codecs, size, hashes and MP4 faststart
         run: |
           if ! command -v ffprobe >/dev/null; then
@@ -142,6 +146,8 @@ jobs:
         run: python qa/fonts-browser.py
       - name: Modal focus, background isolation and offline restoration
         run: python qa/modal-browser.py
+      - name: Reviewed exercise image decoding, bindings and offline cache upgrade
+        run: python qa/exercise-images-browser.py
       - name: Upload synthetic browser evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -152,6 +158,7 @@ jobs:
             qa-results/yoga-audio.json
             qa-results/fonts.json
             qa-results/modal.json
+            qa-results/exercise-images.json
           if-no-files-found: warn
 
   accessibility:

@@ -16,3 +16,62 @@ test('all 49 exercises have distinct compressed local WebP variants with provena
  }
  assert.equal(photos.get('constructor'),null);
 });
+
+test('five replacements bind the accepted source, final bytes and individual pose review',()=>{
+ const review=JSON.parse(fs.readFileSync('qa/exercise-image-review.json','utf8'));
+ assert.equal(review.corrections.length,5);
+ for(const record of review.corrections){
+  const entry=manifest.entries.find(e=>e.kind==='exercise'&&e.id===record.id);
+  const photo=context.window.FORME_EXERCISE_PHOTOS.get(record.id);
+  assert.equal(record.status,'accepted-visual');
+  assert.deepEqual(record.observedLimbs,{arms:2,hands:2,legs:2,feet:2});
+  assert.equal(Object.keys(record.checks).length,9);
+  assert.ok(Object.values(record.checks).every(v=>v===true));
+  assert.ok(record.poseNotes.length>80);
+  assert.equal(entry.review.sourceSha256,record.sourceSha256);
+  assert.match(record.sourceSha256,/^[a-f0-9]{64}$/);
+  assert.notEqual(entry.variants.desktop.sha256,record.oldDesktopSha256);
+  assert.equal(photo.created,'2026-11-17');
+  for(const [size,width,path] of [['mobile',480,photo.small],['desktop',960,photo.large]]){
+   assert.equal(path,`media/exercises/${record.id}-anatomy-v2-${width}.webp`);
+   assert.equal(entry.variants[size].sha256,record.variants[String(width)].sha256);
+  }
+ }
+ assert.equal(review.rejectedCandidates.length,2);
+ for(const rejected of review.rejectedCandidates){
+  assert.ok(!review.corrections.some(r=>r.sourceSha256===rejected.sourceSha256));
+  assert.ok(rejected.reason.length>20);
+ }
+});
+
+test('all 49 entries were audited and the other 44 original images stay unchanged',()=>{
+ const review=JSON.parse(fs.readFileSync('qa/exercise-image-review.json','utf8'));
+ assert.equal(review.catalogueAudit.length,49);
+ assert.equal(new Set(review.catalogueAudit.map(r=>r.id)).size,49);
+ let kept=0;
+ for(const record of review.catalogueAudit){
+  const entry=manifest.entries.find(e=>e.kind==='exercise'&&e.id===record.id);
+  assert.ok(entry);
+  if(record.result==='replaced-priority')continue;
+  kept++;
+  assert.equal(entry.variants.desktop.sha256,record.auditedDesktopSha256);
+  assert.equal(entry.variants.mobile.path,`media/exercises/${record.id}-480.webp`);
+ }
+ assert.equal(kept,44);
+});
+
+test('retired defective assets are absent and evicted without prefetching replacements',()=>{
+ const review=JSON.parse(fs.readFileSync('qa/exercise-image-review.json','utf8'));
+ const sw=fs.readFileSync('service-worker.js','utf8');
+ const refresh=sw.match(/const REFRESHED_MEDIA = (\[[^;]+\]);/)[1];
+ const assets=sw.match(/const ASSETS = (\[[^;]+\]);/)[1];
+ for(const record of review.corrections)for(const width of [480,960]){
+  const old=`media/exercises/${record.id}-${width}.webp`;
+  assert.equal(fs.existsSync(old),false);
+  assert.ok(refresh.includes(old));
+  assert.ok(!assets.includes(`${record.id}-anatomy-v2`));
+ }
+ assert.match(fs.readFileSync('index.html','utf8'),/exercise-photos\.js\?v=0154/);
+ assert.ok(assets.includes('exercise-photos.js?v=0154'));
+ assert.match(fs.readFileSync('styles.css','utf8'),/\.photo-visual picture img\[src\*="-anatomy-v"\]\{object-fit:contain\}/);
+});

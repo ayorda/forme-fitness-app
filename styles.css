@@ -281,6 +281,12 @@
 .photo-visual picture,.food-picture{position:absolute;inset:0;display:block;z-index:1}
 .photo-visual picture[hidden],.food-picture[hidden]{display:none}
 .photo-visual picture img,.food-picture img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+/* Reviewed anatomy frames must keep shoes, palms and equipment contacts visible.
+   Preserve the existing card/detail box dimensions; fit the complete 3:2 frame. */
+.photo-visual picture img[src*="-anatomy-v"]{object-fit:contain}
+/* Detail views can use the full frame; catalogue card dimensions stay intact.
+   Older engines without :has retain the complete contain fallback above. */
+.modal-visual:has(.photo-visual img[src*="-anatomy-v"]){height:auto;aspect-ratio:3/2}
 .media-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#d7e8d3;text-align:center;padding:18px}
 .media-placeholder span{font:700 48px/1 var(--display);letter-spacing:-.13em;color:var(--lime)}
 .food-media-placeholder span{font-size:44px;letter-spacing:0;line-height:1.1}

@@ -1,0 +1,501 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "Codex visual inspection",
+  "reviewScope": "Individual source and final 960/480 review; not independent trainer or anatomical certification",
+  "reviewedAt": "2026-11-17",
+  "corrections": [
+    {
+      "id": "Skin_the_Cat",
+      "revision": "anatomy-v2",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "a5cde0fa3dbac15cbf4a4253f8801808336dbb1451d5d4dcde035674628b4afe",
+      "oldDesktopSha256": "8f157b769fe06a984e3fdee807d3256d97d8548fe4cb85240535d0a62183e1f7",
+      "oldIssue": "Very compressed overlapping pelvis, torso and lower limbs made the tuck difficult to trace.",
+      "poseNotes": "Controlled inverted tuck phase on rings, moderate continuous spinal curve, two bent knees/shins/shoes; hands each hold one ring. Does not depict the complete rotation or an extreme German hang.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "variants": {
+        "480": {
+          "bytes": 20708,
+          "sha256": "f3c795d57d840f8ba6db4e434208ea406ea09f8fcb9169ca3eddef4e52d044f6"
+        },
+        "960": {
+          "bytes": 55686,
+          "sha256": "6eaea55c2730cab9ad945ebe04984e8be49d57864501761f2085ee121945210e"
+        }
+      }
+    },
+    {
+      "id": "Toes_to_Bar",
+      "revision": "anatomy-v2",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "c678bde188822f0bcf32a303e72418bacf83986252f3ab969dd1efed6d06b05b",
+      "oldDesktopSha256": "21652495826ca91e7d1389313ff3237fb21171bf0ab4848aee78bb7f418e9ce6",
+      "oldIssue": "Raised legs overlapped arm lines and shoe contacts; reported extra limb could not be reliably distinguished.",
+      "poseNotes": "Top compression phase, two separated arms outside two raised legs, two shoes touching the bar between the hands, coherent pelvis. Near-straight knees.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "variants": {
+        "480": {
+          "bytes": 19206,
+          "sha256": "648dd2c9086749ae85263b29a7cb877949109d46e4e6bfc38f4032872019d138"
+        },
+        "960": {
+          "bytes": 45458,
+          "sha256": "44557d860d512bb93b92647a904618b5fc6ef1ee3c661a296496718fc1fb0b62"
+        }
+      }
+    },
+    {
+      "id": "Archer_Pushups",
+      "revision": "anatomy-v2",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "0745e19f2d96f02edab5645bced02dc1bf976adaddd90faf632abd0c14cb3a13",
+      "oldDesktopSha256": "ff46a524af6aa7b3a61be716871d0e4249adad96df85d728e6e85a7468f31a2b",
+      "oldIssue": "Far shoe had no clearly traceable connecting leg in the frontal view; ambiguous extra-foot appearance.",
+      "poseNotes": "Elevated oblique side view exposes both complete legs and two shoes in a straddle, one flexed loading arm and one extended arm; chest remains above floor.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "variants": {
+        "480": {
+          "bytes": 15972,
+          "sha256": "42c907a4a4ca9a12cc16a45735c4f7779840d4f492b9e93a5a4d621b585aea21"
+        },
+        "960": {
+          "bytes": 56610,
+          "sha256": "b7bd97379014c19b6432fbe4484404b8d62ce948bd1f9b4f3da41a752075ef12"
+        }
+      }
+    },
+    {
+      "id": "Handstand",
+      "revision": "anatomy-v2",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "5d1cbe82fb45ccee9fa39db9fd6b54f11f5c18f168eebad64234fabbeb9e1855",
+      "oldDesktopSha256": "0f6f43cbc16ed9671c3740f2dcf10fe4c01e36a89bf5f8bd0dc2accedb2f3f64",
+      "oldIssue": "Unclear ankle/foot alignment and wall support in the old inverted silhouette.",
+      "poseNotes": "Wall-supported straight-arm handstand; two parallel legs and two adjacent distinct shoes, coherent pelvis and floor support. Wall-supported still, not a full entry/exit demonstration.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "variants": {
+        "480": {
+          "bytes": 20756,
+          "sha256": "cc95adf4901043b7101522552359c671213af4026ddc6422bde3376d07e27e7f"
+        },
+        "960": {
+          "bytes": 56682,
+          "sha256": "3c0a7f6e1e8a53da4e85d89adc92a8387f620a6ef6e4948869fed65a6f39b9a2"
+        }
+      }
+    },
+    {
+      "id": "Handstand_Pushups",
+      "revision": "anatomy-v2",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-17",
+      "sourceSha256": "c165c8fd296894e033b4b801da28909c60c39cac29c4c67ddac06e2ad69facee",
+      "oldDesktopSha256": "cfd60bb50f1f4f16da67fc41935068771122b0a4a2e0dd2806018c145c75f50b",
+      "oldIssue": "Frontal thigh/pelvis/ankle arrangement was difficult to read; head nearly at floor.",
+      "poseNotes": "Oblique wall-supported bent-arm lowering phase with distinct continuous legs and shoes, aligned pelvis and head clear of floor; static partial phase, not full ROM instruction.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "variants": {
+        "480": {
+          "bytes": 18098,
+          "sha256": "2b6a17c1afcca1b77a92f9df4d9bd6cf17c6ac739f09fa940debe10f2e33719a"
+        },
+        "960": {
+          "bytes": 54064,
+          "sha256": "242af822d7093c2cd3c59269f79c004674a4f63cf9d499ef7cd0f44daf7b9d80"
+        }
+      }
+    }
+  ],
+  "rejectedCandidates": [
+    {
+      "id": "Archer_Pushups",
+      "sourceSha256": "f8827e747bd856a678b3b3435a08da9266503341fb7bf219e5f6d7c9d62542e3",
+      "reason": "Far leg still obscured behind torso; isolated shoe appearance remains."
+    },
+    {
+      "id": "Toes_to_Bar",
+      "sourceSha256": "2800ef6a25dead71f743cd70e1c9bb00ed10149a5375d99b9883840fd162e310",
+      "reason": "Feet outside grip and contact with bar unclear."
+    }
+  ],
+  "catalogueAudit": [
+    {
+      "id": "Pushups",
+      "auditedDesktopSha256": "df7f81c48997e40693d3c7496afec98398977c5a748149116e322ea0cd2d39d3",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Bodyweight_Squat",
+      "auditedDesktopSha256": "c1c8dc84f4d015d9f4a89a1b6e0a9fde2e868a10b3b43499afcb1ea7640cdbe5",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Plank",
+      "auditedDesktopSha256": "d52d58e4500d13b472dd9aa158f5db230e762284152f1e6e8ae217c0b9b90818",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Pullups",
+      "auditedDesktopSha256": "9e419f0ede7bf8c92a18261d29e46dc83ddca3e308ae1d891bd68a019a820113",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Mountain_Climbers",
+      "auditedDesktopSha256": "1853398cdd959da239f34a7d7dfe7865305fbc982fdf97db2113a1f55d098f08",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Bench_Dips",
+      "auditedDesktopSha256": "d0675fc42c7e4b0548149ed8b5a630b7c33801e1b8be81f79596a26e8b02b1e0",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Hanging_Leg_Raise",
+      "auditedDesktopSha256": "0f5008ac3ffc81c89c23bb47b694ec143c20ad7e7fa90e0264b209feaba36af9",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Side_Bridge",
+      "auditedDesktopSha256": "c3be47a159ff580aa60ebea67dfd3813173d442e8852382946b6f950bdea2ce4",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Childs_Pose",
+      "auditedDesktopSha256": "5ed8daabf8aa67e2ae1dbbef213f6f62a5cfcdf9cc494f0fc0a3e72f0ef3b936",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Cat_Stretch",
+      "auditedDesktopSha256": "a8431de7249ec1b23bd7320f84e36030432b6ffbcbdec6317582579bf702f555",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Butt_Lift_Bridge",
+      "auditedDesktopSha256": "193c9f757cf2d91923557c16de8d029f72e720a1d6921748c045f04ce4300016",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Dancers_Stretch",
+      "auditedDesktopSha256": "3f01d5e699a69fa9b64d41c5e8f8fe0dac897a684763ffe055cd4bfb29d2d98c",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Seated_Floor_Hamstring_Stretch",
+      "auditedDesktopSha256": "2d353021774c09cf811b4d9d86b3daab851548e537fa46349d3bd9e47dbfe43c",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Groin_and_Back_Stretch",
+      "auditedDesktopSha256": "869bf40c2ec0c4ceeb07b4bc5bd823ff7d97b1edc1f934fbb764662afdbe9d89",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Spinal_Stretch",
+      "auditedDesktopSha256": "3a48db62df11b0c210de5cc775d74bfe2f5537bd10ddf1905ec2cf94c2b274ce",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Seated_Overhead_Stretch",
+      "auditedDesktopSha256": "b65b7b7b3b2b3cabb1debacc944f20554dad46a5dcd9afcc5fa5d01516a7237d",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Standing_Hip_Circles",
+      "auditedDesktopSha256": "be14cb81ad56d0cd00a0491ed128f581886df8f17ae0e88de984d1fe25bb34a9",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Hip_Circles_prone",
+      "auditedDesktopSha256": "bae0983b32dc7e51f8dfcf66ad992440508f27081432bc89e720a79ede44e931",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Arm_Circles",
+      "auditedDesktopSha256": "c6df3dbdf9af89fd4cf59055f2148b4c3d7f97c4400440e074d212ef92b378ba",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Kneeling_Hip_Flexor",
+      "auditedDesktopSha256": "a09bc35d82c5fa0c6a477fbc77df519569a53a01f0b3ebdcbdbacef24b919519",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Dynamic_Chest_Stretch",
+      "auditedDesktopSha256": "d2fa99e585b3d73de42d2790e39f968bb5f4b8b89b2e8c23a1ae39091fe004ef",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Shoulder_Stretch",
+      "auditedDesktopSha256": "446e5496f8c03baffa1dd9b103cbb8c6494d113ac1668f2cf35acb15b89ba51c",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Calf_Stretch_Hands_Against_Wall",
+      "auditedDesktopSha256": "09b60cbb8dcf4304790c93efc9c100014115f0ba4af47921fec89a97c73129a4",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Kneeling_Forearm_Stretch",
+      "auditedDesktopSha256": "82b8f79d459d0dec2718bf381bc9c82de83e2043885324497b2aa77169c6d6cd",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Chinups",
+      "auditedDesktopSha256": "582a9674bbfcd19fd2cdcbf80ea31b54dc0e92ff6355270f399338b4bcabfdfe",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Australian_Rows",
+      "auditedDesktopSha256": "e7335a7aaf209428832bc5208528969e1487e0a203da2262e5e9f0474fd097c9",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Parallel_Bar_Dips",
+      "auditedDesktopSha256": "cf4e32b81cf013b7d213f4c8415b7ce07e237f3da56c0788e2e7d36137eb326b",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Bar_Muscle_Up",
+      "auditedDesktopSha256": "863e0753ad7ef5bb6d4be5766701bf72fd955f673fca0f04b55ec2cca22f1fa7",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Hollow_Body_Hold",
+      "auditedDesktopSha256": "53ea05cf5959c717044832754f1ec25d4fb1de58773fa65b78b83ef71b1b0e68",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Frog_Stand",
+      "auditedDesktopSha256": "40cead02021a48914a8709007755de7d4c454e4540bedbf92d89b0df74103831",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": true
+    },
+    {
+      "id": "Pike_Pushups",
+      "auditedDesktopSha256": "3b6af1f19463e61c556397a4dde0f20a4946795a0f58f85c1b8865594ee2e7df",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Skin_the_Cat",
+      "auditedDesktopSha256": "8f157b769fe06a984e3fdee807d3256d97d8548fe4cb85240535d0a62183e1f7",
+      "result": "replaced-priority",
+      "detailReview": true
+    },
+    {
+      "id": "Toes_to_Bar",
+      "auditedDesktopSha256": "21652495826ca91e7d1389313ff3237fb21171bf0ab4848aee78bb7f418e9ce6",
+      "result": "replaced-priority",
+      "detailReview": true
+    },
+    {
+      "id": "Archer_Pushups",
+      "auditedDesktopSha256": "ff46a524af6aa7b3a61be716871d0e4249adad96df85d728e6e85a7468f31a2b",
+      "result": "replaced-priority",
+      "detailReview": true
+    },
+    {
+      "id": "Pistol_Squat",
+      "auditedDesktopSha256": "72220ca0c5e2ecfa655b62493ec80d4e104f36e7b6832f05834df43f58f92ac4",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "L_Sit",
+      "auditedDesktopSha256": "cb45f02ea22fcd77804e19cccd2b0352dc1367b7f227b940117dfffbb73d9f56",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Dragon_Flag",
+      "auditedDesktopSha256": "fe81e2b8624b5464dd2d1acce5b987debf38fc16b1f998d46ae45dd51d86489f",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Handstand",
+      "auditedDesktopSha256": "0f6f43cbc16ed9671c3740f2dcf10fe4c01e36a89bf5f8bd0dc2accedb2f3f64",
+      "result": "replaced-priority",
+      "detailReview": true
+    },
+    {
+      "id": "Tuck_Planche",
+      "auditedDesktopSha256": "3dc776d336819faf370f26a02c2a160fdda990b3368deef6fd6905cd76b3f408",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": true
+    },
+    {
+      "id": "Tuck_Front_Lever",
+      "auditedDesktopSha256": "b203ccbed7cd11f94d0124593496a866dcd0db145462c8062f4683e557ff8b38",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Ring_Muscle_Up",
+      "auditedDesktopSha256": "fdc5b5365567e8ffaa0992fb66eff70b1beaf953a75213d2be99320b4f7167e4",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Back_Lever",
+      "auditedDesktopSha256": "9bbdd926a3b22ae2623b53cdfe2b7e34c7968c3800e45bf8b1294482725594c7",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Human_Flag",
+      "auditedDesktopSha256": "31b7f4decc317c7207bbedf30d3c6800c9b9696c658148d91eb1a9bf990292a3",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Handstand_Pushups",
+      "auditedDesktopSha256": "cfd60bb50f1f4f16da67fc41935068771122b0a4a2e0dd2806018c145c75f50b",
+      "result": "replaced-priority",
+      "detailReview": true
+    },
+    {
+      "id": "Front_Lever",
+      "auditedDesktopSha256": "02f5758b0831f6b59dbde51538cc1bee0ca406757537a1d50901f40176527405",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Straddle_Planche",
+      "auditedDesktopSha256": "676ccbca3a2e6bf0c035fb71e41f6c8b330669b5cb2f64c5db6f9485931640a0",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": true
+    },
+    {
+      "id": "Full_Planche",
+      "auditedDesktopSha256": "6dade0efeb85cbe235c1244334a1927daa3a6f480982f89b5c37291c89d4e2e1",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "One_Arm_Pull_Up",
+      "auditedDesktopSha256": "1cd0cf6bd248ce5d20135185247e3f5ee9995de57724f0d6663113e46578c439",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    },
+    {
+      "id": "Iron_Cross",
+      "auditedDesktopSha256": "c0c03d84b4aa7755f2510aa42111934273ea6023ab89dd5ab8297f9465bfc8ec",
+      "result": "no-additional-obvious-fatal-defect-in-quick-visual-audit",
+      "detailReview": false
+    }
+  ]
+}
