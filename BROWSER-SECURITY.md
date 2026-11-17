@@ -1,6 +1,6 @@
-# FORME v0.13.3 — браузърна политика и ограничения на hosting
+# FORME v0.15.1 — браузърна политика и ограничения на hosting
 
-Фаза 3, подстъпка 3.3.5. Това е конкретна техническа защита в продължаващия преглед, не гаранция за липса на уязвимости или завършено независимо/правно приемане. Базата е v0.13.2, main `e82baa8c407cbbe0c3757f4565dab0e9b1d78a4b`.
+Фаза 3, подстъпка 3.3.5. Това е конкретна техническа защита в продължаващия преглед, не гаранция за липса на уязвимости или завършено независимо/правно приемане. Текущото допълнение премества шрифтовете локално и премахва външните font/CSS origins. Базата е v0.15.0, main `b1303ca9f52550c4ae50e5105df662b385eb56e2`.
 
 ## Наложена Content Security Policy
 
@@ -10,8 +10,8 @@
 | --- | --- | --- |
 | Скриптове | Само собствен origin | Каталози, app и pinned официален Firebase SDK; без inline/eval/remote exception. |
 | Връзки | Собствен origin + identitytoolkit.googleapis.com, securetoken.googleapis.com, firestore.googleapis.com по HTTPS | Email/Password Auth, refresh/OOB и Firestore. Няма wildcard, loopback или произволен HTTPS host в production. |
-| Стилове | Собствен origin, съществуващите inline стилове и fonts.googleapis.com | Динамични графики/барове и Google Fonts. Изключението е само за CSS, не скриптове. |
-| Шрифтове | Собствен origin и fonts.gstatic.com | Съществуващата типография. |
+| Стилове | Собствен origin и съществуващите inline стилове | Динамични графики/барове и локални font-face декларации; няма външен CSS origin. Изключението е само за CSS, не скриптове. |
+| Шрифтове | Само собствен origin | Непроменени официални WOFF2, локални OFL лицензи и precache; няма runtime заявки към Google Fonts. Виж [FONT-SOURCES.md](./FONT-SOURCES.md). |
 | Изображения | Собствен origin и data URI | Локални WebP и локални SVG визуализации. |
 | Медии, manifest, workers | Собствен origin | Локални видео файлове/PWA; `child-src self` е съвместим fallback за worker поддръжката. |
 | Base, objects, frames, native form submit | Забранени | Няма нужда от тях; формите работят чрез предотвратен native submit и Firebase SDK. |
@@ -26,8 +26,8 @@ PWA регистрацията е преместена в `pwa-register.js`, с�
 - При read-only проверката на GitHub Pages преди тази промяна има HSTS, но няма CSP/X-Frame-Options/X-Content-Type-Options/Referrer-Policy response headers. Не се създава фиктивен `_headers` файл: GitHub Pages не го прилага. Пълната server-header защита изисква hosting решение, което реално я поддържа; такова преместване не се извършва тук.
 - Worker script-ът има отделен response контекст; meta политиката ограничава стартирането му, но не се представя като собствен HTTP CSP за service-worker.js.
 - `self` означава origin, включително останалите доверени файлове под ayorda.github.io. Компрометиран собствен скрипт/публикуване остава риск. Изтеглен JSON, споделен браузър и собственик с admin права не са защитени чрез CSP.
-- CSS inline изключението, Google Fonts, shared Spark quota, липсата на App Check и временният живот на подписани права са остатъчни граници. Server Rules продължават да определят достъпа по UID/claims. Политиката не заменя escaping/схеми/доказан backup.
-- Видео инфраструктурата е проверена с липсващ локален fixture, не с истински демонстрации: остава 0/49 клипа. Нови външни медии или Auth providers изискват нов преглед на необходимите origins.
+- CSS inline изключението, shared Spark quota, липсата на App Check и временният живот на подписани права са остатъчни граници. Server Rules продължават да определят достъпа по UID/claims. Политиката не заменя escaping/схеми/доказан backup.
+- Налице е 1/49 реална видеодемонстрация; останалите 48 са изрично отложени. Нови външни медии или Auth providers изискват нов преглед на необходимите origins.
 
 ## Проверки
 

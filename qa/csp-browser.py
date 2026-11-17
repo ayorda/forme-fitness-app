@@ -24,7 +24,7 @@ html = (ROOT/'index.html').read_text()
 assert '127.0.0.1' not in html and 'localhost' not in html
 emulator_html = html.replace("connect-src 'self'", "connect-src 'self' http://127.0.0.1:8080 http://127.0.0.1:9099", 1)
 assert emulator_html != html
-report = {'guest': [], 'sdk': [], 'views': [], 'errors': [], 'productionRequests': [], 'probeNetwork': [], 'negativeDirectives': [], 'failedRequests': []}
+report = {'guest': [], 'sdk': [], 'views': [], 'errors': [], 'productionRequests': [], 'probeNetwork': [], 'externalFontNetwork': [], 'negativeDirectives': [], 'failedRequests': []}
 class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/qa-upgrade.html':
@@ -58,8 +58,10 @@ def observe(context):
     context.on('requestfailed',lambda req:report['failedRequests'].append(dict(host=urlparse(req.url).hostname,error=req.failure)))
     # Never contact production with synthetic credentials if a fixture regresses.
     for host in PRODUCTION: context.route('https://'+host+'/**',lambda r:r.abort())
-    # Deterministic fallback fonts in CI. Public verification checks real providers.
-    context.route('https://fonts.googleapis.com/**',lambda r:r.fulfill(content_type='text/css',body='/* offline-safe test font fallback */'))
+    # The application now uses its real local fonts in CI. Any provider request
+    # is a regression; even negative CSP probes must not reach the network.
+    for host in ['fonts.googleapis.com', 'fonts.gstatic.com']:
+        context.route('https://'+host+'/**',lambda r:(report['externalFontNetwork'].append(r.request.url),r.abort())[-1])
 
 def wait(page, expression, timeout=30000):
     # wait_for_function uses nested eval on later polls. Keep CSP enforced and
@@ -76,6 +78,7 @@ def wait(page, expression, timeout=30000):
 
 def clean(page):
     assert page.evaluate('qaViolations') == [], page.evaluate('qaViolations')
+    assert not report['externalFontNetwork'], report['externalFontNetwork']
 def local_data(page):
     return page.evaluate('JSON.parse(FORME_BOOTSTRAP.workspace.storage.getItem("forme-favorites")||"{}").exercises||[]')
 def check(page):
@@ -182,6 +185,8 @@ try:
     try{new Function('window.qaEvalRan=1')();}catch(e){qaProbe.evalBlocked=true;}
     const inline=document.createElement('script');inline.textContent='window.qaInlineRan=1';document.body.append(inline);
     const script=document.createElement('script');script.src='https://csp-probe.invalid/script.js';document.body.append(script);
+    const style=document.createElement('link');style.rel='stylesheet';style.href='https://fonts.googleapis.com/css2?family=DM+Sans';document.head.append(style);
+    new FontFace('ForbiddenRemoteFont','url(https://fonts.gstatic.com/forbidden.woff2)').load().catch(()=>{qaProbe.remoteFontBlocked=true;});
     const img=document.createElement('img');img.setAttribute('onerror','window.qaHandlerRan=1');img.src='/missing-csp-image.png';document.body.append(img);
     const remote=document.createElement('img');remote.src='https://csp-probe.invalid/image.png';document.body.append(remote);
     const base=document.createElement('base');base.href='https://csp-probe.invalid/';document.head.append(base);
@@ -196,15 +201,15 @@ try:
     ctx.route('**/qa-csp-probe.js',lambda r:r.fulfill(content_type='application/javascript',body=probe))
     page.evaluate("()=>{const s=document.createElement('script');s.src='./qa-csp-probe.js';document.body.append(s);}")
     try:
-        wait(page,"window.qaProbe?.evalBlocked&&window.qaProbe?.fetchBlocked&&window.qaProbe?.workerBlocked&&['script-src','script-src-elem','script-src-attr','img-src','base-uri','object-src','frame-src','form-action','connect-src','worker-src'].every(d=>qaViolations.some(v=>v.directive===d))")
+        wait(page,"window.qaProbe?.remoteFontBlocked&&window.qaProbe?.evalBlocked&&window.qaProbe?.fetchBlocked&&window.qaProbe?.workerBlocked&&['script-src','script-src-elem','script-src-attr','img-src','base-uri','object-src','frame-src','form-action','connect-src','worker-src'].every(d=>qaViolations.some(v=>v.directive===d))")
     except Exception:
         print('Probe diagnostics:',page.evaluate('({probe:window.qaProbe,violations:qaViolations})'),report['errors'],flush=True)
         raise
     assert page.evaluate('qaProbe.baseKept');assert page.evaluate('[window.qaEvalRan,window.qaInlineRan,window.qaHandlerRan]')==[None,None,None]
     report['negativeDirectives']=sorted(set(v['directive'] for v in page.evaluate('qaViolations')))
-    for directive in ['script-src','script-src-elem','script-src-attr','img-src','base-uri','object-src','frame-src','form-action','connect-src','worker-src']:
+    for directive in ['script-src','script-src-elem','script-src-attr','style-src-elem','font-src','img-src','base-uri','object-src','frame-src','form-action','connect-src','worker-src']:
         assert directive in report['negativeDirectives'],report['negativeDirectives']
-    assert not report['probeNetwork'];ctx.close();print('negative CSP probes passed',flush=True)
+    assert not report['probeNetwork'] and not report['externalFontNetwork'];ctx.close();print('negative CSP probes passed',flush=True)
     fallback_ctx=browser.new_context(bypass_csp=False,service_workers='block');observe(fallback_ctx)
     for kind in ['exercises','foods']:fallback_ctx.route('**/media/'+kind+'/**',lambda r:r.abort())
     fallback=fallback_ctx.new_page();fallback.goto(BASE+'#exercises',wait_until='domcontentloaded');fallback.locator('.photo-visual.media-pending').first.wait_for()

@@ -19,7 +19,7 @@ test('production connections allow only the needed Firebase hosts and own origin
 test('content injection cannot change the base submit forms or embed objects',()=>{
  const p=policy();for(const key of ['base-uri','object-src','form-action','frame-src'])assert.deepEqual(p.get(key),["'none'"]);
  for(const key of ['worker-src','child-src','manifest-src','media-src'])assert.deepEqual(p.get(key),["'self'"]);
- assert.deepEqual(p.get('img-src'),["'self'",'data:']);assert.deepEqual(p.get('style-src'),["'self'","'unsafe-inline'",'https://fonts.googleapis.com']);assert.deepEqual(p.get('font-src'),["'self'",'https://fonts.gstatic.com']);
+ assert.deepEqual(p.get('img-src'),["'self'",'data:']);assert.deepEqual(p.get('style-src'),["'self'","'unsafe-inline'"]);assert.deepEqual(p.get('font-src'),["'self'"]);
 });
 test('external PWA registration waits for load and reports failure without throwing',async()=>{
  const listeners={},calls=[],warnings=[];const root={navigator:{serviceWorker:{register(path){calls.push(path);return Promise.reject(Error('offline'));}}},location:{protocol:'https:'},addEventListener:(name,fn)=>{listeners[name]=fn;},console:{warn:(...args)=>warnings.push(args)}};

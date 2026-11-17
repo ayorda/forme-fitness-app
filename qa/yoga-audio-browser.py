@@ -14,7 +14,7 @@ import time
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-REPORT = {'languages': [], 'errors': [], 'violations': [], 'productionRequests': []}
+REPORT = {'languages': [], 'errors': [], 'violations': [], 'productionRequests': [], 'externalFontNetwork': []}
 PROBE = r"""
 window.qaContexts=[];window.qaFiles=[];window.qaViolations=[];
 document.addEventListener('securitypolicyviolation',e=>qaViolations.push(e.effectiveDirective));
@@ -84,7 +84,8 @@ def main():
                 ctx.on('request', request)
                 for host in ['identitytoolkit.googleapis.com', 'securetoken.googleapis.com', 'firestore.googleapis.com']:
                     ctx.route('https://' + host + '/**', lambda route: route.abort())
-                ctx.route('https://fonts.googleapis.com/**', lambda route: route.fulfill(content_type='text/css', body='/* deterministic fallback */'))
+                for host in ['fonts.googleapis.com', 'fonts.gstatic.com']:
+                    ctx.route('https://' + host + '/**', lambda route: (REPORT['externalFontNetwork'].append(route.request.url), route.abort())[-1])
                 page = ctx.new_page()
                 page.goto(base + '#sessions', wait_until='domcontentloaded')
                 page.locator('[data-action=workout-detail][data-id=yoga-reset]').first.wait_for()
@@ -143,7 +144,7 @@ def main():
                 ctx.close()
                 print(lang + ' music decoding, controls, persisted preferences and offline passed', flush=True)
             browser.close()
-        assert not REPORT['errors'] and not REPORT['violations'] and not REPORT['productionRequests'], REPORT
+        assert not REPORT['errors'] and not REPORT['violations'] and not REPORT['productionRequests'] and not REPORT['externalFontNetwork'], REPORT
         REPORT['passed'] = True
     finally:
         if server:

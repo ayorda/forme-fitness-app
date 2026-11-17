@@ -1,12 +1,12 @@
-# FORME v0.13.3 — повторима browser/CSP проверка
+# FORME v0.15.1 — повторима browser/CSP проверка
 
 Обхват: [BROWSER-SECURITY.md](./BROWSER-SECURITY.md). Използват се Chromium, pinned Playwright и локални demo Auth/Firestore емулатори; няма production fixtures или парола на собственика.
 
 ## Автоматизиран сценарий
 
-- 825 app/model теста, 37 production JS parse проверки; нови policy/registration и media fallback проверки. Всички клиентски и operator регресии остават в набора.
+- 853 app/model теста, 37 production JS parse проверки; нови policy/registration и media fallback проверки. Всички клиентски и operator регресии остават в набора.
 - `qa/csp-browser.py`: трите езика, 11 екрана, 24 theme/width изгледа и offline PWA/home/privacy/services/account. Отделен legacy-cache sentinel проверява прехода към versioned app и последващ offline reload. CSP bypass е изрично false.
-- Отрицателният код се зарежда като нормален външен same-origin script, а не като привилегировано DevTools изпълнение. Проверяват се блокирани inline/eval/remote script, event handler, image, frame, object, form, base, fetch и blob worker; probe domain е прихванат и реална мрежова заявка към него не се допуска.
+- Отрицателният код се зарежда като нормален външен same-origin script, а не като привилегировано DevTools изпълнение. Проверяват се блокирани inline/eval/remote script, външни CSS/font (включително старите Google Fonts hosts), event handler, image, frame, object, form, base, fetch и blob worker; probe domain е прихванат и реална мрежова заявка към него не се допуска.
 - Медийни error fallback-и се проверяват с недостъпни локални снимки и липсващо видео fixture. Плеърът стартира/паузира/продължава, а синтезираният аудио lifecycle достига playing/paused без CSP нарушения. Това не е доставено видео съдържание.
 - Официален SDK: вход/reload/изход; auto на два изолирани профила, realtime favorite, независим offline merge и изтриване; повторно удостоверено account deletion с auto; ръчен safety download failure/cancel/successful restore със запазен гост; регистрация и заявки за verification/reset писма само в Emulator.
 - Test HTML за SDK запазва production CSP и добавя само http://127.0.0.1:8080 и :9099 в connect-src. Production HTML се проверява отделно и не ги съдържа. Local-network-access permission е само за test origin, необходимо при нов Chromium; не се иска от потребители на публичния сайт.
