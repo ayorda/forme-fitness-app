@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REVIEW = json.loads((ROOT / 'qa/exercise-image-review-v3.json').read_text())
 MANIFEST = json.loads((ROOT / 'media/manifest.json').read_text())
 CORRECTED = [r['id'] for r in REVIEW['corrections']]
+ALL_IDS = [r['id'] for r in REVIEW['catalogueAudit']]
 FILES = [v for e in MANIFEST['entries'] if e['kind'] == 'exercise' and e['id'] in CORRECTED for v in e['variants'].values()]
 RETIRED = [path for r in REVIEW['corrections'] for path in r['oldPaths']]
 REPORT = dict(cases=[], errors=[], csp=[], productionRequests=[], retiredRequests=[])
@@ -94,11 +95,12 @@ def main():
                     }))''', FILES)
                     for expected, actual in zip(FILES, decoded):
                         assert all(expected[key] == actual[key] for key in ['path', 'width', 'height', 'sha256', 'bytes'])
-                    for id in CORRECTED:
+                    for id in ALL_IDS:
                         page.locator(f'[data-action=exercise-detail][data-id={id}]').first.click()
                         image = page.locator('.modal .photo-visual img')
                         image.evaluate('img=>img.decode()')
-                        assert id + '-anatomy-v3-' in image.evaluate('img=>img.currentSrc')
+                        if id in CORRECTED:
+                            assert id + '-anatomy-v3-' in image.evaluate('img=>img.currentSrc')
                         if width == 1280:
                             assert image.evaluate('img=>img.currentSrc.endsWith("-960.webp")')
                         assert image.evaluate('img=>getComputedStyle(img).objectFit') == 'contain'
@@ -107,9 +109,11 @@ def main():
                         assert page.locator('.modal .media-ai-tag').inner_text()
                         badge = page.locator('.modal .media-ai-tag').bounding_box()
                         assert 0 <= badge['y'] - frame['y'] <= 12, (id, badge, frame)
+                        picture = page.locator('.modal .photo-visual picture').bounding_box()
+                        assert badge['y'] + badge['height'] <= picture['y'] + .5, (id, badge, picture)
                         assert page.locator('.modal .exercise-photo-credit').inner_text()
                         assert page.evaluate('document.documentElement.scrollWidth') <= width
-                        if os.environ.get('FORME_IMAGES_SCREENSHOTS'):
+                        if os.environ.get('FORME_IMAGES_SCREENSHOTS') and id in CORRECTED + ['Pullups', 'Arm_Circles']:
                             folder = Path(os.environ['FORME_IMAGES_SCREENSHOTS'])
                             folder.mkdir(parents=True, exist_ok=True)
                             page.screenshot(path=str(folder / f'{lang}-{width}-{id}.png'))
@@ -119,13 +123,13 @@ def main():
                     ctx.set_offline(True)
                     page.reload(wait_until='domcontentloaded')
                     page.locator('[data-action=exercise-detail][data-id=Handstand]').first.wait_for()
-                    for id in CORRECTED:
+                    for id in ALL_IDS:
                         page.locator(f'[data-action=exercise-detail][data-id={id}]').first.click()
                         page.locator('.modal .photo-visual img').evaluate('img=>img.decode()')
                         page.locator('.modal-close').click()
                     assert 'Plank' in page.evaluate('localStorage.getItem("forme-favorites")')
                     REPORT['csp'] += page.evaluate('qaCsp')
-                    REPORT['cases'].append(dict(language=lang, width=width, cards=49, correctedDetails=len(CORRECTED), decodedVariants=len(FILES), offline=True, guestPreserved=True))
+                    REPORT['cases'].append(dict(language=lang, width=width, cards=49, details=len(ALL_IDS), correctedDetails=len(CORRECTED), decodedVariants=len(FILES), offline=True, guestPreserved=True))
                     ctx.close()
             if server:
                 ctx = browser.new_context(bypass_csp=False)
@@ -137,7 +141,7 @@ def main():
                 page.evaluate("async paths=>{const c=await caches.open('forme-media-v029-optimized');for(const f of paths)await c.put(f,new Response('retired defective fixture'));await c.put('media/exercises/Plank-480.webp',await fetch('media/exercises/Plank-480.webp'));localStorage.setItem('forme-favorites',JSON.stringify({exercises:['Plank'],workouts:[]}));}", RETIRED)
                 page.goto(base + '#exercises', wait_until='domcontentloaded')
                 wait(page, "navigator.serviceWorker.controller?.scriptURL.endsWith('/service-worker.js')&&navigator.serviceWorker.controller.state==='activated'")
-                result = page.evaluate("async paths=>{const c=await caches.open('forme-media-v029-optimized');return {retired:(await Promise.all(paths.map(f=>c.match(f)))).some(Boolean),plank:!!await c.match('media/exercises/Plank-480.webp'),guest:localStorage.getItem('forme-favorites').includes('Plank'),shell:(await caches.keys()).includes('forme-mobile-v0155-exactpose1')}}", RETIRED)
+                result = page.evaluate("async paths=>{const c=await caches.open('forme-media-v029-optimized');return {retired:(await Promise.all(paths.map(f=>c.match(f)))).some(Boolean),plank:!!await c.match('media/exercises/Plank-480.webp'),guest:localStorage.getItem('forme-favorites').includes('Plank'),shell:(await caches.keys()).includes('forme-mobile-v0156-fullframe1')}}", RETIRED)
                 assert result == dict(retired=False, plank=True, guest=True, shell=True), result
                 REPORT['upgrade'] = result
                 ctx.close()

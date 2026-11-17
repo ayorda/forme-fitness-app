@@ -81,5 +81,6 @@ test('retired defective assets are absent and evicted without prefetching replac
  }
  assert.match(fs.readFileSync('index.html','utf8'),/exercise-photos\.js\?v=0155/);
  assert.ok(assets.includes('exercise-photos.js?v=0155'));
- assert.match(fs.readFileSync('styles.css','utf8'),/\.photo-visual picture img\[src\*="-anatomy-v"\]\{object-fit:contain\}/);
+ assert.match(fs.readFileSync('styles.css','utf8'),/\.photo-visual picture img\{object-fit:contain\}/);
+ assert.match(fs.readFileSync('styles.css','utf8'),/\.modal-visual:has\(\.photo-visual\)\{height:auto;aspect-ratio:3\/2\}/);
 });

@@ -283,12 +283,13 @@
 .photo-visual picture img,.food-picture img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
 /* Reviewed anatomy frames must keep shoes, palms and equipment contacts visible.
    Preserve the existing card/detail box dimensions; fit the complete 3:2 frame. */
-.photo-visual picture img[src*="-anatomy-v"]{object-fit:contain}
-/* Keep the AI notice visible without covering palms/feet at the lower edge. */
-.photo-visual .media-ai-tag{top:10px;bottom:auto}
+.photo-visual picture img{object-fit:contain}
+/* Reserve a separate label strip so no pose, grip or foot can be covered. */
+.photo-visual picture{inset:24px 0 0}
+.photo-visual .media-ai-tag{top:0;left:0;right:0;bottom:auto;height:24px;display:flex;align-items:center;justify-content:flex-end;padding:0 10px;border-radius:0;background:#101816}
 /* Detail views can use the full frame; catalogue card dimensions stay intact.
    Older engines without :has retain the complete contain fallback above. */
-.modal-visual:has(.photo-visual img[src*="-anatomy-v"]){height:auto;aspect-ratio:3/2}
+.modal-visual:has(.photo-visual){height:auto;aspect-ratio:3/2}
 .media-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#d7e8d3;text-align:center;padding:18px}
 .media-placeholder span{font:700 48px/1 var(--display);letter-spacing:-.13em;color:var(--lime)}
 .food-media-placeholder span{font-size:44px;letter-spacing:0;line-height:1.1}
