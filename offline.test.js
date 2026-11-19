@@ -48,7 +48,7 @@ test('installation caches the app and activation removes only old FORME caches',
   assert.equal(media.has('https://example.test/media/foods/apple-480.webp'),true);
   const cache=[...a.stored.entries()].find(([name])=>name.startsWith('forme-mobile-'))[1];
   const appUrl='./'+fs.readFileSync('index.html','utf8').match(/<script src="(app\.js\?v=\d+)"/)[1];
-  for(const asset of ['./index.html',appUrl,'./data.js','./styles.css?v=0160','./food-photos.js','./i18n.js','./interface-translations.js?v=0160','./exercise-translations.js','./food-translations.js','./workout-translations.js','./locale-content.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);
+  for(const asset of ['./index.html',appUrl,'./data.js','./styles.css?v=0161','./food-photos.js','./i18n.js','./interface-translations.js?v=0161','./exercise-translations.js','./food-translations.js','./workout-translations.js','./locale-content.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);
 });
 
 test('anatomy upgrade removes all 22 retired pictures and retains unrelated offline images',async()=>{

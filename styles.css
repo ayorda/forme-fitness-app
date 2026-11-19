@@ -731,3 +731,38 @@
  .fav{min-width:44px;min-height:44px}
  .theme-toggle{min-width:44px;min-height:44px}
 }
+/* v0.16.1 — one primary action per workout card, compact exercise list on phones */
+.card-more{position:relative;display:inline-block}
+.card-more>summary{list-style:none;cursor:pointer;min-width:40px}
+.card-more>summary::-webkit-details-marker{display:none}
+.card-more-toggle svg{display:block}
+.card-more-menu{position:absolute;right:0;bottom:calc(100% + 6px);z-index:20;display:flex;flex-direction:column;gap:6px;min-width:150px;padding:8px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:0 12px 30px #0006}
+.card-more-menu .btn{width:100%;justify-content:flex-start}
+.card-more[open]>summary{border-color:var(--lime)}
+.card-action-group .btn-small{min-width:40px}
+[data-theme="light"] .card-more-menu{background:#fff;border-color:#d3ded4;box-shadow:0 12px 30px #0c140f22}
+@media(max-width:780px){
+ .exercise-card{display:grid;grid-template-columns:118px minmax(0,1fr);align-items:stretch}
+ .exercise-card>.exercise-card-media,.exercise-card>.visual{height:100%;min-height:150px}
+ .exercise-card .exercise-card-media>.visual{height:100%;min-height:150px}
+ .exercise-card .card-body{padding:12px 12px 12px 13px;min-width:0}
+ .exercise-card .card-desc{display:none}
+ .exercise-card .card-title h3{font-size:15px;margin:4px 0}
+ .exercise-card .card-meta{margin:8px 0;gap:5px}
+ .exercise-card .card-actions{flex-wrap:wrap;gap:6px}
+ .exercise-card .card-actions>.subtle{display:none}
+ .exercise-card .card-action-group{width:100%;justify-content:flex-start;flex-wrap:wrap}
+}
+@media(max-width:780px){
+ .card-actions:has(.card-more){flex-wrap:wrap;row-gap:10px}
+ .card-actions:has(.card-more)>.subtle{width:100%}
+ .card-actions:has(.card-more)>.card-action-group{width:100%;justify-content:flex-start}
+ .food-card{display:grid;grid-template-columns:112px minmax(0,1fr)}
+ .food-card .food-visual{height:100%;min-height:150px}
+ .food-card .card-body{padding:12px 12px 12px 13px;min-width:0}
+ .food-card .card-actions{flex-wrap:wrap;gap:6px}
+ .food-card .media-ai-tag{right:6px;bottom:6px;font-size:9.5px;padding:4px 6px}
+}
+@media(max-width:780px){.card-more-menu{left:0;right:auto}}
+.photo-visual picture{inset:0}
+.ui-icon{display:inline-block;vertical-align:-3px;flex:none}.fav .ui-icon{width:18px;height:18px;vertical-align:middle}
