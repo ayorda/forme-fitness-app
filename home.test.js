@@ -61,3 +61,11 @@ test('home uses line icons for categories and no longer repeats the hero workout
  assert.equal((html.match(/data-action="nav" data-page="sessions"/g)||[]).length,2,'hero button + “all workouts” link only');
  assert.match(html,/class="quick-action" data-action="nav" data-page="plan"/);
 });
+test('light theme hover background keeps lime pressed-button text at 4.5:1 or more',()=>{
+ const css=require('node:fs').readFileSync('styles.css','utf8');
+ const hovers=[...css.matchAll(/\[data-theme="light"\] \.btn:hover\{background:(#[0-9a-f]{6})/g)].map(m=>m[1]);
+ const last=hovers.at(-1);
+ const lum=h=>{const c=[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255).map(x=>x<=.03928?x/12.92:((x+.055)/1.055)**2.4);return .2126*c[0]+.7152*c[1]+.0722*c[2];};
+ const ratio=(a,b)=>{const [x,y]=[lum(a),lum(b)].sort((p,q)=>p-q);return (y+.05)/(x+.05);};
+ assert.ok(ratio('#4a7310',last)>=4.5,`lime on ${last} is ${ratio('#4a7310',last).toFixed(2)}:1`);
+});

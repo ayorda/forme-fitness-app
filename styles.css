@@ -420,7 +420,7 @@
 [data-theme="light"] .field option{background:#fff;color:var(--text)}
 [data-theme="light"] .field label{color:#465448}
 [data-theme="light"] .btn{background:#e8efe6;border-color:#cdd9ce;color:#1c2a21}
-[data-theme="light"] .btn:hover{background:#dbe7d8}
+[data-theme="light"] .btn:hover{background:#e6eee3;border-color:#b9cbb6}
 [data-theme="light"] .btn-primary{background:var(--lime);border-color:var(--lime);color:#fff}
 [data-theme="light"] .btn-primary:hover{background:var(--lime-dark);border-color:var(--lime-dark)}
 [data-theme="light"] .btn-ghost{background:rgba(0,0,0,.04);border-color:#bccdbd;color:#1c2a21}
