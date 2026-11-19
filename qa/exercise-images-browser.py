@@ -141,7 +141,7 @@ def main():
                 page.evaluate("async paths=>{const c=await caches.open('forme-media-v029-optimized');for(const f of paths)await c.put(f,new Response('retired defective fixture'));await c.put('media/exercises/Plank-480.webp',await fetch('media/exercises/Plank-480.webp'));localStorage.setItem('forme-favorites',JSON.stringify({exercises:['Plank'],workouts:[]}));}", RETIRED)
                 page.goto(base + '#exercises', wait_until='domcontentloaded')
                 wait(page, "navigator.serviceWorker.controller?.scriptURL.endsWith('/service-worker.js')&&navigator.serviceWorker.controller.state==='activated'")
-                result = page.evaluate("async paths=>{const c=await caches.open('forme-media-v029-optimized');return {retired:(await Promise.all(paths.map(f=>c.match(f)))).some(Boolean),plank:!!await c.match('media/exercises/Plank-480.webp'),guest:localStorage.getItem('forme-favorites').includes('Plank'),shell:(await caches.keys()).includes('forme-mobile-v0156-fullframe1')}}", RETIRED)
+                result = page.evaluate("async paths=>{const c=await caches.open('forme-media-v029-optimized');return {retired:(await Promise.all(paths.map(f=>c.match(f)))).some(Boolean),plank:!!await c.match('media/exercises/Plank-480.webp'),guest:localStorage.getItem('forme-favorites').includes('Plank'),shell:(await caches.keys()).includes('forme-mobile-v0160-nav1')}}", RETIRED)
                 assert result == dict(retired=False, plank=True, guest=True, shell=True), result
                 REPORT['upgrade'] = result
                 ctx.close()
