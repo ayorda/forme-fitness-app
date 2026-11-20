@@ -66,6 +66,10 @@ def capture(page, language, theme, width, state):
     REPORT['csp'].extend(page.evaluate('qaViolations'))
     if result['violations']:
         print(language, theme, width, state, [(v['id'], len(v['nodes'])) for v in result['violations']], flush=True)
+        # Print the failing nodes too: the JSON artifact is not always reachable from where CI is read.
+        for v in result['violations']:
+            for n in v['nodes'][:5]:
+                print('   ', v['id'], n['target'], (n.get('failureSummary') or '').replace('\n', ' ')[:300], (n.get('html') or '')[:200], flush=True)
 
 
 class Handler(SimpleHTTPRequestHandler):

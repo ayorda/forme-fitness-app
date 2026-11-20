@@ -420,7 +420,7 @@
 [data-theme="light"] .field option{background:#fff;color:var(--text)}
 [data-theme="light"] .field label{color:#465448}
 [data-theme="light"] .btn{background:#e8efe6;border-color:#cdd9ce;color:#1c2a21}
-[data-theme="light"] .btn:hover{background:#dbe7d8}
+[data-theme="light"] .btn:hover{background:#e6eee3;border-color:#b9cbb6}
 [data-theme="light"] .btn-primary{background:var(--lime);border-color:var(--lime);color:#fff}
 [data-theme="light"] .btn-primary:hover{background:var(--lime-dark);border-color:var(--lime-dark)}
 [data-theme="light"] .btn-ghost{background:rgba(0,0,0,.04);border-color:#bccdbd;color:#1c2a21}
@@ -677,3 +677,95 @@
 .visual .visual-label{color:#c3ff5c}
 
 [data-theme="light"] .art-footer{color:var(--muted)}
+/* v0.16.0 — five-tab bottom navigation, More hub and readable labels */
+.more-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:980px}
+.more-item{width:100%}
+@media(max-width:780px){
+ html{scroll-padding-top:84px}
+ .mobile-nav{position:fixed;top:auto;bottom:0;left:0;right:0;z-index:69;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;padding:6px 6px calc(6px + env(safe-area-inset-bottom));border-top:1px solid #2b3930;border-bottom:0;box-shadow:0 -8px 24px #0004}
+ .mobile-nav .nav-item{min-height:54px;padding:6px 0;font-size:11px}
+ .mobile-nav .nav-name{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;letter-spacing:-.02em}
+ .mobile-nav .nav-icon svg{width:22px;height:22px}
+ .main-area main{padding-bottom:calc(96px + env(safe-area-inset-bottom));min-height:calc(100dvh - 64px)}
+ .toast{bottom:calc(84px + env(safe-area-inset-bottom))}
+ .more-list{grid-template-columns:1fr;gap:10px}
+ [data-theme="light"] .mobile-nav{border-top:1px solid #d6e0d7;box-shadow:0 -6px 18px #0c140f14}
+}
+@media(max-width:350px){.mobile-nav{padding-left:2px;padding-right:2px;gap:0}.mobile-nav .nav-item,.mobile-nav .nav-name{font-size:10px;letter-spacing:-.04em}}
+.home-duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin:18px 0}
+.home-duo>.panel{margin:0}
+.category-card .category-symbol svg{width:100%;height:100%;stroke-width:1.5}
+.category-card .category-symbol{width:52px;height:52px;color:var(--lime);opacity:.9;filter:none}
+@media(max-width:780px){
+ .home-duo{grid-template-columns:1fr;gap:12px;margin:14px 0}
+ .home-duo>.panel{padding:16px 18px}
+ .category-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ .category-card{min-height:118px;padding:13px 11px;border-radius:16px}
+ .category-card h3{font-size:15px}
+ .category-card p{display:none}
+ .category-card .tag{margin-bottom:8px;font-size:9.5px;letter-spacing:.04em;max-width:100%;overflow-wrap:anywhere}
+ .category-card .category-symbol{width:30px;height:30px;right:10px;top:11px}
+ .home-beginner>.card:nth-child(n+2){display:none}
+}
+#theme-icon{display:inline-flex;align-items:center;justify-content:center;line-height:0}#theme-icon svg{display:block}
+/* v0.16.0 — design audit fixes */
+.sidebar{overflow-y:auto;overscroll-behavior:contain}
+@media(min-width:781px) and (max-width:1440px){.plan-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.day-card{min-width:0}
+.day-card select{min-width:0;max-width:100%;box-sizing:border-box}
+.day-month-link{display:inline-flex;align-items:center;min-height:32px;white-space:nowrap;font-size:12px}
+.player-modal .player-count{padding-right:52px}
+.account-panel+.access-panel,.access-panel+.account-panel{margin-top:16px}
+[data-theme="light"] .tab{background:#fff;border-color:#d3ded4;color:#46554c}
+[data-theme="light"] .tab.active{background:var(--lime);border-color:var(--lime);color:#fff}
+[data-theme="light"] .player-settings input{background:#fff;border-color:#c9d6ca;color:#0c140f}
+[data-theme="light"] .progress-bar{background:#eef3ee;border-color:#d3ded4}
+@media(max-width:780px){
+ .eyebrow,.home-hero .eyebrow,.page-heading .eyebrow{font-size:11px}
+ .tag,.split-head .tag{font-size:11px}
+ .chip{font-size:11px}
+ .progress-weeks small{font-size:11px}
+}
+@media(pointer:coarse){
+ .btn-small{min-height:40px}
+ .fav{min-width:44px;min-height:44px}
+ .theme-toggle{min-width:44px;min-height:44px}
+}
+/* v0.16.1 — one primary action per workout card, compact exercise list on phones */
+.card-more{position:relative;display:inline-block}
+.card-more>summary{list-style:none;cursor:pointer;min-width:40px}
+.card-more>summary::-webkit-details-marker{display:none}
+.card-more-toggle svg{display:block}
+.card-more-menu{position:absolute;right:0;bottom:calc(100% + 6px);z-index:20;display:flex;flex-direction:column;gap:6px;min-width:150px;padding:8px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:0 12px 30px #0006}
+.card-more-menu .btn{width:100%;justify-content:flex-start}
+.card-more[open]>summary{border-color:var(--lime)}
+.card-action-group .btn-small{min-width:40px}
+[data-theme="light"] .card-more-menu{background:#fff;border-color:#d3ded4;box-shadow:0 12px 30px #0c140f22}
+@media(max-width:780px){
+ .exercise-card{display:grid;grid-template-columns:118px minmax(0,1fr);align-items:stretch}
+ .exercise-card>.exercise-card-media,.exercise-card>.visual{height:100%;min-height:150px}
+ .exercise-card .exercise-card-media>.visual{height:100%;min-height:150px}
+ .exercise-card .card-body{padding:12px 12px 12px 13px;min-width:0}
+ .exercise-card .card-desc{display:none}
+ .exercise-card .card-title h3{font-size:15px;margin:4px 0}
+ .exercise-card .card-meta{margin:8px 0;gap:5px}
+ .exercise-card .card-actions{flex-wrap:wrap;gap:6px}
+ .exercise-card .card-actions>.subtle{display:none}
+ .exercise-card .card-action-group{width:100%;justify-content:flex-start;flex-wrap:wrap}
+}
+@media(max-width:780px){
+ .card-actions:has(.card-more){flex-wrap:wrap;row-gap:10px}
+ .card-actions:has(.card-more)>.subtle{width:100%}
+ .card-actions:has(.card-more)>.card-action-group{width:100%;justify-content:flex-start}
+ .food-card{display:grid;grid-template-columns:112px minmax(0,1fr)}
+ .food-card .food-visual{height:100%;min-height:150px}
+ .food-card .card-body{padding:12px 12px 12px 13px;min-width:0}
+ .food-card .card-actions{flex-wrap:wrap;gap:6px}
+ .food-card .media-ai-tag{right:6px;bottom:6px;font-size:9.5px;padding:4px 6px}
+}
+@media(max-width:780px){.card-more-menu{left:0;right:auto}}
+.photo-visual picture{inset:0}
+.ui-icon{display:inline-block;vertical-align:-3px;flex:none}.fav .ui-icon{width:18px;height:18px;vertical-align:middle}
+/* v0.16.1 — decorative brand mark behind photos is not text (no contrast audit while a photo loads) */
+.media-placeholder .media-mark::before{content:"F."}
+[data-theme="light"] .media-placeholder small{color:#46554c}

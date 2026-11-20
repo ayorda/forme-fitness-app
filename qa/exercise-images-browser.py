@@ -106,11 +106,12 @@ def main():
                         assert image.evaluate('img=>getComputedStyle(img).objectFit') == 'contain'
                         frame = page.locator('.modal .modal-visual').bounding_box()
                         assert abs(frame['width'] / frame['height'] - 1.5) < .01, frame
-                        assert page.locator('.modal .media-ai-tag').inner_text()
-                        badge = page.locator('.modal .media-ai-tag').bounding_box()
-                        assert 0 <= badge['y'] - frame['y'] <= 12, (id, badge, frame)
+                        # v0.16.1: the owner removed the visible AI overlay badge; the alt text
+                        # and the detail credit line below keep the AI disclosure.
+                        assert page.locator('.media-ai-tag').count() == 0
                         picture = page.locator('.modal .photo-visual picture').bounding_box()
-                        assert badge['y'] + badge['height'] <= picture['y'] + .5, (id, badge, picture)
+                        assert abs(picture['y'] - frame['y']) <= 1 and abs(picture['height'] - frame['height']) <= 1, (id, picture, frame)
+                        assert 'AI' in page.locator('.modal .photo-visual img').get_attribute('alt') or 'KI' in page.locator('.modal .photo-visual img').get_attribute('alt')
                         assert page.locator('.modal .exercise-photo-credit').inner_text()
                         assert page.evaluate('document.documentElement.scrollWidth') <= width
                         if os.environ.get('FORME_IMAGES_SCREENSHOTS') and id in CORRECTED + ['Pullups', 'Arm_Circles']:
@@ -141,7 +142,7 @@ def main():
                 page.evaluate("async paths=>{const c=await caches.open('forme-media-v029-optimized');for(const f of paths)await c.put(f,new Response('retired defective fixture'));await c.put('media/exercises/Plank-480.webp',await fetch('media/exercises/Plank-480.webp'));localStorage.setItem('forme-favorites',JSON.stringify({exercises:['Plank'],workouts:[]}));}", RETIRED)
                 page.goto(base + '#exercises', wait_until='domcontentloaded')
                 wait(page, "navigator.serviceWorker.controller?.scriptURL.endsWith('/service-worker.js')&&navigator.serviceWorker.controller.state==='activated'")
-                result = page.evaluate("async paths=>{const c=await caches.open('forme-media-v029-optimized');return {retired:(await Promise.all(paths.map(f=>c.match(f)))).some(Boolean),plank:!!await c.match('media/exercises/Plank-480.webp'),guest:localStorage.getItem('forme-favorites').includes('Plank'),shell:(await caches.keys()).includes('forme-mobile-v0156-fullframe1')}}", RETIRED)
+                result = page.evaluate("async paths=>{const c=await caches.open('forme-media-v029-optimized');return {retired:(await Promise.all(paths.map(f=>c.match(f)))).some(Boolean),plank:!!await c.match('media/exercises/Plank-480.webp'),guest:localStorage.getItem('forme-favorites').includes('Plank'),shell:(await caches.keys()).includes('forme-mobile-v0161-cards1')}}", RETIRED)
                 assert result == dict(retired=False, plank=True, guest=True, shell=True), result
                 REPORT['upgrade'] = result
                 ctx.close()

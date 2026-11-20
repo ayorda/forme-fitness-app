@@ -91,3 +91,10 @@ test('real clip renders a licence, change notice and localized technique cue wit
  const ex=c.window.FORME_DATA.exercises.find(ex=>ex.id==='Parallel_Bar_Dips');
  const html=context.renderVideo(ex);assert.match(html,/https:\/\/coverr\.co\/license/);assert.match(html,/Coverr/);assert.match(html,/Съкратено, компресирано, без звук/);assert.doesNotMatch(html,/autoplay|onerror=/);
 });
+test('cards and details carry no visible AI overlay badge while alt text keeps the AI disclosure',()=>{
+ const fs=require('node:fs');const app=fs.readFileSync('app.js','utf8');
+ assert.doesNotMatch(app,/class="media-ai-tag"/);
+ assert.match(app,/alt="[^"]*\$\{textFor\('media\.aiVisual','AI визуализация'\)\}" data-media-fallback="exercise"/);
+ assert.match(app,/alt="[^"]*\$\{textFor\('media\.aiVisual','AI визуализация'\)\}" data-media-fallback="food"/);
+ assert.match(app,/exercise-photo-credit/);
+});
