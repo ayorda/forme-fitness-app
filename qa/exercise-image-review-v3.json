@@ -84,7 +84,8 @@
           "bytes": 27940,
           "sha256": "69da4d820b1c83070ba213e9b327dc84f1301c1c015ac03ce2b4f54ee666067f"
         }
-      }
+      },
+      "supersededBy": "qa/exercise-image-review-v4.json"
     },
     {
       "id": "Handstand_Pushups",
@@ -170,7 +171,8 @@
           "bytes": 31068,
           "sha256": "a2191aec1484d01602e6fd20c7f73a2d41c716813672d22a918a5e9ea089c09e"
         }
-      }
+      },
+      "supersededBy": "qa/exercise-image-review-v4.json"
     },
     {
       "id": "Tuck_Front_Lever",
@@ -342,7 +344,8 @@
           "bytes": 46500,
           "sha256": "6282ed2f565810e2f754b98437d627b0ee7bb19f8bc75efbc880bc34c0fc0dc3"
         }
-      }
+      },
+      "supersededBy": "qa/exercise-image-review-v4.json"
     },
     {
       "id": "Archer_Pushups",
@@ -428,7 +431,8 @@
           "bytes": 43998,
           "sha256": "20ecf94771907f16d4ed958ab20e6082aec4ea9a57683bac07475886af823eb2"
         }
-      }
+      },
+      "supersededBy": "qa/exercise-image-review-v4.json"
     },
     {
       "id": "Seated_Overhead_Stretch",
@@ -1977,5 +1981,6 @@
         "desktop": "c0c03d84b4aa7755f2510aa42111934273ea6023ab89dd5ab8297f9465bfc8ec"
       }
     }
-  ]
+  ],
+  "currentScopeNote": "Historical review; the five IDs in review-v4 are superseded by the owner-requested Higgsfield correction on 2026-11-25."
 }

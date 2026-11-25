@@ -920,31 +920,30 @@
       "id": "Skin_the_Cat",
       "name": "Превъртане във вис (skin the cat)",
       "origin": "AI generated",
-      "tool": "OpenAI image generation tool",
-      "date": "2026-11-17",
-      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "tool": "Higgsfield / GPT Image 2.6",
+      "date": "2026-11-25",
+      "usage": "Generated via Higgsfield for FORME; use subject to applicable Higgsfield and model-provider terms. AI visualization, not a real athlete photograph or endorsement.",
       "review": {
-        "visual": "individual source and final 960/480 variants reviewed",
-        "scope": "limb continuity, pose, joints, equipment contacts and style; not independent technique certification",
-        "status": "accepted-visual",
-        "revision": "anatomy-v2",
-        "receipt": "qa/exercise-image-review.json",
-        "sourceSha256": "a5cde0fa3dbac15cbf4a4253f8801808336dbb1451d5d4dcde035674628b4afe"
+        "visual": "individual anatomy/exact-exercise/style/background comparison at source, 960 and 480",
+        "scope": "visual review, not independent technique certification",
+        "sourceSha256": "497941caee5dd31ea3d2b11466c6294d30449ee8571079dd1ac8fcea32d0297b",
+        "receipt": "qa/exercise-image-review-v4.json",
+        "generation": "ab4ae208-be2c-4a82-9186-7de7498f3ab1"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Skin_the_Cat-anatomy-v2-480.webp",
+          "path": "media/exercises/Skin_the_Cat-higgsfield-v4-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 20708,
-          "sha256": "f3c795d57d840f8ba6db4e434208ea406ea09f8fcb9169ca3eddef4e52d044f6"
+          "bytes": 19720,
+          "sha256": "831be11210f56bc4adf524d23729c09904e5479bd676dce1aa05b0b94a104e78"
         },
         "desktop": {
-          "path": "media/exercises/Skin_the_Cat-anatomy-v2-960.webp",
+          "path": "media/exercises/Skin_the_Cat-higgsfield-v4-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 55686,
-          "sha256": "6eaea55c2730cab9ad945ebe04984e8be49d57864501761f2085ee121945210e"
+          "bytes": 47758,
+          "sha256": "c632d45fa6ef2e44780832962bfa9d14177658d96d77d51f3433e70189336190"
         }
       }
     },
@@ -953,32 +952,30 @@
       "id": "Toes_to_Bar",
       "name": "Пръсти към лоста",
       "origin": "AI generated",
-      "tool": "OpenAI image generation tool",
-      "date": "2026-11-17",
-      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "tool": "Higgsfield / GPT Image 2.6",
+      "date": "2026-11-25",
+      "usage": "Generated via Higgsfield for FORME; use subject to applicable Higgsfield and model-provider terms. AI visualization, not a real athlete photograph or endorsement.",
       "review": {
-        "visual": "individual source, 960/480 and exact exercise phase reviewed",
-        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
-        "status": "accepted-visual",
-        "revision": "anatomy-v3",
-        "receipt": "qa/exercise-image-review-v3.json",
-        "contract": "qa/exercise-image-contracts.json",
-        "sourceSha256": "82489a7e9f0e30af5ff2ef28d93e415f9ac914621fc358f2d62c35e339ce92af"
+        "visual": "individual anatomy/exact-exercise/style/background comparison at source, 960 and 480",
+        "scope": "visual review, not independent technique certification",
+        "sourceSha256": "28d1720d68a7a08112279bbb295f741c434696b8bb1c8c9722193fc3a21778d1",
+        "receipt": "qa/exercise-image-review-v4.json",
+        "generation": "dd7704bc-1cfc-45ce-86dd-3aadd443e303"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Toes_to_Bar-anatomy-v3-480.webp",
+          "path": "media/exercises/Toes_to_Bar-higgsfield-v4-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 18354,
-          "sha256": "6efb208bb2d5030156ce19807e87692088734a9ba1c4412e1034b2bf91ec4fd0"
+          "bytes": 18074,
+          "sha256": "c64c058206d4e94e7a4ada07023cd7cbfd0ecb4784d77e595a90edbb2019c278"
         },
         "desktop": {
-          "path": "media/exercises/Toes_to_Bar-anatomy-v3-960.webp",
+          "path": "media/exercises/Toes_to_Bar-higgsfield-v4-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 46500,
-          "sha256": "6282ed2f565810e2f754b98437d627b0ee7bb19f8bc75efbc880bc34c0fc0dc3"
+          "bytes": 43614,
+          "sha256": "84163cc7d82b936f4cb2ee8a4ab0279098b5c4122ffd92432b7fb22572143189"
         }
       }
     },
@@ -987,32 +984,30 @@
       "id": "Archer_Pushups",
       "name": "Стрелец лицеви опори",
       "origin": "AI generated",
-      "tool": "OpenAI image generation tool",
-      "date": "2026-11-17",
-      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "tool": "Higgsfield / GPT Image 2.6",
+      "date": "2026-11-25",
+      "usage": "Generated via Higgsfield for FORME; use subject to applicable Higgsfield and model-provider terms. AI visualization, not a real athlete photograph or endorsement.",
       "review": {
-        "visual": "individual source, 960/480 and exact exercise phase reviewed",
-        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
-        "status": "accepted-visual",
-        "revision": "anatomy-v3",
-        "receipt": "qa/exercise-image-review-v3.json",
-        "contract": "qa/exercise-image-contracts.json",
-        "sourceSha256": "ea1523bcb4818dd18199cf6ce55802690f9747e44832523300c9657bf69944e9"
+        "visual": "individual anatomy/exact-exercise/style/background comparison at source, 960 and 480",
+        "scope": "visual review, not independent technique certification",
+        "sourceSha256": "5c1e6de98ec3cfe0312e73c450ba23f5892c74d8d2c13e08394f80f4a87908bc",
+        "receipt": "qa/exercise-image-review-v4.json",
+        "generation": "84fce44f-e660-4c92-951c-588623f4a0f6"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Archer_Pushups-anatomy-v3-480.webp",
+          "path": "media/exercises/Archer_Pushups-higgsfield-v4-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 11386,
-          "sha256": "fd22b18b7a59dc0ba7f74754f1c149879d459773b877a80a557ed9c0bbdb1003"
+          "bytes": 12412,
+          "sha256": "6ec678ee6a2a766b519267dc2d2e9a16f53c255df0946ca5f31e6d464fc81e7d"
         },
         "desktop": {
-          "path": "media/exercises/Archer_Pushups-anatomy-v3-960.webp",
+          "path": "media/exercises/Archer_Pushups-higgsfield-v4-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 43998,
-          "sha256": "20ecf94771907f16d4ed958ab20e6082aec4ea9a57683bac07475886af823eb2"
+          "bytes": 43542,
+          "sha256": "83a45c1c598b3e95ec5d9f1963d5882efbfdd442d33add8aa08e2158f290a41d"
         }
       }
     },
@@ -1108,32 +1103,30 @@
       "id": "Handstand",
       "name": "Стойка на ръце",
       "origin": "AI generated",
-      "tool": "OpenAI image generation tool",
-      "date": "2026-11-17",
-      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "tool": "Higgsfield / GPT Image 2.6",
+      "date": "2026-11-25",
+      "usage": "Generated via Higgsfield for FORME; use subject to applicable Higgsfield and model-provider terms. AI visualization, not a real athlete photograph or endorsement.",
       "review": {
-        "visual": "individual source, 960/480 and exact exercise phase reviewed",
-        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
-        "status": "accepted-visual",
-        "revision": "anatomy-v3",
-        "receipt": "qa/exercise-image-review-v3.json",
-        "contract": "qa/exercise-image-contracts.json",
-        "sourceSha256": "c664adb91a35f62f54415e3d2e7f09a9f41959ac79befb1dafffd6b76562c955"
+        "visual": "individual anatomy/exact-exercise/style/background comparison at source, 960 and 480",
+        "scope": "visual review, not independent technique certification",
+        "sourceSha256": "ac137b05df87f3080020e3ece04e202d3997bb561d72564f34ecda4a6755e3fe",
+        "receipt": "qa/exercise-image-review-v4.json",
+        "generation": "c2729de6-096a-4a03-82cf-7fbf3725dac2"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Handstand-anatomy-v3-480.webp",
+          "path": "media/exercises/Handstand-higgsfield-v4-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 10300,
-          "sha256": "f2f8710fb73a402c6ef4db688c81bddd3e4563cd9c29941978c6aeafb9572360"
+          "bytes": 10120,
+          "sha256": "1b3f6168d3eb404530bd073411076f66126f0f167bd8778f21e7bba293f953d0"
         },
         "desktop": {
-          "path": "media/exercises/Handstand-anatomy-v3-960.webp",
+          "path": "media/exercises/Handstand-higgsfield-v4-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 27940,
-          "sha256": "69da4d820b1c83070ba213e9b327dc84f1301c1c015ac03ce2b4f54ee666067f"
+          "bytes": 25802,
+          "sha256": "a5effe38547a21056861da09f632dfd0cc0b7d124b12671ac7dd57de28f9a8f7"
         }
       }
     },
@@ -1297,32 +1290,30 @@
       "id": "Handstand_Pushups",
       "name": "Лицеви опори от стойка на ръце",
       "origin": "AI generated",
-      "tool": "OpenAI image generation tool",
-      "date": "2026-11-17",
-      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "tool": "Higgsfield / GPT Image 2.6",
+      "date": "2026-11-25",
+      "usage": "Generated via Higgsfield for FORME; use subject to applicable Higgsfield and model-provider terms. AI visualization, not a real athlete photograph or endorsement.",
       "review": {
-        "visual": "individual source, 960/480 and exact exercise phase reviewed",
-        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
-        "status": "accepted-visual",
-        "revision": "anatomy-v3",
-        "receipt": "qa/exercise-image-review-v3.json",
-        "contract": "qa/exercise-image-contracts.json",
-        "sourceSha256": "a01f48e55e7eea5230661d4eeecaea5a09f8d7e3f87b23235eac69bc5acb5da0"
+        "visual": "individual anatomy/exact-exercise/style/background comparison at source, 960 and 480",
+        "scope": "visual review, not independent technique certification",
+        "sourceSha256": "29341f80456b1b5a612103c74ea53a88ff4ab799d313efe64b3099cb806b6623",
+        "receipt": "qa/exercise-image-review-v4.json",
+        "generation": "9aee452d-fed1-4d2b-b21f-78b2f780fc07"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Handstand_Pushups-anatomy-v3-480.webp",
+          "path": "media/exercises/Handstand_Pushups-higgsfield-v4-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 11860,
-          "sha256": "f5abf2f04b31b7e51fabc26454c6ba9452219360920efa37149b77ec5a0ad028"
+          "bytes": 12020,
+          "sha256": "e7c360d428e6ca836b8dc25e009220cb9d5863dbd2dd6bdebd35924d997d18a1"
         },
         "desktop": {
-          "path": "media/exercises/Handstand_Pushups-anatomy-v3-960.webp",
+          "path": "media/exercises/Handstand_Pushups-higgsfield-v4-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 31068,
-          "sha256": "a2191aec1484d01602e6fd20c7f73a2d41c716813672d22a918a5e9ea089c09e"
+          "bytes": 28986,
+          "sha256": "788e78a0935c14536982d7cb8bd0f429b763d9b2643fc331dcd7e500c413da88"
         }
       }
     },

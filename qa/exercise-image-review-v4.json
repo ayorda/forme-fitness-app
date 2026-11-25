@@ -1,0 +1,2568 @@
+{
+  "schemaVersion": 2,
+  "reviewer": "Codex: individual visual comparison of source, zoomed joints, 960 and 480; not independent trainer certification",
+  "reviewedAt": "2026-11-25",
+  "scope": "Exactly five requested Higgsfield reference-preserving image replacements; other 44 exercise entries and all foods unchanged",
+  "baselineMain": "334869904a54279a671f51a7e6c77f2ff9a0ce77",
+  "corrections": [
+    {
+      "id": "Handstand",
+      "revision": "higgsfield-v4",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-25",
+      "sourceSha256": "ac137b05df87f3080020e3ece04e202d3997bb561d72564f34ecda4a6755e3fe",
+      "oldDesktopSha256": "69da4d820b1c83070ba213e9b327dc84f1301c1c015ac03ce2b4f54ee666067f",
+      "oldPaths": [
+        "media/exercises/Handstand-anatomy-v3-480.webp",
+        "media/exercises/Handstand-anatomy-v3-960.webp"
+      ],
+      "originalProblem": "The wall handstand had closely overlapping shoe/ankle contours and an uneven readable lower-body line; the owner rejected this anatomy.",
+      "poseNotes": "Two planted hands, two straight arms, one continuous torso and pelvis, two straight knees/calves and two separated black shoes are traceable. A visible gap separates the ankle/shoe outlines without adding a third foot.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two planted hands, two straight arms, one continuous torso and pelvis, two straight knees/calves and two separated black shoes are traceable. A visible gap separates the ankle/shoe outlines without adding a third foot."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Handstand",
+          "name": "Стойка на ръце",
+          "level": "intermediate",
+          "equip": "wall",
+          "description": "Баланс в обърната опора.",
+          "steps": "Постави длани стабилно и влизай в опора до стена само ако можеш безопасно да излезеш от нея. Дръж раменете активни.",
+          "easier": "Разходка с крака по стената в удобен обхват.",
+          "defaultMetric": "seconds"
+        },
+        "phase": "settled-wall-handstand",
+        "observedEquipment": "wall",
+        "criteria": {
+          "verticalStack": {
+            "passed": true,
+            "observation": "The final figure stacks wrists, elevated shoulders, pelvis and ankles vertically beside the same wall."
+          },
+          "straightArms": {
+            "passed": true,
+            "observation": "Both palms remain planted and both elbows are straight, with the head naturally between the upper arms."
+          },
+          "wallContact": {
+            "passed": true,
+            "observation": "The two distinct shoe heels meet the same wall plane without crossed ankles or a kick-up leg."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "Left gridded window, olive upright, blurred weight rack and bench, right charcoal wall/floor seam retain their original locations. Window daylight and long floor shadows remain on the left; charcoal wall, black shirt and muted olive shorts retain their subdued balance."
+      },
+      "styleLock": {
+        "status": "accepted",
+        "referenceSha256": "69da4d820b1c83070ba213e9b327dc84f1301c1c015ac03ce2b4f54ee666067f",
+        "criteria": {
+          "background": {
+            "passed": true,
+            "observation": "Left gridded window, olive upright, blurred weight rack and bench, right charcoal wall/floor seam retain their original locations."
+          },
+          "composition": {
+            "passed": true,
+            "observation": "The same three-quarter camera and full-body subject slightly right of center are retained with palms and shoe tops inside the frame."
+          },
+          "colorLighting": {
+            "passed": true,
+            "observation": "Window daylight and long floor shadows remain on the left; charcoal wall, black shirt and muted olive shorts retain their subdued balance."
+          },
+          "materials": {
+            "passed": true,
+            "observation": "The matte wall, rubber floor tile seams, fabric shorts and dark shoe texture remain consistent with the reference."
+          }
+        },
+        "backgroundMeasurements": [
+          {
+            "normalizedRegion": [
+              0.73,
+              0.15,
+              0.92,
+              0.65
+            ],
+            "referenceMeanRGB": [
+              70.95,
+              65.96,
+              60.2
+            ],
+            "newMeanRGB": [
+              68.18,
+              63.86,
+              58.22
+            ],
+            "meanChannelDelta": 2.28
+          },
+          {
+            "normalizedRegion": [
+              0.03,
+              0.65,
+              0.35,
+              0.92
+            ],
+            "referenceMeanRGB": [
+              104.02,
+              95.03,
+              87.12
+            ],
+            "newMeanRGB": [
+              99.59,
+              90.95,
+              82.64
+            ],
+            "meanChannelDelta": 4.33
+          }
+        ],
+        "measurementLimit": "Mean colors of two manually selected unoccluded background regions; descriptive only, not an automatic style/anatomy guarantee"
+      },
+      "generation": {
+        "platform": "Higgsfield",
+        "model": "gpt_image_2_6",
+        "jobId": "c2729de6-096a-4a03-82cf-7fbf3725dac2",
+        "status": "completed",
+        "credits": 1.25,
+        "referencePath": "media/exercises/Handstand-anatomy-v3-960.webp",
+        "referenceSha256": "69da4d820b1c83070ba213e9b327dc84f1301c1c015ac03ce2b4f54ee666067f",
+        "rawOutputSha256": "3bf2e2984369a93d6e213c7eb309fefe242476313e18191dd6fcc65cf643acfa",
+        "rawOutputSize": [
+          1024,
+          688
+        ],
+        "normalization": "Lossless border crop (x=0,y=3,w=1023,h=682) from 1024x688 to exact 3:2; no resculpting, relighting or skin/color filter; only 1 right and 3 top/3 bottom background pixels removed",
+        "parameters": {
+          "model": "gpt_image_2_6",
+          "aspect_ratio": "3:2",
+          "quality": "high",
+          "resolution": "1k",
+          "output_format": "png",
+          "count": 1
+        },
+        "prompt": "Edit the supplied FORME catalogue photograph, not a new scene. STYLE / BACKGROUND / CAMERA / COLOR LOCK: preserve the same 3:2 landscape canvas, exact gym architecture and equipment locations, lens perspective, athlete scale and placement, charcoal walls and rubber floor texture, subdued olive accents, window direction, shadow density, contrast, exposure and natural skin color. Keep the same athletic adult, face, hairstyle and clothing. Do not relight, warm, cool, brighten, add props, add logos/text, remove the background or replace the environment. Rebuild ONLY the athlete anatomy as needed to show the precise exercise with plausible joints and clear body continuity. Use the reference for scene, identity and composition, NEVER copy malformed body geometry. Exactly one athlete, two arms each connected shoulder-elbow-wrist-hand, two legs each connected hip-knee-ankle-foot; two hands with five normal fingers each, two shoes, no duplicate/merged limbs, plastic skin or exaggerated muscles. Keep all hands, shoes and support contacts inside frame with clean margins. A realistic premium sports photograph in this same existing location, not an illustration.\nEXERCISE-SPECIFIC CORRECTION:\nShow a settled back-to-wall handstand, same athlete centered slightly right at the dark wall, same left window and blurred rack. Rebuild the full body into a clean vertical wrist-shoulder-ribcage-pelvis-ankle stack. Two straight elbows, actively elevated shoulders, controlled neutral pelvis, straight knees. Separate the two straight legs and two anatomically normal ankles by a small readable gap. Both dark shoes have normal soles, ankles and toes, with both heels LIGHTLY touching the same visible wall plane; toes point naturally away from wall. No crossed ankles, one shoe morphing into the other, knee kick-up, arched banana back or hidden extra foot. Show both palms flat on floor with realistic wrist angles, head neutral between arms. Preserve wall/floor seam and existing framing.",
+        "adherence": "Model has no exposed strength/adherence parameter; actual reference input plus explicit scene-lock instructions, then individual visual comparison"
+      },
+      "variants": {
+        "480": {
+          "bytes": 10120,
+          "sha256": "1b3f6168d3eb404530bd073411076f66126f0f167bd8778f21e7bba293f953d0"
+        },
+        "960": {
+          "bytes": 25802,
+          "sha256": "a5effe38547a21056861da09f632dfd0cc0b7d124b12671ac7dd57de28f9a8f7"
+        }
+      }
+    },
+    {
+      "id": "Skin_the_Cat",
+      "revision": "higgsfield-v4",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-25",
+      "sourceSha256": "497941caee5dd31ea3d2b11466c6294d30449ee8571079dd1ac8fcea32d0297b",
+      "oldDesktopSha256": "6eaea55c2730cab9ad945ebe04984e8be49d57864501761f2085ee121945210e",
+      "oldPaths": [
+        "media/exercises/Skin_the_Cat-anatomy-v2-480.webp",
+        "media/exercises/Skin_the_Cat-anatomy-v2-960.webp"
+      ],
+      "originalProblem": "The original ring tuck compressed the torso/pelvis and overlapped both shins/shoes. First new candidate was rejected because the torso still read as folded.",
+      "poseNotes": "The accepted second candidate opens the tuck: one continuous torso reaches from natural shoulder attachments to the raised pelvis, while two bent knees, separate horizontal shins and two separated black shoes remain readable. Both hands grip their own ring; no neck or floor support.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "The accepted second candidate opens the tuck: one continuous torso reaches from natural shoulder attachments to the raised pelvis, while two bent knees, separate horizontal shins and two separated black shoes remain readable. Both hands grip their own ring; no neck or floor support."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Skin_the_Cat",
+          "name": "Превъртане във вис (skin the cat)",
+          "level": "advanced",
+          "equip": "rings",
+          "description": "Напреднало движение за контрол и подвижност на раменете.",
+          "steps": "На стабилни халки прибери коленете и преминавай бавно само през обхват, който контролираш.",
+          "easier": "Подготви се с активен вис и контролирано прибиране на колене.",
+          "defaultMetric": "reps"
+        },
+        "phase": "controlled-inverted-ring-tuck-transition",
+        "observedEquipment": "rings",
+        "criteria": {
+          "twoRingGrips": {
+            "passed": true,
+            "observation": "Two hands wrap the two existing wooden rings; each olive strap stays vertical and each arm connects to its own shoulder."
+          },
+          "invertedTransition": {
+            "passed": true,
+            "observation": "Head and shoulders are below the raised pelvis; bent knees pass between the ring arms in an inverted tucked transition."
+          },
+          "continuousTorso": {
+            "passed": true,
+            "observation": "The black-shirt torso is an elongated continuous segment rather than a round waist fold; the pelvis joins the ribcage naturally."
+          },
+          "twoTuckedLegs": {
+            "passed": true,
+            "observation": "Two visible knees lead to two offset shins and two separate shoes on the right; each foot connects through its ankle."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "The window/wooden box left, two rack posts, two wooden rings/olive straps, wall shadows and right shelves/plants remain in the same scene. The same side-window daylight, subdued skin, black shirt and olive shorts remain against the original charcoal background without a new grade."
+      },
+      "styleLock": {
+        "status": "accepted",
+        "referenceSha256": "6eaea55c2730cab9ad945ebe04984e8be49d57864501761f2085ee121945210e",
+        "criteria": {
+          "background": {
+            "passed": true,
+            "observation": "The window/wooden box left, two rack posts, two wooden rings/olive straps, wall shadows and right shelves/plants remain in the same scene."
+          },
+          "composition": {
+            "passed": true,
+            "observation": "Camera position, ring support points and central inverted subject footprint are retained; only the tucked body opens for leg and pelvis clarity."
+          },
+          "colorLighting": {
+            "passed": true,
+            "observation": "The same side-window daylight, subdued skin, black shirt and olive shorts remain against the original charcoal background without a new grade."
+          },
+          "materials": {
+            "passed": true,
+            "observation": "Wooden ring grain, textile straps, matte rack, kettlebells and rubber-floor texture remain photographically consistent."
+          }
+        },
+        "backgroundMeasurements": [
+          {
+            "normalizedRegion": [
+              0.02,
+              0.35,
+              0.16,
+              0.54
+            ],
+            "referenceMeanRGB": [
+              88.1,
+              86.57,
+              62.61
+            ],
+            "newMeanRGB": [
+              87.39,
+              85.42,
+              62.12
+            ],
+            "meanChannelDelta": 0.78
+          },
+          {
+            "normalizedRegion": [
+              0.85,
+              0.5,
+              0.97,
+              0.8
+            ],
+            "referenceMeanRGB": [
+              44.32,
+              45.39,
+              36.57
+            ],
+            "newMeanRGB": [
+              42.86,
+              43.89,
+              34.98
+            ],
+            "meanChannelDelta": 1.52
+          }
+        ],
+        "measurementLimit": "Mean colors of two manually selected unoccluded background regions; descriptive only, not an automatic style/anatomy guarantee"
+      },
+      "generation": {
+        "platform": "Higgsfield",
+        "model": "gpt_image_2_6",
+        "jobId": "ab4ae208-be2c-4a82-9186-7de7498f3ab1",
+        "status": "completed",
+        "credits": 1.25,
+        "referencePath": "media/exercises/Skin_the_Cat-anatomy-v2-960.webp",
+        "referenceSha256": "6eaea55c2730cab9ad945ebe04984e8be49d57864501761f2085ee121945210e",
+        "rawOutputSha256": "145c73e5dfbf6c505ca0744231699e17004ac368df0750281864a38925b19572",
+        "rawOutputSize": [
+          1008,
+          672
+        ],
+        "normalization": "None; native 1008x672 3:2",
+        "parameters": {
+          "model": "gpt_image_2_6",
+          "aspect_ratio": "3:2",
+          "quality": "high",
+          "resolution": "1k",
+          "output_format": "png",
+          "count": 1,
+          "size": "1008x672"
+        },
+        "prompt": "Precisely correct this existing FORME image by editing the athlete only. Keep the reference gym scene, rack posts, TWO wooden rings on olive straps, window on left, kettlebells/plant on right, framing, camera, charcoal/olive palette, same daylight and exposure IDENTICAL. The previous candidate failed because its torso looked folded in half. DO NOT copy the reference athlete's folded spine/hip shape. Reconstruct one realistic athletic adult man, same black sleeveless shirt, olive shorts, black shoes, in a recognizable SKIN THE CAT compact inverted tuck transition on rings. CRITICAL SKELETON: torso between shoulders and pelvis is one normally proportioned, mostly straight segment angled slightly from vertical, head below shoulders, pelvis clearly above shoulders. No round ball torso, no lumbar hinge, no disconnected hips. Both knees bend to about 90 degrees, thighs tuck toward abdomen at HIP joints, not through waist. Legs need not press against the chest: allow a modest open tuck so that both hips, two thighs, two knees, two shins and two ankles remain traceable. Two black shoes a few centimeters apart, both clearly visible on the right side of the body. Both hands grip the two rings, arms almost straight, shoulder sockets naturally attached to ribcage and rotated only within plausible human range. Depict early inverted transition as knees pass through between the arms, NOT deep German hang and not static front lever. Show TWO arms, TWO hands each naturally gripping its own ring, TWO legs and TWO feet with a readable small gap; no merged limb or foot. Preserve the athlete's approximate central position/scale while allowing the body to uncoil enough for realistic human proportions. All body parts safely within landscape 3:2 frame. No added labels, inset, symbols, arrows, graphics, equipment, retouch sheen or background redesign. A real plausible moment in calisthenics, never an abstract folded man.",
+        "adherence": "Model has no exposed strength/adherence parameter; actual reference input plus explicit scene-lock instructions, then individual visual comparison"
+      },
+      "variants": {
+        "480": {
+          "bytes": 19720,
+          "sha256": "831be11210f56bc4adf524d23729c09904e5479bd676dce1aa05b0b94a104e78"
+        },
+        "960": {
+          "bytes": 47758,
+          "sha256": "c632d45fa6ef2e44780832962bfa9d14177658d96d77d51f3433e70189336190"
+        }
+      }
+    },
+    {
+      "id": "Toes_to_Bar",
+      "revision": "higgsfield-v4",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-25",
+      "sourceSha256": "28d1720d68a7a08112279bbb295f741c434696b8bb1c8c9722193fc3a21778d1",
+      "oldDesktopSha256": "6282ed2f565810e2f754b98437d627b0ee7bb19f8bc75efbc880bc34c0fc0dc3",
+      "oldPaths": [
+        "media/exercises/Toes_to_Bar-anatomy-v3-480.webp",
+        "media/exercises/Toes_to_Bar-anatomy-v3-960.webp"
+      ],
+      "originalProblem": "The original raised legs and close shoe contours were difficult to trace independently around the bar and grip area.",
+      "poseNotes": "Both overhand grips connect to two extended arms outside the legs. Two knees, calves, ankles and gray shoes can be followed from one pelvis, with the toe boxes meeting the underside/front of the bar. No leg merges into a hand or an arm.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Both overhand grips connect to two extended arms outside the legs. Two knees, calves, ankles and gray shoes can be followed from one pelvis, with the toe boxes meeting the underside/front of the bar. No leg merges into a hand or an arm."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Toes_to_Bar",
+          "name": "Пръсти към лоста",
+          "level": "intermediate",
+          "equip": "bar",
+          "description": "Повдигане на краката от вис към лоста.",
+          "steps": "От активен вис повдигни краката контролирано към лоста, без да разчиташ на силно люлеене.",
+          "easier": "Повдигане на свити колене от вис.",
+          "defaultMetric": "reps"
+        },
+        "phase": "strict-toes-to-bar-top",
+        "observedEquipment": "bar",
+        "criteria": {
+          "twoGrips": {
+            "passed": true,
+            "observation": "Both hands grip the existing horizontal bar outside the two legs with extended elbows and coherent shoulder sockets."
+          },
+          "toeContact": {
+            "passed": true,
+            "observation": "Both gray shoe toe boxes rise against the front/underside of the bar between the hands; soles do not stand on it."
+          },
+          "highStraightLegs": {
+            "passed": true,
+            "observation": "Two near-straight legs rise above head height, with distinct knee and calf outlines and both shoes at the bar."
+          },
+          "hangingCompression": {
+            "passed": true,
+            "observation": "Hips and torso hang below the bar in a continuous compressed line, with no floor or foot support."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "The olive rack uprights and bar, left window/kettlebells, right plates, hanging rings and box remain in their original places. The olive sports top, graphite leggings, gray shoes, natural skin and left-window shadow direction preserve the original dark-green palette."
+      },
+      "styleLock": {
+        "status": "accepted",
+        "referenceSha256": "6282ed2f565810e2f754b98437d627b0ee7bb19f8bc75efbc880bc34c0fc0dc3",
+        "criteria": {
+          "background": {
+            "passed": true,
+            "observation": "The olive rack uprights and bar, left window/kettlebells, right plates, hanging rings and box remain in their original places."
+          },
+          "composition": {
+            "passed": true,
+            "observation": "The same frontal three-quarter view and central athlete scale keep all grip points, shoes, hips and equipment inside the landscape frame."
+          },
+          "colorLighting": {
+            "passed": true,
+            "observation": "The olive sports top, graphite leggings, gray shoes, natural skin and left-window shadow direction preserve the original dark-green palette."
+          },
+          "materials": {
+            "passed": true,
+            "observation": "Matte rack paint, metal bar, soft sportswear and rubber floor retain the reference texture without plastic skin or oversharpening."
+          }
+        },
+        "backgroundMeasurements": [
+          {
+            "normalizedRegion": [
+              0.02,
+              0.65,
+              0.15,
+              0.85
+            ],
+            "referenceMeanRGB": [
+              24.76,
+              24.73,
+              22.15
+            ],
+            "newMeanRGB": [
+              23.23,
+              23.27,
+              21.43
+            ],
+            "meanChannelDelta": 1.23
+          },
+          {
+            "normalizedRegion": [
+              0.83,
+              0.43,
+              0.97,
+              0.7
+            ],
+            "referenceMeanRGB": [
+              35.37,
+              33.86,
+              28.05
+            ],
+            "newMeanRGB": [
+              33.45,
+              32.29,
+              27.24
+            ],
+            "meanChannelDelta": 1.43
+          }
+        ],
+        "measurementLimit": "Mean colors of two manually selected unoccluded background regions; descriptive only, not an automatic style/anatomy guarantee"
+      },
+      "generation": {
+        "platform": "Higgsfield",
+        "model": "gpt_image_2_6",
+        "jobId": "dd7704bc-1cfc-45ce-86dd-3aadd443e303",
+        "status": "completed",
+        "credits": 1.25,
+        "referencePath": "media/exercises/Toes_to_Bar-anatomy-v3-960.webp",
+        "referenceSha256": "6282ed2f565810e2f754b98437d627b0ee7bb19f8bc75efbc880bc34c0fc0dc3",
+        "rawOutputSha256": "085197112b9026a8065d5535cc64d3b32daa2a2737bab046989000cb65c92558",
+        "rawOutputSize": [
+          1024,
+          688
+        ],
+        "normalization": "Lossless border crop (x=0,y=3,w=1023,h=682) from 1024x688 to exact 3:2; no resculpting, relighting or skin/color filter; only 1 right and 3 top/3 bottom background pixels removed",
+        "parameters": {
+          "model": "gpt_image_2_6",
+          "aspect_ratio": "3:2",
+          "quality": "high",
+          "resolution": "1k",
+          "output_format": "png",
+          "count": 1
+        },
+        "prompt": "Edit the supplied FORME catalogue photograph, not a new scene. STYLE / BACKGROUND / CAMERA / COLOR LOCK: preserve the same 3:2 landscape canvas, exact gym architecture and equipment locations, lens perspective, athlete scale and placement, charcoal walls and rubber floor texture, subdued olive accents, window direction, shadow density, contrast, exposure and natural skin color. Keep the same athletic adult, face, hairstyle and clothing. Do not relight, warm, cool, brighten, add props, add logos/text, remove the background or replace the environment. Rebuild ONLY the athlete anatomy as needed to show the precise exercise with plausible joints and clear body continuity. Use the reference for scene, identity and composition, NEVER copy malformed body geometry. Exactly one athlete, two arms each connected shoulder-elbow-wrist-hand, two legs each connected hip-knee-ankle-foot; two hands with five normal fingers each, two shoes, no duplicate/merged limbs, plastic skin or exaggerated muscles. Keep all hands, shoes and support contacts inside frame with clean margins. A realistic premium sports photograph in this same existing location, not an illustration.\nEXERCISE-SPECIFIC CORRECTION:\nShow the clear top position of a strict Toes to Bar on the SAME existing horizontal bar/rack, same woman and clothes. Two hands overhand grip the bar OUTSIDE the legs, shoulder-width-plus, both arms straight from normal shoulder sockets. A continuous realistic torso and pelvis below the bar; two distinct straight or only slightly soft-kneed legs rise from the hips together toward the bar. Delineate BOTH thighs, both knees, both shins, both ankles, TWO separate gray shoes with a small visible gap. The TIPS of both shoes' toes visibly touch the SAME bar BETWEEN the two hands. Toes contacting the bar, not soles resting on it. Hips flex naturally and spine gently rounds, no impossible deep torso compression, no leg merged with upper arm, no extra hand/foot. Head, hands, bar, hips and both shoe tips fully legible; preserve entire original environment and camera angle.",
+        "adherence": "Model has no exposed strength/adherence parameter; actual reference input plus explicit scene-lock instructions, then individual visual comparison"
+      },
+      "variants": {
+        "480": {
+          "bytes": 18074,
+          "sha256": "c64c058206d4e94e7a4ada07023cd7cbfd0ecb4784d77e595a90edbb2019c278"
+        },
+        "960": {
+          "bytes": 43614,
+          "sha256": "84163cc7d82b936f4cb2ee8a4ab0279098b5c4122ffd92432b7fb22572143189"
+        }
+      }
+    },
+    {
+      "id": "Archer_Pushups",
+      "revision": "higgsfield-v4",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-25",
+      "sourceSha256": "5c1e6de98ec3cfe0312e73c450ba23f5892c74d8d2c13e08394f80f4a87908bc",
+      "oldDesktopSha256": "20ecf94771907f16d4ed958ab20e6082aec4ea9a57683bac07475886af823eb2",
+      "oldPaths": [
+        "media/exercises/Archer_Pushups-anatomy-v3-480.webp",
+        "media/exercises/Archer_Pushups-anatomy-v3-960.webp"
+      ],
+      "originalProblem": "The owner rejected lower-leg/foot geometry; the original close-perspective rear shoe and ankle joins needed clearer continuity.",
+      "poseNotes": "Two distinct thighs extend from the square pelvis into two knees, calves and gray shoes, with separate rear toe supports. The image-left elbow bends under the loaded side while the image-right arm remains straight sideways. Both palms and all limb joins remain visible.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two distinct thighs extend from the square pelvis into two knees, calves and gray shoes, with separate rear toe supports. The image-left elbow bends under the loaded side while the image-right arm remains straight sideways. Both palms and all limb joins remain visible."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Archer_Pushups",
+          "name": "Стрелец лицеви опори",
+          "level": "intermediate",
+          "equip": "none",
+          "description": "Едностранно натоварване в лицева опора.",
+          "steps": "От широка опора премести тежестта към едната сгъваща се ръка и се върни контролирано.",
+          "easier": "Стандартни лицеви опори или вариант с по-малко преместване.",
+          "defaultMetric": "reps"
+        },
+        "phase": "low-side-loaded-archer-pushup",
+        "observedEquipment": "none",
+        "criteria": {
+          "loadedArm": {
+            "passed": true,
+            "observation": "The image-left elbow is bent and the low chest shifts toward the planted left-side palm."
+          },
+          "sideAssist": {
+            "passed": true,
+            "observation": "The assisting image-right arm extends sideways along the shoulder line, rather than forward along the body axis."
+          },
+          "neutralPlank": {
+            "passed": true,
+            "observation": "The pelvis and torso form a supported low plank above the floor, with no collapsed or twisted hip connection."
+          },
+          "twoToeSupports": {
+            "passed": true,
+            "observation": "Both rear legs and shoe/ankle contours are separate and lead to their own floor toe supports; no third foot is present."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "The same top-left kettlebell/plate rack, olive back wall, right upright and uninterrupted rubber floor surround the athlete. The dark gray shirt, olive shorts and gray shoes keep the muted reference colors and soft floor illumination."
+      },
+      "styleLock": {
+        "status": "accepted",
+        "referenceSha256": "20ecf94771907f16d4ed958ab20e6082aec4ea9a57683bac07475886af823eb2",
+        "criteria": {
+          "background": {
+            "passed": true,
+            "observation": "The same top-left kettlebell/plate rack, olive back wall, right upright and uninterrupted rubber floor surround the athlete."
+          },
+          "composition": {
+            "passed": true,
+            "observation": "The slightly elevated frontal camera, sideways arm spread and separated rear feet retain the original composition and full-hand margins."
+          },
+          "colorLighting": {
+            "passed": true,
+            "observation": "The dark gray shirt, olive shorts and gray shoes keep the muted reference colors and soft floor illumination."
+          },
+          "materials": {
+            "passed": true,
+            "observation": "Rubber floor grain, cloth folds and shoe surfaces remain consistent with the existing catalogue without a new background treatment."
+          }
+        },
+        "backgroundMeasurements": [
+          {
+            "normalizedRegion": [
+              0.03,
+              0.03,
+              0.22,
+              0.1
+            ],
+            "referenceMeanRGB": [
+              25.54,
+              26.97,
+              22.42
+            ],
+            "newMeanRGB": [
+              24.06,
+              24.77,
+              20.62
+            ],
+            "meanChannelDelta": 1.83
+          },
+          {
+            "normalizedRegion": [
+              0.76,
+              0.12,
+              0.95,
+              0.34
+            ],
+            "referenceMeanRGB": [
+              47.09,
+              47.71,
+              43.96
+            ],
+            "newMeanRGB": [
+              41.64,
+              42.09,
+              39.24
+            ],
+            "meanChannelDelta": 5.26
+          }
+        ],
+        "measurementLimit": "Mean colors of two manually selected unoccluded background regions; descriptive only, not an automatic style/anatomy guarantee"
+      },
+      "generation": {
+        "platform": "Higgsfield",
+        "model": "gpt_image_2_6",
+        "jobId": "84fce44f-e660-4c92-951c-588623f4a0f6",
+        "status": "completed",
+        "credits": 1.25,
+        "referencePath": "media/exercises/Archer_Pushups-anatomy-v3-960.webp",
+        "referenceSha256": "20ecf94771907f16d4ed958ab20e6082aec4ea9a57683bac07475886af823eb2",
+        "rawOutputSha256": "e6c8e731f394ed1135520d0b40c95f85b6195eddbfc21d96af3e2616d3487e6e",
+        "rawOutputSize": [
+          1024,
+          688
+        ],
+        "normalization": "Lossless border crop (x=0,y=3,w=1023,h=682) from 1024x688 to exact 3:2; no resculpting, relighting or skin/color filter; only 1 right and 3 top/3 bottom background pixels removed",
+        "parameters": {
+          "model": "gpt_image_2_6",
+          "aspect_ratio": "3:2",
+          "quality": "high",
+          "resolution": "1k",
+          "output_format": "png",
+          "count": 1
+        },
+        "prompt": "Edit the supplied FORME catalogue photograph, not a new scene. STYLE / BACKGROUND / CAMERA / COLOR LOCK: preserve the same 3:2 landscape canvas, exact gym architecture and equipment locations, lens perspective, athlete scale and placement, charcoal walls and rubber floor texture, subdued olive accents, window direction, shadow density, contrast, exposure and natural skin color. Keep the same athletic adult, face, hairstyle and clothing. Do not relight, warm, cool, brighten, add props, add logos/text, remove the background or replace the environment. Rebuild ONLY the athlete anatomy as needed to show the precise exercise with plausible joints and clear body continuity. Use the reference for scene, identity and composition, NEVER copy malformed body geometry. Exactly one athlete, two arms each connected shoulder-elbow-wrist-hand, two legs each connected hip-knee-ankle-foot; two hands with five normal fingers each, two shoes, no duplicate/merged limbs, plastic skin or exaggerated muscles. Keep all hands, shoes and support contacts inside frame with clean margins. A realistic premium sports photograph in this same existing location, not an illustration.\nEXERCISE-SPECIFIC CORRECTION:\nShow the SAME man in the low phase of a classic Archer Push-Up from the same slightly elevated frontal camera looking along his body. The LEFT side of the IMAGE has the loaded bent arm, elbow about 90 degrees, palm under/just outside shoulder; chest shifts low toward that hand. The RIGHT side of the IMAGE has the assisting arm fully extended sideways along the shoulder line, palm flat, not reaching forward toward camera. Rebuild torso, pelvis and BOTH legs as one natural supported plank: hips square, two normal thighs extend back from shorts, each has exactly one knee, one calf, one ankle, one gray shoe. Keep two feet placed apart on TOE pads on the floor behind him with heels lifted naturally; show the toe contacts and heel-to-ankle continuity unambiguously. No extra heel/third shoe, floating soles, twisted pelvis, overextended knees, collapsed shoulder or fused legs. Keep whole two hands and two feet in frame, same dark gray shirt/olive shorts/gray shoes and all background equipment in place.",
+        "adherence": "Model has no exposed strength/adherence parameter; actual reference input plus explicit scene-lock instructions, then individual visual comparison"
+      },
+      "variants": {
+        "480": {
+          "bytes": 12412,
+          "sha256": "6ec678ee6a2a766b519267dc2d2e9a16f53c255df0946ca5f31e6d464fc81e7d"
+        },
+        "960": {
+          "bytes": 43542,
+          "sha256": "83a45c1c598b3e95ec5d9f1963d5882efbfdd442d33add8aa08e2158f290a41d"
+        }
+      }
+    },
+    {
+      "id": "Handstand_Pushups",
+      "revision": "higgsfield-v4",
+      "status": "accepted-visual",
+      "reviewedAt": "2026-11-25",
+      "sourceSha256": "29341f80456b1b5a612103c74ea53a88ff4ab799d313efe64b3099cb806b6623",
+      "oldDesktopSha256": "a2191aec1484d01602e6fd20c7f73a2d41c716813672d22a918a5e9ea089c09e",
+      "oldPaths": [
+        "media/exercises/Handstand_Pushups-anatomy-v3-480.webp",
+        "media/exercises/Handstand_Pushups-anatomy-v3-960.webp"
+      ],
+      "originalProblem": "The owner rejected the inverted pelvis/thigh contours and overlapping ankle/shoe geometry in the previous lowering position.",
+      "poseNotes": "Two planted palms support two bent elbows and a continuous inverted torso. The rebuilt pelvis connects to two straight thighs, knees, calves, ankles and separated dark shoes. Head remains above the floor; feet touch the wall without a waist pike.",
+      "observedLimbs": {
+        "arms": 2,
+        "hands": 2,
+        "legs": 2,
+        "feet": 2
+      },
+      "checks": {
+        "singleAthlete": true,
+        "limbCount": true,
+        "limbContinuity": true,
+        "jointAlignment": true,
+        "exercisePose": true,
+        "equipmentContact": true,
+        "fullBodyMargins": true,
+        "styleConsistency": true,
+        "mobileReadability": true
+      },
+      "reviewedVariants": [
+        "source",
+        "480",
+        "960"
+      ],
+      "anatomy": {
+        "status": "accepted",
+        "notes": "Two planted palms support two bent elbows and a continuous inverted torso. The rebuilt pelvis connects to two straight thighs, knees, calves, ankles and separated dark shoes. Head remains above the floor; feet touch the wall without a waist pike."
+      },
+      "exactMatch": {
+        "status": "accepted",
+        "catalogue": {
+          "id": "Handstand_Pushups",
+          "name": "Лицеви опори от стойка на ръце",
+          "level": "advanced",
+          "equip": "wall",
+          "description": "Напреднало вертикално избутване в обърната опора.",
+          "steps": "След уверена стойка с безопасно излизане сгъни ръцете контролирано в удобен обхват и избутай.",
+          "easier": "Пайк лицеви опори.",
+          "defaultMetric": "reps"
+        },
+        "phase": "strict-wall-hspu-lowering",
+        "observedEquipment": "wall",
+        "criteria": {
+          "verticalPress": {
+            "passed": true,
+            "observation": "The torso, pelvis and two straight legs stack near-vertically above the shoulder girdle rather than folding into a pike."
+          },
+          "bentElbows": {
+            "passed": true,
+            "observation": "Both elbows visibly bend near a right angle while both palms remain planted and forearms rise from the floor."
+          },
+          "headTriangle": {
+            "passed": true,
+            "observation": "The head projects forward of the palm line with visible clearance above the floor; the skull is not the support point."
+          },
+          "heelContact": {
+            "passed": true,
+            "observation": "Two separate heels meet the same wall surface with straight knees and no crossed calves or pelvis kink."
+          }
+        }
+      },
+      "style": {
+        "status": "accepted",
+        "notes": "The same left window, blurred olive rack/bench, wall texture, floor seam and empty charcoal right wall are retained. The left-window shadows, black shirt/shoes, subdued olive shorts and natural skin preserve the original exposure and contrast."
+      },
+      "styleLock": {
+        "status": "accepted",
+        "referenceSha256": "a2191aec1484d01602e6fd20c7f73a2d41c716813672d22a918a5e9ea089c09e",
+        "criteria": {
+          "background": {
+            "passed": true,
+            "observation": "The same left window, blurred olive rack/bench, wall texture, floor seam and empty charcoal right wall are retained."
+          },
+          "composition": {
+            "passed": true,
+            "observation": "The same near-frontal camera and centered inverted athlete remain fully in frame with both hands and shoes unobscured."
+          },
+          "colorLighting": {
+            "passed": true,
+            "observation": "The left-window shadows, black shirt/shoes, subdued olive shorts and natural skin preserve the original exposure and contrast."
+          },
+          "materials": {
+            "passed": true,
+            "observation": "Matte wall and floor, sportswear folds, calves and shoe textures remain natural and consistent with the reference."
+          }
+        },
+        "backgroundMeasurements": [
+          {
+            "normalizedRegion": [
+              0.76,
+              0.1,
+              0.95,
+              0.7
+            ],
+            "referenceMeanRGB": [
+              66.66,
+              62.39,
+              56.88
+            ],
+            "newMeanRGB": [
+              63.51,
+              59.75,
+              54.09
+            ],
+            "meanChannelDelta": 2.86
+          },
+          {
+            "normalizedRegion": [
+              0.03,
+              0.69,
+              0.25,
+              0.9
+            ],
+            "referenceMeanRGB": [
+              124.8,
+              113.21,
+              101.67
+            ],
+            "newMeanRGB": [
+              116.0,
+              104.82,
+              93.07
+            ],
+            "meanChannelDelta": 8.59
+          }
+        ],
+        "measurementLimit": "Mean colors of two manually selected unoccluded background regions; descriptive only, not an automatic style/anatomy guarantee"
+      },
+      "generation": {
+        "platform": "Higgsfield",
+        "model": "gpt_image_2_6",
+        "jobId": "9aee452d-fed1-4d2b-b21f-78b2f780fc07",
+        "status": "completed",
+        "credits": 1.25,
+        "referencePath": "media/exercises/Handstand_Pushups-anatomy-v3-960.webp",
+        "referenceSha256": "a2191aec1484d01602e6fd20c7f73a2d41c716813672d22a918a5e9ea089c09e",
+        "rawOutputSha256": "3e2ab5f5e441f302a093a7e111014b3fbb816a160e5b9042ba1190d0941ce93a",
+        "rawOutputSize": [
+          1024,
+          688
+        ],
+        "normalization": "Lossless border crop (x=0,y=3,w=1023,h=682) from 1024x688 to exact 3:2; no resculpting, relighting or skin/color filter; only 1 right and 3 top/3 bottom background pixels removed",
+        "parameters": {
+          "model": "gpt_image_2_6",
+          "aspect_ratio": "3:2",
+          "quality": "high",
+          "resolution": "1k",
+          "output_format": "png",
+          "count": 1
+        },
+        "prompt": "Edit the supplied FORME catalogue photograph, not a new scene. STYLE / BACKGROUND / CAMERA / COLOR LOCK: preserve the same 3:2 landscape canvas, exact gym architecture and equipment locations, lens perspective, athlete scale and placement, charcoal walls and rubber floor texture, subdued olive accents, window direction, shadow density, contrast, exposure and natural skin color. Keep the same athletic adult, face, hairstyle and clothing. Do not relight, warm, cool, brighten, add props, add logos/text, remove the background or replace the environment. Rebuild ONLY the athlete anatomy as needed to show the precise exercise with plausible joints and clear body continuity. Use the reference for scene, identity and composition, NEVER copy malformed body geometry. Exactly one athlete, two arms each connected shoulder-elbow-wrist-hand, two legs each connected hip-knee-ankle-foot; two hands with five normal fingers each, two shoes, no duplicate/merged limbs, plastic skin or exaggerated muscles. Keep all hands, shoes and support contacts inside frame with clean margins. A realistic premium sports photograph in this same existing location, not an illustration.\nEXERCISE-SPECIFIC CORRECTION:\nShow the same man in the controlled LOWERING phase of a strict wall handstand push-up, same wall/left window/rig, same framing. Two palms planted on floor, fingers realistically separated, two elbows bent about 90 degrees with forearms near vertical and shoulder engagement. Head slightly forward of palm line, clearly a few centimeters ABOVE floor, no load on head. Torso and pelvis stack vertically above shoulders, not a pike. Rebuild shorts, pelvis, thighs, knees and calves into natural symmetrical inverted anatomy: TWO straight legs with normal hip/knee proportions, a small readable gap between them, two normal ankles and TWO dark shoes. Both heels LIGHTLY contact the SAME wall plane, no pelvis kink, separated disconnected quadriceps, crossed calves, third foot, or fused shoes. Natural knee/quad forms without plastic bulges. Retain athlete, colors, exposure, shadows, background fixtures and camera.",
+        "adherence": "Model has no exposed strength/adherence parameter; actual reference input plus explicit scene-lock instructions, then individual visual comparison"
+      },
+      "variants": {
+        "480": {
+          "bytes": 12020,
+          "sha256": "e7c360d428e6ca836b8dc25e009220cb9d5863dbd2dd6bdebd35924d997d18a1"
+        },
+        "960": {
+          "bytes": 28986,
+          "sha256": "788e78a0935c14536982d7cb8bd0f429b763d9b2643fc331dcd7e500c413da88"
+        }
+      }
+    }
+  ],
+  "rejectedCandidates": [
+    {
+      "id": "Skin_the_Cat",
+      "jobId": "c7e608c4-912f-4a8b-8f66-64e454461c01",
+      "sourceSha256": "46a50f217a7afa75c565edb72f4bd187a0457820fec65a4b73188395b2b72686",
+      "reason": "The first candidate preserves the background but still compresses the black-shirt torso into a rounded lumbar fold, so it failed anatomical clarity. Never integrated."
+    }
+  ],
+  "catalogueAudit": [
+    {
+      "id": "Pushups",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Pushups",
+        "name": "Лицеви опори",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Pushups-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 12614,
+            "sha256": "a027b1396e6dfa464305bd1cefe8f26c67b42ec323903fd3270a0cdca73a8c3b"
+          },
+          "desktop": {
+            "path": "media/exercises/Pushups-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 42194,
+            "sha256": "df7f81c48997e40693d3c7496afec98398977c5a748149116e322ea0cd2d39d3"
+          }
+        }
+      }
+    },
+    {
+      "id": "Bodyweight_Squat",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Bodyweight_Squat",
+        "name": "Клек със собствено тегло",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Bodyweight_Squat-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 10620,
+            "sha256": "fe6d29c1c49dd0ed989db2bb9785bbf37858891be3e30d6f840def5c94e43bbf"
+          },
+          "desktop": {
+            "path": "media/exercises/Bodyweight_Squat-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 35818,
+            "sha256": "c1c8dc84f4d015d9f4a89a1b6e0a9fde2e868a10b3b43499afcb1ea7640cdbe5"
+          }
+        }
+      }
+    },
+    {
+      "id": "Plank",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Plank",
+        "name": "Планк",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Plank-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 12736,
+            "sha256": "a10077b15054aba98fd12a3c71338304a2cd93b58aae696cc20cd5b183246d9f"
+          },
+          "desktop": {
+            "path": "media/exercises/Plank-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 32076,
+            "sha256": "d52d58e4500d13b472dd9aa158f5db230e762284152f1e6e8ae217c0b9b90818"
+          }
+        }
+      }
+    },
+    {
+      "id": "Pullups",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Pullups",
+        "name": "Набирания с надхват",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Pullups-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 14332,
+            "sha256": "8ec0afc766a8aa2507b777101995a0c088e625e276c37e81b48680d1acf5b42e"
+          },
+          "desktop": {
+            "path": "media/exercises/Pullups-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 37058,
+            "sha256": "9e419f0ede7bf8c92a18261d29e46dc83ddca3e308ae1d891bd68a019a820113"
+          }
+        }
+      }
+    },
+    {
+      "id": "Mountain_Climbers",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Mountain_Climbers",
+        "name": "Планински катерач",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Mountain_Climbers-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 18272,
+            "sha256": "02eddca85956b281a58a1b4fe0b1676d426cda62e722b16bbceccbee96a7499e"
+          },
+          "desktop": {
+            "path": "media/exercises/Mountain_Climbers-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 52756,
+            "sha256": "1853398cdd959da239f34a7d7dfe7865305fbc982fdf97db2113a1f55d098f08"
+          }
+        }
+      }
+    },
+    {
+      "id": "Bench_Dips",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Bench_Dips",
+        "name": "Кофички на пейка",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Bench_Dips-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 16798,
+            "sha256": "ab94bb7f463891c5fe0393fafd9b7020800071643d835c982c8d74ba96a5794f"
+          },
+          "desktop": {
+            "path": "media/exercises/Bench_Dips-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 48272,
+            "sha256": "d0675fc42c7e4b0548149ed8b5a630b7c33801e1b8be81f79596a26e8b02b1e0"
+          }
+        }
+      }
+    },
+    {
+      "id": "Hanging_Leg_Raise",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Hanging_Leg_Raise",
+        "name": "Повдигане на крака от вис",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Hanging_Leg_Raise-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 14396,
+            "sha256": "c48aaa88cfa35cd091ce4eeb766f369dc0c12635e995a8a82f4ba48194fa8df3"
+          },
+          "desktop": {
+            "path": "media/exercises/Hanging_Leg_Raise-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 33676,
+            "sha256": "0f5008ac3ffc81c89c23bb47b694ec143c20ad7e7fa90e0264b209feaba36af9"
+          }
+        }
+      }
+    },
+    {
+      "id": "Side_Bridge",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Side_Bridge",
+        "name": "Страничен планк",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Side_Bridge-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 15258,
+            "sha256": "52e45e66ef152d1c2903c1820b0c5623588607e74c6f00ea812118c22644d836"
+          },
+          "desktop": {
+            "path": "media/exercises/Side_Bridge-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 44654,
+            "sha256": "c3be47a159ff580aa60ebea67dfd3813173d442e8852382946b6f950bdea2ce4"
+          }
+        }
+      }
+    },
+    {
+      "id": "Childs_Pose",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Childs_Pose",
+        "name": "Поза на детето",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Childs_Pose-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 16626,
+            "sha256": "1958d16959655880dd93934d2c2619b3743cbd23f495abaa7a1d1cb77d274dc6"
+          },
+          "desktop": {
+            "path": "media/exercises/Childs_Pose-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 41632,
+            "sha256": "5ed8daabf8aa67e2ae1dbbef213f6f62a5cfcdf9cc494f0fc0a3e72f0ef3b936"
+          }
+        }
+      }
+    },
+    {
+      "id": "Cat_Stretch",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Cat_Stretch",
+        "name": "Котешки гръб",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Cat_Stretch-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 13424,
+            "sha256": "3e5a13501806ea5663566d3b6532fbe573222cf136aa38f59a7b4b9ec11ad35a"
+          },
+          "desktop": {
+            "path": "media/exercises/Cat_Stretch-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 37266,
+            "sha256": "a8431de7249ec1b23bd7320f84e36030432b6ffbcbdec6317582579bf702f555"
+          }
+        }
+      }
+    },
+    {
+      "id": "Butt_Lift_Bridge",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Butt_Lift_Bridge",
+        "name": "Мост от лег",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Butt_Lift_Bridge-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 15260,
+            "sha256": "d034b285340e18bf03faa44e7ab3349b32e1edf43eafcfd03f2504e1e739129e"
+          },
+          "desktop": {
+            "path": "media/exercises/Butt_Lift_Bridge-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 40190,
+            "sha256": "193c9f757cf2d91923557c16de8d029f72e720a1d6921748c045f04ce4300016"
+          }
+        }
+      }
+    },
+    {
+      "id": "Dancers_Stretch",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Dancers_Stretch",
+        "name": "Седящо усукване",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Dancers_Stretch-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 15648,
+            "sha256": "b64579358623a8f210b5e38edbd53d2931ef9bf180fda9c032a38e8497e615f8"
+          },
+          "desktop": {
+            "path": "media/exercises/Dancers_Stretch-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 40282,
+            "sha256": "3f01d5e699a69fa9b64d41c5e8f8fe0dac897a684763ffe055cd4bfb29d2d98c"
+          }
+        }
+      }
+    },
+    {
+      "id": "Seated_Floor_Hamstring_Stretch",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Seated_Floor_Hamstring_Stretch",
+        "name": "Наклон напред в седеж",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Seated_Floor_Hamstring_Stretch-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 16786,
+            "sha256": "18f7e40aa18d503cd05f2f92c32b5542082b18c6824c517dc00e0a986b45b43f"
+          },
+          "desktop": {
+            "path": "media/exercises/Seated_Floor_Hamstring_Stretch-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 41714,
+            "sha256": "2d353021774c09cf811b4d9d86b3daab851548e537fa46349d3bd9e47dbfe43c"
+          }
+        }
+      }
+    },
+    {
+      "id": "Groin_and_Back_Stretch",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Groin_and_Back_Stretch",
+        "name": "Пеперуда в седеж",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Groin_and_Back_Stretch-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 17746,
+            "sha256": "cdb6c43280ccf1a522678508df809b84d13021df57888b8a40418f6ce91da16e"
+          },
+          "desktop": {
+            "path": "media/exercises/Groin_and_Back_Stretch-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 56856,
+            "sha256": "869bf40c2ec0c4ceeb07b4bc5bd823ff7d97b1edc1f934fbb764662afdbe9d89"
+          }
+        }
+      }
+    },
+    {
+      "id": "Spinal_Stretch",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Spinal_Stretch",
+        "name": "Разтягане на гръбнака в седеж",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Spinal_Stretch-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 16002,
+            "sha256": "39a1333a60f21d4266c113ee89fdb648dbcd50ba922e6742e112af937ef2ba79"
+          },
+          "desktop": {
+            "path": "media/exercises/Spinal_Stretch-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 42174,
+            "sha256": "3a48db62df11b0c210de5cc775d74bfe2f5537bd10ddf1905ec2cf94c2b274ce"
+          }
+        }
+      }
+    },
+    {
+      "id": "Seated_Overhead_Stretch",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Seated_Overhead_Stretch",
+        "name": "Странично разтягане в седеж",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-17",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "individual source, 960/480 and exact exercise phase reviewed",
+          "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+          "status": "accepted-visual",
+          "revision": "anatomy-v3",
+          "receipt": "qa/exercise-image-review-v3.json",
+          "contract": "qa/exercise-image-contracts.json",
+          "sourceSha256": "b5738d77c78e01b92d903efb9d3eff4d77094374015c35d6cf1a9e4d666c69bb"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Seated_Overhead_Stretch-anatomy-v3-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 15988,
+            "sha256": "72a9536dbfd68e01e1eaa1f221fb2653112e7e37c5cc0de3e9cf6a7b32573401"
+          },
+          "desktop": {
+            "path": "media/exercises/Seated_Overhead_Stretch-anatomy-v3-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 48032,
+            "sha256": "784f2ba3f524f539a23985648edaf9b197f79487a501d7dcd3141872e9bf934d"
+          }
+        }
+      }
+    },
+    {
+      "id": "Standing_Hip_Circles",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Standing_Hip_Circles",
+        "name": "Кръгове с тазобедрена става",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Standing_Hip_Circles-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 13942,
+            "sha256": "676faaa72ea260080cdfe74ec75c55dafa7aeaf54ed41332284aede4cb9d2baa"
+          },
+          "desktop": {
+            "path": "media/exercises/Standing_Hip_Circles-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 37176,
+            "sha256": "be14cb81ad56d0cd00a0491ed128f581886df8f17ae0e88de984d1fe25bb34a9"
+          }
+        }
+      }
+    },
+    {
+      "id": "Hip_Circles_prone",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Hip_Circles_prone",
+        "name": "Кръгове с коляно от четири опори",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-17",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "individual source, 960/480 and exact exercise phase reviewed",
+          "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+          "status": "accepted-visual",
+          "revision": "anatomy-v3",
+          "receipt": "qa/exercise-image-review-v3.json",
+          "contract": "qa/exercise-image-contracts.json",
+          "sourceSha256": "87240181bd552bf40c82ec5aca187c48249b9b128441e33140018a477910d956"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Hip_Circles_prone-anatomy-v3-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 17518,
+            "sha256": "bc5f80a2b81ed7b6aae1607d1836dd3da47f5cca2a5e0f11096eb3f5aa3163ff"
+          },
+          "desktop": {
+            "path": "media/exercises/Hip_Circles_prone-anatomy-v3-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 45498,
+            "sha256": "801ef7c10dfeb31fb2bcc02e7068fc79e74412174916977bb3e614d5f17ee399"
+          }
+        }
+      }
+    },
+    {
+      "id": "Arm_Circles",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Arm_Circles",
+        "name": "Кръгове с ръце",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Arm_Circles-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 15992,
+            "sha256": "b885d201e09449be9ede1aee12eb45d7ea2e6328eed9278a6100347d6b75d0cc"
+          },
+          "desktop": {
+            "path": "media/exercises/Arm_Circles-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 44972,
+            "sha256": "c6df3dbdf9af89fd4cf59055f2148b4c3d7f97c4400440e074d212ef92b378ba"
+          }
+        }
+      }
+    },
+    {
+      "id": "Kneeling_Hip_Flexor",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Kneeling_Hip_Flexor",
+        "name": "Разтягане на сгъвачите на таза",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Kneeling_Hip_Flexor-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 17474,
+            "sha256": "b575f34a90b5310b791a950db5d9ae82ed33ac4153dec073574b1615274381bf"
+          },
+          "desktop": {
+            "path": "media/exercises/Kneeling_Hip_Flexor-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 44288,
+            "sha256": "a09bc35d82c5fa0c6a477fbc77df519569a53a01f0b3ebdcbdbacef24b919519"
+          }
+        }
+      }
+    },
+    {
+      "id": "Dynamic_Chest_Stretch",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Dynamic_Chest_Stretch",
+        "name": "Динамично отваряне на гърди",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Dynamic_Chest_Stretch-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 17756,
+            "sha256": "6d21ea2e615b49e61b282e4dedca95fd351e33cac89b83c11b884a2aef99c0c1"
+          },
+          "desktop": {
+            "path": "media/exercises/Dynamic_Chest_Stretch-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 48152,
+            "sha256": "d2fa99e585b3d73de42d2790e39f968bb5f4b8b89b2e8c23a1ae39091fe004ef"
+          }
+        }
+      }
+    },
+    {
+      "id": "Shoulder_Stretch",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Shoulder_Stretch",
+        "name": "Разтягане на рамо",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Shoulder_Stretch-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 16750,
+            "sha256": "944630ec2c9ae829bbd5d698bd6224cad8cfc1fe5aea02b03eb169424d1f5b1c"
+          },
+          "desktop": {
+            "path": "media/exercises/Shoulder_Stretch-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 42366,
+            "sha256": "446e5496f8c03baffa1dd9b103cbb8c6494d113ac1668f2cf35acb15b89ba51c"
+          }
+        }
+      }
+    },
+    {
+      "id": "Calf_Stretch_Hands_Against_Wall",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Calf_Stretch_Hands_Against_Wall",
+        "name": "Разтягане на прасец до стена",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Calf_Stretch_Hands_Against_Wall-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 15016,
+            "sha256": "f4c9b8e5c76fb87fc0619276f6b9d30f6cc06208926c6f21aa2003d466d5f4bd"
+          },
+          "desktop": {
+            "path": "media/exercises/Calf_Stretch_Hands_Against_Wall-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 38938,
+            "sha256": "09b60cbb8dcf4304790c93efc9c100014115f0ba4af47921fec89a97c73129a4"
+          }
+        }
+      }
+    },
+    {
+      "id": "Kneeling_Forearm_Stretch",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Kneeling_Forearm_Stretch",
+        "name": "Разтягане на китки",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-17",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "individual source, 960/480 and exact exercise phase reviewed",
+          "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+          "status": "accepted-visual",
+          "revision": "anatomy-v3",
+          "receipt": "qa/exercise-image-review-v3.json",
+          "contract": "qa/exercise-image-contracts.json",
+          "sourceSha256": "0efa1e2d8403404a1f843a3ccddf23ea35835721d4e71fbb2369a16e23982eaa"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Kneeling_Forearm_Stretch-anatomy-v3-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 20310,
+            "sha256": "7d7fcbb36b19fb33fff1b817a8a0b5917d06643b4c867ac444afd099d4068467"
+          },
+          "desktop": {
+            "path": "media/exercises/Kneeling_Forearm_Stretch-anatomy-v3-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 56264,
+            "sha256": "3581aeba21e48c95d93defbc9bdff7bebfb3379ef88bdc2f6547179263ef667e"
+          }
+        }
+      }
+    },
+    {
+      "id": "Chinups",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Chinups",
+        "name": "Набирания с подхват",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Chinups-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 17856,
+            "sha256": "bb9449fe1f59d1fa310ed5aecdddf74d4a9661b0b52495f8df038816c9435866"
+          },
+          "desktop": {
+            "path": "media/exercises/Chinups-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 46412,
+            "sha256": "582a9674bbfcd19fd2cdcbf80ea31b54dc0e92ff6355270f399338b4bcabfdfe"
+          }
+        }
+      }
+    },
+    {
+      "id": "Australian_Rows",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Australian_Rows",
+        "name": "Австралийски набирания",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Australian_Rows-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 17300,
+            "sha256": "133585767f0e232e5eb0dc1cad07e2abeef2325bf933668b4bf86cd32c2616c9"
+          },
+          "desktop": {
+            "path": "media/exercises/Australian_Rows-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 53510,
+            "sha256": "e7335a7aaf209428832bc5208528969e1487e0a203da2262e5e9f0474fd097c9"
+          }
+        }
+      }
+    },
+    {
+      "id": "Parallel_Bar_Dips",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Parallel_Bar_Dips",
+        "name": "Кофички на успоредка",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Parallel_Bar_Dips-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 17434,
+            "sha256": "65b8c4a680a9a5019f568112dda3cca3ee878197c51e89100b44e9aafffbd063"
+          },
+          "desktop": {
+            "path": "media/exercises/Parallel_Bar_Dips-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 42516,
+            "sha256": "cf4e32b81cf013b7d213f4c8415b7ce07e237f3da56c0788e2e7d36137eb326b"
+          }
+        }
+      }
+    },
+    {
+      "id": "Bar_Muscle_Up",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Bar_Muscle_Up",
+        "name": "Силово възлизане на лост",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Bar_Muscle_Up-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 18504,
+            "sha256": "b3a3ed45ae496fa0c3cb816d30dc215148a36622d7b71515301683c2a25ffd2f"
+          },
+          "desktop": {
+            "path": "media/exercises/Bar_Muscle_Up-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 41976,
+            "sha256": "863e0753ad7ef5bb6d4be5766701bf72fd955f673fca0f04b55ec2cca22f1fa7"
+          }
+        }
+      }
+    },
+    {
+      "id": "Hollow_Body_Hold",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Hollow_Body_Hold",
+        "name": "Лодка (hollow hold)",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Hollow_Body_Hold-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 13936,
+            "sha256": "41915d48b9d5e98dc7a31be54fb6ed26cbe87155d6a92d0b86567470658b8036"
+          },
+          "desktop": {
+            "path": "media/exercises/Hollow_Body_Hold-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 35098,
+            "sha256": "53ea05cf5959c717044832754f1ec25d4fb1de58773fa65b78b83ef71b1b0e68"
+          }
+        }
+      }
+    },
+    {
+      "id": "Frog_Stand",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Frog_Stand",
+        "name": "Жабешка стойка",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Frog_Stand-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 17906,
+            "sha256": "e71686a1a2e5b70d29f1ca67953d1b8287e56ba3911e5d391cbbebc4f816ebd7"
+          },
+          "desktop": {
+            "path": "media/exercises/Frog_Stand-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 43518,
+            "sha256": "40cead02021a48914a8709007755de7d4c454e4540bedbf92d89b0df74103831"
+          }
+        }
+      }
+    },
+    {
+      "id": "Pike_Pushups",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Pike_Pushups",
+        "name": "Пайк лицеви опори",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Pike_Pushups-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 20864,
+            "sha256": "0ed08f55e55e40375a62b18a622a1152e22959d0602f625d5f576a8112eeb5a5"
+          },
+          "desktop": {
+            "path": "media/exercises/Pike_Pushups-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 52682,
+            "sha256": "3b6af1f19463e61c556397a4dde0f20a4946795a0f58f85c1b8865594ee2e7df"
+          }
+        }
+      }
+    },
+    {
+      "id": "Skin_the_Cat",
+      "result": "replaced-higgsfield-style-lock",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Skin_the_Cat",
+        "name": "Превъртане във вис (skin the cat)",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-17",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "individual source and final 960/480 variants reviewed",
+          "scope": "limb continuity, pose, joints, equipment contacts and style; not independent technique certification",
+          "status": "accepted-visual",
+          "revision": "anatomy-v2",
+          "receipt": "qa/exercise-image-review.json",
+          "sourceSha256": "a5cde0fa3dbac15cbf4a4253f8801808336dbb1451d5d4dcde035674628b4afe"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Skin_the_Cat-anatomy-v2-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 20708,
+            "sha256": "f3c795d57d840f8ba6db4e434208ea406ea09f8fcb9169ca3eddef4e52d044f6"
+          },
+          "desktop": {
+            "path": "media/exercises/Skin_the_Cat-anatomy-v2-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 55686,
+            "sha256": "6eaea55c2730cab9ad945ebe04984e8be49d57864501761f2085ee121945210e"
+          }
+        }
+      }
+    },
+    {
+      "id": "Toes_to_Bar",
+      "result": "replaced-higgsfield-style-lock",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Toes_to_Bar",
+        "name": "Пръсти към лоста",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-17",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "individual source, 960/480 and exact exercise phase reviewed",
+          "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+          "status": "accepted-visual",
+          "revision": "anatomy-v3",
+          "receipt": "qa/exercise-image-review-v3.json",
+          "contract": "qa/exercise-image-contracts.json",
+          "sourceSha256": "82489a7e9f0e30af5ff2ef28d93e415f9ac914621fc358f2d62c35e339ce92af"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Toes_to_Bar-anatomy-v3-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 18354,
+            "sha256": "6efb208bb2d5030156ce19807e87692088734a9ba1c4412e1034b2bf91ec4fd0"
+          },
+          "desktop": {
+            "path": "media/exercises/Toes_to_Bar-anatomy-v3-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 46500,
+            "sha256": "6282ed2f565810e2f754b98437d627b0ee7bb19f8bc75efbc880bc34c0fc0dc3"
+          }
+        }
+      }
+    },
+    {
+      "id": "Archer_Pushups",
+      "result": "replaced-higgsfield-style-lock",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Archer_Pushups",
+        "name": "Стрелец лицеви опори",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-17",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "individual source, 960/480 and exact exercise phase reviewed",
+          "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+          "status": "accepted-visual",
+          "revision": "anatomy-v3",
+          "receipt": "qa/exercise-image-review-v3.json",
+          "contract": "qa/exercise-image-contracts.json",
+          "sourceSha256": "ea1523bcb4818dd18199cf6ce55802690f9747e44832523300c9657bf69944e9"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Archer_Pushups-anatomy-v3-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 11386,
+            "sha256": "fd22b18b7a59dc0ba7f74754f1c149879d459773b877a80a557ed9c0bbdb1003"
+          },
+          "desktop": {
+            "path": "media/exercises/Archer_Pushups-anatomy-v3-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 43998,
+            "sha256": "20ecf94771907f16d4ed958ab20e6082aec4ea9a57683bac07475886af823eb2"
+          }
+        }
+      }
+    },
+    {
+      "id": "Pistol_Squat",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Pistol_Squat",
+        "name": "Клек на един крак",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Pistol_Squat-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 16920,
+            "sha256": "ace8c60dc8d177223c9b5fdd8930e61f60507b1bdf1c5f86ae0c6f45a08fec86"
+          },
+          "desktop": {
+            "path": "media/exercises/Pistol_Squat-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 50476,
+            "sha256": "72220ca0c5e2ecfa655b62493ec80d4e104f36e7b6832f05834df43f58f92ac4"
+          }
+        }
+      }
+    },
+    {
+      "id": "L_Sit",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "L_Sit",
+        "name": "L-седеж",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/L_Sit-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 17702,
+            "sha256": "816737a0805de265d3f462e7495b68edf67d3bc6e9f750b4444c92d71fe5a5af"
+          },
+          "desktop": {
+            "path": "media/exercises/L_Sit-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 49726,
+            "sha256": "cb45f02ea22fcd77804e19cccd2b0352dc1367b7f227b940117dfffbb73d9f56"
+          }
+        }
+      }
+    },
+    {
+      "id": "Dragon_Flag",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Dragon_Flag",
+        "name": "Драконов флаг",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Dragon_Flag-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 16824,
+            "sha256": "ecb558f39145f9f87325bb327db7ba4f5e019a1eb0ae2dee85b430ae5eb948de"
+          },
+          "desktop": {
+            "path": "media/exercises/Dragon_Flag-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 41888,
+            "sha256": "fe81e2b8624b5464dd2d1acce5b987debf38fc16b1f998d46ae45dd51d86489f"
+          }
+        }
+      }
+    },
+    {
+      "id": "Handstand",
+      "result": "replaced-higgsfield-style-lock",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Handstand",
+        "name": "Стойка на ръце",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-17",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "individual source, 960/480 and exact exercise phase reviewed",
+          "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+          "status": "accepted-visual",
+          "revision": "anatomy-v3",
+          "receipt": "qa/exercise-image-review-v3.json",
+          "contract": "qa/exercise-image-contracts.json",
+          "sourceSha256": "c664adb91a35f62f54415e3d2e7f09a9f41959ac79befb1dafffd6b76562c955"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Handstand-anatomy-v3-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 10300,
+            "sha256": "f2f8710fb73a402c6ef4db688c81bddd3e4563cd9c29941978c6aeafb9572360"
+          },
+          "desktop": {
+            "path": "media/exercises/Handstand-anatomy-v3-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 27940,
+            "sha256": "69da4d820b1c83070ba213e9b327dc84f1301c1c015ac03ce2b4f54ee666067f"
+          }
+        }
+      }
+    },
+    {
+      "id": "Tuck_Planche",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Tuck_Planche",
+        "name": "Тък планч",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-17",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "individual source, 960/480 and exact exercise phase reviewed",
+          "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+          "status": "accepted-visual",
+          "revision": "anatomy-v3",
+          "receipt": "qa/exercise-image-review-v3.json",
+          "contract": "qa/exercise-image-contracts.json",
+          "sourceSha256": "de89d53559bdec6931de4d6f4fc1972102fcc27d816f004c202caf69ff209123"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Tuck_Planche-anatomy-v3-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 19354,
+            "sha256": "c3472dee49538a7503e0d5995730990633652028da8a747048bb227fad52ed1e"
+          },
+          "desktop": {
+            "path": "media/exercises/Tuck_Planche-anatomy-v3-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 56156,
+            "sha256": "e9dd4268b2ec9f9a931cafff4fab774146c78e6f1974ba518aeff2564a394e39"
+          }
+        }
+      }
+    },
+    {
+      "id": "Tuck_Front_Lever",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Tuck_Front_Lever",
+        "name": "Тък фронт левър",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-17",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "individual source, 960/480 and exact exercise phase reviewed",
+          "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+          "status": "accepted-visual",
+          "revision": "anatomy-v3",
+          "receipt": "qa/exercise-image-review-v3.json",
+          "contract": "qa/exercise-image-contracts.json",
+          "sourceSha256": "d1398fd9381aa184ee0409e1cc9e52b8373b24d2ae96f39f2a57c6a96323f5e4"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Tuck_Front_Lever-anatomy-v3-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 10494,
+            "sha256": "d2fbc9193d3607d4aa8759f3c3373648d8f8c3eee503e05810c80d6fbe90d06a"
+          },
+          "desktop": {
+            "path": "media/exercises/Tuck_Front_Lever-anatomy-v3-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 27354,
+            "sha256": "d96e825158deab5a6c98215720858286800a68078a83241472df47f9ab3424ba"
+          }
+        }
+      }
+    },
+    {
+      "id": "Ring_Muscle_Up",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Ring_Muscle_Up",
+        "name": "Силово възлизане на халки",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Ring_Muscle_Up-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 19168,
+            "sha256": "b607fad2dca669ff76cd48caaab67d18065b0bc9fd7296e57b858849c87a044a"
+          },
+          "desktop": {
+            "path": "media/exercises/Ring_Muscle_Up-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 46238,
+            "sha256": "fdc5b5365567e8ffaa0992fb66eff70b1beaf953a75213d2be99320b4f7167e4"
+          }
+        }
+      }
+    },
+    {
+      "id": "Back_Lever",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Back_Lever",
+        "name": "Бек левър",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Back_Lever-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 18072,
+            "sha256": "be1476bc272c169bf03a4c126ea09c6557db2003a9a79b519df08a8198c38dac"
+          },
+          "desktop": {
+            "path": "media/exercises/Back_Lever-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 43646,
+            "sha256": "9bbdd926a3b22ae2623b53cdfe2b7e34c7968c3800e45bf8b1294482725594c7"
+          }
+        }
+      }
+    },
+    {
+      "id": "Human_Flag",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Human_Flag",
+        "name": "Човешко знаме",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Human_Flag-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 16800,
+            "sha256": "020227621dfb39454b3257e401e58fa6c8d68766332097440479c85f1d75b358"
+          },
+          "desktop": {
+            "path": "media/exercises/Human_Flag-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 45608,
+            "sha256": "31b7f4decc317c7207bbedf30d3c6800c9b9696c658148d91eb1a9bf990292a3"
+          }
+        }
+      }
+    },
+    {
+      "id": "Handstand_Pushups",
+      "result": "replaced-higgsfield-style-lock",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Handstand_Pushups",
+        "name": "Лицеви опори от стойка на ръце",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-17",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "individual source, 960/480 and exact exercise phase reviewed",
+          "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+          "status": "accepted-visual",
+          "revision": "anatomy-v3",
+          "receipt": "qa/exercise-image-review-v3.json",
+          "contract": "qa/exercise-image-contracts.json",
+          "sourceSha256": "a01f48e55e7eea5230661d4eeecaea5a09f8d7e3f87b23235eac69bc5acb5da0"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Handstand_Pushups-anatomy-v3-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 11860,
+            "sha256": "f5abf2f04b31b7e51fabc26454c6ba9452219360920efa37149b77ec5a0ad028"
+          },
+          "desktop": {
+            "path": "media/exercises/Handstand_Pushups-anatomy-v3-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 31068,
+            "sha256": "a2191aec1484d01602e6fd20c7f73a2d41c716813672d22a918a5e9ea089c09e"
+          }
+        }
+      }
+    },
+    {
+      "id": "Front_Lever",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Front_Lever",
+        "name": "Фронт левър",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Front_Lever-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 16948,
+            "sha256": "48dacf3afdb86b5f2317e9b712423e7f3b39525ce011f04dd8e0fd9a1842a74c"
+          },
+          "desktop": {
+            "path": "media/exercises/Front_Lever-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 42576,
+            "sha256": "02f5758b0831f6b59dbde51538cc1bee0ca406757537a1d50901f40176527405"
+          }
+        }
+      }
+    },
+    {
+      "id": "Straddle_Planche",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Straddle_Planche",
+        "name": "Страдъл планч",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-17",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "individual source, 960/480 and exact exercise phase reviewed",
+          "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+          "status": "accepted-visual",
+          "revision": "anatomy-v3",
+          "receipt": "qa/exercise-image-review-v3.json",
+          "contract": "qa/exercise-image-contracts.json",
+          "sourceSha256": "ad8908040123c36a2347723778927b8fdd4f10586164fac9df291d8c66bdfe2e"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Straddle_Planche-anatomy-v3-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 17354,
+            "sha256": "069645ca880a83d1605a623d3c33064d13bdcb4528d0b02cc5dcfee03d5c78f9"
+          },
+          "desktop": {
+            "path": "media/exercises/Straddle_Planche-anatomy-v3-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 61706,
+            "sha256": "5f9e332899832ff9969cdd9754781e534a8b33ac340148cd43572bc3dab8422a"
+          }
+        }
+      }
+    },
+    {
+      "id": "Full_Planche",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Full_Planche",
+        "name": "Пълен планч",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-17",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "individual source, 960/480 and exact exercise phase reviewed",
+          "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
+          "status": "accepted-visual",
+          "revision": "anatomy-v3",
+          "receipt": "qa/exercise-image-review-v3.json",
+          "contract": "qa/exercise-image-contracts.json",
+          "sourceSha256": "33aa51cc227a9dbc4cec45a9752802f060c82ffc4f1a246e07e9edfeb076cca3"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Full_Planche-anatomy-v3-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 20062,
+            "sha256": "b5203f8ec325fafe608e72afc4be14961fa08153d7417bc73f3e46f798227643"
+          },
+          "desktop": {
+            "path": "media/exercises/Full_Planche-anatomy-v3-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 59094,
+            "sha256": "b41d048a3f4240b39e48b192881967a7a5b27e9074a7919c075e6f35fe05e753"
+          }
+        }
+      }
+    },
+    {
+      "id": "One_Arm_Pull_Up",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "One_Arm_Pull_Up",
+        "name": "Набиране с една ръка",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/One_Arm_Pull_Up-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 17660,
+            "sha256": "3334050a5169bb61c9d70f78fc2adf0965822e0cb86741fe0aaba5dd9e18d78e"
+          },
+          "desktop": {
+            "path": "media/exercises/One_Arm_Pull_Up-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 45708,
+            "sha256": "1cd0cf6bd248ce5d20135185247e3f5ee9995de57724f0d6663113e46578c439"
+          }
+        }
+      }
+    },
+    {
+      "id": "Iron_Cross",
+      "result": "unchanged-outside-request",
+      "baselineEntry": {
+        "kind": "exercise",
+        "id": "Iron_Cross",
+        "name": "Железен кръст",
+        "origin": "AI generated",
+        "tool": "OpenAI image generation tool",
+        "date": "2026-11-07",
+        "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+        "review": {
+          "visual": "contact-sheet reviewed",
+          "scope": "pose, equipment and anatomy; not technique certification"
+        },
+        "variants": {
+          "mobile": {
+            "path": "media/exercises/Iron_Cross-480.webp",
+            "width": 480,
+            "height": 320,
+            "bytes": 16580,
+            "sha256": "a97e33c5d5f359069781fcdc7fd7537c847ca3068e20992749150dfab812cd7a"
+          },
+          "desktop": {
+            "path": "media/exercises/Iron_Cross-960.webp",
+            "width": 960,
+            "height": 640,
+            "bytes": 44122,
+            "sha256": "c0c03d84b4aa7755f2510aa42111934273ea6023ab89dd5ab8297f9465bfc8ec"
+          }
+        }
+      }
+    }
+  ],
+  "totalGenerationCredits": 7.5
+}

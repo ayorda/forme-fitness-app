@@ -277,6 +277,32 @@
         "fingers forward",
         "backs-of-hands stretch"
       ]
+    },
+    {
+      "id": "Skin_the_Cat",
+      "catalogue": {
+        "id": "Skin_the_Cat",
+        "name": "Превъртане във вис (skin the cat)",
+        "level": "advanced",
+        "equip": "rings",
+        "description": "Напреднало движение за контрол и подвижност на раменете.",
+        "steps": "На стабилни халки прибери коленете и преминавай бавно само през обхват, който контролираш.",
+        "easier": "Подготви се с активен вис и контролирано прибиране на колене.",
+        "defaultMetric": "reps"
+      },
+      "phase": "controlled-inverted-ring-tuck-transition",
+      "requiredVisible": {
+        "twoRingGrips": "Two hands grip two wooden rings on separate suspended straps; arms connect to natural shoulder sockets.",
+        "invertedTransition": "Pelvis above shoulders and head in a compact inverted ring transition, not an upright crunch or front lever.",
+        "continuousTorso": "A normally proportioned continuous torso joins shoulders to pelvis without an extreme lumbar fold.",
+        "twoTuckedLegs": "Two thighs, bent knees, shins and separate shoes can be traced; no extra foot or fused pelvis."
+      },
+      "rejectIf": [
+        "impossible lumbar fold",
+        "dislocated shoulder",
+        "merged legs",
+        "arbitrary acrobatic pose"
+      ]
     }
   ]
 }

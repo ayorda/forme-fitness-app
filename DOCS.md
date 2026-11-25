@@ -46,7 +46,9 @@
 
 ### Изображения, видео и звук
 
-- [QA-EXERCISE-EXACT-MATCH.md](./QA-EXERCISE-EXACT-MATCH.md) — текущ строг преглед на изображенията на упражненията (v0.15.6).
+- [QA-EXERCISE-HIGGSFIELD.md](./QA-EXERCISE-HIGGSFIELD.md) — текущи пет Higgsfield корекции със запазване на сцена/стил (v0.16.2).
+
+- [QA-EXERCISE-EXACT-MATCH.md](./QA-EXERCISE-EXACT-MATCH.md) — предходен строг преглед (v0.15.6); пет ID са заменени във v0.16.2.
 - [QA-EXERCISE-IMAGES.md](./QA-EXERCISE-IMAGES.md) — преглед v0.15.4, частично отменен от строгия преглед — исторически
 - [QA-VIDEO.md](./QA-VIDEO.md) — текущи проверки на видеото и плейъра.
 - [QA-VIDEO-REAL-V4.md](./QA-VIDEO-REAL-V4.md) — избор и преглед на реалния клип Parallel Bar Dips.

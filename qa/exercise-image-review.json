@@ -39,7 +39,8 @@
           "bytes": 55686,
           "sha256": "6eaea55c2730cab9ad945ebe04984e8be49d57864501761f2085ee121945210e"
         }
-      }
+      },
+      "supersededBy": "qa/exercise-image-review-v4.json"
     },
     {
       "id": "Toes_to_Bar",
@@ -76,7 +77,8 @@
           "bytes": 45458,
           "sha256": "44557d860d512bb93b92647a904618b5fc6ef1ee3c661a296496718fc1fb0b62"
         }
-      }
+      },
+      "supersededBy": "qa/exercise-image-review-v4.json"
     },
     {
       "id": "Archer_Pushups",
@@ -113,7 +115,8 @@
           "bytes": 56610,
           "sha256": "b7bd97379014c19b6432fbe4484404b8d62ce948bd1f9b4f3da41a752075ef12"
         }
-      }
+      },
+      "supersededBy": "qa/exercise-image-review-v4.json"
     },
     {
       "id": "Handstand",
@@ -150,7 +153,8 @@
           "bytes": 56682,
           "sha256": "3c0a7f6e1e8a53da4e85d89adc92a8387f620a6ef6e4948869fed65a6f39b9a2"
         }
-      }
+      },
+      "supersededBy": "qa/exercise-image-review-v4.json"
     },
     {
       "id": "Handstand_Pushups",
@@ -187,7 +191,8 @@
           "bytes": 54064,
           "sha256": "242af822d7093c2cd3c59269f79c004674a4f63cf9d499ef7cd0f44daf7b9d80"
         }
-      }
+      },
+      "supersededBy": "qa/exercise-image-review-v4.json"
     }
   ],
   "rejectedCandidates": [
@@ -508,5 +513,6 @@
       "Archer_Pushups"
     ],
     "reason": "Owner rejected exact exercise clarity; historical visual acceptance is superseded for these images. Skin_the_Cat remains the active v2 image."
-  }
+  },
+  "currentScopeNote": "Historical review; the five IDs in review-v4 are superseded by the owner-requested Higgsfield correction on 2026-11-25."
 }

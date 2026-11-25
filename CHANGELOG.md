@@ -1,12 +1,19 @@
 # CHANGELOG
 
+## v0.16.2 — 2026-11-25
+
+Пет Higgsfield reference edits за Handstand, Skin the Cat, Toes to Bar, Archer Push-Ups и Handstand Push-Ups, със самостоятелни проверки на анатомия, точно упражнение, фон и стил. Десет нови WebP файла, селективно пенсиониране на стария кеш и запазени други 44 exercise записа. [Действителни сравнения и QA](./QA-EXERCISE-HIGGSFIELD.md).
+
+
 Всички забележими промени в FORME. Версията се води в `interface-translations.js` (`shell.version`) и се
 проверява автоматично от `version-consistency.test.js`. Пълният списък с версии и екрани е в [README.md](./README.md)
 и [DEMO.md](./DEMO.md).
 
-- Текуща версия: **v0.10.0**
-- Автоматични тестове: **687**
-- Публичен PWA кеш (main): `forme-mobile-v0100-access1`
+Историческа справка за v0.10.0 (актуалната версия е по-горе):
+
+- Версия тогава: **v0.10.0**
+- Автоматични тестове тогава: **687**
+- PWA кеш тогава: `forme-mobile-v0100-access1`
 
 ## v0.10.0 — 3.4 Free/Pro основа · 15.11.2026
 

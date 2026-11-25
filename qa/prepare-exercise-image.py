@@ -56,6 +56,19 @@ def validate_exact_match(record, exercise):
         raise ValueError('Every exact exercise criterion needs a passing visual observation')
     if set(record.get('reviewedVariants', [])) != {'source', '480', '960'}:
         raise ValueError('Source and both compressed sizes must be reviewed')
+    if record.get('revision') == 'higgsfield-v4':
+        lock = record.get('styleLock', {})
+        if lock.get('referenceSha256') != record.get('oldDesktopSha256') or not re.fullmatch(r'[a-f0-9]{64}', lock.get('referenceSha256', '')):
+            raise ValueError('Style lock must bind the exact previous reference')
+        if lock.get('status') != 'accepted' or set(lock.get('criteria', {})) != {'background', 'composition', 'colorLighting', 'materials'}:
+            raise ValueError('Need separate background, composition, color and material review')
+        if any(c.get('passed') is not True or len(c.get('observation', '').strip()) < 30 for c in lock['criteria'].values()):
+            raise ValueError('Every style-lock criterion needs a passing comparison observation')
+        gen = record.get('generation', {})
+        if gen.get('platform') != 'Higgsfield' or gen.get('model') != 'gpt_image_2_6' or gen.get('status') != 'completed' or not re.fullmatch(r'[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}', gen.get('jobId', '')):
+            raise ValueError('Need confirmed Higgsfield model and job provenance')
+        if gen.get('referenceSha256') != lock['referenceSha256']:
+            raise ValueError('Generation and visual review must use the same reference')
 
 
 def sha(data):

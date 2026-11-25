@@ -42,6 +42,39 @@ class ImageGateTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Unreviewed'):
             helper.prepare(self.source, 'Handstand', Path(__file__).resolve().parents[1] / 'media/exercises')
 
+    def test_higgsfield_revision_requires_bound_reference_and_all_style_comparisons(self):
+        receipt = self.receipt()
+        record = receipt['corrections'][0]
+        record['revision'] = 'higgsfield-v4'
+        record['oldDesktopSha256'] = 'a' * 64
+        record['generation'] = dict(platform='Higgsfield', model='gpt_image_2_6', status='completed', jobId='12345678-1234-1234-1234-123456789abc', referenceSha256='a' * 64)
+        record['styleLock'] = dict(status='accepted', referenceSha256='a' * 64, criteria={k: dict(passed=True, observation='Synthetic comparison observation; no real image acceptance.') for k in ['background', 'composition', 'colorLighting', 'materials']})
+        helper.prepare(self.source, 'Handstand', self.root / 'higgsfield', receipt)
+        record['styleLock']['referenceSha256'] = 'b' * 64
+        with self.assertRaisesRegex(ValueError, 'exact previous reference'):
+            helper.prepare(self.source, 'Handstand', self.root / 'refused', receipt)
+        record['styleLock']['referenceSha256'] = 'a' * 64
+        record['styleLock']['criteria']['background']['passed'] = False
+        with self.assertRaisesRegex(ValueError, 'style-lock criterion'):
+            helper.prepare(self.source, 'Handstand', self.root / 'refused', receipt)
+        record['styleLock']['criteria']['background']['passed'] = True
+        record['generation']['status'] = 'pending'
+        with self.assertRaisesRegex(ValueError, 'job provenance'):
+            helper.prepare(self.source, 'Handstand', self.root / 'refused', receipt)
+        self.assertFalse((self.root / 'refused').exists())
+
+    def test_higgsfield_revision_refuses_missing_or_mismatched_generation(self):
+        receipt = self.receipt()
+        record = receipt['corrections'][0]
+        record['revision'] = 'higgsfield-v4'
+        record['oldDesktopSha256'] = 'a' * 64
+        record['styleLock'] = dict(status='accepted', referenceSha256='a' * 64, criteria={k: dict(passed=True, observation='Synthetic comparison observation; no real image acceptance.') for k in ['background', 'composition', 'colorLighting', 'materials']})
+        with self.assertRaisesRegex(ValueError, 'job provenance'):
+            helper.prepare(self.source, 'Handstand', self.root / 'refused', receipt)
+        record['generation'] = dict(platform='Higgsfield', model='gpt_image_2_6', status='completed', jobId='12345678-1234-1234-1234-123456789abc', referenceSha256='b' * 64)
+        with self.assertRaisesRegex(ValueError, 'same reference'):
+            helper.prepare(self.source, 'Handstand', self.root / 'refused', receipt)
+
     def test_changed_source_refused(self):
         receipt = self.receipt()
         Image.new('RGB', (960, 640), '#263838').save(self.source)
