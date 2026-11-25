@@ -920,30 +920,30 @@
       "id": "Skin_the_Cat",
       "name": "Превъртане във вис (skin the cat)",
       "origin": "AI generated",
-      "tool": "Higgsfield / GPT Image 2.6",
-      "date": "2026-11-25",
+      "tool": "Higgsfield / Nano Banana Pro",
+      "date": "2026-11-26",
       "usage": "Generated via Higgsfield for FORME; use subject to applicable Higgsfield and model-provider terms. AI visualization, not a real athlete photograph or endorsement.",
       "review": {
-        "visual": "individual anatomy/exact-exercise/style/background comparison at source, 960 and 480",
-        "scope": "visual review, not independent technique certification",
-        "sourceSha256": "497941caee5dd31ea3d2b11466c6294d30449ee8571079dd1ac8fcea32d0297b",
-        "receipt": "qa/exercise-image-review-v4.json",
-        "generation": "ab4ae208-be2c-4a82-9186-7de7498f3ab1"
+        "visual": "Owner-selected existing candidate; manual limb/support/style inspection at source, 960 and 480",
+        "scope": "Explicit owner selection; earlier strict pose-match limitations retained, not independent technique certification",
+        "sourceSha256": "80c2738c8e5842afc1d83598c608b842511ce984bea3a483d563d60469b36c8d",
+        "receipt": "qa/exercise-image-selection-v5.json",
+        "generation": "151ef460-43dc-41df-964f-6b68fad491b3"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Skin_the_Cat-higgsfield-v4-480.webp",
+          "path": "media/exercises/Skin_the_Cat-nano-v5-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 19720,
-          "sha256": "831be11210f56bc4adf524d23729c09904e5479bd676dce1aa05b0b94a104e78"
+          "bytes": 18730,
+          "sha256": "6fda3929143acabb512b609f4864452a4a05a41c2a068dba5141c36782a894a9"
         },
         "desktop": {
-          "path": "media/exercises/Skin_the_Cat-higgsfield-v4-960.webp",
+          "path": "media/exercises/Skin_the_Cat-nano-v5-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 47758,
-          "sha256": "c632d45fa6ef2e44780832962bfa9d14177658d96d77d51f3433e70189336190"
+          "bytes": 48544,
+          "sha256": "5a58a40eb57d38b77dc4c996cc32cab15f3ea283b438fd6e1c664e7c12802acf"
         }
       }
     },
@@ -984,30 +984,30 @@
       "id": "Archer_Pushups",
       "name": "Стрелец лицеви опори",
       "origin": "AI generated",
-      "tool": "Higgsfield / GPT Image 2.6",
-      "date": "2026-11-25",
+      "tool": "Higgsfield / Nano Banana Pro",
+      "date": "2026-11-26",
       "usage": "Generated via Higgsfield for FORME; use subject to applicable Higgsfield and model-provider terms. AI visualization, not a real athlete photograph or endorsement.",
       "review": {
-        "visual": "individual anatomy/exact-exercise/style/background comparison at source, 960 and 480",
-        "scope": "visual review, not independent technique certification",
-        "sourceSha256": "5c1e6de98ec3cfe0312e73c450ba23f5892c74d8d2c13e08394f80f4a87908bc",
-        "receipt": "qa/exercise-image-review-v4.json",
-        "generation": "84fce44f-e660-4c92-951c-588623f4a0f6"
+        "visual": "Owner-selected existing candidate; manual limb/support/style inspection at source, 960 and 480",
+        "scope": "Explicit owner selection; earlier strict pose-match limitations retained, not independent technique certification",
+        "sourceSha256": "c2c07ea77153255b32b9476e35eb8158d9861847c95a8e0fa78000868a1b955f",
+        "receipt": "qa/exercise-image-selection-v5.json",
+        "generation": "376e40ad-d7dd-4885-a2a8-e505a178feca"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Archer_Pushups-higgsfield-v4-480.webp",
+          "path": "media/exercises/Archer_Pushups-nano-v5-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 12412,
-          "sha256": "6ec678ee6a2a766b519267dc2d2e9a16f53c255df0946ca5f31e6d464fc81e7d"
+          "bytes": 21456,
+          "sha256": "f2a9a0eb9a5da519a8f6b0ba3b4bd33bcdd16084d3a9293f2d7eb8216c6fd03a"
         },
         "desktop": {
-          "path": "media/exercises/Archer_Pushups-higgsfield-v4-960.webp",
+          "path": "media/exercises/Archer_Pushups-nano-v5-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 43542,
-          "sha256": "83a45c1c598b3e95ec5d9f1963d5882efbfdd442d33add8aa08e2158f290a41d"
+          "bytes": 55704,
+          "sha256": "198637b674116235fe1b14bcf087f45144a13d07b883d8939c53ce53b0d4b241"
         }
       }
     },
@@ -1103,30 +1103,30 @@
       "id": "Handstand",
       "name": "Стойка на ръце",
       "origin": "AI generated",
-      "tool": "Higgsfield / GPT Image 2.6",
-      "date": "2026-11-25",
+      "tool": "Higgsfield / Nano Banana Pro",
+      "date": "2026-11-26",
       "usage": "Generated via Higgsfield for FORME; use subject to applicable Higgsfield and model-provider terms. AI visualization, not a real athlete photograph or endorsement.",
       "review": {
-        "visual": "individual anatomy/exact-exercise/style/background comparison at source, 960 and 480",
-        "scope": "visual review, not independent technique certification",
-        "sourceSha256": "ac137b05df87f3080020e3ece04e202d3997bb561d72564f34ecda4a6755e3fe",
-        "receipt": "qa/exercise-image-review-v4.json",
-        "generation": "c2729de6-096a-4a03-82cf-7fbf3725dac2"
+        "visual": "Owner-selected existing candidate; manual limb/support/style inspection at source, 960 and 480",
+        "scope": "Explicit owner selection; earlier strict pose-match limitations retained, not independent technique certification",
+        "sourceSha256": "7a637c539c1cc1fb5d27e0783c779c19dd761c4850a83f4be5cce245d58d74c5",
+        "receipt": "qa/exercise-image-selection-v5.json",
+        "generation": "bdc68ac4-0e09-4698-a2be-9cc6aa8f4530"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Handstand-higgsfield-v4-480.webp",
+          "path": "media/exercises/Handstand-nano-v5-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 10120,
-          "sha256": "1b3f6168d3eb404530bd073411076f66126f0f167bd8778f21e7bba293f953d0"
+          "bytes": 18110,
+          "sha256": "a4e30db0a3285a449c29ab2e071b657a62b399f76bd4e63a949f2918e7bb848e"
         },
         "desktop": {
-          "path": "media/exercises/Handstand-higgsfield-v4-960.webp",
+          "path": "media/exercises/Handstand-nano-v5-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 25802,
-          "sha256": "a5effe38547a21056861da09f632dfd0cc0b7d124b12671ac7dd57de28f9a8f7"
+          "bytes": 45552,
+          "sha256": "139d30a683d9677f5574840dd48d9882b84df1b82270656aa7b18919538d9b4e"
         }
       }
     },

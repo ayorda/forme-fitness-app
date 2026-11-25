@@ -46,6 +46,8 @@
 
 ### Изображения, видео и звук
 
+- [QA-EXERCISE-NANO-SELECTION.md](./QA-EXERCISE-NANO-SELECTION.md) — трите избрани от собственика Nano Banana Pro изображения, v0.16.3.
+
 - [QA-EXERCISE-HIGGSFIELD.md](./QA-EXERCISE-HIGGSFIELD.md) — текущи пет Higgsfield корекции със запазване на сцена/стил (v0.16.2).
 
 - [QA-EXERCISE-EXACT-MATCH.md](./QA-EXERCISE-EXACT-MATCH.md) — предходен строг преглед (v0.15.6); пет ID са заменени във v0.16.2.

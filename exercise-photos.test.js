@@ -6,6 +6,8 @@ const crypto=require('node:crypto');
 const manifest=JSON.parse(fs.readFileSync('media/manifest.json','utf8'));
 const currentReview=JSON.parse(fs.readFileSync('qa/exercise-image-review-v4.json','utf8'));
 const currentIds=new Set(currentReview.corrections.map(r=>r.id));
+const selection=JSON.parse(fs.readFileSync('qa/exercise-image-selection-v5.json','utf8'));
+const selectedIds=new Set(selection.selections.map(r=>r.id));
 const context={window:{FORME_EXERCISE_ART:{url:()=> 'placeholder'}}};vm.createContext(context);
 for(const file of ['data.js','exercise-photos.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
 
@@ -14,7 +16,7 @@ test('all 49 exercises have distinct compressed local WebP variants with provena
  assert.equal(exercises.length,49);assert.equal(photos.ids.length,49);
  for(const item of exercises){const photo=photos.get(item.id),record=manifest.entries.find(x=>x.kind==='exercise'&&x.id===item.id);
   assert.equal(photo.origin,'ai');assert.ok(record);
-  assert.equal(record.tool,currentIds.has(item.id)?'Higgsfield / GPT Image 2.6':'OpenAI image generation tool');
+  assert.equal(record.tool,selectedIds.has(item.id)?'Higgsfield / Nano Banana Pro':currentIds.has(item.id)?'Higgsfield / GPT Image 2.6':'OpenAI image generation tool');
   assert.equal(photo.generator,record.tool);
   assert.match(record.usage,currentIds.has(item.id)?/Higgsfield and model-provider terms/:/OpenAI Terms/);
   for(const [size,path] of [['mobile',photo.small],['desktop',photo.large]]){const bytes=fs.readFileSync(path);assert.match(path,/\.webp$/);assert.ok(bytes.length<150_000,`${item.id} ${size} exceeds budget`);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),record.variants[size].sha256);assert.equal(bytes.toString('ascii',8,12),'WEBP');assert.equal(bytes.readUInt16LE(26)&0x3fff,size==='mobile'?480:960);assert.equal(bytes.readUInt16LE(28)&0x3fff,size==='mobile'?320:640);}
@@ -91,13 +93,13 @@ test('retired defective assets are absent and evicted without prefetching replac
   assert.ok(refresh.includes(old));
   assert.ok(!assets.includes(`${record.id}-anatomy-v2`));
  }
- assert.match(fs.readFileSync('index.html','utf8'),/exercise-photos\.js\?v=0162/);
- assert.ok(assets.includes('exercise-photos.js?v=0162'));
+ assert.match(fs.readFileSync('index.html','utf8'),/exercise-photos\.js\?v=0163/);
+ assert.ok(assets.includes('exercise-photos.js?v=0163'));
  assert.match(fs.readFileSync('styles.css','utf8'),/\.photo-visual picture img\{object-fit:contain\}/);
  assert.match(fs.readFileSync('styles.css','utf8'),/\.modal-visual:has\(\.photo-visual\)\{height:auto;aspect-ratio:3\/2\}/);
 });
 
-test('exactly five Higgsfield corrections bind previous references, completed jobs and all review categories',()=>{
+test('five historical Higgsfield corrections retain provenance and the two unselected files remain current',()=>{
  assert.deepEqual([...currentIds].sort(),['Archer_Pushups','Handstand','Handstand_Pushups','Skin_the_Cat','Toes_to_Bar']);
  assert.equal(currentReview.totalGenerationCredits,7.5);
  for(const r of currentReview.corrections){
@@ -110,6 +112,12 @@ test('exactly five Higgsfield corrections bind previous references, completed jo
   assert.equal(r.generation.platform,'Higgsfield');assert.equal(r.generation.model,'gpt_image_2_6');assert.equal(r.generation.status,'completed');
   assert.match(r.generation.jobId,/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/);
   assert.equal(r.generation.referenceSha256,r.oldDesktopSha256);assert.equal(r.styleLock.referenceSha256,r.oldDesktopSha256);
+  if(selectedIds.has(r.id)){
+   assert.equal(r.supersededBy,'qa/exercise-image-selection-v5.json');
+   const replacement=selection.selections.find(s=>s.id===r.id);
+   assert.equal(replacement.oldDesktopSha256,r.variants['960'].sha256);
+   continue; // Owner selection supersedes this historical acceptance, without rewriting it.
+  }
   assert.equal(e.review.sourceSha256,r.sourceSha256);assert.equal(e.review.generation,r.generation.jobId);
   assert.equal(photo.created,'2026-11-25');
   const policy=JSON.parse(fs.readFileSync('qa/exercise-image-contracts.json','utf8')).exercises.find(e=>e.id===r.id);
@@ -126,6 +134,48 @@ test('exactly five Higgsfield corrections bind previous references, completed jo
  }
  assert.equal(currentReview.rejectedCandidates.length,1);
  assert.ok(!currentReview.corrections.some(r=>r.generation.rawOutputSha256===currentReview.rejectedCandidates[0].sourceSha256));
+});
+
+test('only the three screenshot-selected originals are published, with exact raw and final hash bindings',()=>{
+ assert.equal(selection.publicationDecision.approved,true);
+ assert.equal(selection.publicationDecision.date,'2026-11-26');
+ assert.equal(selection.additionalGenerationCredits,0);
+ assert.deepEqual([...selectedIds].sort(),['Archer_Pushups','Handstand','Skin_the_Cat']);
+ const jobs={Archer_Pushups:'376e40ad-d7dd-4885-a2a8-e505a178feca',Handstand:'bdc68ac4-0e09-4698-a2be-9cc6aa8f4530',Skin_the_Cat:'151ef460-43dc-41df-964f-6b68fad491b3'};
+ for(const r of selection.selections){
+  assert.equal(r.status,'owner-selected');assert.equal(r.generation.jobId,jobs[r.id]);
+  assert.equal(r.generation.model,'nano_banana_pro');assert.equal(r.generation.status,'completed');
+  assert.match(r.generation.rawOutputSha256,/^[a-f0-9]{64}$/);
+  assert.deepEqual(r.observedLimbs,{arms:2,hands:2,legs:2,feet:2});
+  assert.deepEqual(r.reviewedVariants,['source','480','960']);
+  assert.ok(r.internalReview.notes.length>50);
+  assert.notEqual(r.internalReview.status,'accepted-exact-reference');
+  const e=manifest.entries.find(e=>e.kind==='exercise'&&e.id===r.id),photo=context.window.FORME_EXERCISE_PHOTOS.get(r.id);
+  assert.equal(e.review.receipt,'qa/exercise-image-selection-v5.json');
+  assert.equal(e.review.generation,r.generation.jobId);assert.equal(e.review.sourceSha256,r.sourceSha256);
+  assert.equal(photo.created,'2026-11-26');
+  for(const [size,width,path] of [['mobile',480,photo.small],['desktop',960,photo.large]]){
+   assert.equal(path,`media/exercises/${r.id}-nano-v5-${width}.webp`);
+   assert.equal(e.variants[size].sha256,r.variants[String(width)].sha256);
+   const sw=fs.readFileSync('service-worker.js','utf8');
+   assert.ok(!sw.match(/const ASSETS = (\[[^;]+\]);/)[1].includes(path));
+  }
+  for(const path of r.oldPaths){assert.equal(fs.existsSync(path),false);assert.ok(fs.readFileSync('service-worker.js','utf8').includes(path));}
+ }
+ assert.equal(selection.excludedCandidate.jobId,'053768d7-9c56-4e71-b9a5-331aa7566022');
+ assert.equal(selection.excludedCandidate.published,false);
+});
+
+test('the remaining 46 exercise entries and all food entries match the immediate baseline exactly',()=>{
+ let kept=0;
+ for(const baseline of selection.baselineEntries){
+  const e=manifest.entries.find(e=>e.kind===baseline.kind&&e.id===baseline.id);
+  if(baseline.kind==='exercise'&&selectedIds.has(baseline.id))continue;
+  assert.deepEqual(e,baseline);
+  if(baseline.kind==='exercise')kept++;
+ }
+ assert.equal(kept,46);
+ assert.equal(manifest.entries.length,selection.baselineEntries.length);
 });
 
 test('the other 44 exercise entries are identical to the pre-Higgsfield baseline',()=>{

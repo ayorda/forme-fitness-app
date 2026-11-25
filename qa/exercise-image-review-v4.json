@@ -174,7 +174,8 @@
           "bytes": 25802,
           "sha256": "a5effe38547a21056861da09f632dfd0cc0b7d124b12671ac7dd57de28f9a8f7"
         }
-      }
+      },
+      "supersededBy": "qa/exercise-image-selection-v5.json"
     },
     {
       "id": "Skin_the_Cat",
@@ -350,7 +351,8 @@
           "bytes": 47758,
           "sha256": "c632d45fa6ef2e44780832962bfa9d14177658d96d77d51f3433e70189336190"
         }
-      }
+      },
+      "supersededBy": "qa/exercise-image-selection-v5.json"
     },
     {
       "id": "Toes_to_Bar",
@@ -700,7 +702,8 @@
           "bytes": 43542,
           "sha256": "83a45c1c598b3e95ec5d9f1963d5882efbfdd442d33add8aa08e2158f290a41d"
         }
-      }
+      },
+      "supersededBy": "qa/exercise-image-selection-v5.json"
     },
     {
       "id": "Handstand_Pushups",

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.16.3 — 2026-11-26
+
+Подменени са Archer Push-Ups, Back-to-Wall Handstand и Skin the Cat с трите изрично избрани от собственика съществуващи Nano Banana Pro генерации. Шест WebP файла и обновяване на кеша; другите 46 упражнения са запазени. Chest-to-Wall с обърнатите длани е изключен. Предишните ограничения на позите са запазени в [отчета за избора](./QA-EXERCISE-NANO-SELECTION.md); няма нова генерация или промяна по потребителски данни.
+
 ## v0.16.2 — 2026-11-25
 
 Пет Higgsfield reference edits за Handstand, Skin the Cat, Toes to Bar, Archer Push-Ups и Handstand Push-Ups, със самостоятелни проверки на анатомия, точно упражнение, фон и стил. Десет нови WebP файла, селективно пенсиониране на стария кеш и запазени други 44 exercise записа. [Действителни сравнения и QA](./QA-EXERCISE-HIGGSFIELD.md).

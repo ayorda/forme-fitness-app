@@ -12,13 +12,16 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = json.loads((ROOT / 'qa/exercise-image-review-v4.json').read_text())
+SELECTION = json.loads((ROOT / 'qa/exercise-image-selection-v5.json').read_text())
 MANIFEST = json.loads((ROOT / 'media/manifest.json').read_text())
-CORRECTED = [r['id'] for r in REVIEW['corrections']]
+CURRENT = {r['id']: r for r in REVIEW['corrections']}
+CURRENT.update({r['id']: r for r in SELECTION['selections']})
+CORRECTED = list(CURRENT)
 ALL_IDS = [r['id'] for r in REVIEW['catalogueAudit']]
-REVISIONS = {r['id']: r['revision'] for r in REVIEW['corrections']}
+REVISIONS = {id: r['revision'] for id, r in CURRENT.items()}
 SHELL_CACHE = re.search(r"const CACHE = '([^']+)'", (ROOT / 'service-worker.js').read_text()).group(1)
 FILES = [v for e in MANIFEST['entries'] if e['kind'] == 'exercise' and e['id'] in CORRECTED for v in e['variants'].values()]
-RETIRED = [path for r in REVIEW['corrections'] for path in r['oldPaths']]
+RETIRED = [path for r in REVIEW['corrections'] + SELECTION['selections'] for path in r['oldPaths']]
 REPORT = dict(cases=[], errors=[], csp=[], productionRequests=[], retiredRequests=[])
 
 
