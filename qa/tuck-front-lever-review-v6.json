@@ -38,18 +38,55 @@
         "anatomy": "Overlapping lower legs/shoes do not allow confident independent two-foot tracing; no certified anatomy claim.",
         "style": "Same broad olive uprights, charcoal wall, black floor, kettlebells and right rack; similar illumination. Similar background alone cannot approve the rejected pose."
       }
+    },
+    {
+      "jobId": "8996b158-f208-4dc0-a61b-869d13e903eb",
+      "platform": "Higgsfield",
+      "requestedModel": "nano_banana_pro",
+      "reportedJobType": "nano_banana_2",
+      "requestedResolution": "2k",
+      "requestedAspectRatio": "3:2",
+      "generationStatus": "completed",
+      "referenceRoleOrder": [
+        "exact-pose",
+        "original-FORME-style"
+      ],
+      "rawOutput": {
+        "sha256": "c20547da91e3e9e8940393a2568a70024eb80c5bcdb88feda0329a096bc0c230",
+        "width": 2528,
+        "height": 1696,
+        "format": "PNG",
+        "bytes": 5182709
+      },
+      "credits": 2,
+      "ownerApprovedAdditionalCredits": true,
+      "decision": "REJECTED",
+      "publishEligible": false,
+      "review": {
+        "pose": "Repeats the existing FORME body configuration: feet remain near hips and far below the hand/bar line, unlike the elevated foot/closed tuck geometry in the exact real reference.",
+        "anatomy": "No definite extra limb asserted. Closely overlapping legs/shoes need caution; primary rejection is the unfulfilled exact pose transfer, not certified anatomy.",
+        "style": "Olive uprights, bar, charcoal wall, left kettlebells, right frame and muted palette remain close to the original environment. This does not override the failed pose."
+      }
     }
   ],
   "credits": {
     "start": 357.75,
-    "end": 355.75,
-    "spent": 2,
+    "end": 353.75,
+    "spent": 4,
     "purchases": 0
   },
   "nextAttempt": {
     "submitted": false,
-    "additionalCredits": 2,
-    "permission": "pending owner reply"
+    "permission": "No third generation authorized; do not retry automatically"
   },
-  "limits": "Manual visual review, not automatic anatomy detection or independent coaching certification. No final WebP made for the rejected candidate."
+  "limits": "Manual visual review, not automatic anatomy detection or independent coaching certification. No final WebP made for the rejected candidate.",
+  "acceptedCandidates": 0,
+  "generationCount": 2,
+  "authorizedRetry": {
+    "jobId": "8996b158-f208-4dc0-a61b-869d13e903eb",
+    "approved": true,
+    "credits": 2,
+    "status": "completed",
+    "decision": "REJECTED"
+  }
 }
