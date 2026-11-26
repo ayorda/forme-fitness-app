@@ -78,6 +78,10 @@ def sha(data):
 def prepare(source, exercise, output, review=None):
     if not re.fullmatch(r'[A-Za-z][A-Za-z0-9_]{0,80}', exercise):
         raise ValueError('Unsafe exercise ID')
+    if review is not None:
+        retired = json.loads((ROOT / 'qa/exercise-retirements.json').read_text())['retired']
+        if any(record['id'] == exercise for record in retired):
+            raise ValueError('Retired exercise cannot be published by an old image receipt')
     source = Path(source)
     raw = source.read_bytes()
     with Image.open(io.BytesIO(raw)) as opened:

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-26",
+  "ownerRequested": true,
+  "retired": [
+    {
+      "id": "Handstand_Pushups",
+      "reason": "Owner requested removal from active catalogue and defective image retirement",
+      "oldPaths": [
+        "media/exercises/Handstand_Pushups-higgsfield-v4-480.webp",
+        "media/exercises/Handstand_Pushups-higgsfield-v4-960.webp"
+      ],
+      "oldVariants": {
+        "mobile": {
+          "path": "media/exercises/Handstand_Pushups-higgsfield-v4-480.webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 12020,
+          "sha256": "e7c360d428e6ca836b8dc25e009220cb9d5863dbd2dd6bdebd35924d997d18a1"
+        },
+        "desktop": {
+          "path": "media/exercises/Handstand_Pushups-higgsfield-v4-960.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 28986,
+          "sha256": "788e78a0935c14536982d7cb8bd0f429b763d9b2643fc331dcd7e500c413da88"
+        }
+      },
+      "historicalIdentity": "FORME_DATA.retiredExercises; text only, never an active detail or image",
+      "preservation": "Keep saved favorite IDs, journal sets, archive import/export and existing plan records; no destructive migration"
+    }
+  ]
+}

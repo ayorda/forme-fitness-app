@@ -14,14 +14,17 @@ ROOT = Path(__file__).resolve().parents[1]
 REVIEW = json.loads((ROOT / 'qa/exercise-image-review-v4.json').read_text())
 SELECTION = json.loads((ROOT / 'qa/exercise-image-selection-v5.json').read_text())
 MANIFEST = json.loads((ROOT / 'media/manifest.json').read_text())
+RETIREMENTS = json.loads((ROOT / 'qa/exercise-retirements.json').read_text())['retired']
+ACTIVE_IDS = [e['id'] for e in MANIFEST['entries'] if e['kind'] == 'exercise']
 CURRENT = {r['id']: r for r in REVIEW['corrections']}
 CURRENT.update({r['id']: r for r in SELECTION['selections']})
+CURRENT = {id: r for id, r in CURRENT.items() if id in ACTIVE_IDS}
 CORRECTED = list(CURRENT)
-ALL_IDS = [r['id'] for r in REVIEW['catalogueAudit']]
+ALL_IDS = ACTIVE_IDS
 REVISIONS = {id: r['revision'] for id, r in CURRENT.items()}
 SHELL_CACHE = re.search(r"const CACHE = '([^']+)'", (ROOT / 'service-worker.js').read_text()).group(1)
 FILES = [v for e in MANIFEST['entries'] if e['kind'] == 'exercise' and e['id'] in CORRECTED for v in e['variants'].values()]
-RETIRED = [path for r in REVIEW['corrections'] + SELECTION['selections'] for path in r['oldPaths']]
+RETIRED = [path for r in REVIEW['corrections'] + SELECTION['selections'] + RETIREMENTS for path in r['oldPaths']]
 REPORT = dict(cases=[], errors=[], csp=[], productionRequests=[], retiredRequests=[])
 
 
@@ -80,12 +83,13 @@ def main():
                 for width in [390, 1280]:
                     ctx = browser.new_context(bypass_csp=False, viewport=dict(width=width, height=900), is_mobile=width == 390, has_touch=width == 390)
                     observe(ctx)
-                    ctx.add_init_script('if(["http:","https:"].includes(location.protocol)){localStorage.setItem("forme-language",' + json.dumps(lang) + ');if(!localStorage.getItem("forme-qa-images-seeded")){localStorage.setItem("forme-favorites",JSON.stringify({exercises:["Plank"],workouts:[]}));localStorage.setItem("forme-qa-images-seeded","true");}}')
+                    ctx.add_init_script('if(["http:","https:"].includes(location.protocol)){localStorage.setItem("forme-language",' + json.dumps(lang) + ');if(!localStorage.getItem("forme-qa-images-seeded")){localStorage.setItem("forme-favorites",JSON.stringify({exercises:["Plank","Handstand_Pushups"],workouts:[]}));localStorage.setItem("forme-progress-v1",JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[{id:"legacy-hspu-browser",exerciseId:"Handstand_Pushups",date:"2026-11-20",kind:"reps",value:5}]}));localStorage.setItem("forme-qa-images-seeded","true");}}')
                     page = ctx.new_page()
                     page.goto(base + '#exercises', wait_until='domcontentloaded')
                     page.locator('[data-action=exercise-detail][data-id=Handstand]').first.wait_for()
                     wait(page, '!!navigator.serviceWorker.controller')
-                    assert page.locator('#app .photo-visual img').count() == 49
+                    assert page.locator('#app .photo-visual img').count() == len(ALL_IDS) == 48
+                    assert page.locator('[data-action=exercise-detail][data-id=Handstand_Pushups]').count() == 0
                     for image in page.locator('#app .photo-visual img').all():
                         image.scroll_into_view_if_needed()
                         image.evaluate('img=>img.decode()')
@@ -125,6 +129,24 @@ def main():
                             folder.mkdir(parents=True, exist_ok=True)
                             page.screenshot(path=str(folder / f'{lang}-{width}-{id}.png'))
                         page.locator('.modal-close').click()
+                    # Retirement must survive a real favorite edit and an actual JSON
+                    # download, while keeping the legacy set readable without a dead link.
+                    page.locator('[data-action=favorite][data-kind=exercises][data-id=Pushups]').first.click()
+                    assert 'Handstand_Pushups' in page.evaluate('FORME_BOOTSTRAP.workspace.storage.getItem("forme-favorites")')
+                    page.goto(base + '#progress', wait_until='domcontentloaded')
+                    page.locator('.progress-entry').first.wait_for()
+                    title = {'bg': 'Лицеви опори от стойка на ръце', 'en': 'Handstand Push-Ups', 'de': 'Handstand-Liegestütze'}[lang]
+                    assert title in page.locator('.progress-entry').first.inner_text()
+                    assert page.locator('[data-id=Handstand_Pushups]').count() == 0
+                    assert page.locator('option[value=Handstand_Pushups]').count() == 0
+                    with page.expect_download() as pending:
+                        page.locator('[data-action=backup-export]').click()
+                    archive = json.loads(Path(pending.value.path()).read_text())
+                    assert 'Handstand_Pushups' in json.loads(archive['data']['forme-favorites'])['exercises']
+                    assert json.loads(archive['data']['forme-progress-v1'])['sets'][0]['exerciseId'] == 'Handstand_Pushups'
+                    page.goto(base + '#favorites', wait_until='domcontentloaded')
+                    assert page.locator('[data-action=exercise-detail][data-id=Handstand_Pushups]').count() == 0
+                    page.goto(base + '#exercises', wait_until='domcontentloaded')
                     # Fetch completion precedes cache.put(); wait for actual stored responses.
                     wait(page, "caches.open('forme-media-v029-optimized').then(async c=>(await Promise.all(" + json.dumps([f['path'] for f in FILES]) + ".map(f=>c.match(new URL(f,location.href))))).every(Boolean))")
                     ctx.set_offline(True)
@@ -136,7 +158,7 @@ def main():
                         page.locator('.modal-close').click()
                     assert 'Plank' in page.evaluate('localStorage.getItem("forme-favorites")')
                     REPORT['csp'] += page.evaluate('qaCsp')
-                    REPORT['cases'].append(dict(language=lang, width=width, cards=49, details=len(ALL_IDS), correctedDetails=len(CORRECTED), decodedVariants=len(FILES), offline=True, guestPreserved=True))
+                    REPORT['cases'].append(dict(language=lang, width=width, cards=len(ALL_IDS), details=len(ALL_IDS), correctedDetails=len(CORRECTED), decodedVariants=len(FILES), offline=True, guestPreserved=True, retiredFavoritePreserved=True, retiredSetReadable=True, legacyArchiveDownload=True, retiredActionsAbsent=True))
                     ctx.close()
             if server:
                 ctx = browser.new_context(bypass_csp=False)

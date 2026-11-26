@@ -1287,38 +1287,6 @@
     },
     {
       "kind": "exercise",
-      "id": "Handstand_Pushups",
-      "name": "Лицеви опори от стойка на ръце",
-      "origin": "AI generated",
-      "tool": "Higgsfield / GPT Image 2.6",
-      "date": "2026-11-25",
-      "usage": "Generated via Higgsfield for FORME; use subject to applicable Higgsfield and model-provider terms. AI visualization, not a real athlete photograph or endorsement.",
-      "review": {
-        "visual": "individual anatomy/exact-exercise/style/background comparison at source, 960 and 480",
-        "scope": "visual review, not independent technique certification",
-        "sourceSha256": "29341f80456b1b5a612103c74ea53a88ff4ab799d313efe64b3099cb806b6623",
-        "receipt": "qa/exercise-image-review-v4.json",
-        "generation": "9aee452d-fed1-4d2b-b21f-78b2f780fc07"
-      },
-      "variants": {
-        "mobile": {
-          "path": "media/exercises/Handstand_Pushups-higgsfield-v4-480.webp",
-          "width": 480,
-          "height": 320,
-          "bytes": 12020,
-          "sha256": "e7c360d428e6ca836b8dc25e009220cb9d5863dbd2dd6bdebd35924d997d18a1"
-        },
-        "desktop": {
-          "path": "media/exercises/Handstand_Pushups-higgsfield-v4-960.webp",
-          "width": 960,
-          "height": 640,
-          "bytes": 28986,
-          "sha256": "788e78a0935c14536982d7cb8bd0f429b763d9b2643fc331dcd7e500c413da88"
-        }
-      }
-    },
-    {
-      "kind": "exercise",
       "id": "Front_Lever",
       "name": "Фронт левър",
       "origin": "AI generated",

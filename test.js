@@ -34,9 +34,9 @@ test('exercise illustrations have consistent licensed or original sources',()=>{
  assert.equal(D.exercises.filter(e=>e.photo.startsWith('data:image/svg+xml')).length,10);
  assert.ok(!D.exercises.some(e=>/yuhonas\/free-exercise-db/.test(e.photo)));
 });
-test('all 30 requested movements have distinct entries and complete training context',()=>{
- const ids=['Pushups','Pullups','Chinups','Bodyweight_Squat','Parallel_Bar_Dips','Australian_Rows','Hollow_Body_Hold','Plank','Hanging_Leg_Raise','Frog_Stand','Pike_Pushups','Skin_the_Cat','Toes_to_Bar','Archer_Pushups','Pistol_Squat','L_Sit','Dragon_Flag','Handstand','Tuck_Planche','Tuck_Front_Lever','Bar_Muscle_Up','Ring_Muscle_Up','Back_Lever','Human_Flag','Handstand_Pushups','Front_Lever','Straddle_Planche','Full_Planche','One_Arm_Pull_Up','Iron_Cross'];
- assert.equal(ids.length,30);assert.equal(new Set(ids).size,30);
+test('all 29 active requested movements have distinct entries and complete training context',()=>{
+ const ids=['Pushups','Pullups','Chinups','Bodyweight_Squat','Parallel_Bar_Dips','Australian_Rows','Hollow_Body_Hold','Plank','Hanging_Leg_Raise','Frog_Stand','Pike_Pushups','Skin_the_Cat','Toes_to_Bar','Archer_Pushups','Pistol_Squat','L_Sit','Dragon_Flag','Handstand','Tuck_Planche','Tuck_Front_Lever','Bar_Muscle_Up','Ring_Muscle_Up','Back_Lever','Human_Flag','Front_Lever','Straddle_Planche','Full_Planche','One_Arm_Pull_Up','Iron_Cross'];
+ assert.equal(ids.length,29);assert.equal(new Set(ids).size,29);
  for(const id of ids){
   const matches=D.exercises.filter(x=>x.id===id);assert.equal(matches.length,1,id);const e=matches[0];assert.equal(e.cat,'cal');
   for(const field of ['name','nameEn','nameDe','level','equip','muscles','prerequisites','steps','commonMistakes','easier','harder','progression','measure'])assert.ok(e[field],`${id}: ${field}`);

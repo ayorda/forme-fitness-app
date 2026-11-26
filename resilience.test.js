@@ -989,9 +989,9 @@ test('Exercises screen offers Favorites-only filter toggle when favorite exercis
  },new Date(2026,10,9,12));
  assert.match(app.node('exercise-results').innerHTML,/data-action="toggle-ex-fav"/);
  app.click({dataset:{action:'toggle-ex-fav'}});
- assert.match(app.node('exercise-results').innerHTML,/Намерени 2 от 49 упражнения/);
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 2 от 48 упражнения/);
  app.click({dataset:{action:'reset-filters',group:'exercises'}});
- assert.match(app.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 48 от 48 упражнения/);
 });
 
 test('Nutrition journal copies previous day entries when current day is empty and Progress removes 4-week program dates cleanly',()=>{
@@ -1690,11 +1690,11 @@ test('Exercise catalog offers 1-tap personal records filter (toggle-ex-pr) and r
  assert.match(app.node('exercise-results').innerHTML,/data-action="toggle-ex-pr" aria-pressed="false">★ Лични рекорди \(2\)/);
 
  app.click({dataset:{action:'toggle-ex-pr'}});
- assert.match(app.node('exercise-results').innerHTML,/Намерени 2 от 49 упражнения/);
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 2 от 48 упражнения/);
  assert.match(app.node('exercise-results').innerHTML,/data-action="toggle-ex-pr" aria-pressed="true">★ Лични рекорди \(2\)/);
 
  app.click({dataset:{action:'reset-filters',group:'exercises'}});
- assert.match(app.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 48 от 48 упражнения/);
 });
 
 test('Nutrition journal surfaces top logged foods with recent grams for 1-tap quick logging',()=>{
@@ -1860,7 +1860,7 @@ test('Exercises catalog exposes a 1-tap bodyweight filter toggle (toggle-ex-none
  assert.doesNotMatch(app.node('exercise-results').innerHTML,/data-id="Pullups"/);
  assert.match(app.node('exercise-results').innerHTML,/data-id="Pushups"/);
  app.click({dataset:{action:'toggle-ex-none'}});
- assert.match(app.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 48 от 48 упражнения/);
 });
 
 test('Weekly plan surfaces completed workouts across all 7 days of the current week and in plan-summary',()=>{
@@ -2050,12 +2050,12 @@ test('Exercises catalog offers 1-tap Начинаещ quick filter toggle bidire
  app.click({dataset:{action:'toggle-ex-beginner'}});
  assert.equal(app.node('exercises-level').value,'beginner');
  assert.match(app.node('exercise-results').innerHTML,/data-action="toggle-ex-beginner" aria-pressed="true"/);
- assert.match(app.node('exercise-results').innerHTML,/Намерени 22 от 49 упражнения/);
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 22 от 48 упражнения/);
  app.input({dataset:{filter:'exercises',key:'level'},value:'advanced'});
  assert.match(app.node('exercise-results').innerHTML,/data-action="toggle-ex-beginner" aria-pressed="false"/);
  app.click({dataset:{action:'reset-filters',group:'exercises'}});
  assert.match(app.page(),/id="exercises-level"[\s\S]*?<option value="" selected>/);
- assert.match(app.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
+ assert.match(app.node('exercise-results').innerHTML,/Намерени 48 от 48 упражнения/);
 });
 
 test('Workouts catalog offers 1-tap До 12 мин quick-session filter toggle bidirectionally synced with #workouts-maxTime',()=>{
@@ -2452,16 +2452,16 @@ test('Exercises offer a 1-tap "not trained in 14+ days" quick filter that isolat
   ]})
  },new Date(2026,10,9,12));
  const results=()=>app.node('exercise-results').innerHTML;
- assert.match(results(),/data-action="toggle-ex-stale" aria-pressed="false">Не са тренирани от 14 дни \(48\)/);
+ assert.match(results(),/data-action="toggle-ex-stale" aria-pressed="false">Не са тренирани от 14 дни \(47\)/);
 
  app.click({dataset:{action:'toggle-ex-stale'}});
  assert.match(results(),/data-action="toggle-ex-stale" aria-pressed="true"/);
  assert.doesNotMatch(results(),/data-id="Pullups"/);
  assert.match(results(),/data-id="Plank"/);
- assert.match(results(),/Намерени 48 от 49 упражнения/);
+ assert.match(results(),/Намерени 47 от 48 упражнения/);
 
  app.click({dataset:{action:'toggle-ex-stale'}});
- assert.match(results(),/Намерени 49 от 49 упражнения/);
+ assert.match(results(),/Намерени 48 от 48 упражнения/);
 });
 test('Workout details report the most recent logged session (date and minutes) instead of the oldest one',()=>{
  const app=boot('#sessions',{
@@ -2589,7 +2589,7 @@ test('Catalog searches (workouts / exercises / foods) get the same 1-tap × clea
  exercises.change({dataset:{filter:'exercises',key:'q'},value:'планк',nextElementSibling:{dataset:{action:'clear-search'},removeAttribute(){},setAttribute(){}}});
  exercises.click({dataset:{action:'clear-search',target:'exercises'}});
  assert.equal(exercises.node('ex-search').value,'');
- assert.match(exercises.node('exercise-results').innerHTML,/Намерени 49 от 49 упражнения/);
+ assert.match(exercises.node('exercise-results').innerHTML,/Намерени 48 от 48 упражнения/);
 
  const foods=boot('#nutrition',{'forme-language':'bg'},new Date(2026,10,9,12));
  foods.change({dataset:{filter:'foods',key:'q'},value:'ориз',nextElementSibling:{dataset:{action:'clear-search'},removeAttribute(){},setAttribute(){}}});

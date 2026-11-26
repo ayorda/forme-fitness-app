@@ -110,7 +110,7 @@ test('every WebP on disk is documented in the manifest and every documented file
  const missing=[...documented].filter(path=>!disk.includes(path));
  assert.deepEqual(orphans,[],'files on disk without a manifest record');
  assert.deepEqual(missing,[],'manifest records without a file on disk');
- assert.equal(disk.length,158,'79 records keep both 480 and 960 variants');
+ assert.equal(disk.length,156,'48 active exercise and 30 food records keep both variants');
 });
 
 test('populated nutrition sub-tabs, month calendar, progress history and favorites keep accessible markup in BG/EN/DE',()=>{

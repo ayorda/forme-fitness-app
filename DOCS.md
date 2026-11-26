@@ -46,6 +46,8 @@
 
 ### Изображения, видео и звук
 
+- [QA-EXERCISE-CLEANUP.md](./QA-EXERCISE-CLEANUP.md) — безопасно пенсиониране на Handstand Push-Ups и неприет Tuck Front Lever кандидат, v0.16.4.
+
 - [QA-EXERCISE-NANO-SELECTION.md](./QA-EXERCISE-NANO-SELECTION.md) — трите избрани от собственика Nano Banana Pro изображения, v0.16.3.
 
 - [QA-EXERCISE-HIGGSFIELD.md](./QA-EXERCISE-HIGGSFIELD.md) — текущи пет Higgsfield корекции със запазване на сцена/стил (v0.16.2).

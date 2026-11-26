@@ -158,7 +158,7 @@ test('the exercise search box survives invalid text and keeps finding movements'
  for(const q of ['','   ','<script>alert(1)</script>','💥','.*','x'.repeat(1000)]){
   type(a,'exercises','q',q);
   const html=a.nodes['exercise-results'].innerHTML;
-  assert.match(html,/Намерени \d+ от 49 упражнения/,JSON.stringify(q.slice(0,24)));
+  assert.match(html,/Намерени \d+ от 48 упражнения/,JSON.stringify(q.slice(0,24)));
   assert.doesNotMatch(html,/undefined|\[object Object\]/,JSON.stringify(q.slice(0,24)));
  }
  type(a,'exercises','q','<script>alert(1)</script>');

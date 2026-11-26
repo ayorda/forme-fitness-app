@@ -616,9 +616,7 @@ const trees=[
       }
     ],
     "nextGoalIds": [],
-    "relatedExerciseIds": [
-      "Handstand_Pushups"
-    ]
+    "relatedExerciseIds": []
   }
 ];
 const languageIndex=language=>({bg:0,en:1,de:2}[language]??0);

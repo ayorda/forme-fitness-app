@@ -3,7 +3,7 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 
-function createApp(saved={},translated=false,page='#exercises'){
+function createApp(saved={},translated=false,page='#exercises',withData=false){
  const handlers={},nodes={},storage={...saved};
  const element=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){},querySelector(){return element();}});
  const document={body:{style:{}},hidden:false,getElementById(id){return nodes[id]||(nodes[id]=element());},addEventListener(type,fn){handlers[type]=fn;}};
@@ -11,10 +11,63 @@ function createApp(saved={},translated=false,page='#exercises'){
  const localStorage={getItem:key=>storage[key]??null,setItem:(key,value)=>{storage[key]=value;}};
  const c={window,document,localStorage,location:{hash:page},setTimeout:()=>0,clearTimeout(){},setInterval(){},clearInterval(){},console};
  vm.createContext(c);
- const files=['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js'];if(translated)files.push('i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');files.push('app.js');
+ const files=['exercise-art.js','data.js','exercise-photos.js','core.js','food-art.js','food-photos.js'];if(translated)files.push('i18n.js','interface-translations.js','exercise-translations.js','food-translations.js','workout-translations.js','locale-content.js');if(withData)files.push('state-normalizer.js','progress.js','backup.js','skill-trees.js');files.push('app.js');
  for(const f of files)vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
- return {handlers,nodes,storage,data:window.FORME_DATA};
+ return {handlers,nodes,storage,data:window.FORME_DATA,window,localStorage};
 }
+
+test('retired Handstand Push-Ups has no active catalogue, image, detail or workout selector',()=>{
+ const a=createApp({},true,'#exercises',true);
+ assert.equal(a.data.exercises.length,48);
+ assert.ok(a.data.exercises.some(e=>e.id==='Handstand'));
+ assert.ok(!a.data.exercises.some(e=>e.id==='Handstand_Pushups'));
+ assert.equal(a.window.FORME_EXERCISE_PHOTOS.get('Handstand_Pushups'),null);
+ assert.deepEqual(JSON.parse(JSON.stringify(a.data.retiredExercises.map(e=>e.id))),['Handstand_Pushups']);
+ assert.doesNotMatch(a.nodes['exercise-results'].innerHTML,/data-id="Handstand_Pushups"/);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Handstand_Pushups'}})}});
+ assert.equal(a.nodes['modal-root'].innerHTML,'');
+ a.handlers.click({target:{closest:()=>({dataset:{action:'nav',page:'progress'}})}});
+ assert.doesNotMatch(a.nodes.app.innerHTML,/<option[^>]+value="Handstand_Pushups"/);
+});
+
+test('hidden retired favorite survives active favorite edits and archive export without restoring a card',()=>{
+ const raw=JSON.stringify({exercises:['Handstand_Pushups'],workouts:[]});
+ const a=createApp({'forme-favorites':raw},true,'#favorites',true);
+ assert.doesNotMatch(a.nodes.app.innerHTML,/data-id="Handstand_Pushups"/);
+ assert.equal(a.storage['forme-favorites'],raw);
+ a.handlers.click({target:{closest:()=>({dataset:{action:'favorite',kind:'exercises',id:'Plank'}})}});
+ assert.deepEqual(JSON.parse(a.storage['forme-favorites']).exercises,['Handstand_Pushups','Plank']);
+ const before=a.storage['forme-favorites'];
+ a.handlers.click({target:{closest:()=>({dataset:{action:'favorite',kind:'exercises',id:'Handstand_Pushups'}})}});
+ assert.equal(a.storage['forme-favorites'],before);
+ const archive=JSON.parse(a.window.FORME_BACKUP.exportData(a.localStorage));
+ assert.ok(JSON.parse(archive.data['forme-favorites']).exercises.includes('Handstand_Pushups'));
+});
+
+test('legacy retired sets remain readable in three languages and are exported unchanged without replay links',()=>{
+ const progress={version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[{id:'legacy-hspu-1',exerciseId:'Handstand_Pushups',date:'2026-11-20',kind:'reps',value:5,weightKg:2}]};
+ for(const [lang,title] of [['bg','Лицеви опори от стойка на ръце'],['en','Handstand Push-Ups'],['de','Handstand-Liegestütze']]){
+  const raw=JSON.stringify(progress),a=createApp({'forme-language':lang,'forme-progress-v1':raw},true,'#progress',true);
+  assert.ok(a.nodes.app.innerHTML.includes(title),lang+' retired history title');
+  assert.doesNotMatch(a.nodes.app.innerHTML,/data-id="Handstand_Pushups"|<option[^>]+value="Handstand_Pushups"/);
+  assert.equal(a.storage['forme-progress-v1'],raw);
+  const archive=JSON.parse(a.window.FORME_BACKUP.exportData(a.localStorage));
+  assert.deepEqual(JSON.parse(archive.data['forme-progress-v1']).sets,progress.sets);
+ }
+});
+
+test('retirement leaves saved plans unchanged and removes all active skill-tree and media bindings',()=>{
+ const plan=JSON.stringify({mon:'cal-start'}),dated=JSON.stringify({'2026-11-26':'cal-start'});
+ const a=createApp({'forme-plan':plan,'forme-date-plans':dated},true,'#plan',true);
+ assert.equal(a.storage['forme-plan'],plan);assert.equal(a.storage['forme-date-plans'],dated);
+ for(const w of a.data.workouts)assert.ok(!w.ids.includes('Handstand_Pushups'));
+ for(const tree of a.window.FORME_SKILL_TREES.localized('en'))assert.ok(!tree.relatedExerciseIds.includes('Handstand_Pushups'));
+ const retired=JSON.parse(fs.readFileSync('qa/exercise-retirements.json','utf8')).retired;
+ assert.deepEqual(retired.map(r=>r.id),['Handstand_Pushups']);
+ const media=JSON.parse(fs.readFileSync('media/manifest.json','utf8'));
+ assert.ok(!media.entries.some(e=>e.kind==='exercise'&&e.id==='Handstand_Pushups'));
+ for(const path of retired[0].oldPaths){assert.equal(fs.existsSync(path),false);assert.ok(fs.readFileSync('service-worker.js','utf8').includes(path));}
+});
 test('catalog searches by English name and shows honest missing-media placeholder',()=>{
  const a=createApp();
  a.handlers.input({target:{dataset:{filter:'exercises',key:'q'},value:'Iron Cross'}});
@@ -32,7 +85,7 @@ test('each workout card has a distinct emoji, with the requested calisthenics sy
 });
 test('all exercises have a movement-appropriate default set metric',()=>{
  const exercises=createApp().data.exercises;
- assert.equal(exercises.length,49);
+ assert.equal(exercises.length,48);
  assert.ok(exercises.every(x=>['reps','seconds'].includes(x.defaultMetric)));
  assert.equal(exercises.filter(x=>x.defaultMetric==='seconds').length,24);
  for(const exercise of exercises.filter(x=>x.measure))assert.equal(exercise.defaultMetric,exercise.measure.startsWith('Секунди')?'seconds':'reps',exercise.id);

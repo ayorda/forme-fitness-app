@@ -8,12 +8,14 @@ const currentReview=JSON.parse(fs.readFileSync('qa/exercise-image-review-v4.json
 const currentIds=new Set(currentReview.corrections.map(r=>r.id));
 const selection=JSON.parse(fs.readFileSync('qa/exercise-image-selection-v5.json','utf8'));
 const selectedIds=new Set(selection.selections.map(r=>r.id));
+const retirements=JSON.parse(fs.readFileSync('qa/exercise-retirements.json','utf8'));
+const retiredIds=new Set(retirements.retired.map(r=>r.id));
 const context={window:{FORME_EXERCISE_ART:{url:()=> 'placeholder'}}};vm.createContext(context);
 for(const file of ['data.js','exercise-photos.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
 
-test('all 49 exercises have distinct compressed local WebP variants with provenance',()=>{
+test('all 48 active exercises have distinct compressed local WebP variants with provenance',()=>{
  const exercises=context.window.FORME_DATA.exercises,photos=context.window.FORME_EXERCISE_PHOTOS;
- assert.equal(exercises.length,49);assert.equal(photos.ids.length,49);
+ assert.equal(exercises.length,48);assert.equal(photos.ids.length,48);
  for(const item of exercises){const photo=photos.get(item.id),record=manifest.entries.find(x=>x.kind==='exercise'&&x.id===item.id);
   assert.equal(photo.origin,'ai');assert.ok(record);
   assert.equal(record.tool,selectedIds.has(item.id)?'Higgsfield / Nano Banana Pro':currentIds.has(item.id)?'Higgsfield / GPT Image 2.6':'OpenAI image generation tool');
@@ -30,6 +32,7 @@ test('eleven replacements bind the accepted source, final bytes and individual p
  for(const record of review.corrections){
   const entry=manifest.entries.find(e=>e.kind==='exercise'&&e.id===record.id);
   const photo=context.window.FORME_EXERCISE_PHOTOS.get(record.id);
+  if(retiredIds.has(record.id)){assert.equal(entry,undefined);assert.equal(photo,null);continue;}
   assert.equal(record.status,'accepted-visual');
   for(const category of ['anatomy','exactMatch','style'])assert.equal(record[category].status,'accepted');
   const exercise=context.window.FORME_DATA.exercises.find(e=>e.id===record.id);
@@ -72,6 +75,7 @@ test('all 49 entries were audited and the other 38 images stay unchanged',()=>{
  let kept=0;
  for(const record of review.catalogueAudit){
   const entry=manifest.entries.find(e=>e.kind==='exercise'&&e.id===record.id);
+  if(retiredIds.has(record.id)){assert.equal(entry,undefined);continue;}
   assert.ok(entry);
   if(record.result==='replaced-strict-pass')continue;
   kept++;
@@ -93,8 +97,8 @@ test('retired defective assets are absent and evicted without prefetching replac
   assert.ok(refresh.includes(old));
   assert.ok(!assets.includes(`${record.id}-anatomy-v2`));
  }
- assert.match(fs.readFileSync('index.html','utf8'),/exercise-photos\.js\?v=0163/);
- assert.ok(assets.includes('exercise-photos.js?v=0163'));
+ assert.match(fs.readFileSync('index.html','utf8'),/exercise-photos\.js\?v=0164/);
+ assert.ok(assets.includes('exercise-photos.js?v=0164'));
  assert.match(fs.readFileSync('styles.css','utf8'),/\.photo-visual picture img\{object-fit:contain\}/);
  assert.match(fs.readFileSync('styles.css','utf8'),/\.modal-visual:has\(\.photo-visual\)\{height:auto;aspect-ratio:3\/2\}/);
 });
@@ -104,6 +108,7 @@ test('five historical Higgsfield corrections retain provenance and the two unsel
  assert.equal(currentReview.totalGenerationCredits,7.5);
  for(const r of currentReview.corrections){
   const e=manifest.entries.find(e=>e.kind==='exercise'&&e.id===r.id),photo=context.window.FORME_EXERCISE_PHOTOS.get(r.id);
+  if(retiredIds.has(r.id)){assert.equal(e,undefined);assert.equal(photo,null);continue;}
   assert.equal(r.revision,'higgsfield-v4');assert.equal(r.status,'accepted-visual');
   assert.deepEqual(r.observedLimbs,{arms:2,hands:2,legs:2,feet:2});
   for(const category of ['anatomy','exactMatch','style','styleLock'])assert.equal(r[category].status,'accepted');
@@ -166,16 +171,17 @@ test('only the three screenshot-selected originals are published, with exact raw
  assert.equal(selection.excludedCandidate.published,false);
 });
 
-test('the remaining 46 exercise entries and all food entries match the immediate baseline exactly',()=>{
+test('non-retired exercise entries and all food entries match the immediate baseline exactly',()=>{
  let kept=0;
  for(const baseline of selection.baselineEntries){
   const e=manifest.entries.find(e=>e.kind===baseline.kind&&e.id===baseline.id);
+  if(baseline.kind==='exercise'&&retiredIds.has(baseline.id)){assert.equal(e,undefined);continue;}
   if(baseline.kind==='exercise'&&selectedIds.has(baseline.id))continue;
   assert.deepEqual(e,baseline);
   if(baseline.kind==='exercise')kept++;
  }
- assert.equal(kept,46);
- assert.equal(manifest.entries.length,selection.baselineEntries.length);
+ assert.equal(kept,45);
+ assert.equal(manifest.entries.length,selection.baselineEntries.length-1);
 });
 
 test('the other 44 exercise entries are identical to the pre-Higgsfield baseline',()=>{
@@ -183,6 +189,7 @@ test('the other 44 exercise entries are identical to the pre-Higgsfield baseline
  let unchanged=0;
  for(const baseline of currentReview.catalogueAudit){
   const e=manifest.entries.find(e=>e.kind==='exercise'&&e.id===baseline.id);
+  if(retiredIds.has(baseline.id)){assert.equal(e,undefined);continue;}
   if(currentIds.has(baseline.id)){
    const r=currentReview.corrections.find(r=>r.id===baseline.id);
    assert.equal(r.oldDesktopSha256,baseline.baselineEntry.variants.desktop.sha256);

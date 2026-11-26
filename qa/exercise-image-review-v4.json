@@ -878,7 +878,8 @@
           "bytes": 28986,
           "sha256": "788e78a0935c14536982d7cb8bd0f429b763d9b2643fc331dcd7e500c413da88"
         }
-      }
+      },
+      "retiredBy": "qa/exercise-retirements.json"
     }
   ],
   "rejectedCandidates": [

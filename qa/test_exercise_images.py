@@ -42,6 +42,12 @@ class ImageGateTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Unreviewed'):
             helper.prepare(self.source, 'Handstand', Path(__file__).resolve().parents[1] / 'media/exercises')
 
+    def test_retired_exercise_cannot_be_republished_from_a_receipt(self):
+        receipt = self.receipt()
+        with self.assertRaisesRegex(ValueError, 'Retired exercise'):
+            helper.prepare(self.source, 'Handstand_Pushups', self.root / 'publish', receipt)
+        self.assertFalse((self.root / 'publish').exists())
+
     def test_higgsfield_revision_requires_bound_reference_and_all_style_comparisons(self):
         receipt = self.receipt()
         record = receipt['corrections'][0]

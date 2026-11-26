@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "status": "NEEDS REVIEW",
+  "exerciseId": "Tuck_Front_Lever",
+  "date": "2026-11-26",
+  "activeReplacement": false,
+  "styleReference": {
+    "path": "media/exercises/Tuck_Front_Lever-anatomy-v3-960.webp",
+    "sha256": "d96e825158deab5a6c98215720858286800a68078a83241472df47f9ab3424ba"
+  },
+  "poseReference": {
+    "page": "https://calisthenics.com/front-lever-training-routine/",
+    "url": "https://calisthenics.com/wp-content/uploads/2025/01/tuck-front-lever-progression.jpg",
+    "sha256": "e5409d2f4e291ab59f54bd0a0a3143528cb0f7c458f52634519f55edc88a459c",
+    "note": "Same photograph as user displayed, public full version independently retrieved; original ZIP absent. Pose only, no original identity/clothing/room/branding reuse; reference kept outside repository."
+  },
+  "candidates": [
+    {
+      "jobId": "9678c050-0781-4ae5-9eba-d8e01dd0eac0",
+      "platform": "Higgsfield",
+      "requestedModel": "nano_banana_pro",
+      "reportedJobType": "nano_banana_2",
+      "requestedResolution": "2k",
+      "requestedAspectRatio": "3:2",
+      "generationStatus": "completed",
+      "rawOutput": {
+        "sha256": "858735debaf4b21f9d9c68372634bc0dc038f5172867ea87e6a142062836d6fb",
+        "width": 2528,
+        "height": 1696,
+        "format": "PNG",
+        "bytes": 6075346
+      },
+      "credits": 2,
+      "decision": "REJECTED",
+      "publishEligible": false,
+      "review": {
+        "pose": "Feet too low and far from bar; insufficient reference knee tuck and pelvis/torso placement.",
+        "anatomy": "Overlapping lower legs/shoes do not allow confident independent two-foot tracing; no certified anatomy claim.",
+        "style": "Same broad olive uprights, charcoal wall, black floor, kettlebells and right rack; similar illumination. Similar background alone cannot approve the rejected pose."
+      }
+    }
+  ],
+  "credits": {
+    "start": 357.75,
+    "end": 355.75,
+    "spent": 2,
+    "purchases": 0
+  },
+  "nextAttempt": {
+    "submitted": false,
+    "additionalCredits": 2,
+    "permission": "pending owner reply"
+  },
+  "limits": "Manual visual review, not automatic anatomy detection or independent coaching certification. No final WebP made for the rejected candidate."
+}
