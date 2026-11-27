@@ -48,7 +48,7 @@ test('installation caches the app and activation removes only old FORME caches',
   assert.equal(media.has('https://example.test/media/foods/apple-480.webp'),true);
   const cache=[...a.stored.entries()].find(([name])=>name.startsWith('forme-mobile-'))[1];
   const appUrl='./'+fs.readFileSync('index.html','utf8').match(/<script src="(app\.js\?v=\d+)"/)[1];
-  for(const asset of ['./index.html',appUrl,'./data.js?v=0164','./styles.css?v=0166','./food-photos.js','./i18n.js','./interface-translations.js?v=0166','./exercise-translations.js','./food-translations.js','./workout-translations.js','./locale-content.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);
+  for(const asset of ['./index.html',appUrl,'./data.js?v=0167','./styles.css?v=0166','./food-photos.js','./i18n.js','./interface-translations.js?v=0167','./exercise-translations.js','./food-translations.js','./workout-translations.js','./locale-content.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);
 });
 
 test('image upgrade removes both generations of superseded pictures and retains other offline images',async()=>{

@@ -71,12 +71,28 @@ class VideoReviewGateTests(unittest.TestCase):
         entry=real_fixture();entry['poster']['sourceVideoSha256']='a'*64
         with self.assertRaises(AssertionError):validate_entry(entry)
 
-    def test_owner_policy_has_no_generator_or_bulk_authorization(self):
+    def test_owner_policy_has_exact_ten_additions_and_no_generator_authorization(self):
         policy=json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())['productionPolicy']
         self.assertEqual((policy['version'],policy['origin'],policy['tool']),('4.1','filmed','FFmpeg'))
         self.assertIs(policy['aiGenerationAllowed'],False)
         self.assertEqual(policy['durationMode'],'complete-natural-movement');self.assertNotIn('duration',policy);self.assertNotIn('frames',policy)
-        self.assertIn('Parallel_Bar_Dips only',policy['scope'])
+        self.assertEqual(set(policy['authorizedBatch']),{'Pushups','Pullups','Plank','Bench_Dips','Childs_Pose','Arm_Circles','Shoulder_Stretch','Cat_Stretch','Seated_Floor_Hamstring_Stretch','Bodyweight_Squat'})
+        self.assertIn('remaining37',policy['scope'])
+
+    def test_pexels_rights_are_bound_to_the_exact_published_source_and_rendition(self):
+        good=next(e for e in json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())['entries'] if e['license']=='Pexels')
+        self.assertIn('INTERNAL REVIEW',validate_entry(good))
+        mutations=[('sourcePage','https://www.pexels.com.evil.test/video/man-4742661/'),('sourcePage',good['sourcePage']+'?redirect=elsewhere'),('licenseUrl','https://www.pexels.com/license/?other'),('sourceFile','https://videos.pexels.com/video-files/999/wrong.mp4'),('origin','ai-image-to-video')]
+        for key,value in mutations:
+            entry=copy.deepcopy(good);entry[key]=value
+            with self.assertRaises(AssertionError):validate_entry(entry)
+        for key,value in [('id',999),('slug','wrong'),('license','CC0'),('published',False),('status','pending'),('author','Wrong')]:
+            entry=copy.deepcopy(good);entry['sourceMetadataSnapshot'][key]=value
+            with self.assertRaises(AssertionError):validate_entry(entry)
+        entry=copy.deepcopy(good);entry['sourceMetadataSnapshot']['video_files']=[]
+        with self.assertRaises(AssertionError):validate_entry(entry)
+        entry=copy.deepcopy(good);entry['rightsReview']['useContext']='stock-resale'
+        with self.assertRaises(AssertionError):validate_entry(entry)
 
     def test_coverr_requires_real_free_source_and_integrated_app_rights(self):
         for key in ['isAiGenerated','isPremium']:

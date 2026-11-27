@@ -33,9 +33,9 @@ test('Mobile navigation is above the main content in document order', () => {
 
 test('every app module stays cached offline and viewed media is saved for reuse',()=>{
  const artPos=html.indexOf('<script src="exercise-art.js"></script>');
- const dataPos=html.indexOf('<script src="data.js?v=0164"></script>');
+ const dataPos=html.indexOf('<script src="data.js?v=0167"></script>');
  assert.ok(artPos>=0&&artPos<dataPos);
-  assert.ok(sw.includes('forme-mobile-v0166-overview1'));
+  assert.ok(sw.includes('forme-mobile-v0167-videos10'));
  assert.ok(sw.includes('exercise-art.js'));
  assert.ok(sw.includes('progress.js'));
  assert.ok(sw.includes('programs.js'));

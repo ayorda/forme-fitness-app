@@ -53,6 +53,19 @@ test('retired AI metadata cannot bypass the real-footage player using a real lic
   assert.doesNotMatch(context.renderVideo({name:'Test',demoVideo:video}),/<video/);
  }
 });
+test('Pexels player accepts only reviewed filmed clips with canonical source and exact licence',()=>{
+ const video={approved:true,origin:'filmed',reviewStatus:'accepted-internal',src:'media/exercise-videos/pushups-real-v1.mp4',credit:'Ketut Subiyanto / Pexels',source:'https://www.pexels.com/video/man-doing-a-push-up-at-the-gym-4742661/',license:'Pexels',licenseUrl:'https://www.pexels.com/license/'};
+ assert.match(context.renderVideo({id:'Pushups',name:'Pushups',demoVideo:video}),/<video controls playsinline preload="none"/);
+ assert.equal((context.renderVideo({id:'Pushups',name:'Pushups',demoVideo:video}).match(/style="text-decoration:underline"/g)||[]).length,2,'licence/source links remain identifiable without colour');
+ for(const bad of [{reviewStatus:'pending'},{origin:'ai-image-to-video'},{origin:undefined},{source:'https://www.pexels.com.evil.test/video/man-4742661/'},{source:'https://www.pexels.com/video/man-4742661/?redirect=elsewhere'},{source:'https://www.pexels.com/video/man/'},{licenseUrl:'https://www.pexels.com/license/?other'},{approved:false}])assert.doesNotMatch(context.renderVideo({name:'Test',demoVideo:{...video,...bad}}),/<video/);
+});
+test('the ten additions bind distinct active exercises with localized cues',()=>{
+ const c=vm.createContext({window:{FORME_EXERCISE_ART:{url:()=> 'placeholder'}}});
+ vm.runInContext(fs.readFileSync('data.js','utf8'),c);vm.runInContext(fs.readFileSync('interface-translations.js','utf8'),c);
+ const ids=['Pushups','Pullups','Plank','Bench_Dips','Childs_Pose','Arm_Circles','Shoulder_Stretch','Cat_Stretch','Seated_Floor_Hamstring_Stretch','Bodyweight_Squat'];
+ assert.equal(c.window.FORME_DATA.exercises.length,48);assert.equal(c.window.FORME_DATA.exercises.some(e=>e.id==='Handstand_Pushups'),false);
+ for(const id of ids){const ex=c.window.FORME_DATA.exercises.find(ex=>ex.id===id);assert.equal(ex.demoVideo.license,'Pexels');assert.match(context.renderVideo(ex),/<video controls/);for(const lang of ['bg','en','de'])assert.ok(c.window.FORME_INTERFACE_TRANSLATIONS.get('exercises.videoCue.'+id,lang));}
+});
 
 test('delegated image failures reveal the matching food or exercise fallback',()=>{
  for(const kind of ['food','exercise']){const picture={hidden:false},changes=[];const visual={classList:{add:name=>changes.push(name)}};const target={tagName:'IMG',dataset:{mediaFallback:kind},closest:selector=>selector==='picture'?picture:selector===(kind==='food'?'.food-visual':'.photo-visual')?visual:null};context.mediaError({target});assert.equal(picture.hidden,true);assert.deepEqual(changes,['media-pending']);}
@@ -67,12 +80,14 @@ test('shipped video matches the catalogue, licensed source and immutable byte ma
  vm.runInContext(fs.readFileSync('data.js','utf8'),c);
  const manifest=JSON.parse(fs.readFileSync('media/exercise-videos/manifest.json','utf8'));
  const available=c.window.FORME_DATA.exercises.filter(ex=>ex.demoVideo?.approved);
- assert.equal(available.length,manifest.entries.length);assert.equal(available.length,1);
+ assert.equal(available.length,manifest.entries.length);assert.equal(available.length,11);
  for(const entry of manifest.entries){
   const ex=available.find(ex=>ex.id===entry.exerciseId);assert.ok(ex);
   assert.equal(ex.demoVideo.source,entry.sourcePage);assert.equal(ex.demoVideo.license,entry.license);assert.equal(ex.demoVideo.licenseUrl,entry.licenseUrl);
-  assert.equal(entry.origin,'filmed');assert.equal(entry.sourceMetadataSnapshot.isAiGenerated,false);assert.equal(entry.sourceMetadataSnapshot.isPremium,false);assert.equal(entry.rightsReview.useContext,'integrated-instructional-app');
-  assert.equal(entry.adaptationLicense,'Coverr License');assert.ok(entry.changes);assert.ok(entry.review.limitations);
+  assert.equal(entry.origin,'filmed');assert.equal(entry.rightsReview.useContext,'integrated-instructional-app');
+  if(entry.license==='Pexels'){assert.equal(entry.sourceMetadataSnapshot.license,'Pexels');assert.equal(entry.sourceMetadataSnapshot.published,true);assert.equal(entry.sourceMetadataSnapshot.status,'approved');}
+  else{assert.equal(entry.sourceMetadataSnapshot.isAiGenerated,false);assert.equal(entry.sourceMetadataSnapshot.isPremium,false);assert.equal(entry.license,'Coverr License');}
+  assert.equal(entry.adaptationLicense,entry.license);assert.ok(entry.changes);assert.ok(entry.review.limitations);
   for(const v of entry.variants){const bytes=fs.readFileSync(v.path);assert.equal(bytes.length,v.bytes);assert.ok(bytes.length<1024*1024);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),v.sha256);}
   assert.ok(entry.variants.some(v=>v.path===ex.demoVideo.src&&v.codec==='h264'));
   assert.equal(ex.demoVideo.poster,entry.poster.path);const poster=fs.readFileSync(entry.poster.path);assert.equal(poster.length,entry.poster.bytes);assert.equal(poster.readUInt16BE(0),0xffd8);assert.equal(crypto.createHash('sha256').update(poster).digest('hex'),entry.poster.sha256);

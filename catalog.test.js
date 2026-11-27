@@ -126,7 +126,8 @@ test('translated exercise search keeps stable IDs and preserves Bulgarian defaul
   assert.match(html,/data-id="Pullups"/);assert.ok(html.includes(name));assert.match(a.nodes.app.innerHTML,language==='en'?/Search exercises/:/Übung suchen/);
   a.handlers.click({target:{closest:()=>({dataset:{action:'exercise-detail',id:'Pullups'}})}});
   assert.ok(a.nodes['modal-root'].innerHTML.includes(name));
-  assert.match(a.nodes['modal-root'].innerHTML,language==='en'?/Video demonstration coming soon/:/Videodemonstration folgt/);
+  assert.match(a.nodes['modal-root'].innerHTML,/<video controls playsinline preload="none"/);
+  assert.match(a.nodes['modal-root'].innerHTML,language==='en'?/Use an overhand grip/:/Greife im Obergriff/);
   a.handlers.click({target:{closest:()=>({dataset:{action:'favorite',kind:'exercises',id:'Pullups'}})}});
   assert.match(a.nodes.toast.textContent,language==='en'?/Added to favorites/:/Zu Favoriten hinzugefügt/);
   assert.ok(JSON.parse(a.storage['forme-favorites']).exercises.includes('Pullups'));

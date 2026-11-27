@@ -11,6 +11,19 @@ def validate_entry(entry):
     assert entry['adaptationLicense'] == license_name
     if license_name == 'CC BY-SA 4.0':
         assert entry['licenseUrl'] == 'https://creativecommons.org/licenses/by-sa/4.0/'
+    elif license_name == 'Pexels':
+        assert entry['licenseUrl'] == 'https://www.pexels.com/license/'
+        match = re.fullmatch(r'https://www\.pexels\.com/video/([a-z0-9-]+)-(\d+)/', entry['sourcePage'])
+        assert match, 'Canonical public Pexels video page required'
+        snapshot = entry['sourceMetadataSnapshot']
+        assert str(snapshot['id']) == match[2] and snapshot['slug'] == match[1]
+        assert snapshot['license'] == 'Pexels' and snapshot['published'] is True and snapshot['status'] == 'approved'
+        assert snapshot['created_at'] and snapshot['author'] == entry['author']
+        assert re.fullmatch(r'https://videos\.pexels\.com/video-files/\d+/[a-zA-Z0-9_.-]+\.mp4', entry['sourceFile'])
+        assert entry['sourceFile'].split('/')[4] == match[2]
+        assert entry['sourceFile'] in [v['link'] for v in snapshot['video_files'] if v['file_type'] == 'video/mp4']
+        assert entry['rightsReview']['licenseCheckedOn'] and entry['rightsReview']['useContext'] == 'integrated-instructional-app'
+        assert entry['rightsReview']['restrictions'] and entry['rightsReview']['modelRelease']
     else:
         assert license_name == 'Coverr License'
         assert entry['licenseUrl'] == 'https://coverr.co/license'
