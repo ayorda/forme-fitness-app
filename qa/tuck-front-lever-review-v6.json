@@ -88,5 +88,7 @@
     "credits": 2,
     "status": "completed",
     "decision": "REJECTED"
-  }
+  },
+  "supersededBy": "qa/exercise-image-selection-v7.json",
+  "scope": "Historical review of the first two rejected candidates on 2026-11-26; later attempts and final owner-approved replacement are tracked by selection-v7."
 }

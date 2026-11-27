@@ -46,6 +46,7 @@
 
 ### Изображения, видео и звук
 
+- [QA-TUCK-FRONT-LEVER.md](./QA-TUCK-FRONT-LEVER.md) — одобрен последен Tuck Front Lever, файлове и проверки, v0.16.5.
 - [QA-EXERCISE-CLEANUP.md](./QA-EXERCISE-CLEANUP.md) — безопасно пенсиониране на Handstand Push-Ups и неприет Tuck Front Lever кандидат, v0.16.4.
 
 - [QA-EXERCISE-NANO-SELECTION.md](./QA-EXERCISE-NANO-SELECTION.md) — трите избрани от собственика Nano Banana Pro изображения, v0.16.3.

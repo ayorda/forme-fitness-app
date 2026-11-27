@@ -258,7 +258,8 @@
           "bytes": 27354,
           "sha256": "d96e825158deab5a6c98215720858286800a68078a83241472df47f9ab3424ba"
         }
-      }
+      },
+      "supersededBy": "qa/exercise-image-selection-v7.json"
     },
     {
       "id": "Toes_to_Bar",

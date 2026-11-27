@@ -13,18 +13,20 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = json.loads((ROOT / 'qa/exercise-image-review-v4.json').read_text())
 SELECTION = json.loads((ROOT / 'qa/exercise-image-selection-v5.json').read_text())
+TUCK_SELECTION = json.loads((ROOT / 'qa/exercise-image-selection-v7.json').read_text())
 MANIFEST = json.loads((ROOT / 'media/manifest.json').read_text())
 RETIREMENTS = json.loads((ROOT / 'qa/exercise-retirements.json').read_text())['retired']
 ACTIVE_IDS = [e['id'] for e in MANIFEST['entries'] if e['kind'] == 'exercise']
 CURRENT = {r['id']: r for r in REVIEW['corrections']}
 CURRENT.update({r['id']: r for r in SELECTION['selections']})
+CURRENT.update({r['id']: r for r in TUCK_SELECTION['selections']})
 CURRENT = {id: r for id, r in CURRENT.items() if id in ACTIVE_IDS}
 CORRECTED = list(CURRENT)
 ALL_IDS = ACTIVE_IDS
 REVISIONS = {id: r['revision'] for id, r in CURRENT.items()}
 SHELL_CACHE = re.search(r"const CACHE = '([^']+)'", (ROOT / 'service-worker.js').read_text()).group(1)
 FILES = [v for e in MANIFEST['entries'] if e['kind'] == 'exercise' and e['id'] in CORRECTED for v in e['variants'].values()]
-RETIRED = [path for r in REVIEW['corrections'] + SELECTION['selections'] + RETIREMENTS for path in r['oldPaths']]
+RETIRED = [path for r in REVIEW['corrections'] + SELECTION['selections'] + TUCK_SELECTION['selections'] + RETIREMENTS for path in r['oldPaths']]
 REPORT = dict(cases=[], errors=[], csp=[], productionRequests=[], retiredRequests=[])
 
 
@@ -81,7 +83,7 @@ def main():
             browser = p.chromium.launch(**options)
             for lang in ['bg', 'en', 'de']:
                 for width in [390, 1280]:
-                    ctx = browser.new_context(bypass_csp=False, viewport=dict(width=width, height=900), is_mobile=width == 390, has_touch=width == 390)
+                    ctx = browser.new_context(bypass_csp=False, viewport=dict(width=width, height=900), is_mobile=width == 390, has_touch=width == 390, color_scheme=os.environ.get('FORME_IMAGES_THEME', 'light'))
                     observe(ctx)
                     ctx.add_init_script('if(["http:","https:"].includes(location.protocol)){localStorage.setItem("forme-language",' + json.dumps(lang) + ');if(!localStorage.getItem("forme-qa-images-seeded")){localStorage.setItem("forme-favorites",JSON.stringify({exercises:["Plank","Handstand_Pushups"],workouts:[]}));localStorage.setItem("forme-progress-v1",JSON.stringify({version:1,goal:{workoutsPerWeek:3,minutesPerWeek:90},sessions:[],sets:[{id:"legacy-hspu-browser",exerciseId:"Handstand_Pushups",date:"2026-11-20",kind:"reps",value:5}]}));localStorage.setItem("forme-qa-images-seeded","true");}}')
                     page = ctx.new_page()

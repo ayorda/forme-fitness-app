@@ -8,6 +8,8 @@ const currentReview=JSON.parse(fs.readFileSync('qa/exercise-image-review-v4.json
 const currentIds=new Set(currentReview.corrections.map(r=>r.id));
 const selection=JSON.parse(fs.readFileSync('qa/exercise-image-selection-v5.json','utf8'));
 const selectedIds=new Set(selection.selections.map(r=>r.id));
+const tuckSelection=JSON.parse(fs.readFileSync('qa/exercise-image-selection-v7.json','utf8'));
+const tuck=tuckSelection.selections[0];
 const retirements=JSON.parse(fs.readFileSync('qa/exercise-retirements.json','utf8'));
 const retiredIds=new Set(retirements.retired.map(r=>r.id));
 const context={window:{FORME_EXERCISE_ART:{url:()=> 'placeholder'}}};vm.createContext(context);
@@ -18,9 +20,9 @@ test('all 48 active exercises have distinct compressed local WebP variants with 
  assert.equal(exercises.length,48);assert.equal(photos.ids.length,48);
  for(const item of exercises){const photo=photos.get(item.id),record=manifest.entries.find(x=>x.kind==='exercise'&&x.id===item.id);
   assert.equal(photo.origin,'ai');assert.ok(record);
-  assert.equal(record.tool,selectedIds.has(item.id)?'Higgsfield / Nano Banana Pro':currentIds.has(item.id)?'Higgsfield / GPT Image 2.6':'OpenAI image generation tool');
+  assert.equal(record.tool,selectedIds.has(item.id)||item.id===tuck.id?'Higgsfield / Nano Banana Pro':currentIds.has(item.id)?'Higgsfield / GPT Image 2.6':'OpenAI image generation tool');
   assert.equal(photo.generator,record.tool);
-  assert.match(record.usage,currentIds.has(item.id)?/Higgsfield and model-provider terms/:/OpenAI Terms/);
+  assert.match(record.usage,currentIds.has(item.id)||item.id===tuck.id?/Higgsfield and model-provider terms/:/OpenAI Terms/);
   for(const [size,path] of [['mobile',photo.small],['desktop',photo.large]]){const bytes=fs.readFileSync(path);assert.match(path,/\.webp$/);assert.ok(bytes.length<150_000,`${item.id} ${size} exceeds budget`);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),record.variants[size].sha256);assert.equal(bytes.toString('ascii',8,12),'WEBP');assert.equal(bytes.readUInt16LE(26)&0x3fff,size==='mobile'?480:960);assert.equal(bytes.readUInt16LE(28)&0x3fff,size==='mobile'?320:640);}
  }
  assert.equal(photos.get('constructor'),null);
@@ -46,6 +48,11 @@ test('eleven replacements bind the accepted source, final bytes and individual p
   assert.equal(Object.keys(record.checks).length,9);
   assert.ok(Object.values(record.checks).every(v=>v===true));
   assert.ok(record.poseNotes.length>80);
+  if(record.id===tuck.id){
+   assert.equal(record.supersededBy,'qa/exercise-image-selection-v7.json');
+   assert.equal(tuck.oldDesktopSha256,record.variants['960'].sha256);
+   continue; // Owner selected a later exact candidate; retain this historical review.
+  }
   if(currentIds.has(record.id)){
    assert.equal(record.supersededBy,'qa/exercise-image-review-v4.json');
    const replacement=currentReview.corrections.find(r=>r.id===record.id);
@@ -97,8 +104,8 @@ test('retired defective assets are absent and evicted without prefetching replac
   assert.ok(refresh.includes(old));
   assert.ok(!assets.includes(`${record.id}-anatomy-v2`));
  }
- assert.match(fs.readFileSync('index.html','utf8'),/exercise-photos\.js\?v=0164/);
- assert.ok(assets.includes('exercise-photos.js?v=0164'));
+ assert.match(fs.readFileSync('index.html','utf8'),/exercise-photos\.js\?v=0165/);
+ assert.ok(assets.includes('exercise-photos.js?v=0165'));
  assert.match(fs.readFileSync('styles.css','utf8'),/\.photo-visual picture img\{object-fit:contain\}/);
  assert.match(fs.readFileSync('styles.css','utf8'),/\.modal-visual:has\(\.photo-visual\)\{height:auto;aspect-ratio:3\/2\}/);
 });
@@ -171,20 +178,20 @@ test('only the three screenshot-selected originals are published, with exact raw
  assert.equal(selection.excludedCandidate.published,false);
 });
 
-test('non-retired exercise entries and all food entries match the immediate baseline exactly',()=>{
+test('entries outside the owner selections match the earlier baseline exactly',()=>{
  let kept=0;
  for(const baseline of selection.baselineEntries){
   const e=manifest.entries.find(e=>e.kind===baseline.kind&&e.id===baseline.id);
   if(baseline.kind==='exercise'&&retiredIds.has(baseline.id)){assert.equal(e,undefined);continue;}
-  if(baseline.kind==='exercise'&&selectedIds.has(baseline.id))continue;
+  if(baseline.kind==='exercise'&&(selectedIds.has(baseline.id)||baseline.id===tuck.id))continue;
   assert.deepEqual(e,baseline);
   if(baseline.kind==='exercise')kept++;
  }
- assert.equal(kept,45);
+ assert.equal(kept,44);
  assert.equal(manifest.entries.length,selection.baselineEntries.length-1);
 });
 
-test('the other 44 exercise entries are identical to the pre-Higgsfield baseline',()=>{
+test('the other 43 exercise entries are identical to the pre-Higgsfield baseline',()=>{
  assert.equal(currentReview.catalogueAudit.length,49);
  let unchanged=0;
  for(const baseline of currentReview.catalogueAudit){
@@ -194,7 +201,39 @@ test('the other 44 exercise entries are identical to the pre-Higgsfield baseline
    const r=currentReview.corrections.find(r=>r.id===baseline.id);
    assert.equal(r.oldDesktopSha256,baseline.baselineEntry.variants.desktop.sha256);
    assert.notEqual(e.variants.desktop.sha256,r.oldDesktopSha256);
-  }else{assert.deepEqual(e,baseline.baselineEntry);unchanged++;}
+  }else if(baseline.id===tuck.id){assert.equal(tuck.oldDesktopSha256,baseline.baselineEntry.variants.desktop.sha256);}
+  else{assert.deepEqual(e,baseline.baselineEntry);unchanged++;}
  }
- assert.equal(unchanged,44);
+ assert.equal(unchanged,43);
+});
+
+test('the owner-approved Tuck image binds the selected original and preserves all other 47 exercises and 30 foods',()=>{
+ assert.equal(tuckSelection.publicationDecision.approved,true);
+ assert.equal(tuckSelection.publicationDecision.date,'2026-11-27');
+ assert.equal(tuckSelection.additionalGenerationCredits,0);
+ assert.equal(tuckSelection.selections.length,1);assert.equal(tuck.id,'Tuck_Front_Lever');
+ assert.equal(tuck.status,'owner-selected');assert.equal(tuck.approval.approved,true);
+ assert.equal(tuck.generation.jobId,'0afe6e3d-33e2-473b-b1ad-ffad5bc76600');
+ assert.equal(tuck.generation.model,'nano_banana_pro');assert.equal(tuck.generation.status,'completed');
+ assert.equal(tuck.generation.rawOutputSha256,'646f6b1f6b8fe804fcbc1b39c2e163b8474cbe07f1c6930f9a45d7e8a1ba9d68');
+ assert.equal(tuck.sourceSha256,'ef9c194c557b5f42d55943b4da43fe7e773b2c4603b4e5a666ad28f33e18d5cf');
+ assert.deepEqual(tuck.reviewedVariants,['source','480','960']);assert.match(tuck.internalReview.notes,/occlu/i);
+ assert.equal(tuck.internalReview.pixelIdenticalBackground,false);
+ const entry=manifest.entries.find(e=>e.kind==='exercise'&&e.id===tuck.id),photo=context.window.FORME_EXERCISE_PHOTOS.get(tuck.id);
+ assert.equal(entry.review.receipt,'qa/exercise-image-selection-v7.json');assert.equal(entry.review.generation,tuck.generation.jobId);
+ assert.equal(entry.review.sourceSha256,tuck.sourceSha256);assert.equal(photo.created,'2026-11-27');
+ assert.deepEqual(JSON.parse(JSON.stringify(context.window.FORME_DATA.exercises.find(e=>e.id===tuck.id))),tuck.catalogue);
+ const sw=fs.readFileSync('service-worker.js','utf8'),assets=sw.match(/const ASSETS = (\[[^;]+\]);/)[1];
+ for(const [size,width,path] of [['mobile',480,photo.small],['desktop',960,photo.large]]){
+  assert.equal(path,`media/exercises/Tuck_Front_Lever-nano-v7-${width}.webp`);
+  assert.equal(entry.variants[size].sha256,tuck.variants[String(width)].sha256);assert.ok(!assets.includes(path));
+ }
+ for(const path of tuck.oldPaths){assert.equal(fs.existsSync(path),false);assert.ok(sw.includes('./'+path));}
+ let exercises=0,foods=0;
+ for(const baseline of tuckSelection.baselineEntries){
+  if(baseline.kind==='exercise'&&baseline.id===tuck.id)continue;
+  assert.deepEqual(manifest.entries.find(e=>e.kind===baseline.kind&&e.id===baseline.id),baseline);
+  if(baseline.kind==='exercise')exercises++;else if(baseline.kind==='food')foods++;
+ }
+ assert.equal(exercises,47);assert.equal(foods,30);
 });

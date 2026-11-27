@@ -1169,32 +1169,30 @@
       "id": "Tuck_Front_Lever",
       "name": "Тък фронт левър",
       "origin": "AI generated",
-      "tool": "OpenAI image generation tool",
-      "date": "2026-11-17",
-      "usage": "Generated for FORME; use subject to OpenAI Terms of Use",
+      "tool": "Higgsfield / Nano Banana Pro",
+      "date": "2026-11-27",
+      "usage": "Generated via Higgsfield for FORME; use subject to applicable Higgsfield and model-provider terms. AI visualization, not a real athlete photograph or endorsement.",
       "review": {
-        "visual": "individual source, 960/480 and exact exercise phase reviewed",
-        "scope": "anatomy, exact catalogue/equipment/phase and FORME style; not independent trainer certification",
-        "status": "accepted-visual",
-        "revision": "anatomy-v3",
-        "receipt": "qa/exercise-image-review-v3.json",
-        "contract": "qa/exercise-image-contracts.json",
-        "sourceSha256": "d1398fd9381aa184ee0409e1cc9e52b8373b24d2ae96f39f2a57c6a96323f5e4"
+        "visual": "Owner-approved final candidate; source, hand/ankle zoom and both compressed variants inspected",
+        "scope": "Reference-following geometry and disclosed background/occlusion differences accepted by owner; not independent trainer certification",
+        "sourceSha256": "ef9c194c557b5f42d55943b4da43fe7e773b2c4603b4e5a666ad28f33e18d5cf",
+        "receipt": "qa/exercise-image-selection-v7.json",
+        "generation": "0afe6e3d-33e2-473b-b1ad-ffad5bc76600"
       },
       "variants": {
         "mobile": {
-          "path": "media/exercises/Tuck_Front_Lever-anatomy-v3-480.webp",
+          "path": "media/exercises/Tuck_Front_Lever-nano-v7-480.webp",
           "width": 480,
           "height": 320,
-          "bytes": 10494,
-          "sha256": "d2fbc9193d3607d4aa8759f3c3373648d8f8c3eee503e05810c80d6fbe90d06a"
+          "bytes": 10792,
+          "sha256": "d1eb291f717a2fe6386156cea7390952466cbf1b913b4c48af2343c47f9b1c71"
         },
         "desktop": {
-          "path": "media/exercises/Tuck_Front_Lever-anatomy-v3-960.webp",
+          "path": "media/exercises/Tuck_Front_Lever-nano-v7-960.webp",
           "width": 960,
           "height": 640,
-          "bytes": 27354,
-          "sha256": "d96e825158deab5a6c98215720858286800a68078a83241472df47f9ab3424ba"
+          "bytes": 25544,
+          "sha256": "bc8afc2983bef69ab04f3a3956ff6dd1d11fe11851a138788faebb857acc9e8b"
         }
       }
     },

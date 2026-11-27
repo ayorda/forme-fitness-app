@@ -48,13 +48,14 @@ test('installation caches the app and activation removes only old FORME caches',
   assert.equal(media.has('https://example.test/media/foods/apple-480.webp'),true);
   const cache=[...a.stored.entries()].find(([name])=>name.startsWith('forme-mobile-'))[1];
   const appUrl='./'+fs.readFileSync('index.html','utf8').match(/<script src="(app\.js\?v=\d+)"/)[1];
-  for(const asset of ['./index.html',appUrl,'./data.js?v=0164','./styles.css?v=0161','./food-photos.js','./i18n.js','./interface-translations.js?v=0164','./exercise-translations.js','./food-translations.js','./workout-translations.js','./locale-content.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);
+  for(const asset of ['./index.html',appUrl,'./data.js?v=0164','./styles.css?v=0161','./food-photos.js','./i18n.js','./interface-translations.js?v=0165','./exercise-translations.js','./food-translations.js','./workout-translations.js','./locale-content.js','./icon-192.png','./icon-512.png'])assert.ok(cache.has(asset),asset);
 });
 
 test('image upgrade removes both generations of superseded pictures and retains other offline images',async()=>{
  const a=setup();const media=a.stored.get('forme-media-v029-optimized');
  const review=JSON.parse(fs.readFileSync('qa/exercise-image-review-v4.json','utf8'));
  review.corrections.push(...JSON.parse(fs.readFileSync('qa/exercise-image-selection-v5.json','utf8')).selections);
+ review.corrections.push(...JSON.parse(fs.readFileSync('qa/exercise-image-selection-v7.json','utf8')).selections);
  for(const record of review.corrections)for(const path of record.oldPaths)media.set('https://example.test/'+path,'retired image');
  const kept='https://example.test/media/exercises/Plank-480.webp';media.set(kept,'previously viewed plank');
  const corrected='https://example.test/media/exercises/Handstand-nano-v5-480.webp';media.set(corrected,'already viewed corrected handstand');
