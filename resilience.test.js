@@ -3,6 +3,12 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 
+function overviewText(app){
+ const section=app.page().match(/<section class="panel home-progress[^"]*"[^>]*>([\s\S]*?)<\/section>/);
+ assert.ok(section,'Home overview is present');
+ return section[1].replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+}
+
 function boot(hash,storage={},startNow=null,withI18n=false){
  const handlers={},nodes={};
  let now=startNow;
@@ -398,7 +404,7 @@ test('manual workout logging on Progress auto-fills duration, records minutes an
  assert.equal(app.toast(),'Тренировката е записана в дневника.');
  assert.match(app.page(),/<strong>20 \/ 90<\/strong>/);
  app.click({dataset:{action:'nav',page:'home'}});
- assert.match(app.page(),/<strong>1 \/ 3<\/strong> · <strong>20 \/ 90 мин<\/strong>/);
+ assert.match(overviewText(app),/Тренировки тази седмица 1 \/ 3 20 \/ 90 мин/);
  assert.match(app.page(),/Отбелязана като изпълнена: Дълбоко разтягане/);
 });
 
@@ -410,8 +416,8 @@ test('home overview surfaces both weekly minutes goal and daily protein goal',()
    entries:[{id:'e1',date:'2026-11-09',name:'Обяд',items:[{id:'chicken',grams:'200'}]}]
   })
  },new Date(2026,10,9,12));
- assert.match(app.page(),/240 \/ 2\s*200 kcal/);
- assert.match(app.page(),/Протеин: <strong>45 \/ 130 г<\/strong>/);
+ assert.match(overviewText(app),/Храна днес 240 kcal Цел: 2\s*200 kcal/);
+ assert.match(overviewText(app),/Протеин 45 г Цел: 130 г/);
 });
 
 test('journal-copy-today duplicates an earlier meal entry directly into today',()=>{
@@ -1166,7 +1172,7 @@ test('Home overview renders labeled protein meter alongside workout/kcal meters 
   })
  },new Date(2026,10,10,12));
  assert.match(app.page(),/🔥 2 поредни дни/);
- assert.match(app.page(),/<small>Протеин<\/small><div class="progress goal-meter"><span style="width:45%"><\/span>/);
+ assert.match(app.page(),/<dt>Протеин<\/dt>[\s\S]*?<div class="progress goal-meter" aria-hidden="true"><span style="width:45%"><\/span>/);
  assert.match(app.page(),/class="subtle today-next-up"[\s\S]*data-action="workout-detail" data-id="cal-control"/);
 });
 

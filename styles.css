@@ -769,3 +769,29 @@
 /* v0.16.1 — decorative brand mark behind photos is not text (no contrast audit while a photo loads) */
 .media-placeholder .media-mark::before{content:"F."}
 [data-theme="light"] .media-placeholder small{color:#46554c}
+
+/* v0.16.6 — scope goal readability to the existing overview component. */
+.home-overview{display:block}
+.home-overview h2{margin:6px 0 18px}
+.home-overview .home-meters{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 16px}
+.home-overview .home-stat{min-width:0;padding:15px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}
+.home-overview .home-stat dt{min-height:2.8em;margin:0 0 8px;font-size:13px;line-height:1.4;font-weight:600;color:var(--muted);overflow-wrap:anywhere}
+.home-overview .home-stat dd{margin:0}
+.home-overview .home-stat-value{display:block;font-size:30px;line-height:1.2;letter-spacing:-.04em;overflow-wrap:anywhere}
+.home-overview .home-stat-value>span{font-size:14px;font-weight:600;letter-spacing:0;color:var(--muted)}
+.home-overview .home-stat-detail{display:block;margin-top:6px;font-size:12px;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}
+.home-overview .home-stat .goal-meter{height:6px;margin-top:12px}
+.home-overview .home-progress-actions{margin-top:16px}
+@media(max-width:780px){
+ .home-overview{padding:20px 18px}
+ .home-overview .home-meters{gap:8px}
+ .home-overview .home-stat{padding:12px 9px;border-radius:12px}
+ .home-overview .home-stat dt{font-size:11px;min-height:4.2em}
+ .home-overview .home-stat-value{font-size:25px}
+ .home-overview .home-stat-value>span,.home-overview .home-stat-detail{font-size:11px}
+}
+@media(max-width:350px){.home-overview .home-stat-value{font-size:20px}}
+@media print{
+ .home-overview .home-stat{background:#fff;border-color:#ccc}
+ .home-overview .home-stat dt,.home-overview .home-stat-value,.home-overview .home-stat-value>span,.home-overview .home-stat-detail{color:#111}
+}

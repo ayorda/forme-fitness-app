@@ -120,7 +120,7 @@ test('finishing while paused records only time before the pause',()=>{
 
 test('closing a completed workout refreshes weekly progress on the underlying screen',()=>{
  const a=boot();
- assert.match(a.nodes.app.innerHTML,/<strong>0 \/ 3<\/strong>/);
+ assert.match(a.nodes.app.innerHTML.replace(/<[^>]+>/g,' '),/Тренировки тази седмица\s+0\s+\/ 3/);
  a.run("startWorkout('cal-start')");
  a.handlers.change({target:{dataset:{action:'player-setting',key:'workMs'},value:'5'}});
  a.handlers.change({target:{dataset:{action:'player-setting',key:'restMs'},value:'5'}});
@@ -128,7 +128,7 @@ test('closing a completed workout refreshes weekly progress on the underlying sc
  a.advance(600000);a.handlers.visibilitychange();
  assert.equal(a.run('state.player.saved'),true);
  a.handlers.keydown({key:'Escape'});
- assert.match(a.nodes.app.innerHTML,/<strong>1 \/ 3<\/strong>/);
+ assert.match(a.nodes.app.innerHTML.replace(/<[^>]+>/g,' '),/Тренировки тази седмица\s+1\s+\/ 3/);
  assert.match(a.nodes.app.innerHTML,/Отбелязана като изпълнена: Силна основа/);
 });
 
