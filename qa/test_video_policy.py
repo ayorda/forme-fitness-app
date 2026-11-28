@@ -76,8 +76,8 @@ class VideoReviewGateTests(unittest.TestCase):
         self.assertEqual((policy['version'],policy['origin'],policy['tool']),('4.1','filmed','FFmpeg'))
         self.assertIs(policy['aiGenerationAllowed'],False)
         self.assertEqual(policy['durationMode'],'complete-natural-movement');self.assertNotIn('duration',policy);self.assertNotIn('frames',policy)
-        self.assertEqual(set(policy['authorizedBatch']),{'Pushups','Pullups','Plank','Bench_Dips','Childs_Pose','Arm_Circles','Shoulder_Stretch','Cat_Stretch','Seated_Floor_Hamstring_Stretch','Bodyweight_Squat'})
-        self.assertIn('remaining37',policy['scope'])
+        self.assertEqual(set(policy['authorizedBatch']),{'Groin_and_Back_Stretch', 'Kneeling_Hip_Flexor', 'Mountain_Climbers', 'Butt_Lift_Bridge', 'Frog_Stand', 'Ring_Muscle_Up', 'Hanging_Leg_Raise', 'Dancers_Stretch', 'Calf_Stretch_Hands_Against_Wall', 'Handstand'})
+        self.assertIn('remaining27',policy['scope'])
 
     def test_pexels_rights_are_bound_to_the_exact_published_source_and_rendition(self):
         good=next(e for e in json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())['entries'] if e['license']=='Pexels')

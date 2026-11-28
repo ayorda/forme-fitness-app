@@ -133,7 +133,7 @@ def main():
                             section.screenshot(path=str(output/(id+'.png')))
                         REPORT['cases'].append(dict(language=lang,width=width,id=id,metadata=metrics,range=ranges,lazy=True,replay=True))
                         close_detail(page)
-                    # Offline reload, all eleven viewed clips decode, play and seek; guest history remains.
+                    # Offline reload, all viewed clips decode, play and seek; guest history remains.
                     ctx.set_offline(True);page.reload(wait_until='domcontentloaded')
                     for entry in ENTRIES:
                         v=open_exercise(page,entry['exerciseId']);native_play(v);v.evaluate('v=>{v.pause();v.currentTime=v.duration*.7;}');wait(page,'()=>!document.querySelector(".exercise-video video").seeking')
@@ -145,11 +145,11 @@ def main():
             # Existing video/image/audio caches survive new shell activation; no mass MP4 download.
             ctx=browser.new_context(bypass_csp=False);observe(ctx);page=ctx.new_page();page.goto(base+'#exercises');wait(page,'()=>!!navigator.serviceWorker.controller')
             expected=ENTRIES[0]['variants'][0]
-            await_seed=page.evaluate('''async paths=>{for(const [name,path] of paths){const c=await caches.open(name);await c.put(path,await fetch(path));}await caches.open('forme-mobile-v0166-overview1');}''',[['forme-video-v0143-dips2',expected['path']],['forme-media-v029-optimized','media/exercises/Plank-480.webp'],['forme-audio-v0150-original1','media/yoga-music/calm-v1.m4a']])
+            await_seed=page.evaluate('''async paths=>{for(const [name,path] of paths){const c=await caches.open(name);await c.put(path,await fetch(path));}await caches.open('forme-mobile-v0167-videos10');}''',[['forme-video-v0143-dips2',expected['path']],['forme-media-v029-optimized','media/exercises/Plank-480.webp'],['forme-audio-v0150-original1','media/yoga-music/calm-v1.m4a']])
             # The actual activate handler is exercised via a fresh SW script URL, not by synthetic cache deletion.
-            page.evaluate('async()=>{const r=await navigator.serviceWorker.register("service-worker.js?qa-upgrade=0167",{scope:"./"});await r.update();}')
-            wait(page,'()=>navigator.serviceWorker.controller?.scriptURL.includes("qa-upgrade=0167")&&navigator.serviceWorker.controller.state==="activated"')
-            result=page.evaluate('''async()=>{const names=await caches.keys();return {oldShell:names.includes('forme-mobile-v0166-overview1'),video:!!await(await caches.open('forme-video-v0143-dips2')).match('media/exercise-videos/parallel-bar-dips-v2.mp4'),image:!!await(await caches.open('forme-media-v029-optimized')).match('media/exercises/Plank-480.webp'),audio:!!await(await caches.open('forme-audio-v0150-original1')).match('media/yoga-music/calm-v1.m4a')};}''')
+            page.evaluate('async()=>{const r=await navigator.serviceWorker.register("service-worker.js?qa-upgrade=0168",{scope:"./"});await r.update();}')
+            wait(page,'()=>navigator.serviceWorker.controller?.scriptURL.includes("qa-upgrade=0168")&&navigator.serviceWorker.controller.state==="activated"')
+            result=page.evaluate('''async()=>{const names=await caches.keys();return {oldShell:names.includes('forme-mobile-v0167-videos10'),video:!!await(await caches.open('forme-video-v0143-dips2')).match('media/exercise-videos/parallel-bar-dips-v2.mp4'),image:!!await(await caches.open('forme-media-v029-optimized')).match('media/exercises/Plank-480.webp'),audio:!!await(await caches.open('forme-audio-v0150-original1')).match('media/yoga-music/calm-v1.m4a')};}''')
             assert result==dict(oldShell=False,video=True,image=True,audio=True),result
             REPORT['upgrade']=result;REPORT['csp']+=page.evaluate('qaVideoCsp');ctx.close()
             missing_video_check(browser,base)

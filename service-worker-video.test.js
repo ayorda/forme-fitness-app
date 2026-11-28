@@ -54,17 +54,17 @@ test('only exact approved same-origin versioned media uses the range cache',asyn
  const source=fs.readFileSync('service-worker.js','utf8');
  const assets=vm.runInNewContext(source.slice(0,source.indexOf('async function videoResponse'))+';VIDEO_ASSETS');
  const entries=JSON.parse(fs.readFileSync('media/exercise-videos/manifest.json','utf8')).entries;
- assert.equal(assets.length,22);assert.equal(new Set(assets).size,22);assert.ok(assets.every(path=>fs.existsSync(path.slice(2))));
+ assert.equal(assets.length,42);assert.equal(new Set(assets).size,42);assert.ok(assets.every(path=>fs.existsSync(path.slice(2))));
  assert.deepEqual(Array.from(assets).sort(),entries.flatMap(e=>['./'+e.variants[0].path,'./'+e.poster.path]).sort());
  assert.doesNotMatch(source.match(/const ASSETS = ([^;]+);/)[1],/exercise-videos/);
 });
 test('every additional clip has an independent lazy full-body cache and offline range',async()=>{
  const entries=JSON.parse(fs.readFileSync('media/exercise-videos/manifest.json','utf8')).entries.slice(1);
  const online=setup();for(const entry of entries)assert.equal((await online.get('bytes=0-2',URL_BASE+entry.variants[0].path)).status,206);
- assert.equal(online.calls.length,10);assert.equal(online.stored.size,10);
+ assert.equal(online.calls.length,20);assert.equal(online.stored.size,20);
  const offline=setup({offline:true});for(const [key,value] of online.stored)offline.stored.set(key,value.clone());
  for(const entry of entries){const r=await offline.get('bytes=-2',URL_BASE+entry.variants[0].path);assert.equal(r.status,206);assert.deepEqual([...new Uint8Array(await r.arrayBuffer())],[8,9]);}
- assert.equal(offline.calls.length,0);await offline.activate();assert.equal(offline.stored.size,10);
+ assert.equal(offline.calls.length,0);await offline.activate();assert.equal(offline.stored.size,20);
 });
 test('upgrade migrates the unchanged full video, preserves images and removes the retired duplicate',async()=>{
  const s=setup({offline:true}),image=URL_BASE+'media/exercises/Plank-480.webp',retired=URL_BASE+'media/exercise-videos/parallel-bar-dips-v1.webm';

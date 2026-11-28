@@ -67,6 +67,16 @@ test('the ten additions bind distinct active exercises with localized cues',()=>
  for(const id of ids){const ex=c.window.FORME_DATA.exercises.find(ex=>ex.id===id);assert.equal(ex.demoVideo.license,'Pexels');assert.match(context.renderVideo(ex),/<video controls/);for(const lang of ['bg','en','de'])assert.ok(c.window.FORME_INTERFACE_TRANSLATIONS.get('exercises.videoCue.'+id,lang));}
 });
 
+test('second batch binds exactly ten new exercises and preserves existing video coverage',()=>{
+ const c=vm.createContext({window:{}});
+ for(const f of ['exercise-art.js','data.js','interface-translations.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c);
+ const ids=["Mountain_Climbers", "Butt_Lift_Bridge", "Dancers_Stretch", "Groin_and_Back_Stretch", "Kneeling_Hip_Flexor", "Calf_Stretch_Hands_Against_Wall", "Handstand", "Frog_Stand", "Ring_Muscle_Up", "Hanging_Leg_Raise"];const entries=JSON.parse(fs.readFileSync('media/exercise-videos/manifest.json','utf8')).entries;
+ assert.equal(entries.length,21);assert.equal(new Set(entries.map(e=>e.exerciseId)).size,21);
+ assert.deepEqual(entries.slice(11).map(e=>e.exerciseId),ids);
+ for(const id of ids){const ex=c.window.FORME_DATA.exercises.find(e=>e.id===id);assert.equal(ex.demoVideo.origin,'filmed');assert.match(context.renderVideo(ex),/<video controls playsinline preload="none"/);for(const lang of ['bg','en','de'])assert.ok(c.window.FORME_INTERFACE_TRANSLATIONS.get('exercises.videoCue.'+id,lang));}
+ assert.equal(c.window.FORME_DATA.exercises.filter(e=>e.demoVideo).length,21);
+});
+
 test('delegated image failures reveal the matching food or exercise fallback',()=>{
  for(const kind of ['food','exercise']){const picture={hidden:false},changes=[];const visual={classList:{add:name=>changes.push(name)}};const target={tagName:'IMG',dataset:{mediaFallback:kind},closest:selector=>selector==='picture'?picture:selector===(kind==='food'?'.food-visual':'.photo-visual')?visual:null};context.mediaError({target});assert.equal(picture.hidden,true);assert.deepEqual(changes,['media-pending']);}
 });
@@ -80,7 +90,7 @@ test('shipped video matches the catalogue, licensed source and immutable byte ma
  vm.runInContext(fs.readFileSync('data.js','utf8'),c);
  const manifest=JSON.parse(fs.readFileSync('media/exercise-videos/manifest.json','utf8'));
  const available=c.window.FORME_DATA.exercises.filter(ex=>ex.demoVideo?.approved);
- assert.equal(available.length,manifest.entries.length);assert.equal(available.length,11);
+ assert.equal(available.length,manifest.entries.length);assert.equal(available.length,21);
  for(const entry of manifest.entries){
   const ex=available.find(ex=>ex.id===entry.exerciseId);assert.ok(ex);
   assert.equal(ex.demoVideo.source,entry.sourcePage);assert.equal(ex.demoVideo.license,entry.license);assert.equal(ex.demoVideo.licenseUrl,entry.licenseUrl);
