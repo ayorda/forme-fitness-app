@@ -3,6 +3,7 @@ import math
 import re
 
 LEGACY_SHA = 'e23dd1326c87bad75cd78f4ce6ffc9d352047765a24938d436bd1ee38646549b'
+DVIDS_NOTICE = 'The appearance of U.S. Department of War (DoW) visual information does not imply or constitute DoW endorsement.'
 
 
 def validate_entry(entry):
@@ -11,6 +12,41 @@ def validate_entry(entry):
     assert entry['adaptationLicense'] == license_name
     if license_name == 'CC BY-SA 4.0':
         assert entry['licenseUrl'] == 'https://creativecommons.org/licenses/by-sa/4.0/'
+        if entry['sourcePage'].startswith('https://commons.wikimedia.org/'):
+            assert re.fullmatch(r'https://commons\.wikimedia\.org/wiki/File:[^\s?#]+', entry['sourcePage'])
+            snapshot = entry['sourceMetadataSnapshot']
+            assert snapshot['descriptionurl'] == entry['sourcePage']
+            assert snapshot['url'] == entry['sourceFile']
+            assert re.fullmatch(r'https://upload\.wikimedia\.org/wikipedia/commons/[a-f0-9]/[a-f0-9]{2}/[^\s]+\.(?:gif|webm|mp4)(?:\?utm_source=commons\.wikimedia\.org&utm_campaign=imageinfo&utm_content=original)?', entry['sourceFile'])
+            metadata = snapshot['extmetadata']
+            assert metadata['LicenseShortName']['value'] == 'CC BY-SA 4.0'
+            assert metadata['License']['value'] == 'cc-by-sa-4.0'
+            assert metadata['LicenseUrl']['value'].rstrip('/') + '/' == entry['licenseUrl']
+            assert metadata['Restrictions']['value'] == ''
+            assert 'Own work' in metadata['Credit']['value']
+            assert snapshot['author'] == entry['author'] and entry['author']
+            assert snapshot['size'] == entry['sourceBytes']
+            assert entry['rightsReview']['useContext'] == 'integrated-instructional-app'
+            assert entry['rightsReview']['licenseCheckedOn']
+        else:
+            assert entry['sourceMetadataSnapshot']['id'] == 64, 'Only the documented legacy wger exception is retained'
+    elif license_name == 'Public domain (U.S. Government)':
+        assert entry['licenseUrl'] == 'https://www.dvidshub.net/about/copyright'
+        match = re.fullmatch(r'https://www\.dvidshub\.net/video/(\d+)/([a-z0-9-]+)', entry['sourcePage'])
+        assert match, 'Canonical DVIDS asset page required'
+        snapshot = entry['sourceMetadataSnapshot']
+        assert snapshot['provider'] == 'DVIDS' and str(snapshot['id']) == match[1]
+        assert snapshot['sourcePage'] == entry['sourcePage'] and snapshot['title'] == entry['title']
+        assert snapshot['publicDomain'] is True and snapshot['thirdPartyCopyrightFlag'] is False
+        assert snapshot['author'] == entry['author'] and snapshot['unit']
+        assert re.fullmatch(r'\d{6}-[A-Z]-[A-Z0-9]{5}-\d{3}', snapshot['virin'])
+        assert re.fullmatch(r'[a-f0-9]{64}', snapshot['pageSha256'])
+        assert entry['sourceFile'] in snapshot['sourceFiles']
+        rendition = re.fullmatch(r'https://d34w7g4gy10iej\.cloudfront\.net/video/\d{4}/(DOD_\d+)/(DOD_\d+)-\d+x\d+-\d+k\.mp4', entry['sourceFile'])
+        assert rendition and rendition[1] == rendition[2] == snapshot['filename']
+        assert 'identified by DVIDS' in snapshot['copyrightStatement'] and entry['licenseUrl'] in snapshot['copyrightStatement']
+        assert entry['rightsReview']['requiredNotice'] == DVIDS_NOTICE
+        assert entry['rightsReview']['licenseCheckedOn'] and entry['rightsReview']['useContext'] == 'integrated-instructional-app'
     elif license_name == 'Pexels':
         assert entry['licenseUrl'] == 'https://www.pexels.com/license/'
         match = re.fullmatch(r'https://www\.pexels\.com/video/([a-z0-9-]+)-(\d+)/', entry['sourcePage'])

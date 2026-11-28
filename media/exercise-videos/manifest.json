@@ -5936,6 +5936,1465 @@
         "ssim": 0.983148,
         "vmaf": "Not measured."
       }
+    },
+    {
+      "exerciseId": "Side_Bridge",
+      "title": "Side Plank",
+      "origin": "filmed",
+      "author": "CPT Matthew Holfinger",
+      "sourcePage": "https://www.dvidshub.net/video/640254/side-plank",
+      "sourceMetadata": "https://www.dvidshub.net/video/640254/side-plank",
+      "sourceMetadataSnapshot": {
+        "provider": "DVIDS",
+        "id": "640254",
+        "sourcePage": "https://www.dvidshub.net/video/640254/side-plank",
+        "title": "Side Plank",
+        "author": "CPT Matthew Holfinger",
+        "unit": "U.S. Marine Corps Training and Education Command",
+        "virin": "181114-M-JT909-013",
+        "filename": "DOD_106215246",
+        "publicDomain": true,
+        "thirdPartyCopyrightFlag": false,
+        "copyrightStatement": "This work, Side Plank , by CPT Matthew Holfinger , identified by DVIDS , must comply with the restrictions shown on https://www.dvidshub.net/about/copyright .",
+        "pageSha256": "4b8f0ae6edbf1c6c31df33c10c7b678e73618b9ec5bdc32436e78f1567ce1b50",
+        "sourceFiles": [
+          "https://d34w7g4gy10iej.cloudfront.net/video/1811/DOD_106215246/DOD_106215246-1024x576-1769k.mp4"
+        ]
+      },
+      "sourceFile": "https://d34w7g4gy10iej.cloudfront.net/video/1811/DOD_106215246/DOD_106215246-1024x576-1769k.mp4",
+      "sourceBytes": 2609745,
+      "sourceSha256": "cc8a0911df3a3fadf6f275f8b6554e8b1039c207f832e032777eb9071d2c3039",
+      "license": "Public domain (U.S. Government)",
+      "adaptationLicense": "Public domain (U.S. Government)",
+      "licenseUrl": "https://www.dvidshub.net/about/copyright",
+      "rightsReview": {
+        "licenseCheckedOn": "2026-11-28",
+        "useContext": "integrated-instructional-app",
+        "modelRelease": "Public released footage; individual model/property releases not independently inspected. No endorsement or affiliation claimed.",
+        "restrictions": "DVIDS official-duty released exercise footage marked PUBLIC DOMAIN, no third-party copyright flag. Required government non-endorsement notice displayed below every relevant player. Incidental clothing marks are not app branding or endorsement. Only an exercise-title/multi-view panel is cropped; no required credit or watermark is removed.",
+        "requiredNotice": "The appearance of U.S. Department of War (DoW) visual information does not imply or constitute DoW endorsement."
+      },
+      "changes": "Continuous recorded interval 0.000–6.000s; source-specific crop where declared, moderate grade, resize without upscaling,24fps,H.264 CRF24,no audio/private metadata/added video text. No speed change, reverse, loop, padding, interpolation, generated movement or background replacement.",
+      "filter": "crop=512:282:272:6,eq=brightness=0.035:saturation=0.9,scale=512:282,setsar=1,fps=24,format=yuv420p",
+      "processingPlan": {
+        "sourceSha256": "cc8a0911df3a3fadf6f275f8b6554e8b1039c207f832e032777eb9071d2c3039",
+        "sourcePage": "https://www.dvidshub.net/video/640254/side-plank",
+        "licenseUrl": "https://www.dvidshub.net/about/copyright",
+        "origin": "filmed",
+        "trimStart": 0,
+        "duration": 6,
+        "maxEdge": 512,
+        "crop": {
+          "x": 272,
+          "y": 6,
+          "width": 512,
+          "height": 282
+        },
+        "grade": {
+          "brightness": 0.035,
+          "saturation": 0.9
+        }
+      },
+      "sourceProbe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 1024,
+            "height": 576,
+            "coded_width": 1024,
+            "coded_height": 576,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "16:9",
+            "pix_fmt": "yuv420p",
+            "level": 40,
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 1,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "30000/1001",
+            "avg_frame_rate": "30000/1001",
+            "time_base": "1/30000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 342342,
+            "duration": "11.411400",
+            "bit_rate": "1817554",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "342",
+            "extradata_size": 41,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "eng",
+              "handler_name": "VideoHandler",
+              "vendor_id": "[0][0][0][0]"
+            }
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "sample_fmt": "fltp",
+            "sample_rate": "48000",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/48000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 547824,
+            "duration": "11.413000",
+            "bit_rate": "2285",
+            "nb_frames": "536",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "eng",
+              "handler_name": "SoundHandler",
+              "vendor_id": "[0][0][0][0]"
+            }
+          }
+        ],
+        "format": {
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "11.413000",
+          "size": "2609745",
+          "bit_rate": "1829313",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf57.71.100"
+          }
+        }
+      },
+      "trimStart": 0,
+      "trimDuration": 6,
+      "durationReason": "Continuous side-lying setup, forearm-supported hip lift, straight-body hold and controlled return onto the side; one complete support cycle.",
+      "referenceImage": {
+        "path": "media/exercises/Side_Bridge-960.webp",
+        "sha256": "c3be47a159ff580aa60ebea67dfd3813173d442e8852382946b6f950bdea2ce4"
+      },
+      "review": {
+        "method": "All final frames inspected in chronological48-frame contact sheets; full-size key frames and CRF candidates compared. Continuous side-lying setup, forearm-supported hip lift, straight-body hold and controlled return onto the side; one complete support cycle.",
+        "framesInspected": 144,
+        "visualConsistency": true,
+        "jointsVisible": true,
+        "cameraReadable": true,
+        "rightsChecked": true,
+        "noAssistance": true,
+        "noAddedLoad": true,
+        "independentTrainer": "pending",
+        "physicalDevices": "pending",
+        "limitations": "Internal visual review, not independent trainer certification or physical-phone acceptance. One top source view retained, no montage or duplicate view. Both feet, working forearm/elbow/hand, shoulder and head remain readable. Some far-side limb overlap is natural. Muted olive clothing and dark gym floor, tan wall differs from the graphite catalogue gym; slight brightness lift preserves joints without recolouring skin. Internal review only; source512px panel is not upscaled."
+      },
+      "variants": [
+        {
+          "path": "media/exercise-videos/side-bridge-real-v1.mp4",
+          "crf": 24,
+          "bytes": 53801,
+          "sha256": "7923b4d6dc268c4b01694e1e46501e58bc1f9a313774e0b79d7627150f1da7c7",
+          "duration": 6,
+          "frames": 144,
+          "fps": "24/1",
+          "width": 512,
+          "height": 282,
+          "codec": "h264",
+          "pixelFormat": "yuv420p",
+          "audio": false,
+          "faststart": true,
+          "ssim": 0.985652,
+          "encoderOptions": "libx264 -preset slow -crf 24 -profile:v main -level 3.1 -pix_fmt yuv420p -an -map_metadata -1 -movflags +faststart"
+        }
+      ],
+      "poster": {
+        "path": "media/exercise-videos/side-bridge-real-v1-poster.jpg",
+        "bytes": 12861,
+        "sha256": "2da1921556ac2ce3717c0154076ae033d1868ef74fe3aae6bfd2640d399b2020",
+        "width": 512,
+        "height": 282,
+        "sourceVideoSha256": "7923b4d6dc268c4b01694e1e46501e58bc1f9a313774e0b79d7627150f1da7c7",
+        "sourceTime": 0,
+        "description": "JPEG decoded from actual first frame of final MP4; not the catalogue AI photograph."
+      },
+      "visualStandard": {
+        "version": "4.1",
+        "status": "accepted-internal",
+        "reviewedOn": "2026-11-28",
+        "comparison": "qa/evidence/side-bridge-real-v1.jpg",
+        "comparisonSha256": "4da67450fe7e0da2ef1e2269bcd08ef8dca4bca4389a1be67563d9604786b946",
+        "motion": {
+          "continuous": true,
+          "naturalSpeed": true,
+          "fullMovement": true,
+          "synthetic": false
+        },
+        "acceptanceBasis": "Exercise identity, complete natural movement, readable supports and joints prioritized; neutral clothing and moderate source-specific grading. Different real settings disclosed; no claim of identical gym/photo/athlete."
+      },
+      "compression": {
+        "reference": "FFV1 lossless after identical crop/grade/scale/FPS; settb=1/24,setpts=N frame-aligned SSIM.",
+        "candidates": [
+          {
+            "path": "candidate-c22.mp4",
+            "crf": 22,
+            "bytes": 69946,
+            "sha256": "4a0ab8f215072b4a8df21cabc1edc0331a69904b865e10adb208a444450364fc",
+            "duration": 6,
+            "frames": 144,
+            "fps": "24/1",
+            "width": 512,
+            "height": 282,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.988063
+          },
+          {
+            "path": "candidate-c24.mp4",
+            "crf": 24,
+            "bytes": 53801,
+            "sha256": "7923b4d6dc268c4b01694e1e46501e58bc1f9a313774e0b79d7627150f1da7c7",
+            "duration": 6,
+            "frames": 144,
+            "fps": "24/1",
+            "width": 512,
+            "height": 282,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.985652
+          },
+          {
+            "path": "candidate-c26.mp4",
+            "crf": 26,
+            "bytes": 40103,
+            "sha256": "3205a4f4c724ecc07a0bc2d0d4a6718b8e739196389455d074ed13aa00eaeffd",
+            "duration": 6,
+            "frames": 144,
+            "fps": "24/1",
+            "width": 512,
+            "height": 282,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.98244
+          }
+        ],
+        "selectedCrf": 24,
+        "ssim": 0.985652,
+        "vmaf": "Not measured."
+      }
+    },
+    {
+      "exerciseId": "Australian_Rows",
+      "title": "Smith Machine Inverted Row",
+      "origin": "filmed",
+      "author": "CPT Matthew Holfinger",
+      "sourcePage": "https://www.dvidshub.net/video/640257/smith-machine-inverted-row",
+      "sourceMetadata": "https://www.dvidshub.net/video/640257/smith-machine-inverted-row",
+      "sourceMetadataSnapshot": {
+        "provider": "DVIDS",
+        "id": "640257",
+        "sourcePage": "https://www.dvidshub.net/video/640257/smith-machine-inverted-row",
+        "title": "Smith Machine Inverted Row",
+        "author": "CPT Matthew Holfinger",
+        "unit": "U.S. Marine Corps Training and Education Command",
+        "virin": "181114-M-JT909-014",
+        "filename": "DOD_106215252",
+        "publicDomain": true,
+        "thirdPartyCopyrightFlag": false,
+        "copyrightStatement": "This work, Smith Machine Inverted Row , by CPT Matthew Holfinger , identified by DVIDS , must comply with the restrictions shown on https://www.dvidshub.net/about/copyright .",
+        "pageSha256": "824486dd68c84eaa35c7ed38da58724a0347de6ee34d4e45b8e79943ab759d28",
+        "sourceFiles": [
+          "https://d34w7g4gy10iej.cloudfront.net/video/1811/DOD_106215252/DOD_106215252-1024x576-1769k.mp4"
+        ]
+      },
+      "sourceFile": "https://d34w7g4gy10iej.cloudfront.net/video/1811/DOD_106215252/DOD_106215252-1024x576-1769k.mp4",
+      "sourceBytes": 4596307,
+      "sourceSha256": "3697b59105079799cb8df0bf606a67017bd246e1486cde891c4802d60d59e692",
+      "license": "Public domain (U.S. Government)",
+      "adaptationLicense": "Public domain (U.S. Government)",
+      "licenseUrl": "https://www.dvidshub.net/about/copyright",
+      "rightsReview": {
+        "licenseCheckedOn": "2026-11-28",
+        "useContext": "integrated-instructional-app",
+        "modelRelease": "Public released footage; individual model/property releases not independently inspected. No endorsement or affiliation claimed.",
+        "restrictions": "DVIDS official-duty released exercise footage marked PUBLIC DOMAIN, no third-party copyright flag. Required government non-endorsement notice displayed below every relevant player. Incidental clothing marks are not app branding or endorsement. Only an exercise-title/multi-view panel is cropped; no required credit or watermark is removed.",
+        "requiredNotice": "The appearance of U.S. Department of War (DoW) visual information does not imply or constitute DoW endorsement."
+      },
+      "changes": "Continuous recorded interval 0.000–16.000s; source-specific crop where declared, moderate grade, resize without upscaling,24fps,H.264 CRF22,no audio/private metadata/added video text. No speed change, reverse, loop, padding, interpolation, generated movement or background replacement.",
+      "filter": "crop=438:282:350:294,eq=brightness=0.035:saturation=0.9,scale=438:282,setsar=1,fps=24,format=yuv420p",
+      "processingPlan": {
+        "sourceSha256": "3697b59105079799cb8df0bf606a67017bd246e1486cde891c4802d60d59e692",
+        "sourcePage": "https://www.dvidshub.net/video/640257/smith-machine-inverted-row",
+        "licenseUrl": "https://www.dvidshub.net/about/copyright",
+        "origin": "filmed",
+        "trimStart": 0,
+        "duration": 16,
+        "maxEdge": 512,
+        "crop": {
+          "x": 350,
+          "y": 294,
+          "width": 438,
+          "height": 282
+        },
+        "grade": {
+          "brightness": 0.035,
+          "saturation": 0.9
+        }
+      },
+      "sourceProbe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 1024,
+            "height": 576,
+            "coded_width": 1024,
+            "coded_height": 576,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "16:9",
+            "pix_fmt": "yuv420p",
+            "level": 40,
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 1,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "30000/1001",
+            "avg_frame_rate": "30000/1001",
+            "time_base": "1/30000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 613613,
+            "duration": "20.453767",
+            "bit_rate": "1786133",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "613",
+            "extradata_size": 41,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "eng",
+              "handler_name": "VideoHandler",
+              "vendor_id": "[0][0][0][0]"
+            }
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "sample_fmt": "fltp",
+            "sample_rate": "48000",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/48000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 981984,
+            "duration": "20.458000",
+            "bit_rate": "2276",
+            "nb_frames": "960",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "eng",
+              "handler_name": "SoundHandler",
+              "vendor_id": "[0][0][0][0]"
+            }
+          }
+        ],
+        "format": {
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "20.458000",
+          "size": "4596307",
+          "bit_rate": "1797363",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf57.71.100"
+          }
+        }
+      },
+      "trimStart": 0,
+      "trimDuration": 16,
+      "durationReason": "Continuous bent-knee fixed-low-bar row: seated setup, grip and extended-arm support, one controlled pull/top hold, lowering and seated release. Full16-second opening source interval keeps the actual entry, complete row and exit together.",
+      "referenceImage": {
+        "path": "media/exercises/Australian_Rows-960.webp",
+        "sha256": "e7335a7aaf209428832bc5208528969e1487e0a203da2262e5e9f0474fd097c9"
+      },
+      "review": {
+        "method": "All final frames inspected in chronological48-frame contact sheets; full-size key frames and CRF candidates compared. Continuous bent-knee fixed-low-bar row: seated setup, grip and extended-arm support, one controlled pull/top hold, lowering and seated release. Full16-second opening source interval keeps the actual entry, complete row and exit together.",
+        "framesInspected": 384,
+        "visualConsistency": true,
+        "jointsVisible": true,
+        "cameraReadable": true,
+        "rightsChecked": true,
+        "noAssistance": true,
+        "noAddedLoad": true,
+        "independentTrainer": "pending",
+        "physicalDevices": "pending",
+        "limitations": "Internal visual review, not independent trainer certification or physical-phone acceptance. Single frontal source view, excluding the source title and the top view whose shoes reach the panel boundary. Both supporting feet and both grips are visible within the retained438x282 panel, no upscaling. Bar stays fixed on the rack; plates on the support bar do not add load to the athlete. Bar naturally overlaps the upper face at the pulling peak; grips and elbow movement remain readable. Olive clothing/dark floor/tan wall differ from the AI photograph. Internal review is separate from trainer/device acceptance."
+      },
+      "variants": [
+        {
+          "path": "media/exercise-videos/australian-rows-real-v1.mp4",
+          "crf": 22,
+          "bytes": 179998,
+          "sha256": "b4535230d03a40f68433e7fcc26eb8cf80349844750820e1ac929067f03672d8",
+          "duration": 16,
+          "frames": 384,
+          "fps": "24/1",
+          "width": 438,
+          "height": 282,
+          "codec": "h264",
+          "pixelFormat": "yuv420p",
+          "audio": false,
+          "faststart": true,
+          "ssim": 0.986806,
+          "encoderOptions": "libx264 -preset slow -crf 22 -profile:v main -level 3.1 -pix_fmt yuv420p -an -map_metadata -1 -movflags +faststart"
+        }
+      ],
+      "poster": {
+        "path": "media/exercise-videos/australian-rows-real-v1-poster.jpg",
+        "bytes": 16550,
+        "sha256": "ab6990862289555be0430b85893cedcc081d94e5da9bc8f4f8d03d3bbb2bbcc1",
+        "width": 438,
+        "height": 282,
+        "sourceVideoSha256": "b4535230d03a40f68433e7fcc26eb8cf80349844750820e1ac929067f03672d8",
+        "sourceTime": 0,
+        "description": "JPEG decoded from actual first frame of final MP4; not the catalogue AI photograph."
+      },
+      "visualStandard": {
+        "version": "4.1",
+        "status": "accepted-internal",
+        "reviewedOn": "2026-11-28",
+        "comparison": "qa/evidence/australian-rows-real-v1.jpg",
+        "comparisonSha256": "6b1590c768c161f6dad0df4eebfbd6d2f6b8dceec0c431e416271712a33ab741",
+        "motion": {
+          "continuous": true,
+          "naturalSpeed": true,
+          "fullMovement": true,
+          "synthetic": false
+        },
+        "acceptanceBasis": "Exercise identity, complete natural movement, readable supports and joints prioritized; neutral clothing and moderate source-specific grading. Different real settings disclosed; no claim of identical gym/photo/athlete."
+      },
+      "compression": {
+        "reference": "FFV1 lossless after identical crop/grade/scale/FPS; settb=1/24,setpts=N frame-aligned SSIM.",
+        "candidates": [
+          {
+            "path": "candidate-c22.mp4",
+            "crf": 22,
+            "bytes": 179998,
+            "sha256": "b4535230d03a40f68433e7fcc26eb8cf80349844750820e1ac929067f03672d8",
+            "duration": 16,
+            "frames": 384,
+            "fps": "24/1",
+            "width": 438,
+            "height": 282,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.986806
+          },
+          {
+            "path": "candidate-c24.mp4",
+            "crf": 24,
+            "bytes": 142580,
+            "sha256": "5242747214364d0a7e0c33ff00dd9ee9240e73b573e9ec1d927ecad8480d4f76",
+            "duration": 16,
+            "frames": 384,
+            "fps": "24/1",
+            "width": 438,
+            "height": 282,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.983982
+          },
+          {
+            "path": "candidate-c26.mp4",
+            "crf": 26,
+            "bytes": 106114,
+            "sha256": "a9543853db2a5b170c0f0012f74f5ea1055a79ec13c5f89272598306bd235813",
+            "duration": 16,
+            "frames": 384,
+            "fps": "24/1",
+            "width": 438,
+            "height": 282,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.980653
+          }
+        ],
+        "selectedCrf": 22,
+        "ssim": 0.986806,
+        "vmaf": "Not measured."
+      }
+    },
+    {
+      "exerciseId": "L_Sit",
+      "title": "Outdoor Fitness Workout Under Urban Bridge",
+      "origin": "filmed",
+      "author": "KoolShooters",
+      "sourcePage": "https://www.pexels.com/video/healthy-grey-sport-strength-8519744/",
+      "sourceMetadata": "https://www.pexels.com/video/healthy-grey-sport-strength-8519744/",
+      "sourceMetadataSnapshot": {
+        "id": 8519744,
+        "slug": "healthy-grey-sport-strength",
+        "license": "Pexels",
+        "published": true,
+        "status": "approved",
+        "created_at": "2021-06-27T22:56:17.000Z",
+        "author": "KoolShooters",
+        "video_files": [
+          {
+            "file_type": "video/mp4",
+            "quality": "hd",
+            "width": 1366,
+            "height": 560,
+            "fps": 25,
+            "link": "https://videos.pexels.com/video-files/8519744/8519744-hd_1366_560_25fps.mp4"
+          }
+        ]
+      },
+      "sourceFile": "https://videos.pexels.com/video-files/8519744/8519744-hd_1366_560_25fps.mp4",
+      "sourceBytes": 2901047,
+      "sourceSha256": "985237140d0e428d60d8282a7de95f7e2334c94a576fd339597d1bd5379de653",
+      "license": "Pexels",
+      "adaptationLicense": "Pexels",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "rightsReview": {
+        "licenseCheckedOn": "2026-11-28",
+        "useContext": "integrated-instructional-app",
+        "modelRelease": "Public released footage; individual model/property releases not independently inspected. No endorsement or affiliation claimed.",
+        "restrictions": "Only integrated instructional use; source attribution, actual licence, modifications and source-specific limitations remain visible. No model endorsement or trademark rights claimed."
+      },
+      "changes": "Continuous recorded interval 0.000–12.000s; source-specific crop where declared, moderate grade, resize without upscaling,24fps,H.264 CRF24,no audio/private metadata/added video text. No speed change, reverse, loop, padding, interpolation, generated movement or background replacement.",
+      "filter": "crop=1000:560:250:0,scale=960:536,setsar=1,fps=24,format=yuv420p",
+      "processingPlan": {
+        "sourceSha256": "985237140d0e428d60d8282a7de95f7e2334c94a576fd339597d1bd5379de653",
+        "sourcePage": "https://www.pexels.com/video/healthy-grey-sport-strength-8519744/",
+        "licenseUrl": "https://www.pexels.com/license/",
+        "origin": "filmed",
+        "trimStart": 0,
+        "duration": 12,
+        "maxEdge": 960,
+        "crop": {
+          "x": 250,
+          "y": 0,
+          "width": 1000,
+          "height": 560
+        }
+      },
+      "sourceProbe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 1366,
+            "height": 560,
+            "coded_width": 1366,
+            "coded_height": 560,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "pix_fmt": "yuv420p",
+            "level": 32,
+            "color_range": "tv",
+            "color_space": "bt709",
+            "color_transfer": "bt709",
+            "color_primaries": "bt709",
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 1,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "25/1",
+            "avg_frame_rate": "25/1",
+            "time_base": "1/25",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 492,
+            "duration": "19.680000",
+            "bit_rate": "1176289",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "492",
+            "extradata_size": 48,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "creation_time": "2021-06-27T23:04:32.000000Z",
+              "language": "und",
+              "handler_name": "L-SMASH Video Handler",
+              "vendor_id": "[0][0][0][0]",
+              "encoder": "AVC Coding"
+            }
+          }
+        ],
+        "format": {
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "19.680000",
+          "size": "2901047",
+          "bit_rate": "1179287",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "mp42",
+            "minor_version": "0",
+            "compatible_brands": "mp42mp41isomavc1",
+            "creation_time": "2021-06-27T23:04:32.000000Z"
+          }
+        }
+      },
+      "trimStart": 0,
+      "trimDuration": 12,
+      "durationReason": "Continuous parallette support: knees draw up, both legs extend forward into an L-sit hold, then lower. Natural12-second source interval; no repeated hold or time stretching.",
+      "referenceImage": {
+        "path": "media/exercises/L_Sit-960.webp",
+        "sha256": "cb45f02ea22fcd77804e19cccd2b0352dc1367b7f227b940117dfffbb73d9f56"
+      },
+      "review": {
+        "method": "All final frames inspected in chronological48-frame contact sheets; full-size key frames and CRF candidates compared. Continuous parallette support: knees draw up, both legs extend forward into an L-sit hold, then lower. Natural12-second source interval; no repeated hold or time stretching.",
+        "framesInspected": 288,
+        "visualConsistency": true,
+        "jointsVisible": true,
+        "cameraReadable": true,
+        "rightsChecked": true,
+        "noAssistance": true,
+        "noAddedLoad": true,
+        "independentTrainer": "pending",
+        "physicalDevices": "pending",
+        "limitations": "Internal visual review, not independent trainer certification or physical-phone acceptance. Hands remain on parallel bars, elbows nearly straight and feet visible during the active L-sit phase. Initial approach and final contact with the ground are not fully shown at the lower source edge; this is an L-sit support/hold/lowering demonstration, not a complete mount/dismount lesson. Gray concrete urban setting, white top/navy shorts/gloves differ from the dark gym photograph. Background passers-by stay outside the active supports; no assistant contact."
+      },
+      "variants": [
+        {
+          "path": "media/exercise-videos/l-sit-real-v1.mp4",
+          "crf": 24,
+          "bytes": 720457,
+          "sha256": "36fe306c555f660de7df1d636e044728b806a6f9f7ebff9751b128c29717c94a",
+          "duration": 12,
+          "frames": 288,
+          "fps": "24/1",
+          "width": 960,
+          "height": 536,
+          "codec": "h264",
+          "pixelFormat": "yuv420p",
+          "audio": false,
+          "faststart": true,
+          "ssim": 0.987525,
+          "encoderOptions": "libx264 -preset slow -crf 24 -profile:v main -level 3.1 -pix_fmt yuv420p -an -map_metadata -1 -movflags +faststart"
+        }
+      ],
+      "poster": {
+        "path": "media/exercise-videos/l-sit-real-v1-poster.jpg",
+        "bytes": 44563,
+        "sha256": "3c1518302683331636f7ab5aa074405ab69b1c01b743c8c5b5ed98e2bcb5e366",
+        "width": 960,
+        "height": 536,
+        "sourceVideoSha256": "36fe306c555f660de7df1d636e044728b806a6f9f7ebff9751b128c29717c94a",
+        "sourceTime": 0,
+        "description": "JPEG decoded from actual first frame of final MP4; not the catalogue AI photograph."
+      },
+      "visualStandard": {
+        "version": "4.1",
+        "status": "accepted-internal",
+        "reviewedOn": "2026-11-28",
+        "comparison": "qa/evidence/l-sit-real-v1.jpg",
+        "comparisonSha256": "dc2c4fdc13a5ca0f92792799ae020c01fdd9bc5229693f2949a0db011b239bae",
+        "motion": {
+          "continuous": true,
+          "naturalSpeed": true,
+          "fullMovement": true,
+          "synthetic": false
+        },
+        "acceptanceBasis": "Exercise identity, complete natural movement, readable supports and joints prioritized; neutral clothing and moderate source-specific grading. Different real settings disclosed; no claim of identical gym/photo/athlete."
+      },
+      "compression": {
+        "reference": "FFV1 lossless after identical crop/grade/scale/FPS; settb=1/24,setpts=N frame-aligned SSIM.",
+        "candidates": [
+          {
+            "path": "candidate-c22.mp4",
+            "crf": 22,
+            "bytes": 921692,
+            "sha256": "5e855248242c585be95330eef59ac2550a9b7fa712d94f3ed944c14cc01a2b34",
+            "duration": 12,
+            "frames": 288,
+            "fps": "24/1",
+            "width": 960,
+            "height": 536,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.989438
+          },
+          {
+            "path": "candidate-c24.mp4",
+            "crf": 24,
+            "bytes": 720457,
+            "sha256": "36fe306c555f660de7df1d636e044728b806a6f9f7ebff9751b128c29717c94a",
+            "duration": 12,
+            "frames": 288,
+            "fps": "24/1",
+            "width": 960,
+            "height": 536,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.987525
+          },
+          {
+            "path": "candidate-c26.mp4",
+            "crf": 26,
+            "bytes": 571275,
+            "sha256": "820b6a76ed7ee44c64544db6f9697bbff9265b67d86dbfd67f9102c28e38dee5",
+            "duration": 12,
+            "frames": 288,
+            "fps": "24/1",
+            "width": 960,
+            "height": 536,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.985125
+          }
+        ],
+        "selectedCrf": 24,
+        "ssim": 0.987525,
+        "vmaf": "Not measured."
+      }
+    },
+    {
+      "exerciseId": "Pistol_Squat",
+      "title": "A Man Working Out on the Grass",
+      "origin": "filmed",
+      "author": "MART  PRODUCTION",
+      "sourcePage": "https://www.pexels.com/video/a-man-working-out-on-the-grass-8435275/",
+      "sourceMetadata": "https://www.pexels.com/video/a-man-working-out-on-the-grass-8435275/",
+      "sourceMetadataSnapshot": {
+        "id": 8435275,
+        "slug": "a-man-working-out-on-the-grass",
+        "license": "Pexels",
+        "published": true,
+        "status": "approved",
+        "created_at": "2021-06-21T21:38:39.000Z",
+        "author": "MART  PRODUCTION",
+        "video_files": [
+          {
+            "file_type": "video/mp4",
+            "quality": "hd",
+            "width": 1366,
+            "height": 720,
+            "fps": 25,
+            "link": "https://videos.pexels.com/video-files/8435275/8435275-hd_1366_720_25fps.mp4"
+          }
+        ]
+      },
+      "sourceFile": "https://videos.pexels.com/video-files/8435275/8435275-hd_1366_720_25fps.mp4",
+      "sourceBytes": 7986989,
+      "sourceSha256": "015b97b434932a3953eef4c315d2a69f8cac6fc7306f2231666ba829dbdbf67e",
+      "license": "Pexels",
+      "adaptationLicense": "Pexels",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "rightsReview": {
+        "licenseCheckedOn": "2026-11-28",
+        "useContext": "integrated-instructional-app",
+        "modelRelease": "Public released footage; individual model/property releases not independently inspected. No endorsement or affiliation claimed.",
+        "restrictions": "Only integrated instructional use; source attribution, actual licence, modifications and source-specific limitations remain visible. No model endorsement or trademark rights claimed."
+      },
+      "changes": "Continuous recorded interval 0.300–4.800s; source-specific crop where declared, moderate grade, resize without upscaling,24fps,H.264 CRF24,no audio/private metadata/added video text. No speed change, reverse, loop, padding, interpolation, generated movement or background replacement.",
+      "filter": "crop=960:720:160:0,eq=saturation=0.8,scale=720:540,setsar=1,fps=24,format=yuv420p",
+      "processingPlan": {
+        "sourceSha256": "015b97b434932a3953eef4c315d2a69f8cac6fc7306f2231666ba829dbdbf67e",
+        "sourcePage": "https://www.pexels.com/video/a-man-working-out-on-the-grass-8435275/",
+        "licenseUrl": "https://www.pexels.com/license/",
+        "origin": "filmed",
+        "trimStart": 0.3,
+        "duration": 4.5,
+        "maxEdge": 720,
+        "grade": {
+          "saturation": 0.8
+        },
+        "crop": {
+          "x": 160,
+          "y": 0,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "sourceProbe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 1366,
+            "height": 720,
+            "coded_width": 1366,
+            "coded_height": 720,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "pix_fmt": "yuv420p",
+            "level": 32,
+            "color_range": "tv",
+            "color_space": "bt709",
+            "color_transfer": "bt709",
+            "color_primaries": "bt709",
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 1,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "25/1",
+            "avg_frame_rate": "25/1",
+            "time_base": "1/25",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 569,
+            "duration": "22.760000",
+            "bit_rate": "2804456",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "569",
+            "extradata_size": 48,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "creation_time": "2021-06-21T21:53:13.000000Z",
+              "language": "und",
+              "handler_name": "L-SMASH Video Handler",
+              "vendor_id": "[0][0][0][0]",
+              "encoder": "AVC Coding"
+            }
+          }
+        ],
+        "format": {
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "22.760000",
+          "size": "7986989",
+          "bit_rate": "2807377",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "mp42",
+            "minor_version": "0",
+            "compatible_brands": "mp42mp41isomavc1",
+            "creation_time": "2021-06-21T21:53:13.000000Z"
+          }
+        }
+      },
+      "trimStart": 0.3,
+      "trimDuration": 4.5,
+      "durationReason": "One complete controlled single-leg squat-and-stand cycle in a deliberately reduced comfortable range, ending with both feet down. The free leg extends forward during the squat; no chair, step, hand assistance or added load. Not a deep/full-depth pistol demonstration.",
+      "referenceImage": {
+        "path": "media/exercises/Pistol_Squat-960.webp",
+        "sha256": "72220ca0c5e2ecfa655b62493ec80d4e104f36e7b6832f05834df43f58f92ac4"
+      },
+      "review": {
+        "method": "All final frames inspected in chronological48-frame contact sheets; full-size key frames and CRF candidates compared. One complete controlled single-leg squat-and-stand cycle in a deliberately reduced comfortable range, ending with both feet down. The free leg extends forward during the squat; no chair, step, hand assistance or added load. Not a deep/full-depth pistol demonstration.",
+        "framesInspected": 108,
+        "visualConsistency": true,
+        "jointsVisible": true,
+        "cameraReadable": true,
+        "rightsChecked": true,
+        "noAssistance": true,
+        "noAddedLoad": true,
+        "independentTrainer": "pending",
+        "physicalDevices": "pending",
+        "limitations": "Internal visual review, not independent trainer certification or physical-phone acceptance. Full head, supporting foot, knee, hip and free leg remain visible after safe horizontal crop; no lower-edge crop. Athlete uses a prosthetic free lower leg; this is ordinary real adaptive footage, not a generation/anatomy defect. Source-specific mild desaturation of outdoor greenery, neutral clothing and natural light; no claim of the same gym or deep squat shown in the AI photo. Qualification and suitable range require individual trainer guidance."
+      },
+      "variants": [
+        {
+          "path": "media/exercise-videos/pistol-squat-real-v1.mp4",
+          "crf": 24,
+          "bytes": 508814,
+          "sha256": "2c1bc03e3ad4f198b17f0571ce575d30e3bc323bce6ab8f490142c7970f97bc5",
+          "duration": 4.5,
+          "frames": 108,
+          "fps": "24/1",
+          "width": 720,
+          "height": 540,
+          "codec": "h264",
+          "pixelFormat": "yuv420p",
+          "audio": false,
+          "faststart": true,
+          "ssim": 0.965193,
+          "encoderOptions": "libx264 -preset slow -crf 24 -profile:v main -level 3.1 -pix_fmt yuv420p -an -map_metadata -1 -movflags +faststart"
+        }
+      ],
+      "poster": {
+        "path": "media/exercise-videos/pistol-squat-real-v1-poster.jpg",
+        "bytes": 91096,
+        "sha256": "a38aa89fed20dcdf586ff5044c82d9da2343430ad14bad53aa357dc728fc7cb3",
+        "width": 720,
+        "height": 540,
+        "sourceVideoSha256": "2c1bc03e3ad4f198b17f0571ce575d30e3bc323bce6ab8f490142c7970f97bc5",
+        "sourceTime": 0,
+        "description": "JPEG decoded from actual first frame of final MP4; not the catalogue AI photograph."
+      },
+      "visualStandard": {
+        "version": "4.1",
+        "status": "accepted-internal",
+        "reviewedOn": "2026-11-28",
+        "comparison": "qa/evidence/pistol-squat-real-v1.jpg",
+        "comparisonSha256": "47b909e10174d0bff74b41a183b176b2ea69c66229951893a3852a7ebc467f45",
+        "motion": {
+          "continuous": true,
+          "naturalSpeed": true,
+          "fullMovement": true,
+          "synthetic": false
+        },
+        "acceptanceBasis": "Exercise identity, complete natural movement, readable supports and joints prioritized; neutral clothing and moderate source-specific grading. Different real settings disclosed; no claim of identical gym/photo/athlete."
+      },
+      "compression": {
+        "reference": "FFV1 lossless after identical crop/grade/scale/FPS; settb=1/24,setpts=N frame-aligned SSIM.",
+        "candidates": [
+          {
+            "path": "candidate-c22.mp4",
+            "crf": 22,
+            "bytes": 697770,
+            "sha256": "6cc8df28e2a85b52f053b794539fa9a70db1d34e48a71a23f41b43b2a2ffa74d",
+            "duration": 4.5,
+            "frames": 108,
+            "fps": "24/1",
+            "width": 720,
+            "height": 540,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.973748
+          },
+          {
+            "path": "candidate-c24.mp4",
+            "crf": 24,
+            "bytes": 508814,
+            "sha256": "2c1bc03e3ad4f198b17f0571ce575d30e3bc323bce6ab8f490142c7970f97bc5",
+            "duration": 4.5,
+            "frames": 108,
+            "fps": "24/1",
+            "width": 720,
+            "height": 540,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.965193
+          },
+          {
+            "path": "candidate-c26.mp4",
+            "crf": 26,
+            "bytes": 373009,
+            "sha256": "fdd5c068683394984496631b4cf2b72662665f9d4536ca512c54ec61c9988452",
+            "duration": 4.5,
+            "frames": 108,
+            "fps": "24/1",
+            "width": 720,
+            "height": 540,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.95407
+          }
+        ],
+        "selectedCrf": 24,
+        "ssim": 0.965193,
+        "vmaf": "Not measured."
+      }
+    },
+    {
+      "exerciseId": "Pike_Pushups",
+      "title": "Pike Push Ups.gif",
+      "origin": "filmed",
+      "author": "Danielflefil",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Pike_Push_Ups.gif",
+      "sourceMetadata": "https://commons.wikimedia.org/wiki/File:Pike_Push_Ups.gif",
+      "sourceMetadataSnapshot": {
+        "size": 44394678,
+        "width": 1080,
+        "height": 1080,
+        "duration": 3.080000000000002,
+        "url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Pike_Push_Ups.gif?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "descriptionurl": "https://commons.wikimedia.org/wiki/File:Pike_Push_Ups.gif",
+        "descriptionshorturl": "https://commons.wikimedia.org/wiki/Special:Redirect/page/160780799",
+        "extmetadata": {
+          "DateTime": {
+            "value": "2025-02-27 21:33:11",
+            "source": "mediawiki-metadata",
+            "hidden": ""
+          },
+          "ObjectName": {
+            "value": "Pike Push Ups",
+            "source": "mediawiki-metadata"
+          },
+          "CommonsMetadataExtension": {
+            "value": 1.2,
+            "source": "extension",
+            "hidden": ""
+          },
+          "Categories": {
+            "value": "Calisthenics|Self-published work",
+            "source": "commons-categories",
+            "hidden": ""
+          },
+          "Assessments": {
+            "value": "",
+            "source": "commons-categories",
+            "hidden": ""
+          },
+          "ImageDescription": {
+            "value": "Pike Armhävningar är en bra kroppsviktsövning som riktar sig till axlarna, triceps och övre bröstet. Denna rörelse efterliknar en sittande press och hjälper till att bygga överkroppsstyrka. För att utföra dem korrekt, spänn din mage och bibehålla en inverterad V-form hela tiden.",
+            "source": "commons-desc-page"
+          },
+          "DateTimeOriginal": {
+            "value": "2025-02-27",
+            "source": "commons-desc-page"
+          },
+          "Credit": {
+            "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+            "source": "commons-desc-page"
+          },
+          "Artist": {
+            "value": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Danielflefil&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Danielflefil (page does not exist)\">Danielflefil</a>",
+            "source": "commons-desc-page"
+          },
+          "LicenseShortName": {
+            "value": "CC BY-SA 4.0",
+            "source": "commons-desc-page",
+            "hidden": ""
+          },
+          "UsageTerms": {
+            "value": "Creative Commons Attribution-Share Alike 4.0",
+            "source": "commons-desc-page"
+          },
+          "AttributionRequired": {
+            "value": "true",
+            "source": "commons-desc-page",
+            "hidden": ""
+          },
+          "LicenseUrl": {
+            "value": "https://creativecommons.org/licenses/by-sa/4.0",
+            "source": "commons-desc-page"
+          },
+          "Copyrighted": {
+            "value": "True",
+            "source": "commons-desc-page",
+            "hidden": ""
+          },
+          "Restrictions": {
+            "value": "",
+            "source": "commons-desc-page",
+            "hidden": ""
+          },
+          "License": {
+            "value": "cc-by-sa-4.0",
+            "source": "commons-templates",
+            "hidden": ""
+          }
+        },
+        "author": "Danielflefil"
+      },
+      "sourceFile": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Pike_Push_Ups.gif?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "sourceBytes": 44394678,
+      "sourceSha256": "fce7a6479c4fb32ecca1f7d3a60ae8a9c7e51a286a76855e9fc82c0af2698c81",
+      "license": "CC BY-SA 4.0",
+      "adaptationLicense": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "rightsReview": {
+        "licenseCheckedOn": "2026-11-28",
+        "useContext": "integrated-instructional-app",
+        "modelRelease": "Public released footage; individual model/property releases not independently inspected. No endorsement or affiliation claimed.",
+        "restrictions": "Own-work filmed photographic GIF under CC BY-SA4.0. MP4 adaptation is distributed under the same licence with author/source/changes. Exactly one recorded GIF cycle, no new loop or generated movement. Other personality/trademark rights are not waived."
+      },
+      "changes": "Continuous recorded interval 0.000–3.042s; source-specific crop where declared, moderate grade, resize without upscaling,24fps,H.264 CRF24,no audio/private metadata/added video text. No speed change, reverse, loop, padding, interpolation, generated movement or background replacement.",
+      "filter": "scale=640:640,setsar=1,fps=24,format=yuv420p",
+      "processingPlan": {
+        "sourceSha256": "fce7a6479c4fb32ecca1f7d3a60ae8a9c7e51a286a76855e9fc82c0af2698c81",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Pike_Push_Ups.gif",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "origin": "filmed",
+        "trimStart": 0,
+        "duration": 3.0416666666666665,
+        "maxEdge": 640
+      },
+      "sourceProbe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "gif",
+            "codec_long_name": "CompuServe GIF (Graphics Interchange Format)",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "width": 1080,
+            "height": 1080,
+            "coded_width": 1080,
+            "coded_height": 1080,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 0,
+            "pix_fmt": "bgra",
+            "level": -99,
+            "refs": 1,
+            "r_frame_rate": "25/1",
+            "avg_frame_rate": "25/1",
+            "time_base": "1/100",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 308,
+            "duration": "3.080000",
+            "nb_frames": "77",
+            "disposition": {
+              "default": 0,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            }
+          }
+        ],
+        "format": {
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "gif",
+          "format_long_name": "CompuServe Graphics Interchange Format (GIF)",
+          "start_time": "0.000000",
+          "duration": "3.080000",
+          "size": "44394678",
+          "bit_rate": "115310851",
+          "probe_score": 100
+        }
+      },
+      "trimStart": 0,
+      "trimDuration": 3.0416666666666665,
+      "durationReason": "Exactly one recorded photographic GIF cycle converted once to finite MP4: high-hip support, elbow bend/head lowering, then push back to straight arms.73frames/24fps preserves a complete natural repetition without appending a loop.",
+      "referenceImage": {
+        "path": "media/exercises/Pike_Pushups-960.webp",
+        "sha256": "3b6af1f19463e61c556397a4dde0f20a4946795a0f58f85c1b8865594ee2e7df"
+      },
+      "review": {
+        "method": "All final frames inspected in chronological48-frame contact sheets; full-size key frames and CRF candidates compared. Exactly one recorded photographic GIF cycle converted once to finite MP4: high-hip support, elbow bend/head lowering, then push back to straight arms.73frames/24fps preserves a complete natural repetition without appending a loop.",
+        "framesInspected": 73,
+        "visualConsistency": true,
+        "jointsVisible": true,
+        "cameraReadable": true,
+        "rightsChecked": true,
+        "noAssistance": true,
+        "noAddedLoad": true,
+        "independentTrainer": "pending",
+        "physicalDevices": "pending",
+        "limitations": "Internal visual review, not independent trainer certification or physical-phone acceptance. Both palms, shoulders, elbows, head, hips and the near foot/contact are readable. The far forefoot reaches the original right edge and is partially clipped in some frames; no additional crop or claim of full far-foot visibility. Neutral black/gray clothes on a black mat; light plain room differs from dark catalogue gym. No added text, background replacement, subject alteration or synthetic movement; internal review is not independent certification."
+      },
+      "variants": [
+        {
+          "path": "media/exercise-videos/pike-pushups-real-v1.mp4",
+          "crf": 24,
+          "bytes": 141949,
+          "sha256": "4eec1cb954eba9caa7398e5afb7bd47c1b2e8a9f4725882f962fe4bd6077ed67",
+          "duration": 3.0416666666666665,
+          "frames": 73,
+          "fps": "24/1",
+          "width": 640,
+          "height": 640,
+          "codec": "h264",
+          "pixelFormat": "yuv420p",
+          "audio": false,
+          "faststart": true,
+          "ssim": 0.98321,
+          "encoderOptions": "libx264 -preset slow -crf 24 -profile:v main -level 3.1 -pix_fmt yuv420p -an -map_metadata -1 -movflags +faststart"
+        }
+      ],
+      "poster": {
+        "path": "media/exercise-videos/pike-pushups-real-v1-poster.jpg",
+        "bytes": 26088,
+        "sha256": "98c5d5aa977ab8b18f9426b9c6ce18fcdeda4a744aeed3e56fb0c531c0e63f4b",
+        "width": 640,
+        "height": 640,
+        "sourceVideoSha256": "4eec1cb954eba9caa7398e5afb7bd47c1b2e8a9f4725882f962fe4bd6077ed67",
+        "sourceTime": 0,
+        "description": "JPEG decoded from actual first frame of final MP4; not the catalogue AI photograph."
+      },
+      "visualStandard": {
+        "version": "4.1",
+        "status": "accepted-internal",
+        "reviewedOn": "2026-11-28",
+        "comparison": "qa/evidence/pike-pushups-real-v1.jpg",
+        "comparisonSha256": "ede9bb2fcb26aaae8a2e3d9478a99538f5d38f1bec6f64c9b5155b11cccf1ee3",
+        "motion": {
+          "continuous": true,
+          "naturalSpeed": true,
+          "fullMovement": true,
+          "synthetic": false
+        },
+        "acceptanceBasis": "Exercise identity, complete natural movement, readable supports and joints prioritized; neutral clothing and moderate source-specific grading. Different real settings disclosed; no claim of identical gym/photo/athlete."
+      },
+      "compression": {
+        "reference": "FFV1 lossless after identical crop/grade/scale/FPS; settb=1/24,setpts=N frame-aligned SSIM.",
+        "candidates": [
+          {
+            "path": "candidate-c22.mp4",
+            "crf": 22,
+            "bytes": 182071,
+            "sha256": "baf098c103578cd9b94795843e470483188b4ac9ae08b02a2404a44884299bf4",
+            "duration": 3.0416666666666665,
+            "frames": 73,
+            "fps": "24/1",
+            "width": 640,
+            "height": 640,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.985024
+          },
+          {
+            "path": "candidate-c24.mp4",
+            "crf": 24,
+            "bytes": 141949,
+            "sha256": "4eec1cb954eba9caa7398e5afb7bd47c1b2e8a9f4725882f962fe4bd6077ed67",
+            "duration": 3.0416666666666665,
+            "frames": 73,
+            "fps": "24/1",
+            "width": 640,
+            "height": 640,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.98321
+          },
+          {
+            "path": "candidate-c26.mp4",
+            "crf": 26,
+            "bytes": 114023,
+            "sha256": "ba5319cf735c014dd54c0179fef06acaf502d3154d55fbf825d93d608ad71af8",
+            "duration": 3.0416666666666665,
+            "frames": 73,
+            "fps": "24/1",
+            "width": 640,
+            "height": 640,
+            "codec": "h264",
+            "pixelFormat": "yuv420p",
+            "audio": false,
+            "faststart": true,
+            "ssim": 0.981054
+          }
+        ],
+        "selectedCrf": 24,
+        "ssim": 0.98321,
+        "vmaf": "Not measured."
+      }
     }
   ],
   "productionPolicy": {
@@ -5946,21 +7405,19 @@
     "durationMode": "complete-natural-movement",
     "fps": "24/1",
     "audio": false,
-    "status": "twenty-one-clips-internal-review-accepted-device-review-separate",
-    "scope": "Existing eleven clips unchanged plus exactly ten additional filmed clips explicitly requested by owner28Nov2026; remaining27 active exercises deferred.",
-    "audit": "QA-VIDEO-BATCH-20.md",
+    "status": "twenty-six-clips-internal-review-accepted-requested-batch-partial",
+    "scope": "Existing21 clips unchanged plus5 qualified filmed additions from a request for10. Five requested clips remain BLOCKED by suitable licensed sources; remaining22 active exercises have no video. Internal review is separate from trainer and physical-device acceptance.",
+    "audit": "QA-VIDEO-BATCH-25.md",
     "authorizedBatch": [
-      "Mountain_Climbers",
-      "Butt_Lift_Bridge",
-      "Dancers_Stretch",
-      "Groin_and_Back_Stretch",
-      "Kneeling_Hip_Flexor",
-      "Calf_Stretch_Hands_Against_Wall",
-      "Handstand",
-      "Frog_Stand",
-      "Ring_Muscle_Up",
-      "Hanging_Leg_Raise"
-    ]
+      "Side_Bridge",
+      "Australian_Rows",
+      "L_Sit",
+      "Pistol_Squat",
+      "Pike_Pushups"
+    ],
+    "requestedBatchSize": 10,
+    "deliveredBatchSize": 5,
+    "pendingBatchSize": 5
   },
   "retiredEntries": [
     {

@@ -71,13 +71,36 @@ class VideoReviewGateTests(unittest.TestCase):
         entry=real_fixture();entry['poster']['sourceVideoSha256']='a'*64
         with self.assertRaises(AssertionError):validate_entry(entry)
 
-    def test_owner_policy_has_exact_ten_additions_and_no_generator_authorization(self):
+    def test_owner_policy_keeps_the_ten_requested_separate_from_five_delivered(self):
         policy=json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())['productionPolicy']
         self.assertEqual((policy['version'],policy['origin'],policy['tool']),('4.1','filmed','FFmpeg'))
         self.assertIs(policy['aiGenerationAllowed'],False)
         self.assertEqual(policy['durationMode'],'complete-natural-movement');self.assertNotIn('duration',policy);self.assertNotIn('frames',policy)
-        self.assertEqual(set(policy['authorizedBatch']),{'Groin_and_Back_Stretch', 'Kneeling_Hip_Flexor', 'Mountain_Climbers', 'Butt_Lift_Bridge', 'Frog_Stand', 'Ring_Muscle_Up', 'Hanging_Leg_Raise', 'Dancers_Stretch', 'Calf_Stretch_Hands_Against_Wall', 'Handstand'})
-        self.assertIn('remaining27',policy['scope'])
+        self.assertEqual(set(policy['authorizedBatch']),{'Side_Bridge','Australian_Rows','L_Sit','Pistol_Squat','Pike_Pushups'})
+        self.assertEqual((policy['requestedBatchSize'],policy['deliveredBatchSize'],policy['pendingBatchSize']),(10,5,5))
+        self.assertIn('remaining22',policy['scope']);self.assertIn('BLOCKED',policy['scope'])
+
+    def test_dvids_requires_exact_official_asset_public_domain_and_mandatory_notice(self):
+        good=next(e for e in json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())['entries'] if e['license']=='Public domain (U.S. Government)')
+        self.assertIn('INTERNAL REVIEW',validate_entry(good))
+        for key,value in [('sourcePage','https://www.dvidshub.net.evil.test/video/640254/side-plank'),('sourceFile','https://example.test/stolen.mp4'),('licenseUrl','https://example.test/'),('author','Wrong')]:
+            entry=copy.deepcopy(good);entry[key]=value
+            with self.assertRaises(AssertionError):validate_entry(entry)
+        for key,value in [('id',999),('publicDomain',False),('thirdPartyCopyrightFlag',True),('virin','unknown'),('pageSha256','wrong'),('copyrightStatement',''),('sourceFiles',[])]:
+            entry=copy.deepcopy(good);entry['sourceMetadataSnapshot'][key]=value
+            with self.assertRaises(AssertionError):validate_entry(entry)
+        entry=copy.deepcopy(good);entry['rightsReview']['requiredNotice']='Generic credit'
+        with self.assertRaises(AssertionError):validate_entry(entry)
+
+    def test_commons_recording_requires_exact_sharealike_source_and_adaptation(self):
+        good=next(e for e in json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())['entries'] if e['sourcePage'].startswith('https://commons.wikimedia.org/'))
+        self.assertIn('INTERNAL REVIEW',validate_entry(good))
+        for key,value in [('sourcePage','https://commons.wikimedia.org.evil.test/wiki/File:Fake.gif'),('adaptationLicense','CC0'),('sourceFile','https://example.test/unknown.gif')]:
+            entry=copy.deepcopy(good);entry[key]=value
+            with self.assertRaises((AssertionError,KeyError)):validate_entry(entry)
+        for key,value in [('LicenseShortName','CC BY 4.0'),('License','cc-by-nc-4.0'),('Restrictions','noncommercial'),('Credit','Unverified reupload')]:
+            entry=copy.deepcopy(good);entry['sourceMetadataSnapshot']['extmetadata'][key]['value']=value
+            with self.assertRaises(AssertionError):validate_entry(entry)
 
     def test_pexels_rights_are_bound_to_the_exact_published_source_and_rendition(self):
         good=next(e for e in json.loads((ROOT/'media/exercise-videos/manifest.json').read_text())['entries'] if e['license']=='Pexels')

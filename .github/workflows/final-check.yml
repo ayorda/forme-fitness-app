@@ -148,7 +148,7 @@ jobs:
         run: python qa/modal-browser.py
       - name: Reviewed exercise image decoding, bindings and offline cache upgrade
         run: python qa/exercise-images-browser.py
-      - name: Eleven real exercise clips, native playback, lazy loading and offline seek
+      - name: Reviewed real exercise clips, native playback, lazy loading and offline seek
         run: python qa/exercise-videos-browser.py
       - name: Upload synthetic browser evidence
         if: always()

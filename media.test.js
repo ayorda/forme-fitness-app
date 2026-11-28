@@ -71,14 +71,27 @@ test('second batch binds exactly ten new exercises and preserves existing video 
  const c=vm.createContext({window:{}});
  for(const f of ['exercise-art.js','data.js','interface-translations.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c);
  const ids=["Mountain_Climbers", "Butt_Lift_Bridge", "Dancers_Stretch", "Groin_and_Back_Stretch", "Kneeling_Hip_Flexor", "Calf_Stretch_Hands_Against_Wall", "Handstand", "Frog_Stand", "Ring_Muscle_Up", "Hanging_Leg_Raise"];const entries=JSON.parse(fs.readFileSync('media/exercise-videos/manifest.json','utf8')).entries;
- assert.equal(entries.length,21);assert.equal(new Set(entries.map(e=>e.exerciseId)).size,21);
- assert.deepEqual(entries.slice(11).map(e=>e.exerciseId),ids);
+ assert.equal(entries.length,26);assert.equal(new Set(entries.map(e=>e.exerciseId)).size,26);
+ assert.deepEqual(entries.slice(11,21).map(e=>e.exerciseId),ids);
  for(const id of ids){const ex=c.window.FORME_DATA.exercises.find(e=>e.id===id);assert.equal(ex.demoVideo.origin,'filmed');assert.match(context.renderVideo(ex),/<video controls playsinline preload="none"/);for(const lang of ['bg','en','de'])assert.ok(c.window.FORME_INTERFACE_TRANSLATIONS.get('exercises.videoCue.'+id,lang));}
- assert.equal(c.window.FORME_DATA.exercises.filter(e=>e.demoVideo).length,21);
+ assert.equal(c.window.FORME_DATA.exercises.filter(e=>e.demoVideo).length,26);
 });
 
 test('delegated image failures reveal the matching food or exercise fallback',()=>{
  for(const kind of ['food','exercise']){const picture={hidden:false},changes=[];const visual={classList:{add:name=>changes.push(name)}};const target={tagName:'IMG',dataset:{mediaFallback:kind},closest:selector=>selector==='picture'?picture:selector===(kind==='food'?'.food-visual':'.photo-visual')?visual:null};context.mediaError({target});assert.equal(picture.hidden,true);assert.deepEqual(changes,['media-pending']);}
+});
+test('DVIDS player requires a reviewed real official source and displays its mandatory notice',()=>{
+ const video={approved:true,origin:'filmed',reviewStatus:'accepted-internal',src:'media/exercise-videos/side-bridge-real-v1.mp4',credit:'CPT Matthew Holfinger / DVIDS',source:'https://www.dvidshub.net/video/640254/side-plank',license:'Public domain (U.S. Government)',licenseUrl:'https://www.dvidshub.net/about/copyright'};
+ const html=context.renderVideo({name:'Side plank',demoVideo:video});assert.match(html,/<video controls playsinline preload="none"/);assert.match(html,/class="subtle video-government-notice"/);
+ assert.ok(html.includes('The appearance of U.S. Department of War (DoW) visual information does not imply or constitute DoW endorsement.'));
+ for(const bad of [{source:'https://www.dvidshub.net.evil.test/video/640254/side-plank'},{source:video.source+'?redirect=elsewhere'},{licenseUrl:'https://example.test'},{origin:'ai-image-to-video'},{reviewStatus:'pending'},{approved:false}])assert.doesNotMatch(context.renderVideo({name:'Test',demoVideo:{...video,...bad}}),/<video/);
+ const stock=context.renderVideo({name:'Stock',demoVideo:{...video,license:'Pexels',licenseUrl:'https://www.pexels.com/license/',source:'https://www.pexels.com/video/test-123/'}});assert.doesNotMatch(stock,/video-government-notice/);
+});
+test('partial next-ten delivery binds only five qualified clips and reports the missing five',()=>{
+ const c=vm.createContext({window:{}});for(const f of ['exercise-art.js','data.js','interface-translations.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c);
+ const manifest=JSON.parse(fs.readFileSync('media/exercise-videos/manifest.json','utf8')),ids=['Side_Bridge','Australian_Rows','L_Sit','Pistol_Squat','Pike_Pushups'];
+ assert.deepEqual(manifest.entries.slice(21).map(e=>e.exerciseId),ids);assert.equal(manifest.productionPolicy.requestedBatchSize,10);assert.equal(manifest.productionPolicy.deliveredBatchSize,5);assert.equal(manifest.productionPolicy.pendingBatchSize,5);
+ for(const id of ids){const ex=c.window.FORME_DATA.exercises.find(e=>e.id===id);assert.match(context.renderVideo(ex),/<video controls/);for(const lang of ['bg','en','de'])assert.ok(c.window.FORME_INTERFACE_TRANSLATIONS.get('exercises.videoCue.'+id,lang));}
 });
 test('unmarked and unrelated media errors do not hide arbitrary content',()=>{
  for(const target of [undefined,{tagName:'IMG',dataset:{},hidden:false},{tagName:'VIDEO',dataset:{mediaFallback:'food'},hidden:false},{tagName:'DIV',dataset:{mediaFallback:'exercise'},hidden:false}]){context.mediaError({target});if(target)assert.equal(target.hidden,false);}
@@ -90,13 +103,15 @@ test('shipped video matches the catalogue, licensed source and immutable byte ma
  vm.runInContext(fs.readFileSync('data.js','utf8'),c);
  const manifest=JSON.parse(fs.readFileSync('media/exercise-videos/manifest.json','utf8'));
  const available=c.window.FORME_DATA.exercises.filter(ex=>ex.demoVideo?.approved);
- assert.equal(available.length,manifest.entries.length);assert.equal(available.length,21);
+ assert.equal(available.length,manifest.entries.length);assert.equal(available.length,26);
  for(const entry of manifest.entries){
   const ex=available.find(ex=>ex.id===entry.exerciseId);assert.ok(ex);
   assert.equal(ex.demoVideo.source,entry.sourcePage);assert.equal(ex.demoVideo.license,entry.license);assert.equal(ex.demoVideo.licenseUrl,entry.licenseUrl);
   assert.equal(entry.origin,'filmed');assert.equal(entry.rightsReview.useContext,'integrated-instructional-app');
   if(entry.license==='Pexels'){assert.equal(entry.sourceMetadataSnapshot.license,'Pexels');assert.equal(entry.sourceMetadataSnapshot.published,true);assert.equal(entry.sourceMetadataSnapshot.status,'approved');}
-  else{assert.equal(entry.sourceMetadataSnapshot.isAiGenerated,false);assert.equal(entry.sourceMetadataSnapshot.isPremium,false);assert.equal(entry.license,'Coverr License');}
+  else if(entry.license==='Coverr License'){assert.equal(entry.sourceMetadataSnapshot.isAiGenerated,false);assert.equal(entry.sourceMetadataSnapshot.isPremium,false);}
+  else if(entry.license==='Public domain (U.S. Government)'){assert.equal(entry.sourceMetadataSnapshot.publicDomain,true);assert.equal(entry.sourceMetadataSnapshot.thirdPartyCopyrightFlag,false);assert.ok(context.renderVideo(ex).includes(entry.rightsReview.requiredNotice));}
+  else{assert.equal(entry.license,'CC BY-SA 4.0');assert.equal(entry.sourceMetadataSnapshot.extmetadata.LicenseShortName.value,'CC BY-SA 4.0');}
   assert.equal(entry.adaptationLicense,entry.license);assert.ok(entry.changes);assert.ok(entry.review.limitations);
   for(const v of entry.variants){const bytes=fs.readFileSync(v.path);assert.equal(bytes.length,v.bytes);assert.ok(bytes.length<1024*1024);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),v.sha256);}
   assert.ok(entry.variants.some(v=>v.path===ex.demoVideo.src&&v.codec==='h264'));
